@@ -39,22 +39,22 @@ public class ApplicationForScoringRequest {
     private SettlementType settlement;
 
     @Schema(name = "Военнослужащий или работник ОПК России")
-    private boolean isMilitary;
+    private boolean military;
 
     @Schema(name = "Государственный служащий")
-    private boolean isStateEmployee;
+    private boolean stateEmployee;
 
     @Schema(name = "Клиент ПСБ")
-    private boolean isPsbClient;
+    private boolean psbClient;
 
     @Schema(name = "Житель Данного Востока")
-    private boolean isFarEastInhabitant;
+    private boolean farEastInhabitant;
 
     @Schema(name = "Житель Новых субъектов РФ")
-    private boolean isNewSubjectsResident;
+    private boolean newSubjectsResident;
 
     @Schema(name = "ИТ-специалист")
-    private boolean isItSpecialist;
+    private boolean itSpecialist;
 
     public LoanApplicationEntity mapDtoToEntity() {
         return LoanApplicationEntity.builder()
