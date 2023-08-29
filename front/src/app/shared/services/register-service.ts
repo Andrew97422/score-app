@@ -1,8 +1,11 @@
 import { UserAuthData } from '../models/user-auth-data';
 import { Injectable } from '@angular/core';
 import { RequestData } from '../models/request-data';
+<<<<<<< HEAD
 import { RequestStatus } from '../models/request-status';
 import { LendingType } from '../models/lending-type';
+=======
+>>>>>>> 08608fda30d98c985bd1102f1c6a2b271259442a
 
 @Injectable({ providedIn: 'root'})
 export class RegisterService {
@@ -56,6 +59,7 @@ export class RegisterService {
       })();
     }
 
+<<<<<<< HEAD
     async getRequets(type: LendingType): Promise<{application: RequestData, status: RequestStatus}[]> {
       const rawResponse = await fetch(this.baseUrl + '/api/v1/application/' + type, {
         method: 'GET',
@@ -69,4 +73,6 @@ export class RegisterService {
       console.log(content);
       return JSON.parse(content);
     }
+=======
+>>>>>>> 08608fda30d98c985bd1102f1c6a2b271259442a
 }
