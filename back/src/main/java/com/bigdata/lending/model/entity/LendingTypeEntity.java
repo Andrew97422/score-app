@@ -10,6 +10,7 @@ import lombok.Setter;
 @Setter
 @Table(name = "lending_type")
 public class LendingTypeEntity {
+
     @Id
     @GeneratedValue
     private int id;

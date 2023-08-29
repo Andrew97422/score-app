@@ -7,7 +7,7 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-@Table(name = "work_experience")
+@SecondaryTable(name = "work_experience")
 public class WorkExperienceEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

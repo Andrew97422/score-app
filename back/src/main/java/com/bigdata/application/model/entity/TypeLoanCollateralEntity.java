@@ -7,7 +7,7 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-@Table(name = "type_loan_collateral")
+@SecondaryTable(name = "type_loan_collateral")
 public class TypeLoanCollateralEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

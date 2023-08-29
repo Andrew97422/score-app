@@ -13,7 +13,7 @@ public class ApplicationService {
 
     private final ApplicationRepository applicationRepository;
 
-    public void addNewApplication(ApplicationForScoringRequest request) {
+    public void addNewApplication(ApplicationForScoringRequest request) throws Exception {
         var application = request.mapDtoToEntity();
         log.info("Application {} was registered.", application.getId());
         try {
@@ -21,6 +21,7 @@ public class ApplicationService {
             log.info("Application {} was saved to the repository.", application.getId());
         } catch (Exception e) {
             log.error("Application {} wasn't saved. Reason: {}", application.getId(), e.getMessage());
+            throw new Exception(e);
         }
     }
 }

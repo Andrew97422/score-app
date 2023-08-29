@@ -8,6 +8,7 @@ import lombok.Setter;
 @Setter
 @Getter
 public class LendingTypeToGuide {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;

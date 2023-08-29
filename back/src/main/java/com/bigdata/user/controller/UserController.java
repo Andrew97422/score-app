@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/api/v1/user")
 @Slf4j
 @RequiredArgsConstructor
 @Tag(name = "Пользовательский контроллер",
@@ -60,6 +60,10 @@ public class UserController {
     }
 
     @PatchMapping("/update/{id}")
+    @Operation(
+            summary = "Обновление пользователя",
+            description = "Обновление пользователя по его идентификатору"
+    )
     public ResponseEntity<Integer> updateUser(
             @PathVariable @Parameter(description = "Идентификатор пользователя") String id,
             @RequestBody @Parameter(description = "Полученная информация о пользователе") UserInfo userInfo
@@ -69,6 +73,10 @@ public class UserController {
     }
 
     @DeleteMapping("/delete/{id}")
+    @Operation(
+            summary = "Удаление пользователя",
+            description = "Удаление пользователя по его идентификатору"
+    )
     public ResponseEntity<?> deleteUser(
             @PathVariable @Parameter(description = "Идентификатор пользователя") String id
     ) {

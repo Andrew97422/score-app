@@ -9,6 +9,10 @@ import lombok.Setter;
 @Setter
 @Table(name = "mortgage")
 public class MortgageEntity extends GuideEntity {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private int id;
+
     @Column(name = "addition_to_interest")
     private String addToInterest;
 

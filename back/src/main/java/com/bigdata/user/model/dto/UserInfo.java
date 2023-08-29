@@ -7,6 +7,7 @@ import lombok.Data;
 @Data
 @Schema(name = "Поступившая информация о пользователе")
 public class UserInfo {
+
     public String name;
     public UserEntity mapDtoToEntity() {
         return null;

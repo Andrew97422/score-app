@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/application")
+@RequestMapping("/api/v1/application")
 @Tag(name = "Контроллер заявок", description = "Контроллер для работы с поступающими заявками на скоринг")
 public class ApplicationController {
 
@@ -29,8 +29,12 @@ public class ApplicationController {
     public ResponseEntity<HttpStatus> registerNewApplication(
             @RequestBody @Parameter(name = "Заявка") ApplicationForScoringRequest request
     ) {
-        applicationService.addNewApplication(request);
-        return ResponseEntity.ok(HttpStatus.ACCEPTED);
+        try {
+            applicationService.addNewApplication(request);
+            return ResponseEntity.ok(HttpStatus.ACCEPTED);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
     }
 
 

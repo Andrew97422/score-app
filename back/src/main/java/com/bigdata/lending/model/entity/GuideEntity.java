@@ -2,9 +2,8 @@ package com.bigdata.lending.model.entity;
 
 import jakarta.persistence.*;
 
-@Entity
-@Table(name = "guide_products")
-public abstract class GuideEntity {
+@MappedSuperclass
+public class GuideEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

@@ -9,6 +9,7 @@ import lombok.Setter;
 @Setter
 @Table(name = "consumer")
 public class ConsumerEntity extends GuideEntity {
+
     @Column(name = "discount")
     private String discount;
 }
