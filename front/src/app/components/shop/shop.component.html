@@ -1,0 +1,23 @@
+<div class="component" style="padding: 0; overflow: hidden;">
+    <iframe #iframe src="https://www.citilink.ru" width="100%" height="100%" frameborder="0">
+    </iframe>
+</div>
+
+<mat-card class="wiget">
+    <h4>Заполните данные о выбранном товаре</h4>
+    <form [formGroup]="form" fxLayout="column" fxFlex style="padding-top: 16px;">
+        <mat-form-field fxFlex appearance="outline" color="primery">
+            <mat-label>Наименование</mat-label>
+            <input matInput color="primery" formControlName="name">
+        </mat-form-field>
+        <mat-form-field fxFlex appearance="outline">
+            <mat-label>Стоимость</mat-label>
+            <input type="number" matInput formControlName="amount" required>
+        </mat-form-field>
+
+        <button fxFlex mat-stroked-button color="primary" [disabled]="!form?.valid"
+            (click)="calcCredit()">
+            Расчитать кредит
+        </button>
+    </form>
+</mat-card>

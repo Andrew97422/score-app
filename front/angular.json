@@ -1,0 +1,36 @@
+{
+    "version": 1,
+    "projects": {
+      "chat": {
+        "projectType": "application",
+        "root": "",
+        "sourceRoot": "src",
+        "architect": {
+          "build": {
+            "builder": "@angular-devkit/build-angular:browser",
+            "options": {
+              "outputPath": "dist/chat",
+              "index": "src/index.html",
+              "main": "src/main.ts",
+              "polyfills": "src/polyfills.ts",
+              "tsConfig": "tsconfig.json",
+              "aot": true,
+              "styles": [
+                "node_modules/bootstrap/dist/css/bootstrap.min.css",
+                "src/styles.scss"
+              ]
+            }
+          },
+          "serve": {
+            "builder": "@angular-devkit/build-angular:dev-server",
+            "options": {
+              "browserTarget": "chat:build"
+            }
+          }
+        }
+      }},
+    "defaultProject": "chat",
+    "cli": {
+      "analytics": "83162ce8-dc99-4c7a-b950-f3a511a6686d"
+    }
+  }

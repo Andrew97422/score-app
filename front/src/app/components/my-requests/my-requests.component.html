@@ -1,0 +1,73 @@
+<div class="component">
+    <div fxLayout="row" fxFlex="0 1 500px">
+    
+        <div fxFlex fxLayout="column" fxLayoutGap="8px">
+            <h5>Мои заявки</h5>
+
+            <div class="title">Мои заявки на кридит</div>
+            <table>
+                <tr style="color: seagreen;">
+                    <td>
+                        <div fxLayout="row" fxLayoutGap="4px">
+                            <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="m424-296 282-282-56-56-226 226-114-114-56 56 170 170Zm56 216q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-80q134 0 227-93t93-227q0-134-93-227t-227-93q-134 0-227 93t-93 227q0 134 93 227t227 93Zm0-320Z"
+                                fill="seagreen"/>
+                            </svg>
+                            <div>АААААААпп</div>
+                        </div>
+                    </td>
+                    <td>Одобрено</td>
+                </tr>
+
+                <tr style="color: orange;">
+                    <td>
+                        <div fxLayout="row" fxLayoutGap="4px">
+                            <mat-icon>
+                                <span class="material-symbols-outlined">
+                                    schedule
+                                </span>
+                            </mat-icon>
+                            <div>АААААААпп</div>
+                        </div>
+                    </td>
+                    <td>Одобрено</td>
+                </tr>
+
+                <tr style="color: orangered;">
+                    <td>
+                        <div fxLayout="row" fxLayoutGap="4px">
+                            <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="m336-280 144-144 144 144 56-56-144-144 144-144-56-56-144 144-144-144-56 56 144 144-144 144 56 56ZM480-80q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-80q134 0 227-93t93-227q0-134-93-227t-227-93q-134 0-227 93t-93 227q0 134 93 227t227 93Zm0-320Z"
+                                fill="orangered"/>
+                            </svg>
+                            <div>АААААААпп</div>
+                        </div>
+                    </td>
+                    <td>Одобрено</td>
+                </tr>
+            </table>
+
+            <div class="title">Мои заявки на автокридит</div>
+            <div style="padding-left: 10px;">
+                Нет заявок
+            </div>
+
+            <div class="title">Мои заявки на ипотеку</div>
+            <div style="padding-left: 10px;">
+                Нет заявок
+            </div>
+
+            <div>
+                <div (click)="createRequest()"
+                    class="add-button"
+                    matRipple fxLayout="row" fxLayoutGap="4px">
+                    <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24">
+                        <path d="M440-280h80v-160h160v-80H520v-160h-80v160H280v80h160v160Zm40 200q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-80q134 0 227-93t93-227q0-134-93-227t-227-93q-134 0-227 93t-93 227q0 134 93 227t227 93Zm0-320Z"
+                        fill="green"/>
+                    </svg>
+                    <div>
+                        Добавить заявку
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

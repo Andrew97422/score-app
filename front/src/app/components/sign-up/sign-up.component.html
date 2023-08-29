@@ -1,0 +1,59 @@
+<div [formGroup]="form" class="signup-component">
+    <mat-card fxFlex="300px" fxLayout="row">  
+        <div fxFlex fxLayout="row">
+            <div fxLayout="column" fxFlex>
+                <h4 fxLayoutAlign="center center" style="margin-bottom: 10px;">Регистрация</h4>
+
+                <div fxLayout="column"
+                style="
+                margin: 0 -16px 16px -16px; padding: 16px 16px 0px;
+                overflow: auto; max-height: calc(100vh - 250px);">
+                    <mat-form-field fxFlex appearance="outline" color="primery">
+                        <mat-label>Логин</mat-label>
+                        <input matInput color="primery" formControlName="login" required>
+                    </mat-form-field>
+                    <mat-form-field fxFlex appearance="outline">
+                        <mat-label>Пароль</mat-label>
+                        <input matInput type="password" formControlName="password" required>
+                    </mat-form-field>
+                    <mat-form-field fxFlex appearance="outline">
+                        <mat-label>Фамилия</mat-label>
+                        <input matInput formControlName="lastName" required>
+                    </mat-form-field>
+                    <mat-form-field fxFlex appearance="outline">
+                        <mat-label>Имя</mat-label>
+                        <input matInput formControlName="firstName" required>
+                    </mat-form-field>
+                    <mat-form-field fxFlex appearance="outline">
+                        <mat-label>Отчество</mat-label>
+                        <input matInput formControlName="surName">
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" color="primery">
+                        <mat-label>Дата рождения</mat-label>
+                        <input matInput [matDatepicker]="picker" formControlName="birthday">
+                        <mat-datepicker-toggle matIconSuffix [for]="picker">
+                        </mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                    </mat-form-field>
+                    <mat-form-field fxFlex appearance="outline">
+                        <mat-label>Телефон</mat-label>
+                        <input matInput formControlName="phone">
+                    </mat-form-field>
+                    <mat-form-field fxFlex appearance="outline">
+                        <mat-label>Email</mat-label>
+                        <input matInput formControlName="email" required>
+                    </mat-form-field>
+                </div>
+
+                <button fxFlex mat-stroked-button color="primary" (click)="signup()" [disabled]="form?.invalid">
+                    Зарегистрироваться
+                </button>
+
+                <div fxLayoutAlign="center center" style="margin-top: 20px;">
+                    Если зарегистрированы?
+                </div>
+                <a fxLayoutAlign="center center" (click)="router.navigate(['login'])">войти</a>
+            </div>
+        </div>
+    </mat-card>
+</div>

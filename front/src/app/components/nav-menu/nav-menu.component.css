@@ -1,0 +1,52 @@
+.nav-menu {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    width: 200px;
+    height: 100%;
+    display: flex !important;
+    z-index: 99;
+    align-items: center;
+    box-shadow: 0 4px 4px #00000040;
+    padding: 12px;
+    background-color: #f2f1f5;
+    flex-direction: column !important;
+}
+
+.favicon {
+    min-width: 40px;
+    height: 24px;
+    align-items: center;
+    display: flex;
+}
+
+.app-name {
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 32px;
+    margin-right: 20px;
+    white-space: nowrap;
+}
+
+.nav-menu-item {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content: start;
+}
+
+.nav-menu-item-active {
+    background-color: #e8e1e8;
+}
+
+.nav-menu-item:hover {
+    background-color: #e8e1e8;
+}
+
+
+a {
+    cursor: pointer;
+    color: #000 !important;
+    text-decoration: none !important;
+}
