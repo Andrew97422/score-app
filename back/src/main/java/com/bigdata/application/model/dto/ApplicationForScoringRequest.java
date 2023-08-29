@@ -7,6 +7,7 @@ import com.bigdata.application.model.entity.WorkExperienceEntity;
 import com.bigdata.application.model.enums.CountActiveLoans;
 import com.bigdata.application.model.enums.LoanCollateralType;
 import com.bigdata.application.model.enums.WorkExperience;
+import com.bigdata.lending.model.enums.LendingType;
 import com.bigdata.user.model.entity.UserEntity;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
@@ -17,55 +18,58 @@ import java.time.LocalDate;
 @Schema(name = "Заявка на скоринг", description = "Заполняется пользователем")
 public class ApplicationForScoringRequest {
 
-    @Schema(name = "Email для отправки результата")
+    @Schema(description = "Вид кредитного продукта", name = "lendingType")
+    private LendingType lendingType;
+
+    @Schema(description = "Email для отправки результата", name = "email")
     private String email;
 
-    @Schema(name = "Стаж работы")
+    @Schema(description = "Стаж работы", name = "workExperience")
     private WorkExperience workExperience;
 
-    @Schema(name = "Вид обеспечения по кредиту")
+    @Schema(description = "Вид обеспечения по кредиту", name = "loanCollateralType")
     private LoanCollateralType loanCollateralType;
 
-    @Schema(name = "Количество действующих кредитов")
+    @Schema(description = "Количество действующих кредитов", name = "countActiveLoans")
     private CountActiveLoans countActiveLoans;
 
-    @Schema(name = "Сумма ежемесячных платежей по кредитам")
+    @Schema(description = "Сумма ежемесячных платежей по кредитам", name = "currentDebtLoad")
     private float currentDebtLoad;
 
-    @Schema(name = "Ежемесячный доход")
+    @Schema(description = "Ежемесячный доход", name = "monthlyIncome")
     private float monthlyIncome;
 
-    @Schema(name = "Сумма кредита")
+    @Schema(description = "Сумма кредита", name = "amount")
     private float amount;
 
-    @Schema(name = "Желаемый срок кредита (в месяцах)")
+    @Schema(description = "Желаемый срок кредита (в месяцах)", name = "term")
     private float term;
 
-    @Schema(name = "Минимальная желаемая ставка по кредиту")
+    @Schema(description = "Минимальная желаемая ставка по кредиту", name = "minRate")
     private float minRate;
 
-    @Schema(name = "Максимальная желаемая ставка по кредиту")
+    @Schema(description = "Максимальная желаемая ставка по кредиту", name = "maxRate")
     private float maxRate;
 
-    @Schema(name = "Военнослужащий или работник ОПК России")
+    @Schema(description = "Военнослужащий или работник ОПК России", name = "military")
     private boolean military;
 
-    @Schema(name = "Государственный служащий")
+    @Schema(description = "Государственный служащий", name = "stateEmployee")
     private boolean stateEmployee;
 
-    @Schema(name = "Клиент ПСБ")
+    @Schema(description = "Клиент ПСБ", name = "psbClient")
     private boolean psbClient;
 
-    @Schema(name = "Житель Данного Востока")
+    @Schema(description = "Житель Данного Востока", name = "farEastInhabitant")
     private boolean farEastInhabitant;
 
-    @Schema(name = "Житель Новых субъектов РФ")
+    @Schema(description = "Житель Новых субъектов РФ", name = "newSubjectsResident")
     private boolean newSubjectsResident;
 
-    @Schema(name = "ИТ-специалист")
+    @Schema(description = "ИТ-специалист", name = "itSpecialist")
     private boolean itSpecialist;
 
-    @Schema(name = "День рождения")
+    @Schema(description = "День рождения", name = "birthday")
     private LocalDate birthday;
 
     public LoanApplicationEntity mapDtoToEntity(UserEntity user) {

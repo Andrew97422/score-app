@@ -1,12 +1,15 @@
 package com.bigdata.application.service;
 
 import com.bigdata.application.model.dto.ApplicationForScoringRequest;
+import com.bigdata.application.model.dto.ApplicationResponseByType;
 import com.bigdata.application.model.entity.LoanApplicationEntity;
+import com.bigdata.application.model.enums.ApplicationStatus;
 import com.bigdata.application.repository.ApplicationRepository;
 import com.bigdata.lending.model.entity.AutoLoanEntity;
 import com.bigdata.lending.model.entity.ConsumerEntity;
 import com.bigdata.lending.model.entity.GuideEntity;
 import com.bigdata.lending.model.entity.MortgageEntity;
+import com.bigdata.lending.model.enums.LendingType;
 import com.bigdata.lending.repository.AutoLoanRepository;
 import com.bigdata.lending.repository.ConsumerRepository;
 import com.bigdata.lending.repository.MortgageRepository;
@@ -31,7 +34,7 @@ public class ApplicationService {
     private final EmailService emailService;
     private final List<Thread> threads = new ArrayList<>();
 
-    public void addNewApplication(ApplicationForScoringRequest request, UserEntity user) throws Exception {
+    public void addNewApplication(ApplicationForScoringRequest request, UserEntity user, boolean isAuth) throws Exception {
         var application = request.mapDtoToEntity(user);
 
         log.info("Application {} was registered.", application.getId());
@@ -67,15 +70,18 @@ public class ApplicationService {
 
         threads.add(thread);
 
-        threads.forEach(Thread::start);
+        if (isAuth) {
+            try {
+                applicationRepository.save(application);
+                log.info("Application {} was saved to the repository.", application.getId());
+            } catch (Exception e) {
+                log.error("Application {} wasn't saved. Reason: {}", application.getId(), e.getMessage());
+                throw new Exception(e);
+            }
 
-        try {
-            applicationRepository.save(application);
-            log.info("Application {} was saved to the repository.", application.getId());
-        } catch (Exception e) {
-            log.error("Application {} wasn't saved. Reason: {}", application.getId(), e.getMessage());
-            throw new Exception(e);
         }
+
+        threads.forEach(Thread::start);
     }
 
     private float scoringCalculation(LoanApplicationEntity application, LocalDate birthday) {
@@ -112,5 +118,22 @@ public class ApplicationService {
     private void sendEmail(String toAddress, String subject, String message) {
         emailService.sendSimpleEmail(toAddress, subject, message);
         log.info("Message to email {} has been sent.", toAddress);
+    }
+
+    public List<ApplicationResponseByType> getApplicationsList(LendingType type, UserEntity user) {
+        List<LoanApplicationEntity> applicationEntities =
+                user.getApplicationsList().stream()
+                        .filter(i -> i.getLendingType().equals(type)).toList();
+
+        List<ApplicationStatus> statuses = applicationEntities
+                .stream().map(LoanApplicationEntity::getStatus).toList();
+
+        List<ApplicationResponseByType> response = new ArrayList<>();
+
+        for (int i = 0; i < applicationEntities.size(); i++) {
+            response.add(new ApplicationResponseByType(applicationEntities.get(i), statuses.get(i)));
+        }
+
+        return response;
     }
 }

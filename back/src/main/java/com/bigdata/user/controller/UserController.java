@@ -13,8 +13,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.UUID;
-
 @RestController
 @RequestMapping("/api/v1/user")
 @Slf4j
@@ -50,7 +48,6 @@ public class UserController {
     public ResponseEntity<Integer> createUser(
             @RequestBody @Parameter(description = "Полученная информация о пользователе") UserInfo userInfo
     ) {
-        System.out.println("IN POST CONTROLLER");
         try {
             var id = userService.createNewUser(userInfo);
             log.info("User {} was registered.", id);
@@ -83,4 +80,14 @@ public class UserController {
         userService.deleteUserById(Integer.parseInt(id));
         return ResponseEntity.ok(HttpStatus.OK);
     }
+
+    /*@PostMapping(value = "/login")
+    public ResponseEntity<HttpStatus> doLogin(@RequestBody Login loginRequest) {
+        try {
+            userService.login(loginRequest);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (BadCredentialsException e) {
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
+    }*/
 }

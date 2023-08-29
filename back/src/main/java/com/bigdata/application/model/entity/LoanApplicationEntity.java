@@ -1,9 +1,11 @@
 package com.bigdata.application.model.entity;
 
+import com.bigdata.application.model.enums.ApplicationStatus;
 import com.bigdata.application.model.enums.CountActiveLoans;
 import com.bigdata.application.model.enums.LoanCollateralType;
 import com.bigdata.application.model.enums.WorkExperience;
 import com.bigdata.lending.model.entity.GuideEntity;
+import com.bigdata.lending.model.enums.LendingType;
 import com.bigdata.user.model.entity.UserEntity;
 import jakarta.persistence.*;
 import lombok.*;
@@ -90,6 +92,14 @@ public class LoanApplicationEntity {
 
     @Column(name = "it_specialist")
     private boolean isItSpecialist;
+
+    @Column(name = "lending_type")
+    @Enumerated(EnumType.STRING)
+    private LendingType lendingType;
+
+    @Column(name = "status")
+    @Enumerated(EnumType.STRING)
+    private ApplicationStatus status;
 
     @ManyToOne
     @JoinColumn(name = "user_id")

@@ -18,25 +18,25 @@ import java.time.LocalDate;
 @Schema(name = "Ответ пользователю на получение сущности")
 public class UserResponse {
 
-    @Schema(name = "Логин")
+    @Schema(description = "Логин", name = "login")
     private String login;
 
-    @Schema(name = "Фамилия")
+    @Schema(description = "Фамилия", name = "lastName")
     private String lastName;
 
-    @Schema(name = "Имя")
+    @Schema(description = "Имя", name = "firstName")
     private String firstName;
 
-    @Schema(name = "Отчество")
+    @Schema(description = "Отчество", name = "surName")
     private String surName;
 
-    @Schema(name = "Дата рождения")
+    @Schema(description = "Дата рождения", name = "birthday")
     private LocalDate birthday;
 
-    @Schema(name = "Телефон")
+    @Schema(description = "Телефон", name = "phone")
     private String phone;
 
-    @Schema(name = "Email")
+    @Schema(description = "Email", name = "email")
     private String email;
 
     public void mapEntityToDto(UserEntity user) {

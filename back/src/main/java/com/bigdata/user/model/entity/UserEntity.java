@@ -1,5 +1,6 @@
 package com.bigdata.user.model.entity;
 
+import com.bigdata.application.model.entity.LoanApplicationEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -10,6 +11,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.LocalDate;
 import java.util.Collection;
+import java.util.List;
 
 @Entity
 @Data
@@ -18,6 +20,7 @@ import java.util.Collection;
 @Builder
 @Table(name = "users")
 public class UserEntity implements UserDetails {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
@@ -48,6 +51,9 @@ public class UserEntity implements UserDetails {
 
     @Column(name = "obtained_from_a_third_party_service")
     private boolean obtainedFrom;
+
+    @OneToMany
+    private List<LoanApplicationEntity> applicationsList;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

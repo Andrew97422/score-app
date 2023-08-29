@@ -34,6 +34,7 @@ public class UserService implements UserDetailsService {
 
     public int createNewUser(UserInfo userInfo) {
         var user = userInfo.mapDtoToEntity(false);
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         try {
             userRepository.save(user);
             log.info("User {} saved.", user.getId());
@@ -84,4 +85,21 @@ public class UserService implements UserDetailsService {
             return new UsernameNotFoundException("User " + username + " wasn't found");
         });
     }
+
+    /*
+    public void login(Login loginRequest) throws BadCredentialsException {
+
+        try {
+            Authentication authentication = new UsernamePasswordAuthenticationToken(
+                    loginRequest.getLogin(), loginRequest.getPassword()
+            );
+            UserDetails user = loadUserByUsername(loginRequest.getLogin());
+            if (user.getPassword().equals(loginRequest.getPassword())) {
+
+            }
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+        } catch (AuthenticationException e) {
+            throw new BadCredentialsException(e.getMessage());
+        }
+    }*/
 }

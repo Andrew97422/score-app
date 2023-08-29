@@ -13,34 +13,33 @@ import java.time.LocalDate;
 public class UserInfo {
 
     @NotBlank
-    @Schema(name = "Логин", requiredMode = Schema.RequiredMode.REQUIRED)
+    @Schema(description = "Логин", requiredMode = Schema.RequiredMode.REQUIRED, name = "login")
     private String login;
 
     @NotBlank
-    @Schema(name = "Пароль", requiredMode = Schema.RequiredMode.REQUIRED)
+    @Schema(description = "Пароль", requiredMode = Schema.RequiredMode.REQUIRED, name = "password")
     private String password;
 
     @NotBlank
-    @Schema(name = "Фамилия", requiredMode = Schema.RequiredMode.REQUIRED)
+    @Schema(description = "Фамилия", requiredMode = Schema.RequiredMode.REQUIRED, name = "lastName")
     private String lastName;
 
     @NotBlank
-    @Schema(name = "Имя", requiredMode = Schema.RequiredMode.REQUIRED)
+    @Schema(description = "Имя", requiredMode = Schema.RequiredMode.REQUIRED, name = "firstName")
     private String firstName;
 
-    @Schema(name = "Отчество", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+    @Schema(description = "Отчество", requiredMode = Schema.RequiredMode.NOT_REQUIRED, name = "surName")
     private String surName;
 
     @NotBlank
-    @Schema(name = "Дата рождения", requiredMode = Schema.RequiredMode.REQUIRED)
+    @Schema(description = "Дата рождения", requiredMode = Schema.RequiredMode.REQUIRED, name = "birthday")
     private LocalDate birthday;
 
-    //@Pattern(regexp="\\+7\\s?[0-9]{3}\\s?[0-9]{2}\\s?\\d{2}-\\d{2}-\\d{4}")
     @NotBlank
-    @Schema(name = "Телефон", requiredMode = Schema.RequiredMode.REQUIRED)
+    @Schema(description = "Телефон", requiredMode = Schema.RequiredMode.REQUIRED, name = "phone")
     private String phone;
 
-    @Schema(name = "Email", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+    @Schema(description = "Email", requiredMode = Schema.RequiredMode.NOT_REQUIRED, name = "email")
     @Pattern(regexp = "^[a-zA-Z0-9_.±]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$")
     private String email;
 
