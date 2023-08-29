@@ -1,12 +1,14 @@
 package com.bigdata.application.model.entity;
 
+import com.bigdata.application.model.enums.WorkExperience;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 @Entity
-@Getter
-@Setter
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @SecondaryTable(name = "work_experience")
 public class WorkExperienceEntity {
     @Id
@@ -14,5 +16,6 @@ public class WorkExperienceEntity {
     private int id;
 
     @Column(name = "name")
-    private String name;
+    @Enumerated(EnumType.STRING)
+    private WorkExperience name;
 }

@@ -33,7 +33,7 @@ public class UserService implements UserDetailsService {
     }
 
     public int createNewUser(UserInfo userInfo) {
-        var user = userInfo.mapDtoToEntity();
+        var user = userInfo.mapDtoToEntity(false);
         try {
             userRepository.save(user);
             log.info("User {} saved.", user.getId());
@@ -50,12 +50,12 @@ public class UserService implements UserDetailsService {
             return new EntityNotFoundException("Пользователь не был найден");
         });
 
-        var updatedUser = userInfo.mapDtoToEntity();
+        var updatedUser = userInfo.mapDtoToEntity(false);
 
         user.setBirthday(updatedUser.getBirthday());
         user.setLogin(updatedUser.getLogin());
         user.setEmail(updatedUser.getEmail());
-        user.setPassword(updatedUser.getPassword());
+        user.setPassword(passwordEncoder.encode(updatedUser.getPassword()));
         user.setPhone(updatedUser.getPhone());
         user.setFirstName(updatedUser.getFirstName());
         user.setLastName(updatedUser.getLastName());
@@ -79,7 +79,7 @@ public class UserService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return userRepository.findByUsername(username).orElseThrow(() -> {
+        return userRepository.findByLogin(username).orElseThrow(() -> {
             log.error("There's no user with username {}", username);
             return new UsernameNotFoundException("User " + username + " wasn't found");
         });

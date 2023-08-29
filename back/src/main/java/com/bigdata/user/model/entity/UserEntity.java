@@ -35,7 +35,7 @@ public class UserEntity implements UserDetails {
     private LocalDate birthday;
 
     @Column(name = "phone")
-    private int phone;
+    private String phone;
 
     @Column(name = "email")
     private String email;

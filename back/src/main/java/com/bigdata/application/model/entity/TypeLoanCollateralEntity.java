@@ -1,12 +1,14 @@
 package com.bigdata.application.model.entity;
 
+import com.bigdata.application.model.enums.LoanCollateralType;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 @Entity
-@Getter
-@Setter
+@Builder
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 @SecondaryTable(name = "type_loan_collateral")
 public class TypeLoanCollateralEntity {
     @Id
@@ -14,5 +16,6 @@ public class TypeLoanCollateralEntity {
     private int id;
 
     @Column(name = "name")
-    private String name;
+    @Enumerated(EnumType.STRING)
+    private LoanCollateralType name;
 }

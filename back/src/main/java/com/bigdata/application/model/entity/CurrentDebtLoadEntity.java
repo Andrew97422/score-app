@@ -1,12 +1,14 @@
 package com.bigdata.application.model.entity;
 
+import com.bigdata.application.model.enums.CountActiveLoans;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 @Entity
-@Getter
-@Setter
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Table(name = "current_debt_load")
 public class CurrentDebtLoadEntity {
     @Id
@@ -14,11 +16,12 @@ public class CurrentDebtLoadEntity {
     private int id;
 
     @Column(name = "count_active_loans")
-    private int countActiveLoans;
+    @Enumerated(EnumType.STRING)
+    private CountActiveLoans countActiveLoans;
 
     @Column(name = "amount_of_monthly_loan_payments")
-    private int amountLoanPayments;
+    private float amountLoanPayments;
 
     @Column(name = "monthly_income")
-    private int monthlyIncome;
+    private float monthlyIncome;
 }

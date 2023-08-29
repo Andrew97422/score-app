@@ -50,6 +50,7 @@ public class UserController {
     public ResponseEntity<Integer> createUser(
             @RequestBody @Parameter(description = "Полученная информация о пользователе") UserInfo userInfo
     ) {
+        System.out.println("IN POST CONTROLLER");
         try {
             var id = userService.createNewUser(userInfo);
             log.info("User {} was registered.", id);
@@ -68,7 +69,6 @@ public class UserController {
             @PathVariable @Parameter(description = "Идентификатор пользователя") String id,
             @RequestBody @Parameter(description = "Полученная информация о пользователе") UserInfo userInfo
     ) {
-
         return ResponseEntity.ok(userService.updateUserById(Integer.parseInt(id), userInfo));
     }
 

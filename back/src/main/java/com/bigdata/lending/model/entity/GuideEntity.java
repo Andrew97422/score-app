@@ -1,9 +1,12 @@
 package com.bigdata.lending.model.entity;
 
 import jakarta.persistence.*;
+import lombok.Data;
+import org.jetbrains.annotations.NotNull;
 
+@Data
 @MappedSuperclass
-public class GuideEntity {
+public class GuideEntity implements Comparable<GuideEntity> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -32,4 +35,25 @@ public class GuideEntity {
 
     @Column(name = "comment")
     private String comment;
+
+    @Override
+    public int compareTo(@NotNull GuideEntity o) {
+        int diff = (int) (getMinLoanRate() - o.getMinLoanRate());
+        if (diff != 0) {
+            return diff;
+        } else {
+            return (int) (o.getMinLoanTerm() - getMinLoanTerm());
+        }
+    }
+
+    public String toMailString() {
+        return "\nНазвание продукта - " + getName() +
+                "\nМинимальная сумма кредита - " + getMinLoanAmount() +
+                "\nМаксимальная сумма кредита - " + getMaxLoanAmount() +
+                "\nМинимальный срок кредита - " + getMinLoanTerm() +
+                "\nМаксимальный срок кредита - " + getMaxLoanTerm() +
+                "\nМинимальная ставка кредита - " + getMinLoanRate() +
+                "\nСсылка на продукт - " + getUrl() +
+                "\nКомментарий - " + getComment();
+    }
 }

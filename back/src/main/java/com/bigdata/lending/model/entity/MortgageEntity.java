@@ -1,14 +1,15 @@
 package com.bigdata.lending.model.entity;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
+@EqualsAndHashCode(callSuper = true)
 @Entity
-@Getter
-@Setter
+@Data
 @Table(name = "mortgage")
 public class MortgageEntity extends GuideEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
@@ -18,4 +19,9 @@ public class MortgageEntity extends GuideEntity {
 
     @Column(name = "down_payment")
     private String downPayment;
+
+    public String toMailString() {
+        return super.toMailString() + "\nПредлагаемая надбавка к % - " + addToInterest
+                + "\nПервый взнос - " + downPayment;
+    }
 }
