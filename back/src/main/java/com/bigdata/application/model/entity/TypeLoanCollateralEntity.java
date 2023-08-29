@@ -2,7 +2,10 @@ package com.bigdata.application.model.entity;
 
 import com.bigdata.application.model.enums.LoanCollateralType;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Builder

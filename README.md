@@ -9,6 +9,7 @@
 - Spring Boot 3
 
 Для запуска требуется ввести следующее:
+
 ```
 mvn clean install
 java -jar back/target/back-1.0-SNAPSHOT.jar
@@ -20,6 +21,7 @@ java -jar back/target/back-1.0-SNAPSHOT.jar
 - NodeJS 18.17.1
 
 Для запуска требуется ввести следующее:
+
 ```
 npm install
 npm run start
