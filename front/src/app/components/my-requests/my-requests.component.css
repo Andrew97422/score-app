@@ -1,0 +1,20 @@
+table tr td:first-child {
+    padding-left: 10px !important;
+}
+
+table tr:hover {
+    background-color: #f2f1f5;
+}
+
+table tr td {
+    cursor: default;
+    padding: 4px;
+}
+
+.add-button {
+    padding: 10px; cursor: pointer; width: 175px;
+}
+
+.add-button:hover {
+    background-color: #f2f1f5;
+}

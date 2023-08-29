@@ -1,0 +1,81 @@
+<!--   -->
+<div *ngIf="sessionService.getSessionID()" class="nav-menu" fxLayout="column" fxLayoutGap="8px">
+    <!--<svg class="favicon"
+    xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24">
+        <path d="M475-160q4 0 8-2t6-4l328-328q12-12 17.5-27t5.5-30q0-16-5.5-30.5T817-607L647-777q-11-12-25.5-17.5T591-800q-15 0-30 5.5T534-777l-11 11 74 75q15 14 22 32t7 38q0 42-28.5 70.5T527-522q-20 0-38.5-7T456-550l-75-74-175 175q-3 3-4.5 6.5T200-435q0 8 6 14.5t14 6.5q4 0 8-2t6-4l136-136 56 56-135 136q-3 3-4.5 6.5T285-350q0 8 6 14t14 6q4 0 8-2t6-4l136-135 56 56-135 136q-3 2-4.5 6t-1.5 8q0 8 6 14t14 6q4 0 7.5-1.5t6.5-4.5l136-135 56 56-136 136q-3 3-4.5 6.5T454-180q0 8 6.5 14t14.5 6Zm-1 80q-37 0-65.5-24.5T375-166q-34-5-57-28t-28-57q-34-5-56.5-28.5T206-336q-38-5-62-33t-24-66q0-20 7.5-38.5T149-506l232-231 131 131q2 3 6 4.5t8 1.5q9 0 15-5.5t6-14.5q0-4-1.5-8t-4.5-6L398-777q-11-12-25.5-17.5T342-800q-15 0-30 5.5T285-777L144-635q-9 9-15 21t-8 24q-2 12 0 24.5t8 23.5l-58 58q-17-23-25-50.5T40-590q2-28 14-54.5T87-692l141-141q24-23 53.5-35t60.5-12q31 0 60.5 12t52.5 35l11 11 11-11q24-23 53.5-35t60.5-12q31 0 60.5 12t52.5 35l169 169q23 23 35 53t12 61q0 31-12 60.5T873-437L545-110q-14 14-32.5 22T474-80Zm-99-560Z"
+        fill="#fff"/>
+    </svg>
+    <div class="app-name">Кредитный калькулятор</div>-->
+
+    <svg id="Слой_1" data-name="Слой 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 98 30" height="30px" class="link-icon" matRipple>
+        <defs>
+        <style>
+            .cls-1 {
+            fill: #f26126;
+            }
+    
+            .cls-1, .cls-2 {
+            fill-rule: evenodd;
+            }
+    
+            .cls-2 {
+            fill: #2b2d84;
+            }
+        </style>
+        </defs>
+        <path class="cls-1" d="M19.9492,0,9.97461,10.0003H19.9492V30l9.9746-9.9759V0Z"/>
+        <path class="cls-2" d="M9.9746,30l9.9746-10H9.9746V0L0,9.97618V30Z"/>
+        <path class="cls-2" d="M71.1679,20.7374c-3.4951,0-5.4599-2.569-5.4599-5.7443,0-2.5495,1.4305-5.74974,5.361-5.74974a6.01678,6.01678,0,0,1,4.5967,2.20354L78.8502,8.255a10.4385,10.4385,0,0,0-8.0306-3.76185A10.13332,10.13332,0,0,0,60.4712,14.9931a10.38481,10.38481,0,0,0,18.7871,6.2172l-3.2044-3.2132A5.6542,5.6542,0,0,1,71.1679,20.7374Zm19.099.0123h-3.975V16.7541h3.975c1.2355,0,2.4858.488,2.4858,1.9922C92.7527,20.2512,91.5024,20.7497,90.2669,20.7497Zm.4987-8.2563H86.2919V9.49982H96.255V4.9996H81.0551v20s7.47-.0004,9.9598-.0004c3.993,0,6.9855-2.0066,6.9855-6.2529C98.0004,14.4928,95.0079,12.4934,90.7656,12.4934ZM39.8984,24.9996h5.2369V9.49982h7.9795V24.9996h5.2368v-20H39.8984Z"/>
+    </svg>
+
+    <a mat-button class="nav-menu-item" [class.nav-menu-item-active]="router.url=='/'" routerLink="/">
+        Моя страница
+    </a>
+
+    <a mat-button class="nav-menu-item" [class.nav-menu-item-active]="router.url=='/myRequests'" routerLink="/myRequests">
+        Мои заявки
+    </a>
+
+    <a mat-button class="nav-menu-item" [class.nav-menu-item-active]="router.url=='/myData'" routerLink="/myData">
+        Мои данные
+    </a>
+
+    <a mat-button class="nav-menu-item" [class.nav-menu-item-active]="router.url=='/shop'" routerLink="/shop">
+        Магазин
+    </a>
+
+    <!--
+    <a mat-button class="nav-menu-item" [class.nav-menu-item-active]="router.url=='/shop'" routerLink="/shop">
+        Магазин
+    </a>-->
+
+    <div fxFlex></div>
+    <div matRipple fxLayout="row" fxLayoutGap="8px" fxLayoutAlign="start center" 
+    #menuTrigger [matMenuTriggerFor]="menu"
+    style="cursor: pointer;">
+        <img [attr.src]="userData?.photoUrl" 
+        style="border-radius: 50%; width: 40px; height: 40px;">
+        <div fxLayoutAlign="start center">
+            {{userData?.firstName + ' ' + userData?.lastName}}
+        </div>
+    </div>
+
+    <mat-menu #menu="matMenu" xPosition="before">
+        <button mat-menu-item (click)="logout()">
+            Выйти
+        </button>
+    </mat-menu>
+    
+    <!--
+        {{userName}}
+    
+    <button mat-button [matMenuTriggerFor]="menu">
+        {{userName}}
+        <mat-icon>arrow_drop_down</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu" xPosition="before">
+        <button mat-menu-item (click)="logout()">
+            Выйти
+        </button>
+    </mat-menu>-->
+</div>

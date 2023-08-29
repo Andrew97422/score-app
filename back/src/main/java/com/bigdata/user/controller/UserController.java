@@ -1,5 +1,6 @@
 package com.bigdata.user.controller;
 
+import com.bigdata.user.model.dto.Login;
 import com.bigdata.user.model.dto.UserInfo;
 import com.bigdata.user.model.dto.UserResponse;
 import com.bigdata.user.service.UserService;
@@ -11,6 +12,9 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -23,6 +27,7 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
 
     private final UserService userService;
+    private final AuthenticationProvider provider;
 
     @Operation(summary = "Получение пользователя по id",
         description = "Позволяет получить пользователя по id"
@@ -81,13 +86,14 @@ public class UserController {
         return ResponseEntity.ok(HttpStatus.OK);
     }
 
-    /*@PostMapping(value = "/login")
+    @PostMapping("/auth/login")
     public ResponseEntity<HttpStatus> doLogin(@RequestBody Login loginRequest) {
         try {
-            userService.login(loginRequest);
+            provider.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getLogin(),
+                    loginRequest.getPassword()));
             return new ResponseEntity<>(HttpStatus.OK);
-        } catch (BadCredentialsException e) {
+        } catch (AuthenticationException e) {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
-    }*/
+    }
 }

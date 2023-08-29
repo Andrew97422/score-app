@@ -1,0 +1,84 @@
+@import "https://use.fontawesome.com/releases/v5.5.0/css/all.css";
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+}
+
+.component {
+  overflow: auto;
+  position: absolute;
+  top: 0;
+  left: 200px;
+  height: 100%;
+  width: calc(100% - 200px);
+  display: inline-block;
+  padding: 12px;
+}
+
+.mat-mdc-card {
+  padding: 16px;
+}
+
+.mat-mdc-text-field-wrapper {
+  padding: 0 8px;
+}
+
+.mat-mdc-text-field-wrapper.mdc-text-field--outlined .mat-mdc-form-field-infix {
+  padding-top: 6px;
+  padding-bottom: 6px;
+}
+
+.mat-mdc-form-field-infix {
+  min-height: 32px;
+}
+
+.mat-mdc-form-field-has-icon-suffix .mat-mdc-text-field-wrapper {
+  height: 36px;
+}
+
+.mat-mdc-form-field .mat-mdc-floating-label.mdc-floating-label {
+  top: 17px;
+}
+
+.mat-mdc-icon-button.mat-mdc-button-base {
+  --mdc-icon-button-state-layer-size: 36px;
+  width: 36px;
+  height: 36px;
+  padding: 6px;
+}
+
+.mat-mdc-outlined-button {
+  min-height: 36px;
+}
+
+a {
+  cursor: pointer;
+  color: blue !important;
+  text-decoration: underline !important;
+}
+
+
+.mat-mdc-outlined-button:not(:disabled) {
+  color: white !important;
+  background: cornflowerblue;
+}
+
+/*
+::-webkit-scrollbar-thumb, ::-webkit-scrollbar-thumb {
+  border-radius: 50px;
+  width: 10px;
+  background-color: gray;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}*/
+
