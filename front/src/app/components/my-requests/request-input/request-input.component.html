@@ -2,11 +2,6 @@
     <h4>Новая заявка</h4>
     <div fxLayout="column" 
     style="width: 500px; max-height: calc(100vh - 200px); overflow: auto; padding: 10px 20px; margin: 0 -20px;">
-        <!--
-        <mat-form-field appearance="outline" color="primery">
-            <input matInput color="primery" placeholder="Описание заявки" formControlName="description" required>
-        </mat-form-field>-->
-
         <mat-form-field appearance="outline" color="primery">
             <input matInput color="primery" placeholder="Сумма кредита"
             formControlName="amount" required>
@@ -94,8 +89,7 @@
     </div>
 
     <div fxLayout="row" fxLayoutGap="10px" style="padding-top: 20px;">
-        <button fxFlex mat-stroked-button color="primary" (click)="submit()"
-            [disabled]="form?.invalid">
+        <button fxFlex mat-stroked-button color="primary" (click)="submit()" [disabled]="form?.invalid">
             Создать
         </button>
 
