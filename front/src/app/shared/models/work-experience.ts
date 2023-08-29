@@ -1,8 +1,8 @@
 export enum WorkExperience {
-    LESS_THAN_YEAR_AND_HALF,
-    ONE_AND_HALF_TO_TEN,
-    ELEVEN_TO_TWENTY,
-    MORE_THAN_TWENTY
+    LESS_THAN_YEAR_AND_HALF='LESS_THAN_YEAR_AND_HALF',
+    ONE_AND_HALF_TO_TEN='ONE_AND_HALF_TO_TEN',
+    ELEVEN_TO_TWENTY='ELEVEN_TO_TWENTY',
+    MORE_THAN_TWENTY='MORE_THAN_TWENTY'
 }
 
 export class WorkExperienceExt {
@@ -24,7 +24,7 @@ export class WorkExperienceExt {
     static getAll(): WorkExperience[] {
         return Object
         .keys(WorkExperience)
-        .map(x => +x as WorkExperience)
-        .filter(x => !Number.isNaN(x) && x >= 0)
+        .map(x => x as WorkExperience)
+        .filter(x => !Number.isNaN(x))
     }
 }

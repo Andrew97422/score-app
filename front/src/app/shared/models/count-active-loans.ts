@@ -1,8 +1,8 @@
 export enum CountActiveLoans {
-    NO_CREDITS,
-    FROM_ONE_TO_TWO,
-    FROM_THREE_TO_FIVE,
-    MORE_THAN_FIVE
+    NO_CREDITS='NO_CREDITS',
+    FROM_ONE_TO_TWO='FROM_ONE_TO_TWO',
+    FROM_THREE_TO_FIVE='FROM_THREE_TO_FIVE',
+    MORE_THAN_FIVE='MORE_THAN_FIVE'
 }
 
 export class CountActiveLoansExt {
@@ -24,7 +24,7 @@ export class CountActiveLoansExt {
     static getAll(): CountActiveLoans[] {
         return Object
         .keys(CountActiveLoans)
-        .map(x => +x as CountActiveLoans)
-        .filter(x => !Number.isNaN(x) && x >= 0)
+        .map(x => x as CountActiveLoans)
+        .filter(x => !Number.isNaN(x))
     }
 }

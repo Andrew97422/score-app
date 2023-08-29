@@ -1,9 +1,9 @@
 export enum LoanCollateralType {
-    APARTMENT,
-    HOUSE,
-    LAND,
-    CAR,
-    WITHOUT_COLLATERAL
+    APARTMENT='APARTMENT',
+    HOUSE='HOUSE',
+    LAND='LAND',
+    CAR='CAR',
+    WITHOUT_COLLATERAL='WITHOUT_COLLATERAL'
 }
 
 export class LoanCollateralTypeExt {
@@ -27,7 +27,7 @@ export class LoanCollateralTypeExt {
     static getAll(): LoanCollateralType[] {
         return Object
         .keys(LoanCollateralType)
-        .map(x => +x as LoanCollateralType)
-        .filter(x => !Number.isNaN(x) && x >= 0)
+        .map(x => x as LoanCollateralType)
+        .filter(x => !Number.isNaN(x))
     }
 }
