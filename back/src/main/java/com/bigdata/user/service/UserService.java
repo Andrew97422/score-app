@@ -6,13 +6,20 @@ import com.bigdata.user.repository.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
 @Slf4j
 @RequiredArgsConstructor
-public class UserService {
+public class UserService implements UserDetailsService {
+
     private final UserRepository userRepository;
+
+    private final PasswordEncoder passwordEncoder;
 
     public UserResponse getUserById(int id) {
         var user = userRepository.findById(id).orElseThrow(() -> {
@@ -68,5 +75,13 @@ public class UserService {
         } catch (Exception e) {
             log.error("User {} wasn't deleted. Reason: ", e.getMessage());
         }
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        return userRepository.findByUsername(username).orElseThrow(() -> {
+            log.error("There's no user with username {}", username);
+            return new UsernameNotFoundException("User " + username + " wasn't found");
+        });
     }
 }
