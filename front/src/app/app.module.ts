@@ -25,7 +25,6 @@ import { ShopComponent } from './components/shop/shop.component';
 import { LoginComponent } from './components/login/login.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { ProfileComponent } from './components/profile/profile.component';
-import { MyDataComponent } from './components/my-data/my-data.component';
 import { MyRequestsComponent } from './components/my-requests/my-requests.component';
 import { RequestInputComponent } from './components/my-requests/request-input/request-input.component';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -54,13 +53,9 @@ import { MatDialogModule } from '@angular/material/dialog';
     declarations: [
         NavMenuComponent,
         AppComponent,
-        //CreditCalculatorComponent,
-        //ShopComponent,
         LoginComponent,
         SignUpComponent,
-        //VKAuthorizationComponent,
         ProfileComponent,
-        MyDataComponent,
         MyRequestsComponent,
         RequestInputComponent,
         ShopComponent

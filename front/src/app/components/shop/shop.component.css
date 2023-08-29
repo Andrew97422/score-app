@@ -1,3 +1,7 @@
 .wiget {
     position: absolute; right: 40px; bottom: 40px;
 }
+
+.component {
+    padding: 0; overflow: hidden;
+}
