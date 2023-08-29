@@ -23,3 +23,5 @@ java -jar back/target/back-1.0-SNAPSHOT.jar
 ```
 npm run start
 ```
+
+Для создания docker-образов в директориях /back и /front есть докерфайлы Dockerfile
