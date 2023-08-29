@@ -12,10 +12,13 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Objects;
 
 @RestController
 @RequestMapping("/api/v1/user")
@@ -27,7 +30,6 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
 
     private final UserService userService;
-    private final AuthenticationProvider provider;
 
     @Operation(summary = "Получение пользователя по id",
         description = "Позволяет получить пользователя по id"
@@ -88,12 +90,16 @@ public class UserController {
 
     @PostMapping("/auth/login")
     public ResponseEntity<HttpStatus> doLogin(@RequestBody Login loginRequest) {
-        try {
-            provider.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getLogin(),
-                    loginRequest.getPassword()));
+        String login = loginRequest.getLogin();
+        UserDetails userDetails = userService.loadUserByUsername(login);
+        if (Objects.equals(login, userDetails.getUsername()) &&
+                loginRequest.getPassword().equals(userDetails.getPassword())) {
+            Authentication authentication = new UsernamePasswordAuthenticationToken(
+                    loginRequest.getLogin(), loginRequest.getPassword()
+            );
+            SecurityContextHolder.getContext().setAuthentication(authentication);
             return new ResponseEntity<>(HttpStatus.OK);
-        } catch (AuthenticationException e) {
+        } else {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-        }
-    }
+        }    }
 }

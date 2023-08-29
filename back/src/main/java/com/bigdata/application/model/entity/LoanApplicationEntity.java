@@ -1,19 +1,17 @@
 package com.bigdata.application.model.entity;
 
 import com.bigdata.application.model.enums.ApplicationStatus;
-import com.bigdata.application.model.enums.CountActiveLoans;
-import com.bigdata.application.model.enums.LoanCollateralType;
-import com.bigdata.application.model.enums.WorkExperience;
-import com.bigdata.lending.model.entity.GuideEntity;
 import com.bigdata.lending.model.enums.LendingType;
 import com.bigdata.user.model.entity.UserEntity;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Period;
-import java.util.List;
 
 @Entity
 @Data

@@ -85,21 +85,4 @@ public class UserService implements UserDetailsService {
             return new UsernameNotFoundException("User " + username + " wasn't found");
         });
     }
-
-    /*
-    public void login(Login loginRequest) throws BadCredentialsException {
-
-        try {
-            Authentication authentication = new UsernamePasswordAuthenticationToken(
-                    loginRequest.getLogin(), loginRequest.getPassword()
-            );
-            UserDetails user = loadUserByUsername(loginRequest.getLogin());
-            if (user.getPassword().equals(loginRequest.getPassword())) {
-
-            }
-            SecurityContextHolder.getContext().setAuthentication(authentication);
-        } catch (AuthenticationException e) {
-            throw new BadCredentialsException(e.getMessage());
-        }
-    }*/
 }
