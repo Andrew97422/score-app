@@ -21,6 +21,7 @@ java -jar back/target/back-1.0-SNAPSHOT.jar
 
 Для запуска требуется ввести следующее:
 ```
+npm install
 npm run start
 ```
 
