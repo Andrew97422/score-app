@@ -15,7 +15,7 @@ export class RegisterService {
 
     login(loginData: LoginData): void {
       (async () => {
-          const rawResponse = await fetch(this.baseUrl + '/api/v1/user/register', {
+          const rawResponse = await fetch(this.baseUrl + '/api/v1/user/login', {
             method: 'POST',
             headers: {
               'Accept': 'application/json',
