@@ -20,7 +20,9 @@ export class RequestInputComponent {
     private fb: FormBuilder,
     private registerService: RegisterService) {
       this.form = this.fb.group({
-        email: null,
+        email: [
+          null, [Validators.required]
+        ],
         workExperience: null,
         loanCollateralType: null,
         countActiveLoans: null,

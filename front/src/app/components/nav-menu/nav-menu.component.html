@@ -1,4 +1,4 @@
-<div *ngIf="sessionService.getSessionID()" class="nav-menu" fxLayout="column" fxLayoutGap="8px">
+<div *ngIf="router.url!='/login' && router.url!='/signup'" class="nav-menu" fxLayout="column" fxLayoutGap="8px">
     <svg id="Слой_1" data-name="Слой 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 98 30" height="30px" class="link-icon" matRipple>
         <defs>
         <style>
@@ -30,10 +30,17 @@
 
     <div fxFlex></div>
     <div fxLayout="row" fxLayoutGap="8px" fxLayoutAlign="start center" style="cursor: pointer;">
-        <img [attr.src]="userData?.photoUrl" 
-        style="border-radius: 50%; width: 40px; height: 40px;">
+        <ng-container *ngIf="userData?.photoUrl; else circle">
+            <img [attr.src]="userData?.photoUrl" style="border-radius: 50%; width: 40px; height: 40px;">
+        </ng-container>
+        <ng-template #circle>
+            <div class="circle">
+                {{(userData?.firstName[0] || 'НС') + ' ' + (userData?.lastName[0] || '')}}
+            </div>
+        </ng-template>
+
         <div fxLayoutAlign="start center">
-            {{userData?.firstName + ' ' + userData?.lastName}}
+            {{(userData?.firstName || 'имя пользователя неизвестно') + ' ' + (userData?.lastName || '')}}
         </div>
     </div>
     <a (click)="logout()">Выйти</a>

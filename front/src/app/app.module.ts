@@ -20,11 +20,11 @@ import { MatInputModule } from '@angular/material/input';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatSelectModule } from '@angular/material/select';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 import { ShopComponent } from './components/shop/shop.component';
 import { LoginComponent } from './components/login/login.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
-import { ProfileComponent } from './components/profile/profile.component';
 import { MyRequestsComponent } from './components/my-requests/my-requests.component';
 import { RequestInputComponent } from './components/my-requests/request-input/request-input.component';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -48,18 +48,17 @@ import { MatDialogModule } from '@angular/material/dialog';
         MatNativeDateModule,
         MatSelectModule,
         MatCheckboxModule,
-        MatDialogModule
+        MatDialogModule,
+        MatTooltipModule
     ],
     declarations: [
         NavMenuComponent,
         AppComponent,
         LoginComponent,
         SignUpComponent,
-        ProfileComponent,
         MyRequestsComponent,
         RequestInputComponent,
         ShopComponent
-
     ],
     bootstrap:    [ AppComponent ],
     providers: [
