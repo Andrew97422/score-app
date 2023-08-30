@@ -11,7 +11,6 @@ export class RegisterService {
     private baseUrl = 'http://localhost:8081';
 
     constructor(private router: Router) {
-
     }
 
     login(loginData: LoginData): void {
@@ -22,6 +21,7 @@ export class RegisterService {
               'Accept': 'application/json',
               'Content-Type': 'application/json'
             },
+            mode: 'no-cors',
             body: JSON.stringify(loginData)
           });
           const content = await rawResponse.json();
@@ -38,6 +38,7 @@ export class RegisterService {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
               },
+              mode: 'no-cors',
               body: JSON.stringify(userData)
             });
             const content = await rawResponse.json();
@@ -54,6 +55,7 @@ export class RegisterService {
               'Accept': 'application/json',
               'Content-Type': 'application/json'
             },
+            mode: 'no-cors',
             body: JSON.stringify(userData)
           });
           const content = await rawResponse.json();
@@ -70,6 +72,7 @@ export class RegisterService {
               'Accept': 'application/json',
               'Content-Type': 'application/json'
             },
+            mode: 'no-cors',
             body: JSON.stringify(userData)
           });
           const content = await rawResponse.json();
@@ -81,6 +84,7 @@ export class RegisterService {
     async getRequets(type: LendingType): Promise<{application: RequestData, status: RequestStatus}[]> {
       const rawResponse = await fetch(this.baseUrl + '/api/v1/application/' + type, {
         method: 'GET',
+        mode: 'no-cors',
         headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json'
