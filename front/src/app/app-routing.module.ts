@@ -3,14 +3,12 @@ import { Routes, RouterModule } from '@angular/router';
 import { LoginComponent } from './components/login/login.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { MyRequestsComponent } from './components/my-requests/my-requests.component';
-import { ProfileComponent } from './components/profile/profile.component';
 import { ShopComponent } from './components/shop/shop.component';
 
 const routes: Routes = [
-  { path: '', component: ProfileComponent },
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignUpComponent },
-  { path: 'myRequests', component: MyRequestsComponent },
+  { path: '', component: MyRequestsComponent },
   { path: 'shop', component: ShopComponent }
 ];
 

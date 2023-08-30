@@ -3,10 +3,32 @@ import { Injectable } from '@angular/core';
 import { RequestData } from '../models/request-data';
 import { RequestStatus } from '../models/request-status';
 import { LendingType } from '../models/lending-type';
+import { LoginData } from '../models/login-data';
+import { Router } from '@angular/router';
 
 @Injectable({ providedIn: 'root'})
 export class RegisterService {
     private baseUrl = 'http://localhost:8081';
+
+    constructor(private router: Router) {
+
+    }
+
+    login(loginData: LoginData): void {
+      (async () => {
+          const rawResponse = await fetch(this.baseUrl + '/api/v1/user/register', {
+            method: 'POST',
+            headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(loginData)
+          });
+          const content = await rawResponse.json();
+          this.router.navigate(['']);
+          console.log(content);
+      })();
+    }
 
     createUser(userData: UserAuthData): void {
         (async () => {

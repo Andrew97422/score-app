@@ -11,17 +11,17 @@
         </div>
           
         <div fxLayout="row" class="authorization-panel">
-            <div fxLayout="column" fxFlex>
+            <div [formGroup]="form" fxLayout="column" fxFlex>
                 <h4 fxLayoutAlign="center center" style="margin-bottom: 20px;">Авторизация</h4>
                 <mat-form-field fxFlex appearance="outline" color="primery">
                     <mat-label>Логин</mat-label>
-                    <input matInput color="primery">
+                    <input matInput color="primery" formControlName="login" required>
                 </mat-form-field>
                 <mat-form-field fxFlex appearance="outline">
                     <mat-label>Пароль</mat-label>
-                    <input matInput type="password">
+                    <input matInput type="password" formControlName="password" required>
                 </mat-form-field>
-                <button fxFlex mat-stroked-button color="primary">
+                <button fxFlex mat-stroked-button color="primary" (click)="login()" [disabled]="form?.invalid">
                     Войти
                 </button>
 

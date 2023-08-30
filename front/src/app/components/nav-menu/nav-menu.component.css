@@ -34,6 +34,9 @@
     align-items: center;
     width: 100%;
     justify-content: start;
+    cursor: pointer;
+    color: #000 !important;
+    text-decoration: none !important;
 }
 
 .nav-menu-item-active {
@@ -42,11 +45,4 @@
 
 .nav-menu-item:hover {
     background-color: #e8e1e8;
-}
-
-
-a {
-    cursor: pointer;
-    color: #000 !important;
-    text-decoration: none !important;
 }
