@@ -34,18 +34,18 @@ export class VKService {
     getProfile(): void {
         const profileReq = {
             user_ids: this.sessionService.getSessionID(),
-            fields: 'photo_100,city,bdate',
+            fields: 'photo_100,city,birthday,phone',
             v: '5.81'
         };
 
         VK.Api.call('users.get', profileReq, r => {
-            console.log(r);
             if (r.response) {
-                console.log(r.response);
                 this.dataService.storeUserProfile({
                         firstName: r.response[0].first_name,
                         lastName: r.response[0].last_name,
-                        bdate: r.response[0].bdate,
+                        birthday: r.response[0].birthday,
+                        surName: r.response[0].surName,
+                        phone: r.response[0].phone,
                         city: r.response[0].city ? r.response[0].city.title : 'предпочитает не указывать',
                         photoUrl: r.response[0].photo_100
                     }
@@ -56,7 +56,6 @@ export class VKService {
 
     login(): void {
         VK.Auth.login((response) => {
-            console.log(response);
             if (response.session) {
                 this.sessionService.createSession(response.session.user.id, true);
                 this.getProfile();

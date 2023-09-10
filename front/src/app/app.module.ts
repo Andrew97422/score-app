@@ -28,6 +28,7 @@ import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { MyRequestsComponent } from './components/my-requests/my-requests.component';
 import { RequestInputComponent } from './components/my-requests/request-input/request-input.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
     imports: [ 
@@ -49,7 +50,8 @@ import { MatDialogModule } from '@angular/material/dialog';
         MatSelectModule,
         MatCheckboxModule,
         MatDialogModule,
-        MatTooltipModule
+        MatTooltipModule,
+        HttpClientModule
     ],
     declarations: [
         NavMenuComponent,

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { DataService } from 'src/app/shared/services/data.service';
+import { RegisterService } from 'src/app/shared/services/register-service';
 import { SessionService } from 'src/app/shared/services/session.service';
 import { VKService } from 'src/app/shared/services/vk-service';
 
@@ -18,8 +19,11 @@ export class NavMenuComponent {
     public router: Router,
     public dataService: DataService,
     public sessionService: SessionService,
-    private vkService: VKService) {
+    private vkService: VKService,
+    private registerService: RegisterService) {
       this.userData = dataService.getUserProfile();
+      this.registerService.getUser(this.sessionService.getSessionID() as unknown as number).subscribe(x =>
+        this.userData = x);
   }
 
   logout(): void {

@@ -16,11 +16,14 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.Objects;
 
 @RestController
+@CrossOrigin
 @RequestMapping("/api/v1/user")
 @Slf4j
 @RequiredArgsConstructor
@@ -28,8 +31,8 @@ import java.util.Objects;
         description = "Позволяет совершать CRUD-операции с пользователями"
 )
 public class UserController {
-
     private final UserService userService;
+    private final PasswordEncoder passwordEncoder;
 
     @Operation(summary = "Получение пользователя по id",
         description = "Позволяет получить пользователя по id"
@@ -88,12 +91,12 @@ public class UserController {
         return ResponseEntity.ok(HttpStatus.OK);
     }
 
-    @PostMapping("/auth/login")
-    public ResponseEntity<HttpStatus> doLogin(@RequestBody Login loginRequest) {
-        String login = loginRequest.getLogin();
+    @PostMapping("/login")
+    public ResponseEntity<Login> doLogin(@RequestBody Login loginRequest) {
+        String login = loginRequest.getLogin();     
         UserDetails userDetails = userService.loadUserByUsername(login);
         if (Objects.equals(login, userDetails.getUsername()) &&
-                loginRequest.getPassword().equals(userDetails.getPassword())) {
+                passwordEncoder.matches(loginRequest.getPassword(),userDetails.getPassword())) {
             Authentication authentication = new UsernamePasswordAuthenticationToken(
                     loginRequest.getLogin(), loginRequest.getPassword()
             );
@@ -101,5 +104,6 @@ public class UserController {
             return new ResponseEntity<>(HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-        }    }
+        }
+    }
 }

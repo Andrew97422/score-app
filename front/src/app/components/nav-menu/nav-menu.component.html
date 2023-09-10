@@ -1,4 +1,5 @@
-<div *ngIf="router.url!='/login' && router.url!='/signup'" class="nav-menu" fxLayout="column" fxLayoutGap="8px">
+<div *ngIf="router.url!='/login' && router.url!='/signup'"
+class="nav-menu" fxLayout="column" fxLayoutGap="8px">
     <svg id="Слой_1" data-name="Слой 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 98 30" height="30px" class="link-icon" matRipple>
         <defs>
         <style>
@@ -35,7 +36,7 @@
         </ng-container>
         <ng-template #circle>
             <div class="circle">
-                {{(userData?.firstName[0] || 'НС') + ' ' + (userData?.lastName[0] || '')}}
+                {{(userData?.firstName[0] || 'НС') + (userData?.lastName[0] || '')}}
             </div>
         </ng-template>
 

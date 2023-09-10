@@ -1,98 +1,47 @@
 import { UserAuthData } from '../models/user-auth-data';
 import { Injectable } from '@angular/core';
 import { RequestData } from '../models/request-data';
-import { RequestStatus } from '../models/request-status';
 import { LendingType } from '../models/lending-type';
 import { LoginData } from '../models/login-data';
 import { Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
+import { SessionService } from './session.service';
+import { Observable } from 'rxjs';
 
 @Injectable({ providedIn: 'root'})
 export class RegisterService {
     private baseUrl = 'http://localhost:8081';
 
-    constructor(private router: Router) {
+    constructor(
+      private router: Router,
+      private http: HttpClient,
+      private sessionService: SessionService) {
     }
 
-    login(loginData: LoginData): void {
-      (async () => {
-          const rawResponse = await fetch(this.baseUrl + '/api/v1/user/login', {
-            method: 'POST',
-            headers: {
-              'Accept': 'application/json',
-              'Content-Type': 'application/json'
-            },
-            mode: 'no-cors',
-            body: JSON.stringify(loginData)
-          });
-          const content = await rawResponse.json();
-          this.router.navigate(['']);
-          console.log(content);
-      })();
+    getUser(id: number): Observable<Object> {
+      return this.http.get(this.baseUrl + '/api/v1/user/' + id);
     }
 
-    createUser(userData: UserAuthData): void {
-        (async () => {
-            const rawResponse = await fetch(this.baseUrl + '/api/v1/user/register', {
-              method: 'POST',
-              headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-              },
-              mode: 'no-cors',
-              body: JSON.stringify(userData)
-            });
-            const content = await rawResponse.json();
-          
-            console.log(content);
-        })();
-    }
-    
-    sendRequest(userData: RequestData): void {
-      (async () => {
-          const rawResponse = await fetch(this.baseUrl + '/api/v1/application/register', {
-            method: 'POST',
-            headers: {
-              'Accept': 'application/json',
-              'Content-Type': 'application/json'
-            },
-            mode: 'no-cors',
-            body: JSON.stringify(userData)
-          });
-          const content = await rawResponse.json();
-        
-          console.log(content);
-      })();
+    async login(loginData: LoginData): Promise<void> {
+      this.http.post(this.baseUrl + '/api/v1/user/login', loginData).subscribe(x =>
+        this.router.navigate(['']));
     }
 
-    sendRequestWithoutAuth(userData: RequestData): void {
-      (async () => {
-          const rawResponse = await fetch(this.baseUrl + '/api/v1/application/noauth/register', {
-            method: 'POST',
-            headers: {
-              'Accept': 'application/json',
-              'Content-Type': 'application/json'
-            },
-            mode: 'no-cors',
-            body: JSON.stringify(userData)
-          });
-          const content = await rawResponse.json();
-        
-          console.log(content);
-      })();
-    }
-
-    async getRequets(type: LendingType): Promise<{application: RequestData, status: RequestStatus}[]> {
-      const rawResponse = await fetch(this.baseUrl + '/api/v1/application/' + type, {
-        method: 'GET',
-        mode: 'no-cors',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        }
+    async createUser(userData: UserAuthData): Promise<void> {
+      this.http.post(this.baseUrl + '/api/v1/user/register', userData).subscribe(id => {
+        this.sessionService.createSession(id, true);
       });
-      const content = await rawResponse.json();
+    }
     
-      console.log(content);
-      return JSON.parse(content);
+    async sendRequest(userData: RequestData): Promise<void> {
+      this.http.post(this.baseUrl + '/api/v1/application/register', userData).subscribe(x => console.log(x));
+    }
+
+    async sendRequestWithoutAuth(userData: RequestData): Promise<void> {
+      this.http.post(this.baseUrl + '/api/v1/application/noauth/register', userData).subscribe(x => console.log(x));
+    }
+
+    getRequets(type: LendingType): Observable<Object> {
+      return this.http.get(this.baseUrl + '/api/v1/application/' + type);
     }
 }

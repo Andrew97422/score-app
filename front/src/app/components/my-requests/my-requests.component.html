@@ -5,6 +5,7 @@
             <h5>Мои заявки</h5>
 
             <div class="title">Мои заявки на кредит</div>
+            <!--<div style="padding-left: 10px;"> Нет заявок </div>-->
             <table>
                 <tr *ngFor="let x of consumers" [style.color]="x.status == 'APPROVED' ? 'seagreen' : x.status == 'IN_PROGRESS' ? 'orange' : 'orangered'">
                     <td>
@@ -16,9 +17,11 @@
                             </ng-container>
 
                             <ng-container *ngIf="x.status == 'IN_PROGRESS'">
-                                <span class="material-symbols-outlined">
-                                    schedule
-                                </span>
+                                <mat-icon>
+                                    <span class="material-symbols-outlined">
+                                        schedule
+                                    </span>
+                                    </mat-icon>
                             </ng-container>
 
                             <ng-container *ngIf="x.status == 'DENIED'">
@@ -27,14 +30,15 @@
                                 </svg>
                             </ng-container>
 
-                            <div>{{x.lendingType + ' ' + x.application.applicationDateTime}}</div>
+                            <div>{{x.application.lendingType + '_' + x.application.applicationDateTime}}</div>
                         </div>
                     </td>
                     <td>{{x.status == 'APPROVED' ? 'Одобрено' : x.status == 'IN_PROGRESS' ? 'В процессе' : 'Отказано'}}</td>
                 </tr>
             </table>
             
-            <div class="title">Мои заявки на кридит</div>
+            <div class="title">Мои заявки на  автокридит</div>
+            <div style="padding-left: 10px;"> Нет заявок </div>
             <table>
                 <tr *ngFor="let x of autoLoans" [style.color]="x.status == 'APPROVED' ? 'seagreen' : x.status == 'IN_PROGRESS' ? 'orange' : 'orangered'">
                     <td>
@@ -57,7 +61,7 @@
                                 </svg>
                             </ng-container>
 
-                            <div>{{x.lendingType + ' ' + x.application.applicationDateTime}}</div>
+                            <div>{{x.application.lendingType + '_' + x.application.applicationDateTime}}</div>
                         </div>
                     </td>
                     <td>{{x.status == 'APPROVED' ? 'Одобрено' : x.status == 'IN_PROGRESS' ? 'В процессе' : 'Отказано'}}</td>
@@ -65,6 +69,7 @@
             </table>
 
             <div class="title">Мои заявки на ипотеку</div>
+            <div style="padding-left: 10px;"> Нет заявок </div>
             <table>
                 <tr *ngFor="let x of mortgages" [style.color]="x.status == 'APPROVED' ? 'seagreen' : x.status == 'IN_PROGRESS' ? 'orange' : 'orangered'">
                     <td>
@@ -87,7 +92,7 @@
                                 </svg>
                             </ng-container>
 
-                            <div>{{x.lendingType + ' ' + x.application.applicationDateTime}}</div>
+                            <div>{{x.application.lendingType + '_' + x.application.applicationDateTime}}</div>
                         </div>
                     </td>
                     <td>{{x.status == 'APPROVED' ? 'Одобрено' : x.status == 'IN_PROGRESS' ? 'В процессе' : 'Отказано'}}</td>

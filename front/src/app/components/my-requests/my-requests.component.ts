@@ -10,18 +10,18 @@ import { LendingType } from 'src/app/shared/models/lending-type';
   styleUrls: ['./my-requests.component.css']
 })
 export class MyRequestsComponent implements OnInit {
-  consumers = [];
-  autoLoans = [];
-  mortgages = [];
+  consumers: any;
+  autoLoans: any;
+  mortgages:  any;
   
   constructor(
     private dialog: MatDialog,
     private registerService: RegisterService) {}
 
   async ngOnInit(): Promise<void> {
-    this.autoLoans = await this.registerService.getRequets(LendingType.AUTO_LOAN);
-    this.consumers = await this.registerService.getRequets(LendingType.CONSUMER);
-    this.mortgages = await this.registerService.getRequets(LendingType.MORTGAGE);
+    this.registerService.getRequets(LendingType.AUTO_LOAN).subscribe(x => {this.autoLoans = x});
+    this.registerService.getRequets(LendingType.CONSUMER).subscribe(x => {this.consumers = x; console.log(x)});
+    this.registerService.getRequets(LendingType.MORTGAGE).subscribe(x => this.mortgages = x);
   }
 
   async createRequest(): Promise<void> {

@@ -50,11 +50,13 @@ public class WebSecurityConfig {
                 .authorizeHttpRequests((requests) -> requests
                         .requestMatchers("/", "/api/v1/user/register", "/static/**",
                                 "/img/**", "/swagger-ui.html", "/swagger-ui/**",
-                                "/api/v1/application/noauth/register","/v3/api-docs/**")
+                                "/api/v1/application/noauth/register","/v3/api-docs/**",
+                                "/api/v1/user/login", "/api/v1/user/**",
+                                "/api/v1/application/register",
+                                "/api/v1/application/**", "/api/v1/application/noauth/register")
                         .permitAll()
                         .anyRequest().authenticated()
                 )
-                .formLogin((form) -> form.loginPage("/api/v1/user/login").permitAll())
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .logout(LogoutConfigurer::permitAll)
