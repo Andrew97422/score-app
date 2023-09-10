@@ -1,0 +1,7 @@
+.title {
+    font-weight: 500; color: #CB5620
+}
+
+input:read-only {
+    background-color: #f2f1f5;
+}

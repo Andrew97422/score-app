@@ -9,10 +9,14 @@ import com.bigdata.application.model.enums.LoanCollateralType;
 import com.bigdata.application.model.enums.WorkExperience;
 import com.bigdata.lending.model.enums.LendingType;
 import com.bigdata.user.model.entity.UserEntity;
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import java.time.LocalDate;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Data
 @Schema(name = "Заявка на скоринг", description = "Заполняется пользователем")
@@ -69,6 +73,8 @@ public class ApplicationForScoringRequest {
     @Schema(description = "ИТ-специалист", name = "itSpecialist")
     private boolean itSpecialist;
 
+    @JsonFormat(pattern = "dd.MM.yyyy") 
+    @DateTimeFormat(pattern = "dd.MM.yyyy")
     @Schema(description = "День рождения", name = "birthday")
     private LocalDate birthday;
 

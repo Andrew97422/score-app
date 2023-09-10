@@ -25,12 +25,16 @@ class="nav-menu" fxLayout="column" fxLayoutGap="8px">
         Мои заявки
     </a>
 
+    <a mat-button class="nav-menu-item" [class.nav-menu-item-active]="router.url=='/myData'" routerLink="/myData">
+        Мои данные
+    </a>
+
     <a mat-button class="nav-menu-item" [class.nav-menu-item-active]="router.url=='/shop'" routerLink="/shop">
         Магазин
     </a>
 
     <div fxFlex></div>
-    <div fxLayout="row" fxLayoutGap="8px" fxLayoutAlign="start center" style="cursor: pointer;">
+    <div fxLayout="row" fxLayoutGap="8px" fxLayoutAlign="start center">
         <ng-container *ngIf="userData?.photoUrl; else circle">
             <img [attr.src]="userData?.photoUrl" style="border-radius: 50%; width: 40px; height: 40px;">
         </ng-container>
@@ -41,7 +45,7 @@ class="nav-menu" fxLayout="column" fxLayoutGap="8px">
         </ng-template>
 
         <div fxLayoutAlign="start center">
-            {{(userData?.firstName || 'имя пользователя неизвестно') + ' ' + (userData?.lastName || '')}}
+            {{(userData?.firstName || 'имя пользователя неизвестно') + ' ' + (userData?.lastName[0] + '.')}}
         </div>
     </div>
     <a (click)="logout()">Выйти</a>

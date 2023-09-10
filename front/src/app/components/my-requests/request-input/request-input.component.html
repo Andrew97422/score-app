@@ -3,7 +3,15 @@
     <div fxLayout="column" style="width: 500px; max-height: calc(100vh - 200px); overflow: auto; padding: 20px; margin: 0 -20px;">
         <mat-form-field appearance="outline" color="primery">
             <mat-label>Сумма кредита</mat-label>
-            <input matInput color="primery" formControlName="amount" required>
+            <input type="number" matInput color="primery" formControlName="amount" required>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" color="primery">
+            <mat-label>Дата рождения</mat-label>
+            <input matInput [matDatepicker]="picker" formControlName="birthday">
+            <mat-datepicker-toggle matIconSuffix [for]="picker">
+            </mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
         </mat-form-field>
 
         <mat-form-field appearance="outline" color="primery">
@@ -32,7 +40,7 @@
 
         <mat-form-field appearance="outline" color="primery">
             <mat-label>Количество действующих кредитов</mat-label>
-            <mat-select formControlName="currentDebtLoad">
+            <mat-select formControlName="countActiveLoans">
                 <mat-option *ngFor="let x of CountActiveLoansExt.getAll()" [value]="x">
                     {{CountActiveLoansExt.getName(x)}}
                 </mat-option>
@@ -41,27 +49,27 @@
 
         <mat-form-field appearance="outline" color="primery">
             <mat-label>Сумма ежемесячных платежей по кредитам</mat-label>
-            <input matInput color="primery" formControlName="currentDebtLoad">
+            <input type="number" matInput color="primery" formControlName="currentDebtLoad">
         </mat-form-field>
 
         <mat-form-field appearance="outline" color="primery">
             <mat-label>Ежемесячный доход</mat-label>
-            <input matInput color="primery" formControlName="monthlyIncome">
+            <input type="number" matInput color="primery" formControlName="monthlyIncome">
         </mat-form-field>
 
         <mat-form-field appearance="outline" color="primery">
             <mat-label>Желаемая ставка по кредиту</mat-label>
-            <input matInput color="primery" formControlName="term">
+            <input type="number" matInput color="primery" formControlName="term">
         </mat-form-field>
 
         <mat-form-field appearance="outline" color="primery">
             <mat-label>Минимальная желаемая ставка по кредиту</mat-label>
-            <input matInput color="primery" formControlName="minRate">
+            <input type="number" matInput color="primery" formControlName="minRate">
         </mat-form-field>
 
         <mat-form-field appearance="outline" color="primery">
             <mat-label>Максимальная желаемая ставка по кредиту</mat-label>
-            <input matInput color="primery" formControlName="maxRate">
+            <input type="number" matInput color="primery" formControlName="maxRate">
         </mat-form-field>
 
         <mat-checkbox color="primery" formControlName="military">

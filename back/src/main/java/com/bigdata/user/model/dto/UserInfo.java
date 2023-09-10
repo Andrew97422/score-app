@@ -1,12 +1,16 @@
 package com.bigdata.user.model.dto;
 
 import com.bigdata.user.model.entity.UserEntity;
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import lombok.Data;
 
 import java.time.LocalDate;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Data
 @Schema(name = "Поступившая информация о пользователе на странице регистрации")
@@ -32,6 +36,8 @@ public class UserInfo {
     private String surName;
 
     @NotBlank
+    @JsonFormat(pattern = "dd.MM.yyyy") 
+    @DateTimeFormat(pattern = "dd.MM.yyyy")
     @Schema(description = "Дата рождения", requiredMode = Schema.RequiredMode.REQUIRED, name = "birthday")
     private LocalDate birthday;
 

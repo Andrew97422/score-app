@@ -43,18 +43,18 @@ public class LoanApplicationEntity {
     @Column(name = "opportunity_to_offer_a_loan_product")
     private boolean opportunityToOfferLoan;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "id_work_experience")
     private WorkExperienceEntity workExperience;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "id_type_loan_collateral")
     private TypeLoanCollateralEntity typeLoanCollateral;
 
     @Column(name = "availability_of_open_loans")
     private boolean openLoans;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "current_debt_load")
     private CurrentDebtLoadEntity currentDebtLoad;
 

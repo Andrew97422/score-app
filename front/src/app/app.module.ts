@@ -29,6 +29,7 @@ import { MyRequestsComponent } from './components/my-requests/my-requests.compon
 import { RequestInputComponent } from './components/my-requests/request-input/request-input.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { HttpClientModule } from '@angular/common/http';
+import { MyDataComponent } from './components/my-data/my-data.component';
 
 @NgModule({
     imports: [ 
@@ -60,7 +61,8 @@ import { HttpClientModule } from '@angular/common/http';
         SignUpComponent,
         MyRequestsComponent,
         RequestInputComponent,
-        ShopComponent
+        ShopComponent,
+        MyDataComponent
     ],
     bootstrap:    [ AppComponent ],
     providers: [

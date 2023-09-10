@@ -1,0 +1,61 @@
+<div class="component">
+    <form fxFlex="0 1 500px" [formGroup]="form" fxLayout="column" fxLayoutGap="16px">
+        <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center">
+            <h5 fxLayoutAlign="center center" style="margin: 0 !important; height: 36px;">
+                Мои данные
+            </h5>
+
+            <button *ngIf="readonlyView" mat-button color="primary" style="border: 1px solid;" (click)="readonlyView=false">
+                <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24">
+                    <path fill="#232391" d="M200-200h56l345-345-56-56-345 345v56Zm572-403L602-771l56-56q23-23 56.5-23t56.5 23l56 56q23 23 24 55.5T829-660l-57 57Zm-58 59L290-120H120v-170l424-424 170 170Zm-141-29-28-28 56 56-28-28Z"/>
+                </svg>
+                Редактировать
+            </button>
+        </div>
+
+        <div fxLayout="column" style="padding: 20px; position: relative;">
+            <div *ngIf="!readonlyView" style="position: absolute; top: -24px;">Редактирование данных пользователя:</div>
+            <mat-form-field fxFlex appearance="outline" color="primery">
+                <mat-label>Логин</mat-label>
+                <input matInput color="primery" formControlName="login" readonly>
+            </mat-form-field>
+            <mat-form-field fxFlex appearance="outline">
+                <mat-label>Фамилия</mat-label>
+                <input matInput formControlName="lastName" [readonly]="readonlyView">
+            </mat-form-field>
+            <mat-form-field fxFlex appearance="outline">
+                <mat-label>Имя</mat-label>
+                <input matInput formControlName="firstName" [readonly]="readonlyView">
+            </mat-form-field>
+            <mat-form-field fxFlex appearance="outline">
+                <mat-label>Отчество</mat-label>
+                <input matInput formControlName="surName" [readonly]="readonlyView">
+            </mat-form-field>
+            <mat-form-field appearance="outline" color="primery">
+                <mat-label>Дата рождения</mat-label>
+                <input matInput [matDatepicker]="picker" formControlName="birthday" [readonly]="readonlyView">
+                <mat-datepicker-toggle matIconSuffix [for]="picker" [disabled]="readonlyView">
+                </mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+            <mat-form-field fxFlex appearance="outline">
+                <mat-label>Телефон</mat-label>
+                <input matInput formControlName="phone" [readonly]="readonlyView">
+            </mat-form-field>
+            <mat-form-field fxFlex appearance="outline">
+                <mat-label>Email</mat-label>
+                <input matInput formControlName="email" [readonly]="readonlyView">
+            </mat-form-field>
+
+            <div *ngIf="!readonlyView" fxLayout="row" fxLayoutGap="10px" style="padding-top: 20px;">
+                <button fxFlex mat-button color="primary" (click)="submit()" style="border: 1px solid;" [disabled]="form?.invalid">
+                    Сохранить
+                </button>
+        
+                <button fxFlex mat-stroked-button color="primary" (click)="rollback(); readonlyView=true"style="color: black !important; background: white;">
+                    Отмена
+                </button>
+            </div>
+        </div>
+    </form>
+</div>

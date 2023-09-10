@@ -4,6 +4,8 @@ import { RegisterService } from 'src/app/shared/services/register-service';
 import { WorkExperienceExt } from 'src/app/shared/models/work-experience';
 import { LoanCollateralTypeExt } from 'src/app/shared/models/loan-collateral-type';
 import { CountActiveLoansExt } from 'src/app/shared/models/count-active-loans';
+import * as moment from 'moment';
+import { SessionService } from 'src/app/shared/services/session.service';
 
 @Component({
   selector: 'request-input',
@@ -18,16 +20,19 @@ export class RequestInputComponent {
 
   constructor(
     private fb: FormBuilder,
-    private registerService: RegisterService) {
+    private registerService: RegisterService,
+    private sessionService: SessionService) {
       this.form = this.fb.group({
         email: [
+          null, [Validators.required]
+        ],
+        birthday: [
           null, [Validators.required]
         ],
         workExperience: null,
         loanCollateralType: null,
         countActiveLoans: null,
         currentDebtLoad: null,
-        birthdamonthlyIncomey: null,
         amount: [
           null, [Validators.required]
         ],
@@ -39,12 +44,18 @@ export class RequestInputComponent {
         psbClient: null,
         farEastInhabitant: null,
         newSubjectsResident: null,
-        itSpecialist: null,
-        birthday: null
+        itSpecialist: null
+      });
+
+      this.registerService.getUser(this.sessionService.getSessionID() as unknown as number).subscribe((x: any) => {
+        this.form.controls.birthday.setValue(new Date(x.birthday));
+        this.form.controls.email.setValue(x.email);
       });
   }
 
   submit(): void {
-    this.registerService.sendRequest(this.form.getRawValue());
+    const result = this.form.getRawValue();
+    result.birthday = moment(result.birthday).format('DD.MM.YYYY');
+    this.registerService.sendRequest(result);
   }
 }

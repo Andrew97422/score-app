@@ -8,7 +8,6 @@
     display: flex !important;
     z-index: 99;
     align-items: center;
-    box-shadow: 0 4px 4px #00000040;
     padding: 12px;
     background-color: #f2f1f5;
     flex-direction: column !important;
@@ -37,10 +36,11 @@
     cursor: pointer;
     color: #000 !important;
     text-decoration: none !important;
+    font-size: 16px;
 }
 
 .nav-menu-item-active {
-    background-color: #e8e1e8;
+    color: #EA5616 !important;
 }
 
 .nav-menu-item:hover {
@@ -49,11 +49,11 @@
 
 .circle {
     border-radius: 50%;
-    min-width: 40px;
-    height: 40px;
+    min-width: 30px;
+    height: 30px;
     display: flex;
     align-items: center;
     justify-content: center; 
-    background-color: cornflowerblue;
+    background-color: #232391;
     color: white;
 }

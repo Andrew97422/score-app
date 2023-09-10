@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import * as moment from 'moment';
 import { RegisterService } from 'src/app/shared/services/register-service';
 import { SessionService } from 'src/app/shared/services/session.service';
 
@@ -38,7 +39,9 @@ export class SignUpComponent {
         surName: [
           null, [Validators.required]
         ],
-        birthday: null,
+        birthday: [
+          null, [Validators.required]
+        ],
         phone: null,
         email: [
           null, [Validators.required, Validators.pattern(/^[a-zA-Z0-9_.±]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$/)]
@@ -47,7 +50,9 @@ export class SignUpComponent {
   }
 
   signup(): void {
-    this.registerService.createUser(this.form.getRawValue());
+    const result = this.form.getRawValue();
+    result.birthday = moment(result.birthday).format("DD.MM.YYYY");
+    this.registerService.createUser(result);
     this.router.navigate(['login']);
   }
 }

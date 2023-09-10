@@ -22,22 +22,26 @@ export class RegisterService {
       return this.http.get(this.baseUrl + '/api/v1/user/' + id);
     }
 
-    async login(loginData: LoginData): Promise<void> {
+    login(loginData: LoginData): void {
       this.http.post(this.baseUrl + '/api/v1/user/login', loginData).subscribe(x =>
         this.router.navigate(['']));
     }
 
-    async createUser(userData: UserAuthData): Promise<void> {
+    createUser(userData: UserAuthData): void {
       this.http.post(this.baseUrl + '/api/v1/user/register', userData).subscribe(id => {
         this.sessionService.createSession(id, true);
       });
     }
+
+    editUser(id: number, userData: UserAuthData): void {
+      this.http.patch(this.baseUrl + '/api/v1/user/update/' + id, userData).subscribe();
+    }
     
-    async sendRequest(userData: RequestData): Promise<void> {
+    sendRequest(userData: RequestData): void {
       this.http.post(this.baseUrl + '/api/v1/application/register', userData).subscribe(x => console.log(x));
     }
 
-    async sendRequestWithoutAuth(userData: RequestData): Promise<void> {
+    sendRequestWithoutAuth(userData: RequestData): void {
       this.http.post(this.baseUrl + '/api/v1/application/noauth/register', userData).subscribe(x => console.log(x));
     }
 
