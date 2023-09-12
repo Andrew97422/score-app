@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Objects;
 
 @RestController
+@CrossOrigin
 @RequestMapping("/api/v1/user")
 @Slf4j
 @RequiredArgsConstructor

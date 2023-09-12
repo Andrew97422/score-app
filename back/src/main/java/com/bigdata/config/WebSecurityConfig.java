@@ -54,7 +54,8 @@ public class WebSecurityConfig {
                                 "/api/v1/user/login",
                                 "/api/v1/user/**",
                                 "/api/v1/application/register",
-                                "/api/v1/application/**")
+                                "/api/v1/application/**",
+                                "/api/v1/user/update/**")
                         .permitAll()
                         .anyRequest().authenticated()
                 )
