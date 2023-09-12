@@ -12,17 +12,12 @@ import com.bigdata.user.model.entity.UserEntity;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
-import java.time.LocalDate;
-
 @Data
-@Schema(name = "Заявка на скоринг", description = "Заполняется пользователем")
-public class ApplicationForScoringRequest {
+@Schema(name = "Заявка на скоринг", description = "Заполняется авторизованным пользователем")
+public class ScoringApplicationWithAuthRequest {
 
     @Schema(description = "Вид кредитного продукта", name = "lendingType")
     private LendingType lendingType;
-
-    @Schema(description = "Email для отправки результата", name = "email")
-    private String email;
 
     @Schema(description = "Стаж работы", name = "workExperience")
     private WorkExperience workExperience;
@@ -33,7 +28,7 @@ public class ApplicationForScoringRequest {
     @Schema(description = "Количество действующих кредитов", name = "countActiveLoans")
     private CountActiveLoans countActiveLoans;
 
-    @Schema(description = "Сумма ежемесячных платежей по кредитам", name = "currentDebtLoad")
+    @Schema(description = "Сумма ежемесячных платежей по кредитам (используется, если есть кредиты)", name = "currentDebtLoad")
     private float currentDebtLoad;
 
     @Schema(description = "Ежемесячный доход", name = "monthlyIncome")
@@ -68,9 +63,6 @@ public class ApplicationForScoringRequest {
 
     @Schema(description = "ИТ-специалист", name = "itSpecialist")
     private boolean itSpecialist;
-
-    @Schema(description = "День рождения", name = "birthday")
-    private LocalDate birthday;
 
     public LoanApplicationEntity mapDtoToEntity(UserEntity user) {
         CurrentDebtLoadEntity currentDebtLoadEntity = CurrentDebtLoadEntity.builder()

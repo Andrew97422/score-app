@@ -1,7 +1,8 @@
 package com.bigdata.application.controller;
 
-import com.bigdata.application.model.dto.ApplicationForScoringRequest;
-import com.bigdata.application.model.dto.ApplicationResponseByType;
+import com.bigdata.application.model.dto.ScoringApplicationWithAuthRequest;
+import com.bigdata.application.model.dto.ScoringApplicationWithoutAuthRequest;
+import com.bigdata.application.model.dto.ApplicationByTypeResponse;
 import com.bigdata.application.service.ApplicationService;
 import com.bigdata.lending.model.enums.LendingType;
 import com.bigdata.user.model.entity.UserEntity;
@@ -36,14 +37,16 @@ public class ApplicationController {
                     "результат будет прислан на email."
     )
     @PostMapping("/register")
-    public ResponseEntity<HttpStatus> registerNewApplication(
-            @RequestBody @Parameter(name = "Заявка") ApplicationForScoringRequest request,
+    public ResponseEntity<HttpStatus> registerApplicationWithAuthentication(
+            @RequestBody @Parameter(name = "Заявка") ScoringApplicationWithAuthRequest request,
             @AuthenticationPrincipal UserEntity user
     ) {
         try {
-            applicationService.addNewApplication(request, user, true);
+            log.info("Received application {}, birthday {} is specified", request, user.getBirthday());
+            applicationService.addNewApplicationWithAuth(request, user);
             return ResponseEntity.ok(HttpStatus.ACCEPTED);
         } catch (Exception e) {
+            log.error("Exception was caught: {}", e.getMessage());
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
@@ -56,13 +59,12 @@ public class ApplicationController {
                     "результат будет прислан на email."
     )
     @PostMapping("/noauth/register")
-    public ResponseEntity<HttpStatus> registerNewApplicationWithoutAuthentication(
-        @RequestBody @Parameter(name = "Заявка") ApplicationForScoringRequest request
+    public ResponseEntity<HttpStatus> registerApplicationWithoutAuthentication(
+        @RequestBody @Parameter(name = "Заявка") ScoringApplicationWithoutAuthRequest request
     ) {
         log.info("Received application {}, birthday {} is specified", request, request.getBirthday());
         try {
-            applicationService.addNewApplication(request,
-                    UserEntity.builder().birthday(request.getBirthday()).build(), false);
+            applicationService.addNewApplicationWithoutAuth(request);
             return ResponseEntity.ok(HttpStatus.ACCEPTED);
         } catch (Exception e) {
             log.error("Have an error: {}", e.getMessage());
@@ -75,7 +77,7 @@ public class ApplicationController {
             description = "Получение списка заявок по типу type"
     )
     @GetMapping("/{type}")
-    public ResponseEntity<List<ApplicationResponseByType>>getApplicationsByType(
+    public ResponseEntity<List<ApplicationByTypeResponse>> getApplicationsByType(
             @PathVariable(name = "type") LendingType type,
             @AuthenticationPrincipal UserEntity user
     ) {

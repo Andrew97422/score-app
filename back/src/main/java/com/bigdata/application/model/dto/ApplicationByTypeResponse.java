@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Schema(name = "Ответ на запрос о заявках по имеющемуся типу")
-public class ApplicationResponseByType {
+public class ApplicationByTypeResponse {
 
     @Schema(name = "application", description = "Заявка")
     private LoanApplicationEntity applicationsList;
