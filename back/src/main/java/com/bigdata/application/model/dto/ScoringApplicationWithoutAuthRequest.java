@@ -8,15 +8,14 @@ import com.bigdata.application.model.enums.CountActiveLoans;
 import com.bigdata.application.model.enums.LoanCollateralType;
 import com.bigdata.application.model.enums.WorkExperience;
 import com.bigdata.lending.model.enums.LendingType;
-import com.bigdata.user.model.entity.UserEntity;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import java.time.LocalDate;
 
 @Data
-@Schema(name = "Заявка на скоринг", description = "Заполняется пользователем")
-public class ApplicationForScoringRequest {
+@Schema(name = "Заявка на скоринг", description = "Заполняется неавторизованным пользователем")
+public class ScoringApplicationWithoutAuthRequest {
 
     @Schema(description = "Вид кредитного продукта", name = "lendingType")
     private LendingType lendingType;
@@ -33,7 +32,7 @@ public class ApplicationForScoringRequest {
     @Schema(description = "Количество действующих кредитов", name = "countActiveLoans")
     private CountActiveLoans countActiveLoans;
 
-    @Schema(description = "Сумма ежемесячных платежей по кредитам", name = "currentDebtLoad")
+    @Schema(description = "Сумма ежемесячных платежей по кредитам (используется, если есть кредиты)", name = "currentDebtLoad")
     private float currentDebtLoad;
 
     @Schema(description = "Ежемесячный доход", name = "monthlyIncome")
@@ -44,12 +43,6 @@ public class ApplicationForScoringRequest {
 
     @Schema(description = "Желаемый срок кредита (в месяцах)", name = "term")
     private float term;
-
-    @Schema(description = "Минимальная желаемая ставка по кредиту", name = "minRate")
-    private float minRate;
-
-    @Schema(description = "Максимальная желаемая ставка по кредиту", name = "maxRate")
-    private float maxRate;
 
     @Schema(description = "Военнослужащий или работник ОПК России", name = "military")
     private boolean military;
@@ -72,25 +65,26 @@ public class ApplicationForScoringRequest {
     @Schema(description = "День рождения", name = "birthday")
     private LocalDate birthday;
 
-    public LoanApplicationEntity mapDtoToEntity(UserEntity user) {
+    public LoanApplicationEntity mapDtoToEntity() {
         CurrentDebtLoadEntity currentDebtLoadEntity = CurrentDebtLoadEntity.builder()
                 .amountLoanPayments(getCurrentDebtLoad())
                 .monthlyIncome(getMonthlyIncome())
                 .countActiveLoans(getCountActiveLoans())
                 .build();
+
         return LoanApplicationEntity.builder()
                 .workExperience(WorkExperienceEntity.builder().name(getWorkExperience()).build())
                 .typeLoanCollateral(TypeLoanCollateralEntity.builder().name(getLoanCollateralType()).build())
                 .currentDebtLoad(currentDebtLoadEntity)
                 .creditAmount(getAmount())
-                .loanTerm(getTerm()).minBid(getMinRate()).maxBid(getMaxRate())
+                .loanTerm(getTerm())
                 .isMilitary(isMilitary())
                 .isStateEmployee(isStateEmployee())
                 .isPsbClient(isPsbClient())
                 .isFarEastInhabitant(isFarEastInhabitant())
                 .isNewSubjectsResident(isNewSubjectsResident())
                 .isItSpecialist(isItSpecialist())
-                .user(user)
+                .user(null)
                 .build();
     }
 }
