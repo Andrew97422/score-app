@@ -14,6 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -42,12 +43,14 @@ public class ApplicationController {
             @RequestBody @Parameter(name = "Заявка") ScoringApplicationWithAuthRequest request,
             @AuthenticationPrincipal UserEntity user
     ) {
+        log.info("Starting register request with auth: {}", SecurityContextHolder.getContext().getAuthentication());
         try {
             log.info("Received application {}, birthday {} is specified", request, user.getBirthday());
             applicationService.addNewApplicationWithAuth(request, user);
             return ResponseEntity.ok(HttpStatus.ACCEPTED);
         } catch (Exception e) {
             log.error("Exception was caught: {}", e.getMessage());
+            log.error("User: {}", user);
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }

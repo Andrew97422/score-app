@@ -84,4 +84,15 @@ public class UserEntity implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
+    public void updateData(UserEntity updatedUser) {
+        setBirthday(updatedUser.getBirthday());
+        setLogin(updatedUser.getLogin());
+        setEmail(updatedUser.getEmail());
+        setPhone(updatedUser.getPhone());
+        setFirstName(updatedUser.getFirstName());
+        setLastName(updatedUser.getLastName());
+        setSurName(updatedUser.getSurName());
+        setObtainedFrom(updatedUser.isObtainedFrom());
+    }
 }

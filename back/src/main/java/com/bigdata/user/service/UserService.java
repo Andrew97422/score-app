@@ -4,9 +4,9 @@ import com.bigdata.user.model.dto.LoginRequest;
 import com.bigdata.user.model.dto.UserInfo;
 import com.bigdata.user.model.dto.UserResponse;
 import com.bigdata.user.repository.UserRepository;
-import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -27,6 +27,8 @@ public class UserService implements UserDetailsService {
 
     private final PasswordEncoder passwordEncoder;
 
+    private final AuthenticationManager authenticationManager;
+
     public UserResponse getUserById(int id) {
         var user = userRepository.findById(id).orElseThrow(() -> {
             log.error("User {} wasn't found", id);
@@ -39,6 +41,10 @@ public class UserService implements UserDetailsService {
     }
 
     public int createNewUser(UserInfo userInfo) {
+        if (userRepository.existsByLogin(userInfo.getLogin())) {
+            log.warn("There is already a user with this login");
+            return 0;
+        }
         var user = userInfo.mapDtoToEntity(false);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         try {
@@ -54,20 +60,13 @@ public class UserService implements UserDetailsService {
     public Integer updateUserById(int id, UserInfo userInfo) {
         var user = userRepository.findById(id).orElseThrow(() -> {
             log.error("User {} wasn't found", id);
-            return new EntityNotFoundException("Пользователь не был найден");
+            return new UsernameNotFoundException("Пользователь не был найден");
         });
 
         var updatedUser = userInfo.mapDtoToEntity(false);
 
-        user.setBirthday(updatedUser.getBirthday());
-        user.setLogin(updatedUser.getLogin());
-        user.setEmail(updatedUser.getEmail());
+        user.updateData(updatedUser);
         user.setPassword(passwordEncoder.encode(updatedUser.getPassword()));
-        user.setPhone(updatedUser.getPhone());
-        user.setFirstName(updatedUser.getFirstName());
-        user.setLastName(updatedUser.getLastName());
-        user.setSurName(updatedUser.getSurName());
-        user.setObtainedFrom(updatedUser.isObtainedFrom());
 
         userRepository.saveAndFlush(user);
 
@@ -84,6 +83,7 @@ public class UserService implements UserDetailsService {
         }
     }
 
+    //@Transactional
     public Integer login(LoginRequest loginRequest) {
         String login = loginRequest.getLogin();
         UserDetails userDetails = loadUserByUsername(login);
@@ -92,10 +92,23 @@ public class UserService implements UserDetailsService {
 
         if (Objects.equals(login, userDetails.getUsername()) &&
                 passwordEncoder.matches(loginRequest.getPassword(),userDetails.getPassword())) {
+            log.info("Credentials are correct, start the authentication");
             Authentication authentication = new UsernamePasswordAuthenticationToken(
                     loginRequest.getLogin(), loginRequest.getPassword()
             );
+            authenticationManager.authenticate(authentication);
+
+            log.info("Having authentication: {}", authentication);
+
             SecurityContextHolder.getContext().setAuthentication(authentication);
+            log.info("User {} was authenticated", SecurityContextHolder.getContext().getAuthentication());
+        } else {
+            log.info("User {} was not authenticated", loginRequest.getLogin());
+            log.info("Entered login is {}, loaded login is {}, equals: {}",
+                    loginRequest.getLogin(), userDetails.getUsername(),
+                    Objects.equals(login, userDetails.getUsername()));
+            log.info("Passwords matched: {}", passwordEncoder.matches(loginRequest.getPassword(),
+                    userDetails.getPassword()));
         }
 
         return userRepository.findByLogin(login).
