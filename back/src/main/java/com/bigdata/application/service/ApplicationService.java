@@ -70,7 +70,7 @@ public class ApplicationService {
 
             if (scoring > 106) {
                 List<GuideEntity> guides = guides(application);
-                guides = filteredGuides(guides, application);
+                guides = filteredGuides(guides);
 
                 if (guides.isEmpty()) {
                     log.info("No suitable loan products for the user {}.", application.getId());
@@ -114,9 +114,8 @@ public class ApplicationService {
         return guides;
     }
 
-    private List<GuideEntity> filteredGuides(List<GuideEntity> guides, LoanApplicationEntity application) {
+    private List<GuideEntity> filteredGuides(List<GuideEntity> guides) {
         return guides.stream()
-                .filter(i -> i.getMinLoanRate() > application.getMaxBid())
                 .sorted()
                 .limit(5)
                 .sorted((o1, o2) ->

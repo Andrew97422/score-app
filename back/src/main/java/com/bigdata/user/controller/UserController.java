@@ -1,6 +1,6 @@
 package com.bigdata.user.controller;
 
-import com.bigdata.user.model.dto.Login;
+import com.bigdata.user.model.dto.LoginRequest;
 import com.bigdata.user.model.dto.UserInfo;
 import com.bigdata.user.model.dto.UserResponse;
 import com.bigdata.user.service.UserService;
@@ -22,7 +22,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Objects;
 
 @RestController
-@CrossOrigin
 @RequestMapping("/api/v1/user")
 @Slf4j
 @RequiredArgsConstructor
@@ -30,6 +29,7 @@ import java.util.Objects;
         description = "Позволяет совершать CRUD-операции с пользователями"
 )
 public class UserController {
+
     private final UserService userService;
     private final PasswordEncoder passwordEncoder;
 
@@ -90,19 +90,11 @@ public class UserController {
         return ResponseEntity.ok(HttpStatus.OK);
     }
 
-    @PostMapping("/auth/login")
-    public ResponseEntity<HttpStatus> doLogin(@RequestBody Login loginRequest) {
-        String login = loginRequest.getLogin();
-        UserDetails userDetails = userService.loadUserByUsername(login);
-        log.info("Found user with credentials: login - {}", userDetails.getUsername());
-        if (Objects.equals(login, userDetails.getUsername()) &&
-                passwordEncoder.matches(loginRequest.getPassword(),userDetails.getPassword())) {
-            Authentication authentication = new UsernamePasswordAuthenticationToken(
-                    loginRequest.getLogin(), loginRequest.getPassword()
-            );
-            SecurityContextHolder.getContext().setAuthentication(authentication);
-            return new ResponseEntity<>(HttpStatus.OK);
-        } else {
+    @PostMapping("/login")
+    public ResponseEntity<Integer> doLogin(@RequestBody LoginRequest loginRequest) {
+        try {
+            return ResponseEntity.ok(userService.login(loginRequest));
+        } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
     }

@@ -3,7 +3,7 @@ package com.bigdata.user.model.dto;
 import lombok.Data;
 
 @Data
-public class Login {
+public class LoginRequest {
     private String login;
     private String password;
 }

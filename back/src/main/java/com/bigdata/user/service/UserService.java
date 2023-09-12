@@ -1,16 +1,22 @@
 package com.bigdata.user.service;
 
+import com.bigdata.user.model.dto.LoginRequest;
 import com.bigdata.user.model.dto.UserInfo;
 import com.bigdata.user.model.dto.UserResponse;
 import com.bigdata.user.repository.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.Objects;
 
 @Service
 @Slf4j
@@ -76,6 +82,24 @@ public class UserService implements UserDetailsService {
         } catch (Exception e) {
             log.error("User {} wasn't deleted. Reason: ", e.getMessage());
         }
+    }
+
+    public Integer login(LoginRequest loginRequest) {
+        String login = loginRequest.getLogin();
+        UserDetails userDetails = loadUserByUsername(login);
+
+        log.info("Found user with credentials: login - {}", userDetails.getUsername());
+
+        if (Objects.equals(login, userDetails.getUsername()) &&
+                passwordEncoder.matches(loginRequest.getPassword(),userDetails.getPassword())) {
+            Authentication authentication = new UsernamePasswordAuthenticationToken(
+                    loginRequest.getLogin(), loginRequest.getPassword()
+            );
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+        }
+
+        return userRepository.findByLogin(login).
+                orElseThrow(() -> new UsernameNotFoundException("User not found!")).getId();
     }
 
     @Override
