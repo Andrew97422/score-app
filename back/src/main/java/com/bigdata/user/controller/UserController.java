@@ -7,7 +7,6 @@ import com.bigdata.user.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -16,9 +15,9 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.Objects;
 
@@ -45,7 +44,7 @@ public class UserController {
             var userResponse = userService.getUserById(Integer.parseInt(id));
             log.info("{} was received.", id);
             return ResponseEntity.ok(userResponse);
-        } catch (EntityNotFoundException e) {
+        } catch (UsernameNotFoundException e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
@@ -91,10 +90,11 @@ public class UserController {
         return ResponseEntity.ok(HttpStatus.OK);
     }
 
-    @PostMapping("/login")
-    public ResponseEntity<Login> doLogin(@RequestBody Login loginRequest) {
-        String login = loginRequest.getLogin();     
+    @PostMapping("/auth/login")
+    public ResponseEntity<HttpStatus> doLogin(@RequestBody Login loginRequest) {
+        String login = loginRequest.getLogin();
         UserDetails userDetails = userService.loadUserByUsername(login);
+        log.info("Found user with credentials: login - {}", userDetails.getUsername());
         if (Objects.equals(login, userDetails.getUsername()) &&
                 passwordEncoder.matches(loginRequest.getPassword(),userDetails.getPassword())) {
             Authentication authentication = new UsernamePasswordAuthenticationToken(

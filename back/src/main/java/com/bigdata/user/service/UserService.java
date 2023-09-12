@@ -24,7 +24,7 @@ public class UserService implements UserDetailsService {
     public UserResponse getUserById(int id) {
         var user = userRepository.findById(id).orElseThrow(() -> {
             log.error("User {} wasn't found", id);
-            return new EntityNotFoundException("Пользователь не был найден");
+            return new UsernameNotFoundException("Пользователь не был найден");
         });
         var response = new UserResponse();
         response.mapEntityToDto(user);

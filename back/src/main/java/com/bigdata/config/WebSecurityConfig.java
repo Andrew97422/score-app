@@ -57,10 +57,12 @@ public class WebSecurityConfig {
                         .permitAll()
                         .anyRequest().authenticated()
                 )
+                .formLogin((form) -> form.loginPage("/api/v1/user/login").permitAll())
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .logout(LogoutConfigurer::permitAll)
                 .authenticationProvider(authenticationProvider());
+        http.cors();
         return http.build();
     }
 }
