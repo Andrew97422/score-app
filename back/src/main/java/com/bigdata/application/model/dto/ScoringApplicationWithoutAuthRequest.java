@@ -44,12 +44,6 @@ public class ScoringApplicationWithoutAuthRequest {
     @Schema(description = "Желаемый срок кредита (в месяцах)", name = "term")
     private float term;
 
-    @Schema(description = "Минимальная желаемая ставка по кредиту", name = "minRate")
-    private float minRate;
-
-    @Schema(description = "Максимальная желаемая ставка по кредиту", name = "maxRate")
-    private float maxRate;
-
     @Schema(description = "Военнослужащий или работник ОПК России", name = "military")
     private boolean military;
 
@@ -77,12 +71,13 @@ public class ScoringApplicationWithoutAuthRequest {
                 .monthlyIncome(getMonthlyIncome())
                 .countActiveLoans(getCountActiveLoans())
                 .build();
+
         return LoanApplicationEntity.builder()
                 .workExperience(WorkExperienceEntity.builder().name(getWorkExperience()).build())
                 .typeLoanCollateral(TypeLoanCollateralEntity.builder().name(getLoanCollateralType()).build())
                 .currentDebtLoad(currentDebtLoadEntity)
                 .creditAmount(getAmount())
-                .loanTerm(getTerm()).minBid(getMinRate()).maxBid(getMaxRate())
+                .loanTerm(getTerm())
                 .isMilitary(isMilitary())
                 .isStateEmployee(isStateEmployee())
                 .isPsbClient(isPsbClient())

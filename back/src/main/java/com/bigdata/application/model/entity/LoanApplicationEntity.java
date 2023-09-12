@@ -64,12 +64,6 @@ public class LoanApplicationEntity {
     @Column(name = "desired_loan_term")
     private float loanTerm;
 
-    @Column(name = "minimum_desired_bid")
-    private float minBid;
-
-    @Column(name = "maximum_desired_bid")
-    private float maxBid;
-
     @Column(name = "having_down_payment")
     private boolean downPayment;
 
@@ -125,8 +119,10 @@ public class LoanApplicationEntity {
             case WITHOUT_COLLATERAL -> total += 15;
         }
 
-        if (getCurrentDebtLoad().getAmountLoanPayments() >= 0 && getCurrentDebtLoad().getMonthlyIncome() > 0) {
-            float currentDebtLoad = getCurrentDebtLoad().getAmountLoanPayments() / getCurrentDebtLoad().getMonthlyIncome();
+        if (getCurrentDebtLoad().getAmountLoanPayments() >= 0
+                && getCurrentDebtLoad().getMonthlyIncome() > 0) {
+            float currentDebtLoad = getCurrentDebtLoad().getAmountLoanPayments() /
+                    getCurrentDebtLoad().getMonthlyIncome();
 
             if (currentDebtLoad > 0 && currentDebtLoad < 0.1)   total += 58;
             else if (currentDebtLoad > 0.11 && currentDebtLoad < 0.5)   total += 43;
