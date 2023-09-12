@@ -1,7 +1,8 @@
 package com.bigdata.application.service;
 
-import com.bigdata.application.model.dto.ApplicationForScoringRequest;
-import com.bigdata.application.model.dto.ApplicationResponseByType;
+import com.bigdata.application.model.dto.ScoringApplicationWithAuthRequest;
+import com.bigdata.application.model.dto.ScoringApplicationWithoutAuthRequest;
+import com.bigdata.application.model.dto.ApplicationByTypeResponse;
 import com.bigdata.application.model.entity.LoanApplicationEntity;
 import com.bigdata.application.model.enums.ApplicationStatus;
 import com.bigdata.application.repository.ApplicationRepository;
@@ -34,13 +35,35 @@ public class ApplicationService {
     private final EmailService emailService;
     private final List<Thread> threads = new ArrayList<>();
 
-    public void addNewApplication(ApplicationForScoringRequest request, UserEntity user, boolean isAuth) throws Exception {
+    public void addNewApplicationWithoutAuth(ScoringApplicationWithoutAuthRequest request) {
+        var application = request.mapDtoToEntity();
+
+        score(application, request.getBirthday(), request.getEmail());
+        threads.forEach(Thread::start);
+    }
+
+    public void addNewApplicationWithAuth(ScoringApplicationWithAuthRequest request, UserEntity user) throws Exception {
         var application = request.mapDtoToEntity(user);
 
+        score(application, user.getBirthday(), user.getEmail());
+
+        try {
+            applicationRepository.save(application);
+            log.info("Application {} was saved to the repository.", application.getId());
+        } catch (Exception e) {
+            log.error("Application {} wasn't saved. Reason: {}", application.getId(), e.getMessage());
+            throw new Exception(e);
+        }
+
+        threads.forEach(Thread::start);
+    }
+
+    private void score(LoanApplicationEntity application, LocalDate birthday,
+                       String email2) {
         log.info("Application {} was registered.", application.getId());
 
         Thread thread = new Thread(() -> {
-            float scoring = scoringCalculation(application, request.getBirthday());
+            float scoring = calculateScoring(application, birthday);
             log.info("The scoring is calculated for the user {}.", application.getId());
 
             application.setFinalScoring(scoring);
@@ -54,13 +77,12 @@ public class ApplicationService {
                 } else {
                     log.info("Found {} suitable loan products for the user {}.", guides.size(), application.getId());
 
-                    String email = request.getEmail();
                     String subject = "Ваш ответ по заявке, обнаружили для Вас доступные продукты.";
                     StringBuilder message = new StringBuilder("Для Вас обнаружено " +
                             guides.size() + " доступных продуктов.\n\n");
                     guides.forEach(i -> message.append(i.toMailString()));
 
-                    sendEmail(email, subject, message.toString());
+                    sendEmail(email2, subject, message.toString());
                 }
             } else {
                 log.info("No suitable loan products for the user {}." +
@@ -69,22 +91,9 @@ public class ApplicationService {
         });
 
         threads.add(thread);
-
-        if (isAuth) {
-            try {
-                applicationRepository.save(application);
-                log.info("Application {} was saved to the repository.", application.getId());
-            } catch (Exception e) {
-                log.error("Application {} wasn't saved. Reason: {}", application.getId(), e.getMessage());
-                throw new Exception(e);
-            }
-
-        }
-
-        threads.forEach(Thread::start);
     }
 
-    private float scoringCalculation(LoanApplicationEntity application, LocalDate birthday) {
+    private float calculateScoring(LoanApplicationEntity application, LocalDate birthday) {
         log.info("Calculate scoring for application {}, having {}", application.getId(), birthday);
         return application.scoreCalculate(birthday);
     }
@@ -120,7 +129,7 @@ public class ApplicationService {
         log.info("Message to email {} has been sent.", toAddress);
     }
 
-    public List<ApplicationResponseByType> getApplicationsList(LendingType type, UserEntity user) {
+    public List<ApplicationByTypeResponse> getApplicationsList(LendingType type, UserEntity user) {
         List<LoanApplicationEntity> applicationEntities =
                 user.getApplicationsList().stream()
                         .filter(i -> i.getLendingType().equals(type)).toList();
@@ -128,10 +137,10 @@ public class ApplicationService {
         List<ApplicationStatus> statuses = applicationEntities
                 .stream().map(LoanApplicationEntity::getStatus).toList();
 
-        List<ApplicationResponseByType> response = new ArrayList<>();
+        List<ApplicationByTypeResponse> response = new ArrayList<>();
 
         for (int i = 0; i < applicationEntities.size(); i++) {
-            response.add(new ApplicationResponseByType(applicationEntities.get(i), statuses.get(i)));
+            response.add(new ApplicationByTypeResponse(applicationEntities.get(i), statuses.get(i)));
         }
 
         return response;
