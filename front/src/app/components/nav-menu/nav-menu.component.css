@@ -8,8 +8,7 @@
     display: flex !important;
     z-index: 99;
     align-items: center;
-    padding: 12px;
-    background-color: #f2f1f5;
+    background: linear-gradient(rgb(0 98 108),white) !important;
     flex-direction: column !important;
 }
 
@@ -34,17 +33,19 @@
     width: 100%;
     justify-content: start;
     cursor: pointer;
-    color: #000 !important;
+    color: white !important;
     text-decoration: none !important;
     font-size: 16px;
+    border-radius: 0 !important;
 }
 
 .nav-menu-item-active {
-    color: #EA5616 !important;
+    color: orange !important;
+    background-color: rgba(0,0,0,.1);
 }
 
 .nav-menu-item:hover {
-    background-color: #e8e1e8;
+    /*background-color: #e8e1e8;*/
 }
 
 .circle {
@@ -56,4 +57,11 @@
     justify-content: center; 
     background-color: #232391;
     color: white;
+}
+
+.link-icon {
+    height: 60px;
+    padding: 10px;
+    width: 100%;
+    /*background: #f2f1f5;*/
 }
