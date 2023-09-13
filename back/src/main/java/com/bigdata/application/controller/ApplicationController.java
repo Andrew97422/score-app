@@ -43,7 +43,6 @@ public class ApplicationController {
             @RequestBody @Parameter(name = "Заявка") ScoringApplicationWithAuthRequest request,
             @AuthenticationPrincipal UserEntity user
     ) {
-        log.info("Starting register request with auth: {}", SecurityContextHolder.getContext().getAuthentication());
         try {
             log.info("Received application {}, birthday {} is specified", request, user.getBirthday());
             applicationService.addNewApplicationWithAuth(request, user);

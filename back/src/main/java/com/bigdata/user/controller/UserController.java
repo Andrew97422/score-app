@@ -1,7 +1,6 @@
 package com.bigdata.user.controller;
 
-import com.bigdata.user.model.dto.LoginRequest;
-import com.bigdata.user.model.dto.UserInfo;
+import com.bigdata.auth.model.RegisterRequest;
 import com.bigdata.user.model.dto.UserResponse;
 import com.bigdata.user.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -41,23 +40,6 @@ public class UserController {
         }
     }
 
-    @Operation(
-            summary = "Создание нового пользователя",
-            description = "Добавляет нового пользователя"
-    )
-    @PostMapping("/register")
-    public ResponseEntity<Integer> createUser(
-            @RequestBody @Parameter(description = "Полученная информация о пользователе") UserInfo userInfo
-    ) {
-        try {
-            var id = userService.createNewUser(userInfo);
-            log.info("User {} was registered.", id);
-            return ResponseEntity.ok(id);
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
-    }
-
     @PatchMapping("/update/{id}")
     @Operation(
             summary = "Обновление пользователя",
@@ -65,9 +47,9 @@ public class UserController {
     )
     public ResponseEntity<Integer> updateUser(
             @PathVariable @Parameter(description = "Идентификатор пользователя") String id,
-            @RequestBody @Parameter(description = "Полученная информация о пользователе") UserInfo userInfo
+            @RequestBody @Parameter(description = "Полученная информация о пользователе") RegisterRequest registerRequest
     ) {
-        return ResponseEntity.ok(userService.updateUserById(Integer.parseInt(id), userInfo));
+        return ResponseEntity.ok(userService.updateUserById(Integer.parseInt(id), registerRequest));
     }
 
     @DeleteMapping("/delete/{id}")
@@ -80,14 +62,5 @@ public class UserController {
     ) {
         userService.deleteUserById(Integer.parseInt(id));
         return ResponseEntity.ok(HttpStatus.OK);
-    }
-
-    @PostMapping("/login")
-    public ResponseEntity<Integer> doLogin(@RequestBody LoginRequest loginRequest) {
-        try {
-            return ResponseEntity.ok(userService.login(loginRequest));
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-        }
     }
 }

@@ -1,4 +1,4 @@
-package com.bigdata.user.model.dto;
+package com.bigdata.auth.model;
 
 import com.bigdata.user.model.entity.UserEntity;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -14,7 +14,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 @Data
 @Schema(name = "Поступившая информация о пользователе на странице регистрации")
-public class UserInfo {
+public class RegisterRequest {
 
     @NotBlank
     @Schema(description = "Логин", requiredMode = Schema.RequiredMode.REQUIRED, name = "login")

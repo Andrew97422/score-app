@@ -1,4 +1,4 @@
-package com.bigdata.user.model.dto;
+package com.bigdata.auth.model;
 
 import lombok.Data;
 
