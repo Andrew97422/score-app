@@ -8,7 +8,7 @@
     display: flex !important;
     z-index: 99;
     align-items: center;
-    background: linear-gradient(rgb(0 98 108),white) !important;
+    background: linear-gradient(rgb(0 125 140),white) !important;
     flex-direction: column !important;
 }
 
@@ -44,10 +44,6 @@
     background-color: rgba(0,0,0,.1);
 }
 
-.nav-menu-item:hover {
-    /*background-color: #e8e1e8;*/
-}
-
 .circle {
     border-radius: 50%;
     min-width: 30px;
@@ -63,5 +59,4 @@
     height: 60px;
     padding: 10px;
     width: 100%;
-    /*background: #f2f1f5;*/
 }
