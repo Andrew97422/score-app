@@ -7,6 +7,6 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface ConsumerRepository extends JpaRepository<ConsumerEntity, Integer> {
+public interface ConsumerRepository extends GuideRepository<ConsumerEntity, Integer> {
     List<ConsumerEntity> findByMinLoanAmountLessThan(float creditAmount);
 }
