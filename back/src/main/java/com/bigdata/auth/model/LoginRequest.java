@@ -6,6 +6,6 @@ import lombok.Data;
 @Data
 @Schema(name = "Логин/пароль, которые вводит пользователь")
 public class LoginRequest {
-    private String login;
+    private String username;
     private String password;
 }

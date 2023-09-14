@@ -4,6 +4,10 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class SessionService {
+  getToken() {
+    return localStorage.getItem('token');
+  }
+
   getSessionID(): string {
     return localStorage.getItem('id');
   }
@@ -12,9 +16,10 @@ export class SessionService {
     return localStorage.getItem('isLoggedIn');
   }
 
-  createSession(id, status): void {
+  createSession(id, status, token): void {
     localStorage.setItem('id', id);
     localStorage.setItem('isLoggedIn', status);
+    localStorage.setItem('token', token);
   }
 
   destroySession(): void {

@@ -57,7 +57,7 @@ export class VKService {
     login(): void {
         VK.Auth.login((response) => {
             if (response.session) {
-                this.sessionService.createSession(response.session.user.id, true);
+                this.sessionService.createSession(response.session.user.id, true, '');
                 this.getProfile();
 
                 this.router.navigate(['']);

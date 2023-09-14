@@ -29,7 +29,7 @@ export class LoginComponent {
       }
 
       this.form = this.fb.group({
-        login: [
+        username: [
           null, [Validators.required]
         ],
         password: [

@@ -26,33 +26,27 @@ public class AuthService {
 
     private final AuthenticationManager authenticationManager;
 
-    public AuthenticationResponse register(RegisterRequest request) {
+    public void register(RegisterRequest request) {
         var user = request.mapDtoToEntity(false);
-
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-
         userRepository.save(user);
-        var jwtToken = jwtService.generateToken(user);
         log.info("{} was registered", request.getLogin());
-        log.info("Token for user {} generated", request.getLogin());
-        return AuthenticationResponse.builder()
-                .token(jwtToken)
-                .build();
     }
 
     public AuthenticationResponse authenticate(LoginRequest request) {
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
-                        request.getLogin(), request.getPassword()
+                        request.getUsername(), request.getPassword()
                 )
         );
-        var user = userRepository.findByLogin(request.getLogin())
+        var user = userRepository.findByLogin(request.getUsername())
                 .orElseThrow(() -> new UsernameNotFoundException("User was not found!"));
         var jwtToken = jwtService.generateToken(user);
 
-        log.info("Token for user {} generated", request.getLogin());
+        log.info("Token for user {} generated", request.getUsername());
         return AuthenticationResponse.builder()
                 .token(jwtToken)
+                .id(user.getId())
                 .build();
     }
 }

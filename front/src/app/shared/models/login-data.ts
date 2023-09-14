@@ -1,5 +1,5 @@
 export class LoginData {
-    login: string;
+    username: string;
     password: string;
    
     constructor(init: Partial<LoginData>) {

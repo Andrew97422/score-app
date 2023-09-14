@@ -8,7 +8,6 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,7 +15,6 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1")
-@Slf4j
 @CrossOrigin
 @Tag(
         name = "Контроллер аутентификации",
@@ -31,13 +29,12 @@ public class AuthController {
             description = "Добавляет нового пользователя, возвращает токен, который надо приставлять в хедерах."
     )
     @PostMapping("/register")
-    public ResponseEntity<AuthenticationResponse> createUser(
+    public ResponseEntity<HttpStatus> createUser(
             @RequestBody @Parameter(description = "Полученная информация о пользователе") RegisterRequest registerRequest
     ) {
         try {
-            var token = authService.register(registerRequest);
-            log.info("User with token {} was registered.", token.getToken());
-            return ResponseEntity.ok(token);
+            authService.register(registerRequest);
+            return ResponseEntity.ok(HttpStatus.ACCEPTED);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }

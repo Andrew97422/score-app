@@ -37,14 +37,15 @@ public class WebSecurityConfig {
                         .requestMatchers("/", "/static/**",
                                 "/img/**", "/swagger-ui.html", "/swagger-ui/**",
                                 "/api/v1/application/noauth/register","/v3/api-docs/**",
-                                "/api/v1/register", "api/v1/login")
+                                "/api/v1/register", "/api/v1/login"
+                        )
                         .permitAll()
                         .anyRequest().authenticated()
                 )
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authenticationProvider(authenticationProvider)
-                .addFilterBefore(authFilter, UsernamePasswordAuthenticationFilter.class)
+                .addFilterAfter(authFilter, UsernamePasswordAuthenticationFilter.class)
                 .logout(LogoutConfigurer::permitAll);
         http.cors();
         return http.build();
