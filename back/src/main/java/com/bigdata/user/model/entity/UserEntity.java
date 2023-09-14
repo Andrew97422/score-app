@@ -1,12 +1,14 @@
 package com.bigdata.user.model.entity;
 
 import com.bigdata.application.model.entity.LoanApplicationEntity;
+import com.bigdata.user.model.enums.Role;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.LocalDate;
@@ -52,12 +54,15 @@ public class UserEntity implements UserDetails {
     @Column(name = "obtained_from_a_third_party_service")
     private boolean obtainedFrom;
 
-    @OneToMany
+    @Enumerated(EnumType.STRING)
+    private Role role;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<LoanApplicationEntity> applicationsList;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        return List.of(new SimpleGrantedAuthority(role.name()));
     }
 
     @Override

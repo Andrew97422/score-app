@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
 public class ApplicationByTypeResponse {
 
     @Schema(name = "application", description = "Заявка")
-    private LoanApplicationEntity applicationsList;
+    private LoanApplicationEntity application;
 
     @Schema(name = "status", description = "Статус заявки")
     private ApplicationStatus status;

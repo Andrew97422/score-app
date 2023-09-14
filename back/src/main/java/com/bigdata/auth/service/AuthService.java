@@ -13,6 +13,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+
 @Service
 @RequiredArgsConstructor
 @Slf4j
@@ -26,19 +28,31 @@ public class AuthService {
 
     private final AuthenticationManager authenticationManager;
 
-    public void register(RegisterRequest request) {
+    public void register(RegisterRequest request) throws IllegalArgumentException {
         var user = request.mapDtoToEntity(false);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
+
+        if (userRepository.existsByLogin(user.getLogin())) {
+            log.error("User {} was not saved. It's already exists", user.getLogin());
+            throw new IllegalArgumentException("User " + user.getLogin() + " already exists");
+        }
         userRepository.save(user);
+
         log.info("{} was registered", request.getLogin());
     }
 
     public AuthenticationResponse authenticate(LoginRequest request) {
-        authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(
-                        request.getUsername(), request.getPassword()
-                )
-        );
+        try {
+            authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(
+                            request.getUsername(), request.getPassword(), new ArrayList<>()
+                    )
+            );
+        } catch (Exception e) {
+            log.error("Authentication failed, reason is {}", e.getMessage());
+        }
+        log.info("User {} was authenticated", request.getUsername());
+
         var user = userRepository.findByLogin(request.getUsername())
                 .orElseThrow(() -> new UsernameNotFoundException("User was not found!"));
         var jwtToken = jwtService.generateToken(user);

@@ -4,6 +4,7 @@ import com.bigdata.application.model.entity.CurrentDebtLoadEntity;
 import com.bigdata.application.model.entity.LoanApplicationEntity;
 import com.bigdata.application.model.entity.TypeLoanCollateralEntity;
 import com.bigdata.application.model.entity.WorkExperienceEntity;
+import com.bigdata.application.model.enums.ApplicationStatus;
 import com.bigdata.application.model.enums.CountActiveLoans;
 import com.bigdata.application.model.enums.LoanCollateralType;
 import com.bigdata.application.model.enums.WorkExperience;
@@ -12,6 +13,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Data
 @Schema(name = "Заявка на скоринг", description = "Заполняется неавторизованным пользователем")
@@ -77,6 +79,8 @@ public class ScoringApplicationWithoutAuthRequest {
                 .typeLoanCollateral(TypeLoanCollateralEntity.builder().name(getLoanCollateralType()).build())
                 .currentDebtLoad(currentDebtLoadEntity)
                 .creditAmount(getAmount())
+                .status(ApplicationStatus.IN_PROGRESS)
+                .applicationDateTime(LocalDateTime.now())
                 .loanTerm(getTerm())
                 .isMilitary(isMilitary())
                 .isStateEmployee(isStateEmployee())

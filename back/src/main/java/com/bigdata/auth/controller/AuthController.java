@@ -8,14 +8,17 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1")
 @CrossOrigin
+@Slf4j
 @Tag(
         name = "Контроллер аутентификации",
         description = "Контроллер для регистрации и логина пользователей"
@@ -26,7 +29,7 @@ public class AuthController {
 
     @Operation(
             summary = "Создание нового пользователя",
-            description = "Добавляет нового пользователя, возвращает токен, который надо приставлять в хедерах."
+            description = "Добавляет нового пользователя, возвращает токен, который надо приставлять в хедерах и его айди."
     )
     @PostMapping("/register")
     public ResponseEntity<HttpStatus> createUser(
@@ -34,24 +37,29 @@ public class AuthController {
     ) {
         try {
             authService.register(registerRequest);
-            return ResponseEntity.ok(HttpStatus.ACCEPTED);
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            return ResponseEntity.ok(HttpStatus.CREATED);
+        } catch (IllegalArgumentException e) {
+            return e.getMessage().endsWith("exists") ?
+                    ResponseEntity.status(HttpStatus.CONFLICT).build() :
+                    ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
     }
 
     @Operation(
             summary = "Аутентификация нового пользователя",
-            description = "Аутентифицирует нового пользователя, возвращает токен, который надо приставлять в хедерах."
+            description = "Аутентифицирует нового пользователя, возвращает токен, который надо приставлять в хедерах и его айди."
     )
     @PostMapping("/login")
     public ResponseEntity<AuthenticationResponse> doLogin(
             @RequestBody LoginRequest loginRequest
     ) {
         try {
+            log.info("Logging user {}...", loginRequest.getUsername());
             return ResponseEntity.ok(authService.authenticate(loginRequest));
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        } catch (UsernameNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new AuthenticationResponse());
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new AuthenticationResponse());
         }
     }
 }

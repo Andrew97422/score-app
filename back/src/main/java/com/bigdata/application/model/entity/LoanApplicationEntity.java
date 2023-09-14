@@ -3,11 +3,9 @@ package com.bigdata.application.model.entity;
 import com.bigdata.application.model.enums.ApplicationStatus;
 import com.bigdata.lending.model.enums.LendingType;
 import com.bigdata.user.model.entity.UserEntity;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -94,6 +92,8 @@ public class LoanApplicationEntity {
     private ApplicationStatus status;
 
     @ManyToOne
+    @JsonIgnore
+    @ToString.Exclude
     @JoinColumn(name = "user_id")
     private UserEntity user;
 

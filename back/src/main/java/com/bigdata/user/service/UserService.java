@@ -51,7 +51,7 @@ public class UserService {
             userRepository.deleteById(id);
             log.info("User {} was deleted", id);
         } catch (Exception e) {
-            log.error("User {} wasn't deleted. Reason: ", e.getMessage());
+            log.error("User {} wasn't deleted. Reason: ", id, e);
         }
     }
 }

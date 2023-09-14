@@ -1,6 +1,7 @@
 package com.bigdata.auth.model;
 
 import com.bigdata.user.model.entity.UserEntity;
+import com.bigdata.user.model.enums.Role;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -51,6 +52,7 @@ public class RegisterRequest {
 
     public UserEntity mapDtoToEntity(boolean obtainedFrom) {
         return UserEntity.builder()
+                .role(Role.USER)
                 .lastName(getLastName())
                 .firstName(getFirstName())
                 .surName(getSurName())

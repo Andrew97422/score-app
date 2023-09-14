@@ -4,6 +4,7 @@ import com.bigdata.application.model.entity.CurrentDebtLoadEntity;
 import com.bigdata.application.model.entity.LoanApplicationEntity;
 import com.bigdata.application.model.entity.TypeLoanCollateralEntity;
 import com.bigdata.application.model.entity.WorkExperienceEntity;
+import com.bigdata.application.model.enums.ApplicationStatus;
 import com.bigdata.application.model.enums.CountActiveLoans;
 import com.bigdata.application.model.enums.LoanCollateralType;
 import com.bigdata.application.model.enums.WorkExperience;
@@ -11,6 +12,8 @@ import com.bigdata.lending.model.enums.LendingType;
 import com.bigdata.user.model.entity.UserEntity;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
+
+import java.time.LocalDateTime;
 
 @Data
 @Schema(name = "Заявка на скоринг", description = "Заполняется авторизованным пользователем")
@@ -65,11 +68,20 @@ public class ScoringApplicationWithAuthRequest {
                 .countActiveLoans(getCountActiveLoans())
                 .build();
 
+        WorkExperienceEntity workExperienceEntity = WorkExperienceEntity.builder()
+                .name(getWorkExperience()).build();
+
+        TypeLoanCollateralEntity loanCollateralEntity = TypeLoanCollateralEntity.builder()
+                .name(getLoanCollateralType()).build();
+
         return LoanApplicationEntity.builder()
-                .workExperience(WorkExperienceEntity.builder().name(getWorkExperience()).build())
-                .typeLoanCollateral(TypeLoanCollateralEntity.builder().name(getLoanCollateralType()).build())
+                .workExperience(workExperienceEntity)
+                .typeLoanCollateral(loanCollateralEntity)
                 .currentDebtLoad(currentDebtLoadEntity)
+                .lendingType(getLendingType())
                 .creditAmount(getAmount())
+                .status(ApplicationStatus.IN_PROGRESS)
+                .applicationDateTime(LocalDateTime.now())
                 .loanTerm(getTerm())
                 .isMilitary(isMilitary())
                 .isStateEmployee(isStateEmployee())

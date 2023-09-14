@@ -1,8 +1,8 @@
 package com.bigdata.application.controller;
 
+import com.bigdata.application.model.dto.ApplicationByTypeResponse;
 import com.bigdata.application.model.dto.ScoringApplicationWithAuthRequest;
 import com.bigdata.application.model.dto.ScoringApplicationWithoutAuthRequest;
-import com.bigdata.application.model.dto.ApplicationByTypeResponse;
 import com.bigdata.application.service.ApplicationService;
 import com.bigdata.lending.model.enums.LendingType;
 import com.bigdata.user.model.entity.UserEntity;
@@ -13,10 +13,11 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -39,6 +40,7 @@ public class ApplicationController {
                     "результат будет прислан на email."
     )
     @PostMapping("/register")
+    @PreAuthorize("hasAuthority('USER')")
     public ResponseEntity<HttpStatus> registerApplicationWithAuthentication(
             @RequestBody @Parameter(name = "Заявка") ScoringApplicationWithAuthRequest request,
             @AuthenticationPrincipal UserEntity user
@@ -48,8 +50,8 @@ public class ApplicationController {
             applicationService.addNewApplicationWithAuth(request, user);
             return ResponseEntity.ok(HttpStatus.ACCEPTED);
         } catch (Exception e) {
-            log.error("Exception was caught: {}", e.getMessage());
-            log.error("User: {}", user);
+            log.error("Exception was caught: ", e);
+            log.error("User: {}", user.getLogin());
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
@@ -79,11 +81,12 @@ public class ApplicationController {
             summary = "Получение списка заявок",
             description = "Получение списка заявок по типу type"
     )
-    @GetMapping("/{type}")
+    @GetMapping
+    @PreAuthorize("hasAuthority('USER')")
     public ResponseEntity<List<ApplicationByTypeResponse>> getApplicationsByType(
-            @PathVariable(name = "type") LendingType type,
+            @RequestParam (name = "type") LendingType type,
             @AuthenticationPrincipal UserEntity user
     ) {
-        return ResponseEntity.ok(applicationService.getApplicationsList(type, user));
+       return ResponseEntity.ok(applicationService.getApplicationsList(type, user));
     }
 }

@@ -7,12 +7,12 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Entity
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@SecondaryTable(name = "work_experience")
+@Table(name = "work_experience")
+@Entity
 public class WorkExperienceEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

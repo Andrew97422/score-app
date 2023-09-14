@@ -33,13 +33,11 @@ public class ApplicationService {
     private final ConsumerRepository consumerRepository;
     private final MortgageRepository mortgageRepository;
     private final EmailService emailService;
-    private final List<Thread> threads = new ArrayList<>();
 
     public void addNewApplicationWithoutAuth(ScoringApplicationWithoutAuthRequest request) {
         var application = request.mapDtoToEntity();
 
         score(application, request.getBirthday(), request.getEmail());
-        threads.forEach(Thread::start);
     }
 
     public void addNewApplicationWithAuth(ScoringApplicationWithAuthRequest request, UserEntity user) throws Exception {
@@ -54,15 +52,13 @@ public class ApplicationService {
             log.error("Application {} wasn't saved. Reason: {}", application.getId(), e.getMessage());
             throw new Exception(e);
         }
-
-        threads.forEach(Thread::start);
     }
 
     private void score(LoanApplicationEntity application, LocalDate birthday,
                        String email2) {
         log.info("Application {} was registered.", application.getId());
 
-        Thread thread = new Thread(() -> {
+        new Thread(() -> {
             float scoring = calculateScoring(application, birthday);
             log.info("The scoring is calculated for the user {}.", application.getId());
 
@@ -88,9 +84,7 @@ public class ApplicationService {
                 log.info("No suitable loan products for the user {}." +
                         " Scoring is not enough.", application.getId());
             }
-        });
-
-        threads.add(thread);
+        }).start();
     }
 
     private float calculateScoring(LoanApplicationEntity application, LocalDate birthday) {
@@ -132,15 +126,18 @@ public class ApplicationService {
         List<LoanApplicationEntity> applicationEntities =
                 user.getApplicationsList().stream()
                         .filter(i -> i.getLendingType().equals(type)).toList();
+        log.info("Found {} loan applications", applicationEntities.size());
 
         List<ApplicationStatus> statuses = applicationEntities
                 .stream().map(LoanApplicationEntity::getStatus).toList();
+        log.info("Found {} statuses for each applications", statuses.size());
 
         List<ApplicationByTypeResponse> response = new ArrayList<>();
 
         for (int i = 0; i < applicationEntities.size(); i++) {
             response.add(new ApplicationByTypeResponse(applicationEntities.get(i), statuses.get(i)));
         }
+        log.info("Response with applications is ready");
 
         return response;
     }

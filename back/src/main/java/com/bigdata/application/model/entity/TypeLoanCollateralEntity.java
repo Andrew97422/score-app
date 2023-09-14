@@ -7,12 +7,12 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Entity
 @Builder
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@SecondaryTable(name = "type_loan_collateral")
+@Table(name = "type_loan_collateral")
+@Entity
 public class TypeLoanCollateralEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
