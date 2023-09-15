@@ -71,6 +71,20 @@ a {
   background: cornflowerblue;
 }
 
+input:read-only, .mat-mdc-select-disabled {
+  background-color: #f2f1f5 !important;
+  color: #666 !important;
+}
+
+.mdc-text-field--disabled {
+    border: 1px solid gray;
+    border-radius: 4px !important;
+}
+
+.mdc-text-field--outlined.mdc-text-field--disabled .mdc-floating-label--float-above {
+  color: #666 !important;
+}
+
 /*
 ::-webkit-scrollbar-thumb, ::-webkit-scrollbar-thumb {
   border-radius: 50px;

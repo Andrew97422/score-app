@@ -54,7 +54,10 @@ export class RegisterService {
   }
 
   getRequets(type: LendingType): Observable<Object> {
-    return this.http.get(this.baseUrl + '/api/v1/application/' + type, {
+    return this.http.get(this.baseUrl + '/api/v1/application', {
+      params: {
+        type
+      },
       headers: {Authorization: 'Bearer ' + this.sessionService.getToken()}
     });
   }

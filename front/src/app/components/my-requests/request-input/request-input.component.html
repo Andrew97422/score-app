@@ -1,23 +1,18 @@
 <div [formGroup]="form" fxFlex fxLayout="column" style="padding: 20px;">
-    <h4>Новая заявка</h4>
+    <h4>{{data.title}}</h4>
     <div fxLayout="column" style="width: 500px; max-height: calc(100vh - 200px); overflow: auto; padding: 20px; margin: 0 -20px;">
+        <mat-form-field appearance="outline" color="primery">
+            <mat-label>Вид кредита</mat-label>
+            <mat-select formControlName="lendingType">
+                <mat-option *ngFor="let x of LendingTypeExt.getAll()" [value]="x">
+                    {{LendingTypeExt.getName(x)}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+
         <mat-form-field appearance="outline" color="primery">
             <mat-label>Сумма кредита</mat-label>
             <input type="number" matInput color="primery" formControlName="amount" required>
-        </mat-form-field>
-
-        <mat-form-field appearance="outline" color="primery">
-            <mat-label>Дата рождения</mat-label>
-            <input matInput [matDatepicker]="picker" formControlName="birthday">
-            <mat-datepicker-toggle matIconSuffix [for]="picker">
-            </mat-datepicker-toggle>
-            <mat-datepicker #picker></mat-datepicker>
-        </mat-form-field>
-
-        <mat-form-field appearance="outline" color="primery">
-            <mat-label>Email</mat-label>
-            <input matInput disabled color="primery" formControlName="email" required
-                   matTooltip="Обязательно укажите действующую почту, на неё придёт результат вашей заявки">
         </mat-form-field>
 
         <mat-form-field appearance="outline" color="primery">
@@ -62,16 +57,6 @@
             <input type="number" matInput color="primery" formControlName="term">
         </mat-form-field>
 
-        <mat-form-field appearance="outline" color="primery">
-            <mat-label>Минимальная желаемая ставка по кредиту</mat-label>
-            <input type="number" matInput color="primery" formControlName="minRate">
-        </mat-form-field>
-
-        <mat-form-field appearance="outline" color="primery">
-            <mat-label>Максимальная желаемая ставка по кредиту</mat-label>
-            <input type="number" matInput color="primery" formControlName="maxRate">
-        </mat-form-field>
-
         <mat-checkbox color="primery" formControlName="military">
             Военнослужащий или работник ОПК России
         </mat-checkbox>
@@ -98,8 +83,8 @@
     </div>
 
     <div fxLayout="row" fxLayoutGap="10px" style="padding-top: 20px;">
-        <button fxFlex mat-stroked-button color="primary" (click)="submit()" [disabled]="form?.invalid">
-            Создать
+        <button *ngIf="data.applyButton" fxFlex mat-stroked-button color="primary" (click)="submit()" [disabled]="form?.invalid">
+            {{data.applyButton}}
         </button>
 
         <button fxFlex mat-stroked-button color="primary" mat-dialog-close style="color: black !important; background: white;">

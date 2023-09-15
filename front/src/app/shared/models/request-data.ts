@@ -1,4 +1,7 @@
+import { LendingType } from './lending-type';
+
 export class RequestData {
+    lendingType: LendingType;
     email: string;
     workExperience: string;
     loanCollateralType: string;

@@ -1,9 +1,9 @@
 table tr td:first-child {
-    padding-left: 10px !important;
+    padding-left: 20px !important;
 }
 
 table {
-    margin-left: 10px; width: 100%;
+    width: 100%;
 }
 
 table tr:hover {
@@ -28,4 +28,7 @@ table tr td {
     color: white;
     background: linear-gradient(50deg, rgb(0 125 140),white);
     cursor: pointer;
+    min-height: 32px;
+    position: sticky;
+    top: 0;
 }

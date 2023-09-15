@@ -28,8 +28,8 @@ public class AuthController {
     private final AuthService authService;
 
     @Operation(
-            summary = "Создание нового пользователя",
-            description = "Добавляет нового пользователя, возвращает токен, который надо приставлять в хедерах и его айди."
+        summary = "Создание нового пользователя",
+        description = "Добавляет нового пользователя"
     )
     @PostMapping("/register")
     public ResponseEntity<HttpStatus> createUser(
