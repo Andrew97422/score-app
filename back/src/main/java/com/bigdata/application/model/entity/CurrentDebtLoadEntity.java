@@ -22,6 +22,10 @@ public class CurrentDebtLoadEntity {
     @Enumerated(EnumType.STRING)
     private CountActiveLoans countActiveLoans;
 
+    @OneToOne
+    @JoinColumn(name = "loan_application")
+    private LoanApplicationEntity loanApplication;
+
     @Column(name = "amount_of_monthly_loan_payments")
     private float amountLoanPayments;
 

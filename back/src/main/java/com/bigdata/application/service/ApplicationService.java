@@ -1,8 +1,8 @@
 package com.bigdata.application.service;
 
+import com.bigdata.application.model.dto.ApplicationByTypeResponse;
 import com.bigdata.application.model.dto.ScoringApplicationWithAuthRequest;
 import com.bigdata.application.model.dto.ScoringApplicationWithoutAuthRequest;
-import com.bigdata.application.model.dto.ApplicationByTypeResponse;
 import com.bigdata.application.model.entity.LoanApplicationEntity;
 import com.bigdata.application.model.enums.ApplicationStatus;
 import com.bigdata.application.repository.ApplicationRepository;
@@ -15,6 +15,7 @@ import com.bigdata.lending.repository.AutoLoanRepository;
 import com.bigdata.lending.repository.ConsumerRepository;
 import com.bigdata.lending.repository.MortgageRepository;
 import com.bigdata.user.model.entity.UserEntity;
+import com.bigdata.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -33,6 +34,7 @@ public class ApplicationService {
     private final ConsumerRepository consumerRepository;
     private final MortgageRepository mortgageRepository;
     private final EmailService emailService;
+    private final UserRepository userRepository;
 
     public void addNewApplicationWithoutAuth(ScoringApplicationWithoutAuthRequest request) {
         var application = request.mapDtoToEntity();
@@ -140,5 +142,17 @@ public class ApplicationService {
         log.info("Response with applications is ready");
 
         return response;
+    }
+
+    public void deleteApplication(Integer id, UserEntity user) {
+        try {
+            List<LoanApplicationEntity> newList = user.getApplicationsList();
+            newList.removeIf(i->i.getId() == id);
+            user.setApplicationsList(newList);
+            userRepository.save(user);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        log.info("Application {} was deleted", id);
     }
 }

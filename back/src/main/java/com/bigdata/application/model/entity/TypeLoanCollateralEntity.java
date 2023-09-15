@@ -21,4 +21,8 @@ public class TypeLoanCollateralEntity {
     @Column(name = "name")
     @Enumerated(EnumType.STRING)
     private LoanCollateralType name;
+
+    @OneToOne
+    @JoinColumn(name = "loan_application")
+    private LoanApplicationEntity loanApplication;
 }

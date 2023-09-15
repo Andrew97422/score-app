@@ -21,4 +21,8 @@ public class WorkExperienceEntity {
     @Column(name = "name")
     @Enumerated(EnumType.STRING)
     private WorkExperience name;
+
+    @OneToOne
+    @JoinColumn(name = "loan_application")
+    private LoanApplicationEntity loanApplication;
 }

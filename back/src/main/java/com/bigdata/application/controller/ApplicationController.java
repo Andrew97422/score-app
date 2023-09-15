@@ -92,4 +92,19 @@ public class ApplicationController {
                 applicationService.getApplicationsList(type, user);
         return ResponseEntity.ok(new ApplicationResponse(responses.size(), responses));
     }
+
+    @Operation(
+            summary = "Удаление заявки",
+            description = "Удаление заявки по её id"
+    )
+    @DeleteMapping("/delete")
+    @PreAuthorize("hasAuthority('USER')")
+    public ResponseEntity<HttpStatus> deleteApplicationById(
+        @RequestParam (name = "id") Integer id,
+        @AuthenticationPrincipal UserEntity user
+    ) {
+        log.info("Start deleting {}", id);
+        applicationService.deleteApplication(id, user);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }
