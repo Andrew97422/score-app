@@ -17,7 +17,6 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -77,16 +76,20 @@ public class ApplicationController {
         }
     }
 
+    record ApplicationResponse(int count, List<ApplicationByTypeResponse> applications) {}
+
     @Operation(
             summary = "Получение списка заявок",
             description = "Получение списка заявок по типу type"
     )
     @GetMapping
     @PreAuthorize("hasAuthority('USER')")
-    public ResponseEntity<List<ApplicationByTypeResponse>> getApplicationsByType(
+    public ResponseEntity<ApplicationResponse> getApplicationsByType(
             @RequestParam (name = "type") LendingType type,
             @AuthenticationPrincipal UserEntity user
     ) {
-       return ResponseEntity.ok(applicationService.getApplicationsList(type, user));
+        List<ApplicationByTypeResponse> responses =
+                applicationService.getApplicationsList(type, user);
+        return ResponseEntity.ok(new ApplicationResponse(responses.size(), responses));
     }
 }
