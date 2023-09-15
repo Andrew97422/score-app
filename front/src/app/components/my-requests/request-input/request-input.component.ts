@@ -2,9 +2,9 @@ import { Component, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { RegisterService } from 'src/app/shared/services/register-service';
 import { WorkExperienceExt } from 'src/app/shared/models/work-experience';
-import { LoanCollateralTypeExt } from 'src/app/shared/models/loan-collateral-type';
+import { LoanCollateralType, LoanCollateralTypeExt } from 'src/app/shared/models/loan-collateral-type';
 import { CountActiveLoansExt } from 'src/app/shared/models/count-active-loans';
-import { LendingTypeExt } from 'src/app/shared/models/lending-type';
+import { LendingType, LendingTypeExt } from 'src/app/shared/models/lending-type';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { InputDialogModel, InputDialogType } from '../../../shared/models/input-dialog-type';
 
@@ -19,6 +19,8 @@ export class RequestInputComponent {
   LoanCollateralTypeExt = LoanCollateralTypeExt;
   CountActiveLoansExt = CountActiveLoansExt;
   LendingTypeExt = LendingTypeExt;
+  LoanCollateralType = LoanCollateralType;
+  LendingType = LendingType;
   form: FormGroup;
 
   constructor(

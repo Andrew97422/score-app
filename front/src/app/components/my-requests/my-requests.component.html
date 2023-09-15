@@ -38,7 +38,7 @@
                                     </svg>
                                 </ng-container>
 
-                                <div>{{x.application.lendingType + '_' + x.application.applicationDateTime}}</div>
+                                <div>{{getName(x.application)}}</div>
                             </div>
                         </td>
                         <td>{{x.status == 'APPROVED' ? 'Одобрено' : x.status == 'IN_PROGRESS' ? 'В процессе' : 'Отказано'}}</td>
@@ -79,7 +79,7 @@
                                     </svg>
                                 </ng-container>
 
-                                <div>{{x.application.lendingType + '_' + x.application.applicationDateTime}}</div>
+                                <div>{{getName(x.application)}}</div>
                             </div>
                         </td>
                         <td>{{x.status == 'APPROVED' ? 'Одобрено' : x.status == 'IN_PROGRESS' ? 'В процессе' : 'Отказано'}}</td>
@@ -120,7 +120,7 @@
                                     </svg>
                                 </ng-container>
 
-                                <div>{{x.application.lendingType + '_' + x.application.applicationDateTime}}</div>
+                                <div>{{getName(x.application)}}</div>
                             </div>
                         </td>
                         <td>{{x.status == 'APPROVED' ? 'Одобрено' : x.status == 'IN_PROGRESS' ? 'В процессе' : 'Отказано'}}</td>
