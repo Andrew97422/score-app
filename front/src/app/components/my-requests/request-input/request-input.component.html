@@ -28,7 +28,8 @@
             <mat-label>Вид обеспечения по кредиту</mat-label>
             <mat-select formControlName="loanCollateralType">
                 <mat-option *ngFor="let x of LoanCollateralTypeExt.getAll()" [value]="x" 
-                [disabled]="(x==LoanCollateralType.CAR || x==LoanCollateralType.WITHOUT_COLLATERAL) && form.controls.lendingType.value==LendingType.MORTGAGE">
+                [disabled]="(x==LoanCollateralType.CAR || x==LoanCollateralType.WITHOUT_COLLATERAL) && form.controls.lendingType.value==LendingType.MORTGAGE 
+                || x!=LoanCollateralType.CAR && form.controls.lendingType.value==LendingType.AUTO_LOAN">
                     {{LoanCollateralTypeExt.getName(x)}}
                 </mat-option>
             </mat-select>

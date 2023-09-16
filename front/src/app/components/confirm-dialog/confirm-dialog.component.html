@@ -1,0 +1,14 @@
+<h2 mat-dialog-title>{{data.title}}</h2>
+
+<mat-dialog-content>
+    <p>{{data.desription}}</p>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+    <button mat-button color="primary" [mat-dialog-close]="true">
+        {{data.buttonName}}
+    </button>
+    <button mat-button mat-dialog-close>
+        Отмена
+    </button>
+</mat-dialog-actions>

@@ -5,6 +5,8 @@ import { RegisterService } from 'src/app/shared/services/register-service';
 import { LendingType, LendingTypeExt } from 'src/app/shared/models/lending-type';
 import { InputDialogModel, InputDialogType } from 'src/app/shared/models/input-dialog-type';
 import * as moment from 'moment';
+import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
+import { ConfirmData } from '../confirm-dialog/confirm-data.model';
 
 @Component({
   selector: 'my-requests',
@@ -40,7 +42,6 @@ export class MyRequestsComponent implements OnInit {
   }
 
   async viewRequest(data): Promise<void> {
-    console.log(data)
     await this.dialog.open(RequestInputComponent, {data: new InputDialogModel({
       title: 'Свойства заявки',
       dialogType: InputDialogType.View,
@@ -48,9 +49,22 @@ export class MyRequestsComponent implements OnInit {
     })}).afterClosed().toPromise();
   }
 
+  async delete(req): Promise<void> {
+    const answer = await this.dialog.open(ConfirmDialogComponent, {data: new ConfirmData({
+      title: 'Удаление',
+      buttonName: 'Удалить',
+      desription: 'Удалить ' + this.getName(req) + '?'
+    })}).afterClosed().toPromise();
+    
+    if (answer == true) {
+      this.registerService.deleteRequets(req.id);
+      this.loadRequests();
+    }
+  }
+
   private loadRequests(): void {
-    this.registerService.getRequets(LendingType.AUTO_LOAN).subscribe(x => this.autoLoans = x);
-    this.registerService.getRequets(LendingType.CONSUMER).subscribe(x => this.consumers = x);
-    this.registerService.getRequets(LendingType.MORTGAGE).subscribe(x => this.mortgages = x);
+    this.registerService.getRequets(LendingType.AUTO_LOAN).subscribe((x: any) => this.autoLoans = x.applications);
+    this.registerService.getRequets(LendingType.CONSUMER).subscribe((x: any) => this.consumers = x.applications);
+    this.registerService.getRequets(LendingType.MORTGAGE).subscribe((x: any) => this.mortgages = x.applications);
   }
 }

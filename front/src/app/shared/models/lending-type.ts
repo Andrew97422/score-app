@@ -10,7 +10,7 @@ export class LendingTypeExt {
             case LendingType.MORTGAGE:
                 return 'Ипотека'
             case LendingType.CONSUMER:
-                return 'Пользовательский кредит'
+                return 'Потребительский кредит'
             case LendingType.AUTO_LOAN:
                 return 'Автокредит'
             default:

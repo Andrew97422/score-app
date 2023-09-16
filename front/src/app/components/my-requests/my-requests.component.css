@@ -2,8 +2,35 @@ table tr td:first-child {
     padding-left: 20px !important;
 }
 
+table tr td:last-child {
+    text-align: end !important;
+    max-width: 30px;
+    width: 30px;
+}
+
+table tr td:last-child mat-icon {
+    cursor: pointer;
+    visibility: hidden;
+    color: gray !important;
+    padding: 2px 0;
+}
+
+table tr td mat-icon {
+    min-width: 24px;
+}
+
+table tr:hover td:last-child mat-icon {
+    visibility: visible;
+}
+
+table tr td:last-child mat-icon:hover {
+    color: red !important;
+}
+
+
 table {
     width: 100%;
+    table-layout: fixed;
 }
 
 table tr:hover {
@@ -12,7 +39,13 @@ table tr:hover {
 
 table tr td {
     cursor: default;
-    padding: 4px;
+    padding: 2px;
+}
+
+table tr td div {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .add-button {

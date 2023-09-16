@@ -61,4 +61,9 @@ export class RegisterService {
       headers: {Authorization: 'Bearer ' + this.sessionService.getToken()}
     });
   }
+
+  deleteRequets(id: number): void {
+    this.http.delete(this.baseUrl + '/api/v1/application/delete', {params: { id }, headers: {Authorization: 'Bearer ' + this.sessionService.getToken()}})
+    .subscribe(x => x);
+  }
 }

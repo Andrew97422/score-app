@@ -30,6 +30,7 @@ import { RequestInputComponent } from './components/my-requests/request-input/re
 import { MatDialogModule } from '@angular/material/dialog';
 import { HttpClientModule } from '@angular/common/http';
 import { MyDataComponent } from './components/my-data/my-data.component';
+import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
 
 @NgModule({
     imports: [ 
@@ -62,7 +63,8 @@ import { MyDataComponent } from './components/my-data/my-data.component';
         MyRequestsComponent,
         RequestInputComponent,
         ShopComponent,
-        MyDataComponent
+        MyDataComponent,
+        ConfirmDialogComponent
     ],
     bootstrap:    [ AppComponent ],
     providers: [
