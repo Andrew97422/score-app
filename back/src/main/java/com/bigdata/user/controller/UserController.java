@@ -40,11 +40,11 @@ public class UserController {
         }
     }
 
-    @PatchMapping("/update/{id}")
     @Operation(
             summary = "Обновление пользователя",
             description = "Обновление пользователя по его идентификатору"
     )
+    @PatchMapping("/update/{id}")
     public ResponseEntity<Integer> updateUser(
             @PathVariable @Parameter(description = "Идентификатор пользователя") String id,
             @RequestBody @Parameter(description = "Полученная информация о пользователе") RegisterRequest registerRequest
@@ -52,11 +52,11 @@ public class UserController {
         return ResponseEntity.ok(userService.updateUserById(Integer.parseInt(id), registerRequest));
     }
 
-    @DeleteMapping("/delete/{id}")
     @Operation(
             summary = "Удаление пользователя",
             description = "Удаление пользователя по его идентификатору"
     )
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> deleteUser(
             @PathVariable @Parameter(description = "Идентификатор пользователя") String id
     ) {

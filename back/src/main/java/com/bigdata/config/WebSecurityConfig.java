@@ -46,7 +46,7 @@ public class WebSecurityConfig {
                 .and()
                 .authenticationProvider(authenticationProvider)
                 .addFilterAfter(authFilter, UsernamePasswordAuthenticationFilter.class)
-                .logout(LogoutConfigurer::permitAll);
+                .logout((logout) -> logout.logoutSuccessUrl("/api/v1/login"));
         http.cors();
         return http.build();
     }

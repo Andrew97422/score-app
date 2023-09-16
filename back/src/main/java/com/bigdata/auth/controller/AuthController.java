@@ -4,13 +4,18 @@ import com.bigdata.auth.model.AuthenticationResponse;
 import com.bigdata.auth.model.LoginRequest;
 import com.bigdata.auth.model.RegisterRequest;
 import com.bigdata.auth.service.AuthService;
+import com.bigdata.user.model.entity.UserEntity;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
 
@@ -47,7 +52,8 @@ public class AuthController {
 
     @Operation(
             summary = "Аутентификация нового пользователя",
-            description = "Аутентифицирует нового пользователя, возвращает токен, который надо приставлять в хедерах и его айди."
+            description = "Аутентифицирует нового пользователя, возвращает токен, " +
+                    "который надо приставлять в хедерах и его айди."
     )
     @PostMapping("/login")
     public ResponseEntity<AuthenticationResponse> doLogin(
@@ -61,5 +67,21 @@ public class AuthController {
         } catch (IllegalArgumentException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new AuthenticationResponse());
         }
+    }
+
+    @Operation(
+            summary = "Выход для пользователя",
+            description = "Выход для пользователя, далее перенапрвляет на страницу логина"
+    )
+    @PostMapping("/logout")
+    public String performLogout(
+            @AuthenticationPrincipal UserEntity user,
+            Authentication authentication,
+            HttpServletRequest request,
+            HttpServletResponse response
+    ) {
+        log.info("Logouting user {}...", user.getLogin());
+        authService.doLogout(authentication, request, response);
+        return "redirect:/login";
     }
 }
