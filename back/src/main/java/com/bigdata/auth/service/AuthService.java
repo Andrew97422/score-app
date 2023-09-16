@@ -5,12 +5,16 @@ import com.bigdata.auth.model.LoginRequest;
 import com.bigdata.auth.model.RegisterRequest;
 import com.bigdata.config.JwtService;
 import com.bigdata.user.repository.UserRepository;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -62,5 +66,11 @@ public class AuthService {
                 .token(jwtToken)
                 .id(user.getId())
                 .build();
+    }
+
+    SecurityContextLogoutHandler logoutHandler = new SecurityContextLogoutHandler();
+
+    public void doLogout(Authentication authentication, HttpServletRequest request, HttpServletResponse response) {
+        logoutHandler.logout(request, response, authentication);
     }
 }
