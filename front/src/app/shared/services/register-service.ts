@@ -33,6 +33,13 @@ export class RegisterService {
     });
   }
 
+  logout(): void {
+    this.http.post(this.baseUrl + '/api/v1/logout', null).subscribe((x) => {
+      this.router.navigate(['login']);
+      this.sessionService.destroySession();
+    });
+  }
+
   createUser(userData: UserAuthData): void {
     this.http.post(this.baseUrl + '/api/v1/register', userData).subscribe(id => console.log(id));
   }
