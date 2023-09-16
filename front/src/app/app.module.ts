@@ -28,9 +28,11 @@ import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { MyRequestsComponent } from './components/my-requests/my-requests.component';
 import { RequestInputComponent } from './components/my-requests/request-input/request-input.component';
 import { MatDialogModule } from '@angular/material/dialog';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { MyDataComponent } from './components/my-data/my-data.component';
 import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
+
+import { InternalServerErrorInterceptor } from './shared/services/internal-server-error-interceptor';
 
 @NgModule({
     imports: [ 
@@ -68,7 +70,8 @@ import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dial
     ],
     bootstrap:    [ AppComponent ],
     providers: [
-        { provide: MAT_DATE_LOCALE, useValue: 'ru-RU' }
+        { provide: MAT_DATE_LOCALE, useValue: 'ru-RU' },
+        { provide: HTTP_INTERCEPTORS, useClass: InternalServerErrorInterceptor, multi: true }
     ]  
 })
 export class AppModule { }
