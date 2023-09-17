@@ -1,20 +1,19 @@
 <div class="component">
-    <iframe #iframe src="https://price.ru" width="100%" height="100%" frameborder="0">
+    <iframe #iframe src="https://www.avito.ru" width="100%" height="100%" frameborder="0">
     </iframe>
 </div>
 
 <mat-card fxFlex="0 1 300px" class="wiget">
     <h4>Заполните данные о выбранном товаре</h4>
-    <form [formGroup]="form" fxLayout="column" fxFlex style="padding-top: 16px;">
-        <mat-form-field fxFlex appearance="outline" color="primery">
-            <mat-label>Наименование</mat-label>
-            <input matInput color="primery" formControlName="name">
-        </mat-form-field>
+    <form [formGroup]="form" fxLayout="column" fxFlex style="padding-top: 16px;" fxLayoutGap="10px">
         <mat-form-field fxFlex appearance="outline">
             <mat-label>Стоимость</mat-label>
             <input type="number" matInput formControlName="amount" required>
         </mat-form-field>
 
+        <div>
+            *Минимальная ставка для клиентов ПСБ составляет <b>8,4%</b>
+        </div>
         <button fxFlex mat-stroked-button color="primary" [disabled]="!form?.valid" (click)="calcCredit()">
             Расчитать кредит
         </button>

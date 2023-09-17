@@ -28,7 +28,7 @@ export class MyRequestsComponent implements OnInit {
 
   getName(req): string {
     const dateTime = req.applicationDateTime;
-    return LendingTypeExt.getName(req.lendingType) + '_' + moment(new Date(dateTime[0], dateTime[1], dateTime[2], dateTime[3], dateTime[4])).format('DD.MM.YYYY_HH:mm:ss');
+    return LendingTypeExt.getName(req.lendingType) + '_' + moment(new Date(dateTime[0], dateTime[1]-1, dateTime[2], dateTime[3], dateTime[4])).format('DD.MM.YYYY_HH:mm:ss');
   }
 
   async createRequest(): Promise<void> {

@@ -61,13 +61,13 @@ export class RequestInputComponent {
         itSpecialist: null
       });
 
-      if (data.dialogType == InputDialogType.View) {
+      if (data) {
         this.form.controls.amount.setValue(data.data.creditAmount);
         this.form.controls.lendingType.setValue(data.data.lendingType);
-        this.form.controls.workExperience.setValue(data.data.workExperience.name);
-        this.form.controls.loanCollateralType.setValue(data.data.typeLoanCollateral.name);
-        this.form.controls.countActiveLoans.setValue(data.data.currentDebtLoad.countActiveLoans);
-        this.form.controls.currentDebtLoad.setValue(data.data.currentDebtLoad.countActiveLoans);
+        this.form.controls.workExperience.setValue(data.data.workExperience?.name);
+        this.form.controls.loanCollateralType.setValue(data.data.typeLoanCollateral?.name);
+        this.form.controls.countActiveLoans.setValue(data.data.currentDebtLoad?.countActiveLoans);
+        this.form.controls.currentDebtLoad.setValue(data.data.currentDebtLoad?.countActiveLoans);
         this.form.controls.monthlyIncome.setValue(data.data.monthlyIncome);
         this.form.controls.term.setValue(data.data.term);
         this.form.controls.military.setValue(data.data.military);
@@ -76,6 +76,9 @@ export class RequestInputComponent {
         this.form.controls.farEastInhabitant.setValue(data.data.farEastInhabitant);
         this.form.controls.newSubjectsResident.setValue(data.data.newSubjectsResident);
         this.form.controls.itSpecialist.setValue(data.data.itSpecialist);
+      }
+
+      if (data.dialogType == InputDialogType.View) {
         this.form.disable();
       }
   }
