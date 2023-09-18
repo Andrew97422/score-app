@@ -58,19 +58,6 @@ public class ApplicationController {
     @Operation(
             summary = "Регистрация заявки",
             description = "Регистрация заявки на скоринг, " +
-                    "работает с авторизованными пользователями, " +
-                    "предоставляет вариант кредитования только на потреб, " +
-                    "результат будет присла на email и доступен в личном кабинете."
-    )
-    public ResponseEntity<HttpStatus> registerApplicationFromWidget(
-
-    ) {
-        return null;
-    }
-
-    @Operation(
-            summary = "Регистрация заявки",
-            description = "Регистрация заявки на скоринг, " +
                     "работает с неавторизованными пользователями, " +
                     "предоставляет все варианты кредитования, " +
                     "результат будет прислан на email."
@@ -119,5 +106,26 @@ public class ApplicationController {
         log.info("Start deleting {}", id);
         applicationService.deleteApplication(id, user);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @Operation(
+            summary = "Создание PDF-файла",
+            description = "Создаёт PDF-файл по id заявке"
+    )
+    @PostMapping("/create_pdf")
+    @PreAuthorize("hasAuthority('USER')")
+    public ResponseEntity<byte[]> createPdfDocument(
+        @RequestParam (name = "id") Integer id
+    ) {
+        log.info("Forming pdf");
+        try {
+            byte[] content = applicationService.formPdfDocument(id);
+            return content.length == 1 || content.length == 0
+                    ? new ResponseEntity<>(HttpStatus.NOT_FOUND)
+                    : ResponseEntity.ok(content);
+        } catch (Exception e) {
+            log.error("Some problem with forming pdf: {}", e.getLocalizedMessage(), e);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 }
