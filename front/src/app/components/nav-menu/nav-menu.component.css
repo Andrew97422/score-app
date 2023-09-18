@@ -8,7 +8,7 @@
     display: flex !important;
     z-index: 99;
     align-items: center;
-    background: linear-gradient(rgb(0 125 140),white) !important;
+    background: linear-gradient(rgb(0 75 140),white) !important;
     flex-direction: column !important;
 }
 

@@ -3,16 +3,19 @@ table tr td:first-child {
 }
 
 table tr td:last-child, table tr td:nth-child(3) {
-    text-align: end !important;
-    max-width: 30px;
-    width: 30px;
+    max-width: 50px;
+    width: 50px;
 }
 
-table tr td:last-child mat-icon, table tr td:nth-child(3) mat-icon {
+table tr td:last-child mat-icon {
     cursor: pointer;
     visibility: hidden;
     color: gray !important;
-    padding: 2px 0;
+    padding: 3px 0;
+}
+
+table tr td:nth-child(3) svg {
+    cursor: pointer;
 }
 
 table tr td mat-icon {
@@ -62,7 +65,7 @@ table tr td div {
 .requests-header {
     padding: 4px 0;
     color: white;
-    background: linear-gradient(50deg, rgb(0 125 140),white);
+    background: linear-gradient(50deg, rgb(0 75 140),white);
     cursor: pointer;
     min-height: 32px;
     position: sticky;

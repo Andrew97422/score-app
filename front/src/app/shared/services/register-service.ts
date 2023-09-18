@@ -8,6 +8,7 @@ import { HttpClient } from '@angular/common/http';
 import { SessionService } from './session.service';
 import { Observable } from 'rxjs';
 import { AuthenticationResponse } from '../models/authentication-response';
+import * as moment from 'moment';
 
 @Injectable({ providedIn: 'root'})
 export class RegisterService {
@@ -74,12 +75,15 @@ export class RegisterService {
 
   downloadPdf(id: number): void {
     this.http.get(
-      this.baseUrl + '/api/v1/application/create_pdf', {params: { id }, headers: {Authorization: 'Bearer ' + this.sessionService.getToken()}})
-    .subscribe((bytes: BlobPart[]) => {
-      const blob = new Blob(bytes, {type: 'text/plain'});
+      this.baseUrl + '/api/v1/application/create_pdf', {
+        responseType: 'blob',
+        params: { id },
+        headers: { Authorization: 'Bearer ' + this.sessionService.getToken() }
+      })
+    .subscribe((blob) => {
       const link = document.createElement('a');
       link.href = window.URL.createObjectURL(blob);
-      link.download = 'fileName.pdf';
+      link.download = `Предложения по кредитам ${moment().format('YYYY.MM.DD_HH.ss')}.pdf`;
       link.click();
     });
   }
