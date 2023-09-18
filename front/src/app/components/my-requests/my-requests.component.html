@@ -42,7 +42,14 @@
                             </div>
                         </td>
                         <td>{{x.status == 'APPROVED' ? 'Одобрено' : x.status == 'IN_PROGRESS' ? 'В процессе' : 'Отказано'}}</td>
-                        <td>                                
+                        <td>
+                            <mat-icon (click)="download(x.application.id)">
+                                <span class="material-symbols-outlined">
+                                    download
+                                </span>
+                            </mat-icon>
+                        </td>
+                        <td>                            
                             <mat-icon (click)="delete(x.application)">
                                 <span class="material-symbols-outlined">
                                     delete
@@ -90,6 +97,13 @@
                             </div>
                         </td>
                         <td>{{x.status == 'APPROVED' ? 'Одобрено' : x.status == 'IN_PROGRESS' ? 'В процессе' : 'Отказано'}}</td>
+                        <td>
+                            <mat-icon (click)="download(x.application.id)">
+                                <span class="material-symbols-outlined">
+                                    download
+                                </span>
+                            </mat-icon>
+                        </td>
                         <td>                                
                             <mat-icon (click)="delete(x.application)">
                                 <span class="material-symbols-outlined">
@@ -138,6 +152,13 @@
                             </div>
                         </td>
                         <td>{{x.status == 'APPROVED' ? 'Одобрено' : x.status == 'IN_PROGRESS' ? 'В процессе' : 'Отказано'}}</td>
+                        <td>
+                            <mat-icon (click)="download(x.application.id)">
+                                <span class="material-symbols-outlined">
+                                    download
+                                </span>
+                            </mat-icon>
+                        </td>
                         <td>                                
                             <mat-icon (click)="delete(x.application)">
                                 <span class="material-symbols-outlined">

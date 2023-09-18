@@ -62,6 +62,10 @@ export class MyRequestsComponent implements OnInit {
     }
   }
 
+  download(id: number): void {
+    this.registerService.downloadPdf(id);
+  }
+
   private loadRequests(): void {
     this.registerService.getRequets(LendingType.AUTO_LOAN).subscribe((x: any) => this.autoLoans = x.applications);
     this.registerService.getRequets(LendingType.CONSUMER).subscribe((x: any) => this.consumers = x.applications);

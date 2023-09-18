@@ -71,4 +71,15 @@ export class RegisterService {
     this.http.delete(this.baseUrl + '/api/v1/application/delete', {params: { id }, headers: {Authorization: 'Bearer ' + this.sessionService.getToken()}})
     .subscribe(x => x);
   }
+
+  downloadPdf(id: number): void {
+    this.http.post(this.baseUrl + '/api/v1/application/create_pdf', {params: { id }, headers: {Authorization: 'Bearer ' + this.sessionService.getToken()}})
+    .subscribe((bytes: BlobPart[]) => {
+      const blob = new Blob(bytes, {type: 'text/plain'});
+      const link = document.createElement('a');
+      link.href = window.URL.createObjectURL(blob);
+      link.download = 'fileName.pdf';
+      link.click();
+    });
+  }
 }

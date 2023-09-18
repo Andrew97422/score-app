@@ -11,7 +11,7 @@ export class InternalServerErrorInterceptor implements HttpInterceptor {
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         return next.handle(request).pipe(catchError(err => {
             if (err.status > 400 && err.status < 500 ) {
-                this.registerService.logout();
+                //this.registerService.logout();
             }
 
             return throwError(err);

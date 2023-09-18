@@ -61,7 +61,7 @@ export class RequestInputComponent {
         itSpecialist: null
       });
 
-      if (data) {
+      if (data.data) {
         this.form.controls.amount.setValue(data.data.creditAmount);
         this.form.controls.lendingType.setValue(data.data.lendingType);
         this.form.controls.workExperience.setValue(data.data.workExperience?.name);
