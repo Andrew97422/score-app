@@ -169,67 +169,83 @@ public class ApplicationService {
         List<GuideEntity> guides = guides(application);
         guides = filteredGuides(guides);
 
-        if (guides.isEmpty()) {
-            log.info("No suitable loan products for the user {}.", application.getId());
-            return new byte[0];
-        }
-        else {
-            log.info("Found {} suitable loan products for the user {}.", guides.size(), application.getId());
-            if (application.getLendingType().equals(LendingType.MORTGAGE)) {
-                Path path = Paths.get(ClassLoader.getSystemResource("img/logo.jpg").toURI());
+        log.info("Found {} suitable loan products for the user {}.", guides.size(), application.getId());
+        Path path = Paths.get(ClassLoader.getSystemResource("img/logo.jpg").toURI());
 
-                Document document = new Document();
-                ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-                PdfWriter.getInstance(document, byteArrayOutputStream);
+        Document document = new Document();
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        PdfWriter.getInstance(document, byteArrayOutputStream);
 
-                Image img = Image.getInstance(path.toAbsolutePath().toString());
-                img.scalePercent(PageSize.A4.getWidth() / img.getScaledWidth() * 100);
-                img.setAbsolutePosition(0, PageSize.A4.getHeight() -
-                        img.getScaledHeight()
-                );
+        Image img = Image.getInstance(path.toAbsolutePath().toString());
+        img.scalePercent(PageSize.A4.getWidth() / img.getScaledWidth() * 100);
+        img.setAbsolutePosition(0, PageSize.A4.getHeight() -
+                img.getScaledHeight()
+        );
 
-                document.open();
-                document.setPageSize(PageSize.A4);
-                document.newPage();
+        document.open();
+        document.setPageSize(PageSize.A4);
+        document.newPage();
 
-                document.add(img);
+        document.add(img);
 
-                BaseFont baseFont = BaseFont.createFont("fonts/Verdana-Bold.ttf",
-                        BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
+        BaseFont baseFont = BaseFont.createFont("fonts/Verdana-Bold.ttf",
+                BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
 
-                com.itextpdf.text.Font font1 = new Font(baseFont, 16, Font.NORMAL);
-                BaseColor color = new BaseColor(55, 56, 139);
-                font1.setColor(color);
+        com.itextpdf.text.Font font1 = new Font(baseFont, 16, Font.NORMAL);
+        BaseColor color = new BaseColor(55, 56, 139);
+        font1.setColor(color);
 
-                Chunk chunk1 = new Chunk("У нас для вас отличные новости!", font1);
-                Paragraph paragraph1 = new Paragraph(chunk1);
-                paragraph1.setSpacingBefore(img.getScaledHeight() - 10F);
-                paragraph1.setAlignment(Element.ALIGN_CENTER);
-                document.add(paragraph1);
+        Chunk chunk1 = new Chunk("У нас для Вас отличные новости!", font1);
+        Paragraph paragraph1 = new Paragraph(chunk1);
+        paragraph1.setSpacingBefore(img.getScaledHeight() - 10F);
+        paragraph1.setAlignment(Element.ALIGN_CENTER);
+        document.add(paragraph1);
 
-                Chunk chunk2 = new Chunk("Вам доступно несколько ипотечных\n" +
-                        "предложений, вот самые выгодные из них:", font1);
+        Chunk chunk2;
+        if (application.getLendingType().equals(LendingType.MORTGAGE)) {
+            chunk2 = new Chunk("Вам доступно несколько ипотечных\n" +
+                    "предложений, вот самые выгодные из них:", font1);
 
-                Paragraph paragraph2 = new Paragraph(chunk2);
-                paragraph2.setSpacingBefore(paragraph1.getSpacingAfter() + 10F);
-                paragraph2.setSpacingAfter(15F);
-                paragraph2.setAlignment(Element.ALIGN_CENTER);
-                document.add(paragraph2);
+            Paragraph paragraph2 = new Paragraph(chunk2);
+            paragraph2.setSpacingBefore(paragraph1.getSpacingAfter() + 10F);
+            paragraph2.setSpacingAfter(15F);
+            paragraph2.setAlignment(Element.ALIGN_CENTER);
+            document.add(paragraph2);
 
-                for (int i = 0; i < guides.size(); i++) {
-                    Chunk chunk = new Chunk((i + 1) + ".  " + guides.get(i).getName() +
-                            ", для Вас ставка - " + String.format("%.2f", guides.get(i).getMinLoanRate()) + " %\n");
-                    chunk.setAnchor(guides.get(i).getUrl());
-                    Paragraph paragraph = new Paragraph(chunk);
-                    paragraph.setSpacingAfter(15F);
-                    paragraph.setSpacingBefore(paragraph.getSpacingAfter() + 10F);
-                    document.add(paragraph);
-                }
-
-                document.close();
-                return byteArrayOutputStream.toByteArray();
+            for (int i = 0; i < guides.size(); i++) {
+                Chunk chunk = new Chunk((i + 1) + ".  " + guides.get(i).getName() +
+                        ", для Вас ставка - " + String.format("%.2f", guides.get(i).getMinLoanRate()) + " %\n");
+                chunk.setAnchor(guides.get(i).getUrl());
+                Paragraph paragraph = new Paragraph(chunk);
+                paragraph.setSpacingAfter(15F);
+                paragraph.setSpacingBefore(paragraph.getSpacingAfter() + 10F);
+                document.add(paragraph);
             }
+
+        } else {
+            chunk2 = new Chunk("""
+                    Вам доступно несколько кредитных
+                    предложений, выбрали самые выгодные
+                     для Вас""", font1);
+
+            Paragraph paragraph2 = new Paragraph(chunk2);
+            paragraph2.setSpacingBefore(paragraph1.getSpacingAfter() + 10F);
+            paragraph2.setSpacingAfter(15F);
+            paragraph2.setAlignment(Element.ALIGN_CENTER);
+            document.add(paragraph2);
+
+            for (int i = 0; i < guides.size(); i++) {
+                Chunk chunk = new Chunk((i + 1) + ".  Кредит " + guides.get(i).getName() +
+                        ", для Вас ставка - " + String.format("%.2f", guides.get(i).getMinLoanRate()) + " %\n");
+                chunk.setAnchor(guides.get(i).getUrl());
+                Paragraph paragraph = new Paragraph(chunk);
+                paragraph.setSpacingAfter(15F);
+                paragraph.setSpacingBefore(paragraph.getSpacingAfter() + 10F);
+                document.add(paragraph);
+            }
+
         }
-        return new byte[0];
+        document.close();
+        return byteArrayOutputStream.toByteArray();
     }
 }
