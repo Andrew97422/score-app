@@ -112,7 +112,7 @@ public class ApplicationController {
             summary = "Создание PDF-файла",
             description = "Создаёт PDF-файл по id заявке"
     )
-    @PostMapping("/create_pdf")
+    @GetMapping("/create_pdf")
     @PreAuthorize("hasAuthority('USER')")
     public ResponseEntity<byte[]> createPdfDocument(
         @RequestParam (name = "id") Integer id
