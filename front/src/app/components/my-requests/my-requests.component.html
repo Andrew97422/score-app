@@ -14,8 +14,23 @@
                     <div class="title">Мои заявки на кредит</div>
                 </div>
                 <table *ngIf="!consumers_exp.checked">
-                    <tr *ngFor="let x of consumers" [style.color]="x.status == 'APPROVED' ? 'seagreen' : x.status == 'IN_PROGRESS' ? '#3f51b5' : 'orangered'"
-                    (dblclick)="viewRequest(x)">
+                    <tr>
+                        <th>Название</th>
+                        <th>Дата
+                            <mat-icon #sorting (click)="sorting.direction = !sorting.direction; sort(LendingType.CONSUMER, sorting.direction)">
+                                <span class="material-symbols-outlined">
+                                    {{sorting.direction ? 'arrow_upward' : 'arrow_downward'}}
+                                </span>
+                            </mat-icon>
+                        </th>
+                        <th>Сумма кредита</th>
+                        <th>Источник</th>
+                        <th>Статус</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+
+                    <tr *ngFor="let x of consumers" [style.color]="x.status == 'APPROVED' ? 'seagreen' : x.status == 'IN_PROGRESS' ? '#3f51b5' : 'orangered'" (dblclick)="viewRequest(x)">
                         <td>
                             <div fxLayout="row" fxLayoutGap="4px">
                                 <ng-container *ngIf="x.status == 'APPROVED'">
@@ -38,9 +53,10 @@
                                     </svg>
                                 </ng-container>
 
-                                <div>{{getName(x.application)}}</div>
+                                <div>{{LendingTypeExt.getName(x.application.lendingType)}}</div>
                             </div>
                         </td>
+                        <td><div>{{getDateTime(x.application)}}</div></td>
                         <td><div>{{x.application.creditAmount}}</div></td>
                         <td><div>Авито</div></td>
                         <td>{{x.status == 'APPROVED' ? 'Одобрено' : x.status == 'IN_PROGRESS' ? 'В процессе' : 'Отказано'}}</td>
@@ -68,6 +84,23 @@
                 </div>
         
                 <table *ngIf="!autoLoans_exp.checked">
+                    <tr>
+                        <th>Название</th>
+                        <th>Дата
+
+                            <mat-icon #sorting (click)="sorting.direction = !sorting.direction; sort(LendingType.AUTO_LOAN, sorting.direction)">
+                                <span class="material-symbols-outlined">
+                                    {{sorting.direction ? 'arrow_upward' : 'arrow_downward'}}
+                                </span>
+                            </mat-icon>
+                        </th>
+                        <th>Сумма кредита</th>
+                        <th>Источник</th>
+                        <th>Статус</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+
                     <tr *ngFor="let x of autoLoans" [style.color]="x.status == 'APPROVED' ? 'seagreen' : x.status == 'IN_PROGRESS' ? '#3f51b5' : 'orangered'"
                     (dblclick)="viewRequest(x)">
                         <td>
@@ -92,9 +125,10 @@
                                     </svg>
                                 </ng-container>
 
-                                <div>{{getName(x.application)}}</div>
+                                <div>{{LendingTypeExt.getName(x.application.lendingType)}}</div>
                             </div>
                         </td>
+                        <td><div>{{getDateTime(x.application)}}</div></td>
                         <td><div>{{x.application.creditAmount}}</div></td>
                         <td><div>Авито</div></td>
                         <td>{{x.status == 'APPROVED' ? 'Одобрено' : x.status == 'IN_PROGRESS' ? 'В процессе' : 'Отказано'}}</td>
@@ -122,6 +156,23 @@
                 </div>
                 
                 <table *ngIf="!mortgages_exp.checked">
+                    <tr>
+                        <th>Название</th>
+                        <th>Дата
+
+                            <mat-icon #sorting (click)="sorting.direction = !sorting.direction; sort(LendingType.MORTGAGE, sorting.direction)">
+                                <span class="material-symbols-outlined">
+                                    {{sorting.direction ? 'arrow_upward' : 'arrow_downward'}}
+                                </span>
+                            </mat-icon>
+                        </th>
+                        <th>Сумма кредита</th>
+                        <th>Источник</th>
+                        <th>Статус</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+
                     <tr *ngFor="let x of mortgages" [style.color]="x.status == 'APPROVED' ? 'seagreen' : x.status == 'IN_PROGRESS' ? '#3f51b5' : 'orangered'"
                     (dblclick)="viewRequest(x)">
                         <td>
@@ -146,9 +197,10 @@
                                     </svg>
                                 </ng-container>
 
-                                <div>{{getName(x.application)}}</div>
+                                <div>{{LendingTypeExt.getName(x.application.lendingType)}}</div>
                             </div>
                         </td>
+                        <td><div>{{getDateTime(x.application)}}</div></td>
                         <td><div>{{x.application.creditAmount}}</div></td>
                         <td><div>Авито</div></td>
                         <td>{{x.status == 'APPROVED' ? 'Одобрено' : x.status == 'IN_PROGRESS' ? 'В процессе' : 'Отказано'}}</td>

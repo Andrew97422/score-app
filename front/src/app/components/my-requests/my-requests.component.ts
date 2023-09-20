@@ -14,6 +14,8 @@ import { ConfirmData } from '../confirm-dialog/confirm-data.model';
   styleUrls: ['./my-requests.component.css']
 })
 export class MyRequestsComponent implements OnInit {
+  LendingType = LendingType;
+  LendingTypeExt = LendingTypeExt;
   consumers: any;
   autoLoans: any;
   mortgages:  any;
@@ -26,9 +28,16 @@ export class MyRequestsComponent implements OnInit {
     this.loadRequests();
   }
 
-  getName(req): string {
+  getDateTime(req): string {
     const dateTime = req.applicationDateTime;
-    return LendingTypeExt.getName(req.lendingType) + '_' + moment(new Date(dateTime[0], dateTime[1]-1, dateTime[2], dateTime[3], dateTime[4])).format('DD.MM.YYYY_HH:mm:ss');
+    return moment(new Date(dateTime[0], dateTime[1]-1, dateTime[2], dateTime[3], dateTime[4])).format('DD.MM.YYYY HH:mm:ss');
+  }
+
+  sort(lendingType: LendingType, sortDirection: string): void {
+    let items = lendingType == LendingType.CONSUMER ? this.consumers : lendingType == LendingType.AUTO_LOAN ? this.autoLoans : this.mortgages;
+    items = sortDirection
+      ? items.sort((a, b) => this.getDateTime(a.application) > this.getDateTime(b.application) ? -1 : 1)
+      : items.sort((a, b) => this.getDateTime(a.application) > this.getDateTime(b.application) ? 1 : -1);
   }
 
   async createRequest(): Promise<void> {
@@ -53,7 +62,7 @@ export class MyRequestsComponent implements OnInit {
     const answer = await this.dialog.open(ConfirmDialogComponent, {data: new ConfirmData({
       title: 'Удаление',
       buttonName: 'Удалить',
-      desription: 'Удалить ' + this.getName(req) + '?'
+      desription: 'Удалить ' + LendingTypeExt.getName(req.lendingType) + ' от ' + this.getDateTime(req) + '?'
     })}).afterClosed().toPromise();
     
     if (answer == true) {

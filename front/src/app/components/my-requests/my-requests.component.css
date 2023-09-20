@@ -1,8 +1,19 @@
-table tr td:first-child {
-    padding-left: 20px !important;
+table tr td:first-child, table tr th:first-child {
+    padding-left: 24px !important;
 }
 
-table tr td:last-child, table tr td:nth-child(5) {
+table tr th mat-icon {
+    font-size: 14px; height: 12px; cursor: pointer;
+}
+
+
+table tr th {
+    padding: 2px;
+    font-size: 14px;
+    font-weight: 400;
+}
+
+table tr th:last-child, table tr td:last-child {
     max-width: 50px;
     width: 50px;
 }
@@ -14,7 +25,7 @@ table tr td:last-child mat-icon {
     padding: 3px 0;
 }
 
-table tr td:nth-child(5) svg {
+table tr td:nth-child(6) svg {
     cursor: pointer;
 }
 
@@ -64,10 +75,17 @@ table tr td div {
 
 .requests-header {
     padding: 4px 0;
-    color: white;
-    background: linear-gradient(50deg, rgb(0 75 140),white);
+    /*color: white;
+    background: linear-gradient(50deg, rgb(0 75 140),white);*/
+    font-weight: 600;
+    font-size: 18px;
+    background: white;
     cursor: pointer;
     min-height: 32px;
     position: sticky;
     top: 0;
+}
+
+.requests-header:hover {
+    background-color: #f2f1f5;
 }
