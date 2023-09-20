@@ -62,7 +62,8 @@ export class MyRequestsComponent implements OnInit {
     const answer = await this.dialog.open(ConfirmDialogComponent, {data: new ConfirmData({
       title: 'Удаление',
       buttonName: 'Удалить',
-      desription: 'Удалить ' + LendingTypeExt.getName(req.lendingType) + ' от ' + this.getDateTime(req) + '?'
+      desription: 'Удалить заявку на ' + (req.lendingType == LendingType.MORTGAGE ? 'ипотеку' : LendingTypeExt.getName(req.lendingType).toLowerCase()) 
+      + ' от ' + this.getDateTime(req) + '?'
     })}).afterClosed().toPromise();
     
     if (answer == true) {
