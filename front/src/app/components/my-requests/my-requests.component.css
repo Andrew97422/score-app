@@ -2,7 +2,7 @@ table tr td:first-child {
     padding-left: 20px !important;
 }
 
-table tr td:last-child, table tr td:nth-child(3) {
+table tr td:last-child, table tr td:nth-child(5) {
     max-width: 50px;
     width: 50px;
 }
@@ -14,7 +14,7 @@ table tr td:last-child mat-icon {
     padding: 3px 0;
 }
 
-table tr td:nth-child(3) svg {
+table tr td:nth-child(5) svg {
     cursor: pointer;
 }
 
@@ -22,7 +22,7 @@ table tr td mat-icon {
     min-width: 24px;
 }
 
-table tr:hover td:last-child mat-icon, table tr:hover td:nth-child(3) mat-icon {
+table tr:hover td:last-child mat-icon, table tr:hover td:nth-child(5) mat-icon {
     visibility: visible;
 }
 
@@ -30,7 +30,7 @@ table tr td:last-child mat-icon:hover {
     color: red !important;
 }
 
-table tr td:nth-child(3) mat-icon:hover {
+table tr td:nth-child(5) mat-icon:hover {
     color: blue !important;
 }
 

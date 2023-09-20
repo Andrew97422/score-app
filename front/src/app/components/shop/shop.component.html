@@ -5,17 +5,37 @@
 
 <mat-card fxFlex="0 1 300px" class="wiget">
     <h4>Заполните данные о выбранном товаре</h4>
-    <form [formGroup]="form" fxLayout="column" fxFlex style="padding-top: 16px;" fxLayoutGap="10px">
+    <form [formGroup]="form" fxLayout="column" fxFlex style="padding-top: 16px;">
+        <mat-form-field appearance="outline" color="primery">
+            <mat-label>Вид кредита</mat-label>
+            <mat-select formControlName="lendingType">
+                <mat-option *ngFor="let x of LendingTypeExt.getAll()" [value]="x">
+                    {{LendingTypeExt.getName(x)}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+
         <mat-form-field fxFlex appearance="outline">
-            <mat-label>Стоимость</mat-label>
+            <mat-label>Сумма кредита</mat-label>
             <input type="number" matInput formControlName="amount" required>
+        </mat-form-field>
+
+        <mat-form-field fxFlex appearance="outline">
+            <mat-label>Период кредита (количество лет)</mat-label>
+            <input type="number" [max]="maxYearCount" min="1" matInput formControlName="yearCount">
         </mat-form-field>
 
         <div>
             *Минимальная ставка для клиентов ПСБ составляет <b>8,4%</b>
         </div>
+
+        <mat-form-field fxFlex appearance="outline" style="padding-top: 30px;">
+            <mat-label>Сумма ежемесячного платежа</mat-label>
+            <input type="number" matInput formControlName="monthlyPaymentAmount">
+        </mat-form-field>
+
         <button fxFlex mat-stroked-button color="primary" [disabled]="!form?.valid" (click)="calcCredit()">
-            Расчитать кредит
+            Подать заявку
         </button>
     </form>
 </mat-card>

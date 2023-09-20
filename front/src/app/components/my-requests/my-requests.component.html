@@ -41,6 +41,8 @@
                                 <div>{{getName(x.application)}}</div>
                             </div>
                         </td>
+                        <td><div>{{x.application.creditAmount}}</div></td>
+                        <td><div>Авито</div></td>
                         <td>{{x.status == 'APPROVED' ? 'Одобрено' : x.status == 'IN_PROGRESS' ? 'В процессе' : 'Отказано'}}</td>
                         <td>     
                             <svg (click)="download(x.application.id)"
@@ -93,6 +95,8 @@
                                 <div>{{getName(x.application)}}</div>
                             </div>
                         </td>
+                        <td><div>{{x.application.creditAmount}}</div></td>
+                        <td><div>Авито</div></td>
                         <td>{{x.status == 'APPROVED' ? 'Одобрено' : x.status == 'IN_PROGRESS' ? 'В процессе' : 'Отказано'}}</td>
                         <td>     
                             <svg (click)="download(x.application.id)"
@@ -145,6 +149,8 @@
                                 <div>{{getName(x.application)}}</div>
                             </div>
                         </td>
+                        <td><div>{{x.application.creditAmount}}</div></td>
+                        <td><div>Авито</div></td>
                         <td>{{x.status == 'APPROVED' ? 'Одобрено' : x.status == 'IN_PROGRESS' ? 'В процессе' : 'Отказано'}}</td>
                         <td>     
                             <svg (click)="download(x.application.id)"

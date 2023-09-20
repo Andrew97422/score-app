@@ -25,17 +25,6 @@
         </mat-form-field>
 
         <mat-form-field appearance="outline" color="primery">
-            <mat-label>Вид обеспечения по кредиту</mat-label>
-            <mat-select formControlName="loanCollateralType">
-                <mat-option *ngFor="let x of LoanCollateralTypeExt.getAll()" [value]="x" 
-                [disabled]="(x==LoanCollateralType.CAR || x==LoanCollateralType.WITHOUT_COLLATERAL) && form.controls.lendingType.value==LendingType.MORTGAGE 
-                || x!=LoanCollateralType.CAR && form.controls.lendingType.value==LendingType.AUTO_LOAN">
-                    {{LoanCollateralTypeExt.getName(x)}}
-                </mat-option>
-            </mat-select>
-        </mat-form-field>
-
-        <mat-form-field appearance="outline" color="primery">
             <mat-label>Количество действующих кредитов</mat-label>
             <mat-select formControlName="countActiveLoans">
                 <mat-option *ngFor="let x of CountActiveLoansExt.getAll()" [value]="x">
@@ -52,11 +41,6 @@
         <mat-form-field appearance="outline" color="primery">
             <mat-label>Ежемесячный доход</mat-label>
             <input type="number" matInput color="primery" formControlName="monthlyIncome">
-        </mat-form-field>
-
-        <mat-form-field appearance="outline" color="primery">
-            <mat-label>Желаемая ставка по кредиту</mat-label>
-            <input type="number" matInput color="primery" formControlName="term">
         </mat-form-field>
 
         <mat-checkbox color="primery" formControlName="military">
