@@ -19,13 +19,12 @@ spring:
       ddl-auto: update
     open-in-view: true
   mail:
-    host: smtp.gmail.com
-    port: 587
-    username: bigdata.andrew@gmail.com
-    password: A1b2c3D4
-    properties:
-      mail:
-        smtp:
-          auth: true
-          starttls:
-            enable: true
+    tls: true
+    properties.mail.smtp:
+      auth: true
+      starttls.enable: true
+      ssl.trust: smtp.yandex.ru
+    host: smtp.yandex.ru
+    port: 465
+    username: nosoff.4ndr@yandex.ru #bigdata.andrew@gmail.com
+    password: xspuhikmeympubnl #A1b2c3D4

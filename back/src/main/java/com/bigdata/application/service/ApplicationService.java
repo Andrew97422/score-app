@@ -6,14 +6,8 @@ import com.bigdata.application.model.dto.ScoringApplicationWithoutAuthRequest;
 import com.bigdata.application.model.entity.LoanApplicationEntity;
 import com.bigdata.application.model.enums.ApplicationStatus;
 import com.bigdata.application.repository.ApplicationRepository;
-import com.bigdata.lending.model.entity.AutoLoanEntity;
-import com.bigdata.lending.model.entity.ConsumerEntity;
 import com.bigdata.lending.model.entity.GuideEntity;
-import com.bigdata.lending.model.entity.MortgageEntity;
 import com.bigdata.lending.model.enums.LendingType;
-import com.bigdata.lending.repository.AutoLoanRepository;
-import com.bigdata.lending.repository.ConsumerRepository;
-import com.bigdata.lending.repository.MortgageRepository;
 import com.bigdata.user.model.entity.UserEntity;
 import com.bigdata.user.repository.UserRepository;
 import com.itextpdf.text.*;
@@ -21,6 +15,8 @@ import com.itextpdf.text.pdf.BaseFont;
 import com.itextpdf.text.pdf.PdfWriter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.mail.MailSender;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Service;
 
 import java.io.ByteArrayOutputStream;
@@ -28,7 +24,6 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,97 +33,32 @@ import java.util.List;
 public class ApplicationService {
 
     private final ApplicationRepository applicationRepository;
-    private final AutoLoanRepository autoLoanRepository;
-    private final ConsumerRepository consumerRepository;
-    private final MortgageRepository mortgageRepository;
-    private final EmailService emailService;
     private final UserRepository userRepository;
+    private final ScoringService scoringService;
+    private final MailSender mailSender;
 
     public void addNewApplicationWithoutAuth(ScoringApplicationWithoutAuthRequest request) {
         var application = request.mapDtoToEntity();
 
-        score(application, request.getBirthday(), request.getEmail());
+        scoringService.score(application, request.getBirthday());
     }
 
-    public void addNewApplicationWithAuth(ScoringApplicationWithAuthRequest request, UserEntity user) throws Exception {
+    public void addNewApplicationWithAuth(
+            ScoringApplicationWithAuthRequest request, UserEntity user
+    ) {
         var application = request.mapDtoToEntity(user);
-
-        score(application, user.getBirthday(), user.getEmail());
-
-        try {
-            applicationRepository.save(application);
-            log.info("Application {} was saved to the repository.", application.getId());
-        } catch (Exception e) {
-            log.error("Application {} wasn't saved. Reason: {}", application.getId(), e.getMessage());
-            throw new Exception(e);
-        }
+        sendEmail("nosoff.4ndr@yandex.ru", "andryushka.nosov.03@mail.ru", "KU");
+        scoringService.score(application, user.getBirthday());
     }
 
-    private void score(LoanApplicationEntity application, LocalDate birthday,
-                       String email2) {
-        log.info("Application {} was registered.", application.getId());
-
-        new Thread(() -> {
-            float scoring = calculateScoring(application, birthday);
-            log.info("The scoring is calculated for the user {}.", application.getId());
-
-            application.setFinalScoring(scoring);
-
-            if (scoring > 106) {
-                List<GuideEntity> guides = guides(application);
-                guides = filteredGuides(guides);
-
-                if (guides.isEmpty()) {
-                    log.info("No suitable loan products for the user {}.", application.getId());
-                } else {
-                    log.info("Found {} suitable loan products for the user {}.", guides.size(), application.getId());
-
-                    String subject = "Ваш ответ по заявке, обнаружили для Вас доступные продукты.";
-                    StringBuilder message = new StringBuilder("Для Вас обнаружено " +
-                            guides.size() + " доступных продуктов.\n\n");
-                    guides.forEach(i -> message.append(i.toMailString()));
-
-                    sendEmail(email2, subject, message.toString());
-                }
-            } else {
-                log.info("No suitable loan products for the user {}." +
-                        " Scoring is not enough.", application.getId());
-            }
-        }).start();
-    }
-
-    private float calculateScoring(LoanApplicationEntity application, LocalDate birthday) {
-        log.info("Calculate scoring for application {}, having {}", application.getId(), birthday);
-        return application.scoreCalculate(birthday);
-    }
-
-    private List<GuideEntity> guides(LoanApplicationEntity loanApplication) {
-        List<AutoLoanEntity> autoLoanEntities = autoLoanRepository
-                .findByMinLoanAmountLessThan(loanApplication.getCreditAmount());
-        List<MortgageEntity> mortgageEntities = mortgageRepository
-                .findByMinLoanAmountLessThan(loanApplication.getCreditAmount());
-        List<ConsumerEntity> consumerEntities = consumerRepository
-                .findByMinLoanAmountLessThan(loanApplication.getCreditAmount());
-
-        List<GuideEntity> guides = new ArrayList<>();
-        guides.addAll(autoLoanEntities);
-        guides.addAll(mortgageEntities);
-        guides.addAll(consumerEntities);
-
-        return guides;
-    }
-
-    private List<GuideEntity> filteredGuides(List<GuideEntity> guides) {
-        return guides.stream()
-                .sorted()
-                .limit(5)
-                .sorted((o1, o2) ->
-                        (int) (o2.getMinLoanRate() - o1.getMinLoanRate()))
-                .toList();
-    }
-
-    private void sendEmail(String toAddress, String subject, String message) {
-        emailService.sendSimpleEmail(toAddress, subject, message);
+    public void sendEmail(String toAddress, String subject, String message) {
+        final SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
+        simpleMailMessage.setFrom("nosoff.4ndr@yandex.ru");
+        simpleMailMessage.setTo("andryushka.nosov.03@mail.ru");
+        simpleMailMessage.setSubject("KUKU");
+        simpleMailMessage.setText("KUKUKUKU");
+        mailSender.send(simpleMailMessage);
+        //emailService.sendSimpleEmail(toAddress, subject, message);
         log.info("Message to email {} has been sent.", toAddress);
     }
 
@@ -166,8 +96,8 @@ public class ApplicationService {
 
     public byte[] formPdfDocument(Integer id) throws DocumentException, URISyntaxException, IOException {
         LoanApplicationEntity application = applicationRepository.getReferenceById(id);
-        List<GuideEntity> guides = guides(application);
-        guides = filteredGuides(guides);
+        List<GuideEntity> guides = scoringService.guides(application);
+        guides = scoringService.filteredGuides(guides);
 
         log.info("Found {} suitable loan products for the user {}.", guides.size(), application.getId());
         Path path = Paths.get(ClassLoader.getSystemResource("img/logo.jpg").toURI());
