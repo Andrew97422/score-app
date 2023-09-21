@@ -54,6 +54,10 @@ table tr:hover {
     background-color: #f2f1f5;
 }
 
+table tr {
+    border-bottom: 1px solid #d6d5da;
+}
+
 table tr td {
     cursor: default;
     padding: 2px;

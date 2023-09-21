@@ -2,11 +2,11 @@ import { Component, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { RegisterService } from 'src/app/shared/services/register-service';
 import { WorkExperienceExt } from 'src/app/shared/models/work-experience';
-import { LoanCollateralType, LoanCollateralTypeExt } from 'src/app/shared/models/loan-collateral-type';
 import { CountActiveLoansExt } from 'src/app/shared/models/count-active-loans';
 import { LendingType, LendingTypeExt } from 'src/app/shared/models/lending-type';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { InputDialogModel, InputDialogType } from '../../../shared/models/input-dialog-type';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'request-input',
@@ -16,15 +16,14 @@ import { InputDialogModel, InputDialogType } from '../../../shared/models/input-
 export class RequestInputComponent {
   InputDialogType = InputDialogType;
   WorkExperienceExt = WorkExperienceExt;
-  LoanCollateralTypeExt = LoanCollateralTypeExt;
   CountActiveLoansExt = CountActiveLoansExt;
   LendingTypeExt = LendingTypeExt;
-  LoanCollateralType = LoanCollateralType;
   LendingType = LendingType;
   form: FormGroup;
 
   constructor(
     private fb: FormBuilder,
+    private router: Router,
     private registerService: RegisterService,
     private dialogRef: MatDialogRef<RequestInputComponent>,
     @Inject(MAT_DIALOG_DATA) public data: InputDialogModel<any>) {
@@ -33,9 +32,6 @@ export class RequestInputComponent {
           null, [Validators.required]
         ],
         workExperience: [
-          null, [Validators.required]
-        ],
-        loanCollateralType: [
           null, [Validators.required]
         ],
         countActiveLoans: [
@@ -65,7 +61,6 @@ export class RequestInputComponent {
         this.form.controls.amount.setValue(data.data.creditAmount);
         this.form.controls.lendingType.setValue(data.data.lendingType);
         this.form.controls.workExperience.setValue(data.data.workExperience?.name);
-        this.form.controls.loanCollateralType.setValue(data.data.typeLoanCollateral?.name);
         this.form.controls.countActiveLoans.setValue(data.data.currentDebtLoad?.countActiveLoans);
         this.form.controls.currentDebtLoad.setValue(data.data.currentDebtLoad?.countActiveLoans);
         this.form.controls.monthlyIncome.setValue(data.data.monthlyIncome);
@@ -87,5 +82,6 @@ export class RequestInputComponent {
     const result = this.form.getRawValue();
     this.registerService.sendRequest(result);
     this.dialogRef.close();
+    this.router.navigate(['']);
   }
 }

@@ -58,7 +58,7 @@
                         </td>
                         <td><div>{{getDateTime(x.application)}}</div></td>
                         <td><div>{{x.application.creditAmount}}</div></td>
-                        <td><div>Авито</div></td>
+                        <td><div><a href="https://www.avito.ru">https://www.avito.ru</a></div></td>
                         <td>{{x.status == 'APPROVED' ? 'Одобрено' : x.status == 'IN_PROGRESS' ? 'В процессе' : 'Отказано'}}</td>
                         <td>     
                             <svg (click)="download(x.application.id)"
@@ -130,7 +130,7 @@
                         </td>
                         <td><div>{{getDateTime(x.application)}}</div></td>
                         <td><div>{{x.application.creditAmount}}</div></td>
-                        <td><div>Авито</div></td>
+                        <td><div><a href="https://www.avito.ru">https://www.avito.ru</a></div></td>
                         <td>{{x.status == 'APPROVED' ? 'Одобрено' : x.status == 'IN_PROGRESS' ? 'В процессе' : 'Отказано'}}</td>
                         <td>     
                             <svg (click)="download(x.application.id)"
@@ -202,7 +202,7 @@
                         </td>
                         <td><div>{{getDateTime(x.application)}}</div></td>
                         <td><div>{{x.application.creditAmount}}</div></td>
-                        <td><div>Авито</div></td>
+                        <td><div><a href="https://www.avito.ru">https://www.avito.ru</a></div></td>
                         <td>{{x.status == 'APPROVED' ? 'Одобрено' : x.status == 'IN_PROGRESS' ? 'В процессе' : 'Отказано'}}</td>
                         <td>     
                             <svg (click)="download(x.application.id)"
@@ -219,11 +219,12 @@
                 </table>
             </div>
 
+            <!--
             <div>
                 <button mat-button (click)="createRequest()" color="primary" style="background-color: #3f51b521;">
                     Добавить заявку
                 </button>
-            </div>
+            </div>-->
         </div>
     </div>
 </div>

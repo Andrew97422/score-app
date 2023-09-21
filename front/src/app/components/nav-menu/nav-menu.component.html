@@ -29,10 +29,6 @@
         Мои данные
     </a>
 
-    <a mat-button class="nav-menu-item" [class.nav-menu-item-active]="router.url=='/shop'" routerLink="/shop">
-        Магазин
-    </a>
-
     <div fxFlex></div>
     <div fxLayout="row" fxLayoutGap="8px" fxLayoutAlign="start center" style="padding: 0 10px;">
         <ng-container *ngIf="userData?.photoUrl; else circle">
