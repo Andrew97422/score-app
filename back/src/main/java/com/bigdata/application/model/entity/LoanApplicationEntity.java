@@ -46,10 +46,6 @@ public class LoanApplicationEntity {
     @JoinColumn(name = "work_experience_id")
     private WorkExperienceEntity workExperience;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "type_loan_collateral_id")
-    private TypeLoanCollateralEntity typeLoanCollateral;
-
     @Column(name = "availability_of_open_loans")
     private boolean openLoans;
 
@@ -111,13 +107,6 @@ public class LoanApplicationEntity {
             case LESS_THAN_YEAR_AND_HALF -> total += 14;
             case ONE_AND_HALF_TO_TEN -> total += 27;
             case ELEVEN_TO_TWENTY, MORE_THAN_TWENTY -> total += 34;
-        }
-
-        switch (getTypeLoanCollateral().getName()) {
-            case APARTMENT, CAR -> total += 47;
-            case HOUSE -> total += 42;
-            case LAND -> total += 32;
-            case WITHOUT_COLLATERAL -> total += 15;
         }
 
         if (getCurrentDebtLoad().getAmountLoanPayments() >= 0

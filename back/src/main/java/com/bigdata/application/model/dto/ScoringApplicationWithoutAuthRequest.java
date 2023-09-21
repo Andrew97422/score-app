@@ -2,7 +2,6 @@ package com.bigdata.application.model.dto;
 
 import com.bigdata.application.model.entity.CurrentDebtLoadEntity;
 import com.bigdata.application.model.entity.LoanApplicationEntity;
-import com.bigdata.application.model.entity.TypeLoanCollateralEntity;
 import com.bigdata.application.model.entity.WorkExperienceEntity;
 import com.bigdata.application.model.enums.ApplicationStatus;
 import com.bigdata.application.model.enums.CountActiveLoans;
@@ -76,7 +75,6 @@ public class ScoringApplicationWithoutAuthRequest {
 
         return LoanApplicationEntity.builder()
                 .workExperience(WorkExperienceEntity.builder().name(getWorkExperience()).build())
-                .typeLoanCollateral(TypeLoanCollateralEntity.builder().name(getLoanCollateralType()).build())
                 .currentDebtLoad(currentDebtLoadEntity)
                 .creditAmount(getAmount())
                 .status(ApplicationStatus.IN_PROGRESS)

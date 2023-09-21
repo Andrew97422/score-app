@@ -2,7 +2,6 @@ package com.bigdata.application.model.dto;
 
 import com.bigdata.application.model.entity.CurrentDebtLoadEntity;
 import com.bigdata.application.model.entity.LoanApplicationEntity;
-import com.bigdata.application.model.entity.TypeLoanCollateralEntity;
 import com.bigdata.application.model.entity.WorkExperienceEntity;
 import com.bigdata.application.model.enums.ApplicationStatus;
 import com.bigdata.application.model.enums.CountActiveLoans;
@@ -71,12 +70,8 @@ public class ScoringApplicationWithAuthRequest {
         WorkExperienceEntity workExperienceEntity = WorkExperienceEntity.builder()
                 .name(getWorkExperience()).build();
 
-        TypeLoanCollateralEntity loanCollateralEntity = TypeLoanCollateralEntity.builder()
-                .name(getLoanCollateralType()).build();
-
         return LoanApplicationEntity.builder()
                 .workExperience(workExperienceEntity)
-                .typeLoanCollateral(loanCollateralEntity)
                 .currentDebtLoad(currentDebtLoadEntity)
                 .lendingType(getLendingType())
                 .creditAmount(getAmount())
