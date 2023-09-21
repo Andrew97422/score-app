@@ -40,7 +40,7 @@ public class ApplicationService {
     public void addNewApplicationWithoutAuth(ScoringApplicationWithoutAuthRequest request) {
         var application = request.mapDtoToEntity();
 
-        scoringService.score(application, request.getBirthday());
+        scoringService.score(application, request.getBirthday(), new UserEntity());
     }
 
     public void addNewApplicationWithAuth(
@@ -48,7 +48,7 @@ public class ApplicationService {
     ) {
         var application = request.mapDtoToEntity(user);
         //sendEmail("nosoff.4ndr@yandex.ru", "andryushka.nosov.03@mail.ru", "KU");
-        scoringService.score(application, user.getBirthday());
+        scoringService.score(application, user.getBirthday(), user);
     }
 
     public void sendEmail(String toAddress, String subject, String message) {

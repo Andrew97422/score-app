@@ -2,7 +2,6 @@ package com.bigdata.application.service;
 
 import com.bigdata.application.model.entity.LoanApplicationEntity;
 import com.bigdata.application.model.enums.ApplicationStatus;
-import com.bigdata.application.repository.ApplicationRepository;
 import com.bigdata.lending.model.entity.AutoLoanEntity;
 import com.bigdata.lending.model.entity.ConsumerEntity;
 import com.bigdata.lending.model.entity.GuideEntity;
@@ -10,6 +9,8 @@ import com.bigdata.lending.model.entity.MortgageEntity;
 import com.bigdata.lending.repository.AutoLoanRepository;
 import com.bigdata.lending.repository.ConsumerRepository;
 import com.bigdata.lending.repository.MortgageRepository;
+import com.bigdata.user.model.entity.UserEntity;
+import com.bigdata.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -26,9 +27,9 @@ public class ScoringService {
     private final AutoLoanRepository autoLoanRepository;
     private final ConsumerRepository consumerRepository;
     private final MortgageRepository mortgageRepository;
-    private final ApplicationRepository applicationRepository;
+    private final UserRepository userRepository;
 
-    public void score(LoanApplicationEntity application, LocalDate birthday) {
+    public void score(LoanApplicationEntity application, LocalDate birthday, UserEntity user) {
         log.info("Application {} was registered.", application.getId());
 
         new Thread(() -> {
@@ -43,15 +44,31 @@ public class ScoringService {
 
                 if (guides.isEmpty()) {
                     application.setStatus(ApplicationStatus.DENIED);
-                    applicationRepository.save(application);
+                    if (userRepository.findByLogin(user.getLogin()).isPresent()) {
+                        List<LoanApplicationEntity> newList = user.getApplicationsList();
+                        newList.add(application);
+                        user.setApplicationsList(newList);
+                        userRepository.save(user);
+                    }
                     log.info("No suitable loan products for the user {}.", application.getId());
                 } else {
                     application.setStatus(ApplicationStatus.APPROVED);
-                    applicationRepository.save(application);
+                    if (userRepository.findByLogin(user.getLogin()).isPresent()) {
+                        List<LoanApplicationEntity> newList = user.getApplicationsList();
+                        newList.add(application);
+                        user.setApplicationsList(newList);
+                        userRepository.save(user);
+                    }
                     log.info("Found {} suitable loan products for the user {}.", guides.size(), application.getId());
                 }
             } else {
                 application.setStatus(ApplicationStatus.DENIED);
+                if (userRepository.findByLogin(user.getLogin()).isPresent()) {
+                    List<LoanApplicationEntity> newList = user.getApplicationsList();
+                    newList.add(application);
+                    user.setApplicationsList(newList);
+                    userRepository.save(user);
+                }
                 log.info("No suitable loan products for the user {}." +
                         " Scoring is not enough.", application.getId());
             }
