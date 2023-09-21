@@ -82,6 +82,6 @@ export class RequestInputComponent {
     const result = this.form.getRawValue();
     this.registerService.sendRequest(result);
     this.dialogRef.close();
-    this.router.navigate(['']);
+    //this.router.navigate(['']);
   }
 }

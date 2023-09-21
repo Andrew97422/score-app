@@ -14,7 +14,7 @@ export class ShopComponent {
   LendingTypeExt = LendingTypeExt;
   
   form: FormGroup;
-  maxYearCount = 30;
+  maxYearCount = 5;
 
   constructor(
     private fb: FormBuilder,
@@ -28,9 +28,9 @@ export class ShopComponent {
     this.form.controls.monthlyPaymentAmount.disable();
     this.form.controls.lendingType.valueChanges.subscribe((type) => {
       if (type == LendingType.MORTGAGE) {
-        this.form.controls.yearCount.setValue(30);
+        this.maxYearCount = 30;
       } else {
-        this.form.controls.yearCount.setValue(5);
+        this.maxYearCount = 5;
       }
     });
 
