@@ -47,7 +47,7 @@ public class ApplicationService {
             ScoringApplicationWithAuthRequest request, UserEntity user
     ) {
         var application = request.mapDtoToEntity(user);
-        sendEmail("nosoff.4ndr@yandex.ru", "andryushka.nosov.03@mail.ru", "KU");
+        //sendEmail("nosoff.4ndr@yandex.ru", "andryushka.nosov.03@mail.ru", "KU");
         scoringService.score(application, user.getBirthday());
     }
 
