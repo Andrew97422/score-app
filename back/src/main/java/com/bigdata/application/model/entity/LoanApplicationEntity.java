@@ -114,7 +114,7 @@ public class LoanApplicationEntity {
             float currentDebtLoad = getCurrentDebtLoad().getAmountLoanPayments() /
                     getCurrentDebtLoad().getMonthlyIncome();
 
-            if (currentDebtLoad > 0 && currentDebtLoad < 0.1)   total += 58;
+            if (currentDebtLoad >= 0 && currentDebtLoad < 0.1)   total += 58;
             else if (currentDebtLoad > 0.11 && currentDebtLoad < 0.5)   total += 43;
             else if (currentDebtLoad > 0.51 && currentDebtLoad < 0.7)   total += 21;
             else if (currentDebtLoad > 0.71)   total += 10;

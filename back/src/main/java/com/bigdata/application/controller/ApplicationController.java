@@ -23,7 +23,8 @@ import java.util.List;
 @CrossOrigin
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/application")
-@Tag(name = "Контроллер заявок",
+@Tag(
+        name = "Контроллер заявок",
         description = "Контроллер для работы с поступающими заявками на скоринг"
 )
 @Slf4j

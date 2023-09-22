@@ -1,12 +1,16 @@
 package com.bigdata.lending.controller;
 
+import com.bigdata.lending.model.enums.LendingType;
 import com.bigdata.lending.service.LendingService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @CrossOrigin
@@ -18,6 +22,46 @@ import org.springframework.web.bind.annotation.RestController;
                 "Может использоваться ТОЛЬКО администратором (ограничение будет добавлено позже)"
 )
 @Slf4j
+@PreAuthorize("hasAnyAuthority('SUPER_ADMIN', 'USER')")
 public class LendingController {
+
     private final LendingService lendingService;
+
+    @Operation(
+            summary = "Регистрация продукта",
+            description = "Админ от банка регистрирует продукт с помощью этого метода"
+    )
+    @PostMapping("/register")
+    public ResponseEntity<Integer> registerLending(
+            @RequestBody @Parameter(name = "Параметры продукта") Object lendingRequest,
+            @RequestParam @Parameter(name = "type") LendingType type
+    ) {
+        try {
+            int id = lendingService.registerNewLending(lendingRequest, type);
+            log.info("Lending {} was registered", id);
+            return ResponseEntity.ok(id);
+        } catch (Exception e) {
+            log.error("Lending {} wasn't registered, the reason is {}", lendingRequest.toString(), e.getMessage());
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @Operation(
+            summary = "Удаление продукта",
+            description = "Удаление продукта по его id админом банка"
+    )
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<HttpStatus> deleteLending(
+            @PathVariable @Parameter(name = "id удаляемого продукта") Integer id,
+            @RequestParam @Parameter(name = "Тип продукта") LendingType lendingType
+    ) {
+        try {
+            lendingService.deleteById(id, lendingType);
+            log.info("Lending {} was deleted", id);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (IllegalArgumentException e) {
+            log.error("Lending {} not found", id);
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
 }

@@ -2,5 +2,6 @@ package com.bigdata.user.model.enums;
 
 public enum Role {
     USER,
-    ADMIN
+    OPERATOR,
+    SUPER_ADMIN,
 }

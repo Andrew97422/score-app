@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,7 +19,8 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/v1/user")
 @Slf4j
 @RequiredArgsConstructor
-@Tag(name = "Пользовательский контроллер",
+@Tag(
+        name = "Пользовательский контроллер",
         description = "Позволяет совершать CRUD-операции с пользователями"
 )
 public class UserController {
@@ -28,6 +30,7 @@ public class UserController {
         description = "Позволяет получить пользователя по id"
     )
     @GetMapping("/{id}")
+    @PreAuthorize("hasAnyAuthority('USER', 'OPERATOR')")
     public ResponseEntity<UserResponse> getUser(
             @PathVariable @Parameter(description = "Идентификатор пользователя") String id
     ) {
@@ -44,6 +47,7 @@ public class UserController {
             summary = "Обновление пользователя",
             description = "Обновление пользователя по его идентификатору"
     )
+    @PreAuthorize("hasAnyAuthority('USER')")
     @PatchMapping("/update/{id}")
     public ResponseEntity<Integer> updateUser(
             @PathVariable @Parameter(description = "Идентификатор пользователя") String id,
@@ -57,6 +61,7 @@ public class UserController {
             description = "Удаление пользователя по его идентификатору"
     )
     @DeleteMapping("/delete/{id}")
+    @PreAuthorize("hasAnyAuthority('USER')")
     public ResponseEntity<?> deleteUser(
             @PathVariable @Parameter(description = "Идентификатор пользователя") String id
     ) {
