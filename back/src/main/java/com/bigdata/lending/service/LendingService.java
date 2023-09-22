@@ -28,13 +28,13 @@ public class LendingService {
                 return consumerEntity.getId();
             }
             case MORTGAGE -> {
-                MortgageProduct mortgageProduct = (MortgageProduct) lendingRequest;
+                MortgageProduct mortgageProduct = objectMapper.convertValue(lendingRequest, MortgageProduct.class);
                 var mortgageEntity = mortgageProduct.mapDtoToEntity();
                 mortgageRepository.save(mortgageEntity);
                 return mortgageEntity.getId();
             }
             case AUTO_LOAN -> {
-                AutoLoanProduct autoLoanProduct = (AutoLoanProduct) lendingRequest;
+                AutoLoanProduct autoLoanProduct = objectMapper.convertValue(lendingRequest, AutoLoanProduct.class);
                 var autoLoanEntity = autoLoanProduct.mapDtoToEntity();
                 autoLoanRepository.save(autoLoanEntity);
                 return autoLoanEntity.getId();
