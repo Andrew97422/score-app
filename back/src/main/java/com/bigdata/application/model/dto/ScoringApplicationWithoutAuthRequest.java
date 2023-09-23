@@ -65,28 +65,4 @@ public class ScoringApplicationWithoutAuthRequest {
 
     @Schema(description = "День рождения", name = "birthday")
     private LocalDate birthday;
-
-    public LoanApplicationEntity mapDtoToEntity() {
-        CurrentDebtLoadEntity currentDebtLoadEntity = CurrentDebtLoadEntity.builder()
-                .amountLoanPayments(getCurrentDebtLoad())
-                .monthlyIncome(getMonthlyIncome())
-                .countActiveLoans(getCountActiveLoans())
-                .build();
-
-        return LoanApplicationEntity.builder()
-                .workExperience(WorkExperienceEntity.builder().name(getWorkExperience()).build())
-                .currentDebtLoad(currentDebtLoadEntity)
-                .creditAmount(getAmount())
-                .status(ApplicationStatus.IN_PROGRESS)
-                .applicationDateTime(LocalDateTime.now())
-                .loanTerm(getTerm())
-                .isMilitary(isMilitary())
-                .isStateEmployee(isStateEmployee())
-                .isPsbClient(isPsbClient())
-                .isFarEastInhabitant(isFarEastInhabitant())
-                .isNewSubjectsResident(isNewSubjectsResident())
-                .isItSpecialist(isItSpecialist())
-                .user(null)
-                .build();
-    }
 }

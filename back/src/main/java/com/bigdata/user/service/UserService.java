@@ -1,6 +1,6 @@
 package com.bigdata.user.service;
 
-import com.bigdata.auth.model.RegisterRequest;
+import com.bigdata.user.model.dto.UpdateUserRequest;
 import com.bigdata.user.model.dto.UserResponse;
 import com.bigdata.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -19,6 +19,8 @@ public class UserService {
 
     private final PasswordEncoder passwordEncoder;
 
+    private final MappingUtils mappingUtils;
+
     @Transactional(readOnly = true)
     public UserResponse getUserById(int id) {
         var user = userRepository.findById(id).orElseThrow(() -> {
@@ -32,13 +34,13 @@ public class UserService {
     }
 
     @Transactional
-    public Integer updateUserById(int id, RegisterRequest registerRequest) {
+    public Integer updateUserById(int id, UpdateUserRequest updateRequest) {
         var user = userRepository.findById(id).orElseThrow(() -> {
             log.error("User {} wasn't found", id);
             return new UsernameNotFoundException("Пользователь не был найден");
         });
 
-        var updatedUser = registerRequest.mapDtoToEntity(false);
+        var updatedUser = mappingUtils.mapToEntity(updateRequest, false);
 
         user.updateData(updatedUser);
         user.setPassword(passwordEncoder.encode(updatedUser.getPassword()));

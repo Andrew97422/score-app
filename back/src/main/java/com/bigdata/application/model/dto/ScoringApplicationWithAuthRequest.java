@@ -59,32 +59,4 @@ public class ScoringApplicationWithAuthRequest {
 
     @Schema(description = "ИТ-специалист", name = "itSpecialist")
     private boolean itSpecialist;
-
-    public LoanApplicationEntity mapDtoToEntity(UserEntity user) {
-        CurrentDebtLoadEntity currentDebtLoadEntity = CurrentDebtLoadEntity.builder()
-                .amountLoanPayments(getCurrentDebtLoad())
-                .monthlyIncome(getMonthlyIncome())
-                .countActiveLoans(getCountActiveLoans())
-                .build();
-
-        WorkExperienceEntity workExperienceEntity = WorkExperienceEntity.builder()
-                .name(getWorkExperience()).build();
-
-        return LoanApplicationEntity.builder()
-                .workExperience(workExperienceEntity)
-                .currentDebtLoad(currentDebtLoadEntity)
-                .lendingType(getLendingType())
-                .creditAmount(getAmount())
-                .status(ApplicationStatus.IN_PROGRESS)
-                .applicationDateTime(LocalDateTime.now())
-                .loanTerm(getTerm())
-                .isMilitary(isMilitary())
-                .isStateEmployee(isStateEmployee())
-                .isPsbClient(isPsbClient())
-                .isFarEastInhabitant(isFarEastInhabitant())
-                .isNewSubjectsResident(isNewSubjectsResident())
-                .isItSpecialist(isItSpecialist())
-                .user(user)
-                .build();
-    }
 }

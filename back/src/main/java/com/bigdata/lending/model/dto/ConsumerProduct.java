@@ -39,18 +39,4 @@ public class ConsumerProduct {
     @Schema(name = "discount", description = "Скидка (потреб)",
             requiredMode = Schema.RequiredMode.NOT_REQUIRED)
     private String discount;
-
-    public ConsumerEntity mapDtoToEntity() {
-        return ConsumerEntity.builder()
-                .name(getName())
-                .minLoanAmount(getMinAmount())
-                .maxLoanAmount(getMaxAmount())
-                .minLoanTerm(getMinTerm())
-                .maxLoanTerm(getMaxTerm())
-                .minLoanRate(getMinRate())
-                .url(getUrl())
-                .comment(getComment())
-                .discount(getDiscount())
-                .build();
-    }
 }

@@ -18,6 +18,7 @@ public class LendingService {
     private final AutoLoanRepository autoLoanRepository;
     private final ConsumerRepository consumerRepository;
     private final MortgageRepository mortgageRepository;
+    private final MappingUtils mappingUtils;
 
     @Transactional
     public Integer registerNewLending(Object lendingRequest, LendingType lendingType) {
@@ -25,19 +26,19 @@ public class LendingService {
         switch (lendingType) {
             case CONSUMER -> {
                 ConsumerProduct consumerProduct = objectMapper.convertValue(lendingRequest, ConsumerProduct.class);
-                var consumerEntity = consumerProduct.mapDtoToEntity();
+                var consumerEntity = mappingUtils.mapToEntity(consumerProduct);
                 consumerRepository.save(consumerEntity);
                 return consumerEntity.getId();
             }
             case MORTGAGE -> {
                 MortgageProduct mortgageProduct = objectMapper.convertValue(lendingRequest, MortgageProduct.class);
-                var mortgageEntity = mortgageProduct.mapDtoToEntity();
+                var mortgageEntity = mappingUtils.mapToEntity(mortgageProduct);
                 mortgageRepository.save(mortgageEntity);
                 return mortgageEntity.getId();
             }
             case AUTO_LOAN -> {
                 AutoLoanProduct autoLoanProduct = objectMapper.convertValue(lendingRequest, AutoLoanProduct.class);
-                var autoLoanEntity = autoLoanProduct.mapDtoToEntity();
+                var autoLoanEntity = mappingUtils.mapToEntity(autoLoanProduct);
                 autoLoanRepository.save(autoLoanEntity);
                 return autoLoanEntity.getId();
             }

@@ -1,4 +1,4 @@
-package com.bigdata.auth.model;
+package com.bigdata.user.model.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -11,7 +11,7 @@ import java.time.LocalDate;
 
 @Data
 @Schema(name = "Поступившая информация о пользователе на странице регистрации")
-public class RegisterRequest {
+public class UpdateUserRequest {
 
     @NotBlank
     @Schema(description = "Логин", requiredMode = Schema.RequiredMode.REQUIRED, name = "login")
@@ -33,7 +33,7 @@ public class RegisterRequest {
     private String surName;
 
     @NotBlank
-    @JsonFormat(pattern = "dd.MM.yyyy") 
+    @JsonFormat(pattern = "dd.MM.yyyy")
     @DateTimeFormat(pattern = "dd.MM.yyyy")
     @Schema(description = "Дата рождения", requiredMode = Schema.RequiredMode.REQUIRED, name = "birthday")
     private LocalDate birthday;

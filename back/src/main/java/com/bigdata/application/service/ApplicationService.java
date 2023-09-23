@@ -37,9 +37,10 @@ public class ApplicationService {
     private final UserRepository userRepository;
     private final ScoringService scoringService;
     private final MailSender mailSender;
+    private final MappingUtils mappingUtils;
 
     public void addNewApplicationWithoutAuth(ScoringApplicationWithoutAuthRequest request) {
-        var application = request.mapDtoToEntity();
+        var application = mappingUtils.mapToEntity(request);
 
         scoringService.score(application, request.getBirthday());
     }
@@ -48,7 +49,7 @@ public class ApplicationService {
     public void addNewApplicationWithAuth(
             ScoringApplicationWithAuthRequest request, UserEntity user
     ) {
-        var application = request.mapDtoToEntity(user);
+        var application = mappingUtils.mapToEntity(request, user);
         //sendEmail("nosoff.4ndr@yandex.ru", "andryushka.nosov.03@mail.ru", "KU");
         scoringService.score(application, user.getBirthday());
     }

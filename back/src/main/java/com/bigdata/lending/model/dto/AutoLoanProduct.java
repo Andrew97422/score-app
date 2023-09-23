@@ -44,18 +44,4 @@ public class AutoLoanProduct {
     @Schema(name = "car_mileage", description = "Пробег автомобиля",
             requiredMode = Schema.RequiredMode.NOT_REQUIRED)
     private String mileage;
-
-    public AutoLoanEntity mapDtoToEntity() {
-        return AutoLoanEntity.builder()
-                .name(getName())
-                .minLoanAmount(getMinLoanAmount())
-                .maxLoanAmount(getMaxLoanAmount())
-                .minLoanTerm(getMinLoanTerm())
-                .maxLoanTerm(getMaxLoanTerm())
-                .minLoanRate(getMinLoanRate())
-                .url(getUrl())
-                .comment(getComment())
-                .mileage(getMileage())
-                .build();
-    }
 }

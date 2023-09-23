@@ -33,9 +33,11 @@ public class AuthService {
 
     private final AuthenticationManager authenticationManager;
 
+    private final MappingUtils mappingUtils;
+
     @Transactional
     public void register(RegisterRequest request) throws IllegalArgumentException {
-        var user = request.mapDtoToEntity(false);
+        var user = mappingUtils.mapToEntity(request, false);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
 
         if (userRepository.existsByLogin(user.getLogin())) {

@@ -1,6 +1,6 @@
 package com.bigdata.user.controller;
 
-import com.bigdata.auth.model.RegisterRequest;
+import com.bigdata.user.model.dto.UpdateUserRequest;
 import com.bigdata.user.model.dto.UserResponse;
 import com.bigdata.user.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -51,9 +51,9 @@ public class UserController {
     @PatchMapping("/update/{id}")
     public ResponseEntity<Integer> updateUser(
             @PathVariable @Parameter(description = "Идентификатор пользователя") String id,
-            @RequestBody @Parameter(description = "Полученная информация о пользователе") RegisterRequest registerRequest
+            @RequestBody @Parameter(description = "Полученная информация о пользователе") UpdateUserRequest request
     ) {
-        return ResponseEntity.ok(userService.updateUserById(Integer.parseInt(id), registerRequest));
+        return ResponseEntity.ok(userService.updateUserById(Integer.parseInt(id), request));
     }
 
     @Operation(

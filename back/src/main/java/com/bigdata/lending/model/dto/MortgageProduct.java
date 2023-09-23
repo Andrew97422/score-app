@@ -47,19 +47,4 @@ public class MortgageProduct {
     @Schema(name = "down_payment", description = "Первоначальный взнос за ипотеку",
             requiredMode = Schema.RequiredMode.NOT_REQUIRED)
     private String downPayment;
-
-    public MortgageEntity mapDtoToEntity() {
-        return MortgageEntity.builder()
-                .name(getName())
-                .minLoanAmount(getMinLoanAmount())
-                .maxLoanAmount(getMaxLoanAmount())
-                .minLoanTerm(getMinLoanTerm())
-                .maxLoanTerm(getMaxLoanTerm())
-                .minLoanRate(getMinLoanRate())
-                .url(getUrl())
-                .comment(getComment())
-                .addToInterest(getAddToInterest())
-                .downPayment(getDownPayment())
-                .build();
-    }
 }
