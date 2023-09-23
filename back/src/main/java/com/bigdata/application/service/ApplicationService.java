@@ -18,6 +18,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -43,6 +44,7 @@ public class ApplicationService {
         scoringService.score(application, request.getBirthday());
     }
 
+    @Transactional
     public void addNewApplicationWithAuth(
             ScoringApplicationWithAuthRequest request, UserEntity user
     ) {
@@ -62,6 +64,7 @@ public class ApplicationService {
         log.info("Message to email {} has been sent.", toAddress);
     }
 
+    @Transactional(readOnly = true)
     public List<ApplicationByTypeResponse> getApplicationsList(LendingType type, UserEntity user) {
         List<LoanApplicationEntity> applicationEntities =
                 user.getApplicationsList().stream()
@@ -82,6 +85,7 @@ public class ApplicationService {
         return response;
     }
 
+    @Transactional
     public void deleteApplication(Integer id, UserEntity user) {
         try {
             List<LoanApplicationEntity> newList = user.getApplicationsList();

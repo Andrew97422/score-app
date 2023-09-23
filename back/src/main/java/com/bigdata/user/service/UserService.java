@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Slf4j
@@ -18,6 +19,7 @@ public class UserService {
 
     private final PasswordEncoder passwordEncoder;
 
+    @Transactional(readOnly = true)
     public UserResponse getUserById(int id) {
         var user = userRepository.findById(id).orElseThrow(() -> {
             log.error("User {} wasn't found", id);
@@ -29,6 +31,7 @@ public class UserService {
         return response;
     }
 
+    @Transactional
     public Integer updateUserById(int id, RegisterRequest registerRequest) {
         var user = userRepository.findById(id).orElseThrow(() -> {
             log.error("User {} wasn't found", id);
@@ -46,6 +49,7 @@ public class UserService {
         return id;
     }
 
+    @Transactional
     public void deleteUserById(int id) {
         try {
             userRepository.deleteById(id);

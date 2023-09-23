@@ -16,6 +16,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 
@@ -32,6 +33,7 @@ public class AuthService {
 
     private final AuthenticationManager authenticationManager;
 
+    @Transactional
     public void register(RegisterRequest request) throws IllegalArgumentException {
         var user = request.mapDtoToEntity(false);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
@@ -45,6 +47,7 @@ public class AuthService {
         log.info("{} was registered", request.getLogin());
     }
 
+    @Transactional(readOnly = true)
     public AuthenticationResponse authenticate(LoginRequest request) {
         try {
             authenticationManager.authenticate(

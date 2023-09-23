@@ -10,6 +10,7 @@ import com.bigdata.lending.repository.MortgageRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -18,6 +19,7 @@ public class LendingService {
     private final ConsumerRepository consumerRepository;
     private final MortgageRepository mortgageRepository;
 
+    @Transactional
     public Integer registerNewLending(Object lendingRequest, LendingType lendingType) {
         ObjectMapper objectMapper = new ObjectMapper();
         switch (lendingType) {
@@ -43,11 +45,21 @@ public class LendingService {
         return -1;
     }
 
+    @Transactional
     public void deleteById(Integer id, LendingType lendingType) {
         switch (lendingType) {
             case MORTGAGE -> mortgageRepository.deleteById(id);
             case CONSUMER -> consumerRepository.deleteById(id);
             case AUTO_LOAN -> autoLoanRepository.deleteById(id);
         }
+    }
+
+    @Transactional(readOnly = true)
+    public Object getById(Integer id, LendingType lendingType) {
+        return switch (lendingType) {
+            case CONSUMER -> consumerRepository.getReferenceById(id);
+            case MORTGAGE -> mortgageRepository.getReferenceById(id);
+            case AUTO_LOAN -> autoLoanRepository.getReferenceById(id);
+        };
     }
 }

@@ -10,10 +10,10 @@ import com.bigdata.lending.model.entity.MortgageEntity;
 import com.bigdata.lending.repository.AutoLoanRepository;
 import com.bigdata.lending.repository.ConsumerRepository;
 import com.bigdata.lending.repository.MortgageRepository;
-import com.bigdata.user.model.entity.UserEntity;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -29,6 +29,7 @@ public class ScoringService {
     private final MortgageRepository mortgageRepository;
     private final ApplicationRepository applicationRepository;
 
+    @Transactional
     public void score(LoanApplicationEntity application, LocalDate birthday) {
         log.info("Application {} was registered.", application.getId());
 
@@ -65,6 +66,7 @@ public class ScoringService {
         return application.scoreCalculate(birthday);
     }
 
+    @Transactional(readOnly = true)
     public List<GuideEntity> guides(LoanApplicationEntity loanApplication) {
         List<AutoLoanEntity> autoLoanEntities = autoLoanRepository
                 .findByMinLoanAmountLessThan(loanApplication.getCreditAmount());
