@@ -42,7 +42,7 @@ public class UserService {
 
         var updatedUser = mappingUtils.mapToEntity(updateRequest, false);
 
-        mappingUtils.updateData(updatedUser);
+        mappingUtils.updateData(user, updatedUser);
         user.setPassword(passwordEncoder.encode(updatedUser.getPassword()));
 
         userRepository.saveAndFlush(user);

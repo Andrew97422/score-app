@@ -3,10 +3,16 @@ package com.bigdata.user.service;
 import com.bigdata.user.model.dto.UpdateUserRequest;
 import com.bigdata.user.model.entity.UserEntity;
 import com.bigdata.user.model.enums.Role;
+import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class MappingUtils {
+
+    private final PasswordEncoder passwordEncoder;
+
     public UserEntity mapToEntity(UpdateUserRequest request, boolean obtainedFrom) {
         return UserEntity.builder()
                 .role(Role.USER)
@@ -17,19 +23,20 @@ public class MappingUtils {
                 .phone(request.getPhone())
                 .email(request.getEmail())
                 .login(request.getLogin())
-                .password(request.getPassword())
+                .password(passwordEncoder.encode(request.getPassword()))
                 .obtainedFrom(obtainedFrom)
                 .build();
     }
 
-    public void updateData(UserEntity updatedUser) {
-        updatedUser.setBirthday(updatedUser.getBirthday());
-        updatedUser.setLogin(updatedUser.getLogin());
-        updatedUser.setEmail(updatedUser.getEmail());
-        updatedUser.setPhone(updatedUser.getPhone());
-        updatedUser.setFirstName(updatedUser.getFirstName());
-        updatedUser.setLastName(updatedUser.getLastName());
-        updatedUser.setSurName(updatedUser.getSurName());
-        updatedUser.setObtainedFrom(updatedUser.isObtainedFrom());
+    public void updateData(UserEntity user, UserEntity updatedUser) {
+        user.setBirthday(updatedUser.getBirthday());
+        user.setLogin(updatedUser.getLogin());
+        user.setEmail(updatedUser.getEmail());
+        user.setPassword(passwordEncoder.encode(updatedUser.getPassword()));
+        user.setPhone(updatedUser.getPhone());
+        user.setFirstName(updatedUser.getFirstName());
+        user.setLastName(updatedUser.getLastName());
+        user.setSurName(updatedUser.getSurName());
+        user.setObtainedFrom(updatedUser.isObtainedFrom());
     }
 }
