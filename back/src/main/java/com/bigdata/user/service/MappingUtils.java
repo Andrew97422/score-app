@@ -1,6 +1,5 @@
 package com.bigdata.user.service;
 
-import com.bigdata.auth.model.RegisterRequest;
 import com.bigdata.user.model.dto.UpdateUserRequest;
 import com.bigdata.user.model.entity.UserEntity;
 import com.bigdata.user.model.enums.Role;
@@ -21,5 +20,16 @@ public class MappingUtils {
                 .password(request.getPassword())
                 .obtainedFrom(obtainedFrom)
                 .build();
+    }
+
+    public void updateData(UserEntity updatedUser) {
+        updatedUser.setBirthday(updatedUser.getBirthday());
+        updatedUser.setLogin(updatedUser.getLogin());
+        updatedUser.setEmail(updatedUser.getEmail());
+        updatedUser.setPhone(updatedUser.getPhone());
+        updatedUser.setFirstName(updatedUser.getFirstName());
+        updatedUser.setLastName(updatedUser.getLastName());
+        updatedUser.setSurName(updatedUser.getSurName());
+        updatedUser.setObtainedFrom(updatedUser.isObtainedFrom());
     }
 }
