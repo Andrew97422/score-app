@@ -1,14 +1,14 @@
 package com.bigdata.application.service;
 
-import com.bigdata.application.model.dto.ApplicationByTypeResponse;
+import com.bigdata.application.model.dto.ApplicationResponse;
 import com.bigdata.application.model.dto.ScoringApplicationWithAuthRequest;
 import com.bigdata.application.model.dto.ScoringApplicationWithoutAuthRequest;
 import com.bigdata.application.model.entity.LoanApplicationEntity;
-import com.bigdata.application.model.enums.ApplicationStatus;
 import com.bigdata.application.repository.ApplicationRepository;
 import com.bigdata.lending.model.entity.GuideEntity;
 import com.bigdata.lending.model.enums.LendingType;
 import com.bigdata.user.model.entity.UserEntity;
+import com.bigdata.user.model.enums.Role;
 import com.bigdata.user.repository.UserRepository;
 import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.BaseFont;
@@ -25,7 +25,6 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -34,9 +33,13 @@ import java.util.List;
 public class ApplicationService {
 
     private final ApplicationRepository applicationRepository;
+
     private final UserRepository userRepository;
+
     private final ScoringService scoringService;
+
     private final MailSender mailSender;
+
     private final MappingUtils mappingUtils;
 
     public void addNewApplicationWithoutAuth(ScoringApplicationWithoutAuthRequest request) {
@@ -66,24 +69,21 @@ public class ApplicationService {
     }
 
     @Transactional(readOnly = true)
-    public List<ApplicationByTypeResponse> getApplicationsList(LendingType type, UserEntity user) {
-        List<LoanApplicationEntity> applicationEntities =
-                user.getApplicationsList().stream()
-                        .filter(i -> i.getLendingType().equals(type)).toList();
-        log.info("Found {} loan applications", applicationEntities.size());
-
-        List<ApplicationStatus> statuses = applicationEntities
-                .stream().map(LoanApplicationEntity::getStatus).toList();
-        log.info("Found {} statuses for each applications", statuses.size());
-
-        List<ApplicationByTypeResponse> response = new ArrayList<>();
-
-        for (int i = 0; i < applicationEntities.size(); i++) {
-            response.add(new ApplicationByTypeResponse(applicationEntities.get(i), statuses.get(i)));
+    public List<ApplicationResponse> getApplicationsList(LendingType type, UserEntity user) {
+        List<ApplicationResponse> applications;
+        if (user.getRole().equals(Role.USER)) {
+             applications = user.getApplicationsList().stream()
+                     .filter(i -> i.getLendingType().equals(type))
+                     .map(mappingUtils::mapToApplicationResponse).toList();
+        } else {
+            applications = applicationRepository.findAll().stream()
+                    .filter(i -> i.getLendingType().equals(type))
+                    .map(mappingUtils::mapToApplicationResponse).toList();
         }
+        log.info("Found {} loan applications", applications.size());
         log.info("Response with applications is ready");
 
-        return response;
+        return applications;
     }
 
     @Transactional
@@ -99,8 +99,15 @@ public class ApplicationService {
         log.info("Application {} was deleted", id);
     }
 
-    public byte[] formPdfDocument(Integer id) throws DocumentException, URISyntaxException, IOException {
-        LoanApplicationEntity application = applicationRepository.getReferenceById(id);
+    public byte[] formPdfDocument(Integer id, UserEntity user) throws DocumentException, URISyntaxException, IOException {
+        LoanApplicationEntity application;
+        if (user.getRole().equals(Role.USER)) {
+            application = user.getApplicationsList()
+                    .stream().filter(i->i.getId() == id).findFirst().orElseThrow(IllegalArgumentException::new);
+        } else {
+            application = applicationRepository.getReferenceById(id);
+        }
+
         List<GuideEntity> guides = scoringService.guides(application);
         guides = scoringService.filteredGuides(guides);
 
@@ -182,5 +189,17 @@ public class ApplicationService {
         }
         document.close();
         return byteArrayOutputStream.toByteArray();
+    }
+
+    @Transactional(readOnly = true)
+    public ApplicationResponse getApplicationById(Integer id, UserEntity user) {
+        ApplicationResponse response;
+        if (user.getRole().equals(Role.USER)) {
+            response = mappingUtils.mapToApplicationResponse(user.getApplicationsList().stream()
+                    .filter(i -> i.getId() == id).findFirst().orElseThrow(IllegalArgumentException::new));
+        } else {
+            response = mappingUtils.mapToApplicationResponse(applicationRepository.getReferenceById(id));
+        }
+        return response;
     }
 }

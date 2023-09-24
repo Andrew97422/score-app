@@ -1,5 +1,6 @@
 package com.bigdata.application.service;
 
+import com.bigdata.application.model.dto.ApplicationResponse;
 import com.bigdata.application.model.dto.ScoringApplicationWithAuthRequest;
 import com.bigdata.application.model.dto.ScoringApplicationWithoutAuthRequest;
 import com.bigdata.application.model.entity.CurrentDebtLoadEntity;
@@ -62,6 +63,34 @@ public class MappingUtils {
                 .isNewSubjectsResident(request.isNewSubjectsResident())
                 .isItSpecialist(request.isItSpecialist())
                 .user(null)
+                .build();
+    }
+
+    public ApplicationResponse mapToApplicationResponse(LoanApplicationEntity application) {
+        return ApplicationResponse.builder()
+                .id(application.getId())
+                .consentPersonalData(application.isConsentPersonalData())
+                .consentRequestToCreditBureau(application.isConsentRequestToCreditBureau())
+                .consentToAdvertising(application.isConsentToAdvertising())
+                .downPayment(application.isDownPayment())
+                .openLoans(application.isOpenLoans())
+                .opportunityToOfferLoan(application.isOpportunityToOfferLoan())
+                .amountLoanPayments(application.getCurrentDebtLoad().getAmountLoanPayments())
+                .applicationDateTime(application.getApplicationDateTime())
+                .countActiveLoans(application.getCurrentDebtLoad().getCountActiveLoans())
+                .creditAmount(application.getCreditAmount())
+                .isFarEastInhabitant(application.isFarEastInhabitant())
+                .isItSpecialist(application.isItSpecialist())
+                .monthlyIncome(application.getCurrentDebtLoad().getMonthlyIncome())
+                .isStateEmployee(application.isStateEmployee())
+                .lendingType(application.getLendingType())
+                .workExperience(application.getWorkExperience().getName())
+                .loanTerm(application.getLoanTerm())
+                .isMilitary(application.isMilitary())
+                .isPsbClient(application.isPsbClient())
+                .isNewSubjectsResident(application.isNewSubjectsResident())
+                .status(application.getStatus())
+                .user(application.getUser().getId())
                 .build();
     }
 }

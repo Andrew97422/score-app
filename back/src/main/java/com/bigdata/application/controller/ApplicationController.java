@@ -1,6 +1,6 @@
 package com.bigdata.application.controller;
 
-import com.bigdata.application.model.dto.ApplicationByTypeResponse;
+import com.bigdata.application.model.dto.ApplicationResponse;
 import com.bigdata.application.model.dto.ScoringApplicationWithAuthRequest;
 import com.bigdata.application.model.dto.ScoringApplicationWithoutAuthRequest;
 import com.bigdata.application.service.ApplicationService;
@@ -57,6 +57,26 @@ public class ApplicationController {
     }
 
     @Operation(
+            summary = "Получение одной заявки",
+            description = "Получение одной заявки по id"
+    )
+    @GetMapping("/{id}")
+    @PreAuthorize("hasAnyAuthority('USER', 'OPERATOR')")
+    public ResponseEntity<ApplicationResponse> getApplicationById(
+        @PathVariable @Parameter(name = "Id заявки") Integer id,
+        @AuthenticationPrincipal UserEntity user
+    ) {
+        try {
+            ApplicationResponse response = applicationService.getApplicationById(id, user);
+            log.info("Application {} was found", id);
+            return ResponseEntity.ok(response);
+        } catch (IllegalArgumentException e) {
+            log.error("Application {} was not found", id);
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @Operation(
             summary = "Регистрация заявки",
             description = "Регистрация заявки на скоринг, " +
                     "работает с неавторизованными пользователями, " +
@@ -77,31 +97,31 @@ public class ApplicationController {
         }
     }
 
-    record ApplicationResponse(int count, List<ApplicationByTypeResponse> applications) {}
+    record ApplicationResponseList(int count, List<ApplicationResponse> applications) {}
 
     @Operation(
             summary = "Получение списка заявок",
             description = "Получение списка заявок по типу type"
     )
     @GetMapping
-    @PreAuthorize("hasAuthority('USER')")
-    public ResponseEntity<ApplicationResponse> getApplicationsByType(
+    @PreAuthorize("hasAnyAuthority('USER', 'OPERATOR')")
+    public ResponseEntity<ApplicationResponseList> getApplicationsByType(
             @RequestParam (name = "type") LendingType type,
             @AuthenticationPrincipal UserEntity user
     ) {
-        List<ApplicationByTypeResponse> responses =
+        List<ApplicationResponse> responses =
                 applicationService.getApplicationsList(type, user);
-        return ResponseEntity.ok(new ApplicationResponse(responses.size(), responses));
+        return ResponseEntity.ok(new ApplicationResponseList(responses.size(), responses));
     }
 
     @Operation(
             summary = "Удаление заявки",
             description = "Удаление заявки по её id"
     )
-    @DeleteMapping("/delete")
+    @DeleteMapping("/{id}/delete")
     @PreAuthorize("hasAuthority('USER')")
     public ResponseEntity<HttpStatus> deleteApplicationById(
-        @RequestParam (name = "id") Integer id,
+        @PathVariable (name = "id") Integer id,
         @AuthenticationPrincipal UserEntity user
     ) {
         log.info("Start deleting {}", id);
@@ -113,14 +133,15 @@ public class ApplicationController {
             summary = "Создание PDF-файла",
             description = "Создаёт PDF-файл по id заявке"
     )
-    @GetMapping("/create_pdf")
-    @PreAuthorize("hasAuthority('USER')")
+    @GetMapping("/{id}/create_pdf")
+    @PreAuthorize("hasAnyAuthority('USER', 'OPERATOR')")
     public ResponseEntity<byte[]> createPdfDocument(
-        @RequestParam (name = "id") Integer id
+        @PathVariable (name = "id") Integer id,
+        @AuthenticationPrincipal UserEntity user
     ) {
         log.info("Forming pdf");
         try {
-            byte[] content = applicationService.formPdfDocument(id);
+            byte[] content = applicationService.formPdfDocument(id, user);
             return content.length == 1 || content.length == 0
                     ? new ResponseEntity<>(HttpStatus.NOT_FOUND)
                     : ResponseEntity.ok(content);
