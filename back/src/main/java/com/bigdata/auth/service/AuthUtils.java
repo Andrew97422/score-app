@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class MappingUtils {
+public class AuthUtils {
 
     private final PasswordEncoder passwordEncoder;
 

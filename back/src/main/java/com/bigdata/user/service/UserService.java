@@ -19,7 +19,7 @@ public class UserService {
 
     private final PasswordEncoder passwordEncoder;
 
-    private final MappingUtils mappingUtils;
+    private final UserUtils userUtils;
 
     @Transactional(readOnly = true)
     public UserResponse getUserById(int id) {
@@ -40,9 +40,9 @@ public class UserService {
             return new UsernameNotFoundException("Пользователь не был найден");
         });
 
-        var updatedUser = mappingUtils.mapToEntity(updateRequest, false);
+        var updatedUser = userUtils.mapToEntity(updateRequest, false);
 
-        mappingUtils.updateData(user, updatedUser);
+        userUtils.updateData(user, updatedUser);
         user.setPassword(passwordEncoder.encode(updatedUser.getPassword()));
 
         userRepository.saveAndFlush(user);

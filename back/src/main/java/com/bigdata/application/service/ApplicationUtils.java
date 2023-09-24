@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 
 @Service
-public class MappingUtils {
+public class ApplicationUtils {
     public LoanApplicationEntity mapToEntity(ScoringApplicationWithAuthRequest request, UserEntity user) {
         CurrentDebtLoadEntity currentDebtLoadEntity = CurrentDebtLoadEntity.builder()
                 .amountLoanPayments(request.getCurrentDebtLoad())

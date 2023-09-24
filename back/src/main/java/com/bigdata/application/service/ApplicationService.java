@@ -40,10 +40,10 @@ public class ApplicationService {
 
     private final MailSender mailSender;
 
-    private final MappingUtils mappingUtils;
+    private final ApplicationUtils applicationUtils;
 
     public void addNewApplicationWithoutAuth(ScoringApplicationWithoutAuthRequest request) {
-        var application = mappingUtils.mapToEntity(request);
+        var application = applicationUtils.mapToEntity(request);
 
         scoringService.score(application, request.getBirthday());
     }
@@ -52,7 +52,7 @@ public class ApplicationService {
     public void addNewApplicationWithAuth(
             ScoringApplicationWithAuthRequest request, UserEntity user
     ) {
-        var application = mappingUtils.mapToEntity(request, user);
+        var application = applicationUtils.mapToEntity(request, user);
         //sendEmail("nosoff.4ndr@yandex.ru", "andryushka.nosov.03@mail.ru", "KU");
         scoringService.score(application, user.getBirthday());
     }
@@ -74,11 +74,11 @@ public class ApplicationService {
         if (user.getRole().equals(Role.USER)) {
              applications = user.getApplicationsList().stream()
                      .filter(i -> i.getLendingType().equals(type))
-                     .map(mappingUtils::mapToApplicationResponse).toList();
+                     .map(applicationUtils::mapToApplicationResponse).toList();
         } else {
             applications = applicationRepository.findAll().stream()
                     .filter(i -> i.getLendingType().equals(type))
-                    .map(mappingUtils::mapToApplicationResponse).toList();
+                    .map(applicationUtils::mapToApplicationResponse).toList();
         }
         log.info("Found {} loan applications", applications.size());
         log.info("Response with applications is ready");
@@ -195,10 +195,10 @@ public class ApplicationService {
     public ApplicationResponse getApplicationById(Integer id, UserEntity user) {
         ApplicationResponse response;
         if (user.getRole().equals(Role.USER)) {
-            response = mappingUtils.mapToApplicationResponse(user.getApplicationsList().stream()
+            response = applicationUtils.mapToApplicationResponse(user.getApplicationsList().stream()
                     .filter(i -> i.getId() == id).findFirst().orElseThrow(IllegalArgumentException::new));
         } else {
-            response = mappingUtils.mapToApplicationResponse(applicationRepository.getReferenceById(id));
+            response = applicationUtils.mapToApplicationResponse(applicationRepository.getReferenceById(id));
         }
         return response;
     }

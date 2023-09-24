@@ -9,7 +9,7 @@ import com.bigdata.lending.model.entity.MortgageEntity;
 import org.springframework.stereotype.Service;
 
 @Service
-public class MappingUtils {
+public class LendingUtils {
     public ConsumerEntity mapToEntity(ConsumerProduct request) {
         return ConsumerEntity.builder()
                 .name(request.getName())

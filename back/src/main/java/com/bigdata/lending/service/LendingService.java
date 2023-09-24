@@ -25,7 +25,7 @@ public class LendingService {
 
     private final MortgageRepository mortgageRepository;
 
-    private final MappingUtils mappingUtils;
+    private final LendingUtils lendingUtils;
 
     @Transactional
     public Integer registerNewLending(Object lendingRequest, LendingType lendingType) {
@@ -33,19 +33,19 @@ public class LendingService {
         switch (lendingType) {
             case CONSUMER -> {
                 ConsumerProduct consumerProduct = objectMapper.convertValue(lendingRequest, ConsumerProduct.class);
-                var consumerEntity = mappingUtils.mapToEntity(consumerProduct);
+                var consumerEntity = lendingUtils.mapToEntity(consumerProduct);
                 consumerRepository.save(consumerEntity);
                 return consumerEntity.getId();
             }
             case MORTGAGE -> {
                 MortgageProduct mortgageProduct = objectMapper.convertValue(lendingRequest, MortgageProduct.class);
-                var mortgageEntity = mappingUtils.mapToEntity(mortgageProduct);
+                var mortgageEntity = lendingUtils.mapToEntity(mortgageProduct);
                 mortgageRepository.save(mortgageEntity);
                 return mortgageEntity.getId();
             }
             case AUTO_LOAN -> {
                 AutoLoanProduct autoLoanProduct = objectMapper.convertValue(lendingRequest, AutoLoanProduct.class);
-                var autoLoanEntity = mappingUtils.mapToEntity(autoLoanProduct);
+                var autoLoanEntity = lendingUtils.mapToEntity(autoLoanProduct);
                 autoLoanRepository.save(autoLoanEntity);
                 return autoLoanEntity.getId();
             }
@@ -77,23 +77,23 @@ public class LendingService {
         switch (lendingType) {
             case CONSUMER -> {
                 ConsumerProduct consumerProduct = objectMapper.convertValue(lendingRequest, ConsumerProduct.class);
-                var consumerEntity = mappingUtils.mapToEntity(consumerProduct);
+                var consumerEntity = lendingUtils.mapToEntity(consumerProduct);
                 ConsumerEntity consumer = (ConsumerEntity) consumerRepository.getReferenceById(id);
-                mappingUtils.update(consumer, consumerEntity);
+                lendingUtils.update(consumer, consumerEntity);
                 consumerRepository.save(consumer);
             }
             case AUTO_LOAN -> {
                 AutoLoanProduct autoLoanProduct = objectMapper.convertValue(lendingRequest, AutoLoanProduct.class);
-                var autoLoanEntity = mappingUtils.mapToEntity(autoLoanProduct);
+                var autoLoanEntity = lendingUtils.mapToEntity(autoLoanProduct);
                 AutoLoanEntity autoLoan = (AutoLoanEntity) autoLoanRepository.getReferenceById(id);
-                mappingUtils.update(autoLoan, autoLoanEntity);
+                lendingUtils.update(autoLoan, autoLoanEntity);
                 autoLoanRepository.save(autoLoan);
             }
             case MORTGAGE -> {
                 MortgageProduct mortgageProduct = objectMapper.convertValue(lendingRequest, MortgageProduct.class);
-                var mortgageEntity = mappingUtils.mapToEntity(mortgageProduct);
+                var mortgageEntity = lendingUtils.mapToEntity(mortgageProduct);
                 MortgageEntity mortgage = (MortgageEntity) mortgageRepository.getReferenceById(id);
-                mappingUtils.update(mortgage, mortgageEntity);
+                lendingUtils.update(mortgage, mortgageEntity);
                 mortgageRepository.save(mortgage);
             }
         }
