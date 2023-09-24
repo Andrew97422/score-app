@@ -52,4 +52,41 @@ public class MappingUtils {
                 .mileage(request.getMileage())
                 .build();
     }
+
+    public void update(ConsumerEntity oldEntity, ConsumerEntity newEntity) {
+        oldEntity.setName(newEntity.getName());
+        oldEntity.setMinLoanAmount(newEntity.getMinLoanAmount());
+        oldEntity.setMaxLoanAmount(newEntity.getMaxLoanAmount());
+        oldEntity.setMinLoanTerm(newEntity.getMinLoanTerm());
+        oldEntity.setMaxLoanTerm(newEntity.getMaxLoanTerm());
+        oldEntity.setMinLoanRate(newEntity.getMinLoanRate());
+        oldEntity.setUrl(newEntity.getUrl());
+        oldEntity.setComment(newEntity.getComment());
+        oldEntity.setDiscount(newEntity.getDiscount());
+    }
+
+    public void update(MortgageEntity oldEntity, MortgageEntity newEntity) {
+        oldEntity.setName(newEntity.getName());
+        oldEntity.setMinLoanAmount(newEntity.getMinLoanAmount());
+        oldEntity.setMaxLoanAmount(newEntity.getMaxLoanAmount());
+        oldEntity.setMinLoanTerm(newEntity.getMinLoanTerm());
+        oldEntity.setMaxLoanTerm(newEntity.getMaxLoanTerm());
+        oldEntity.setMinLoanRate(newEntity.getMinLoanRate());
+        oldEntity.setUrl(newEntity.getUrl());
+        oldEntity.setComment(newEntity.getComment());
+        oldEntity.setAddToInterest(newEntity.getAddToInterest());
+        oldEntity.setDownPayment(newEntity.getDownPayment());
+    }
+
+    public void update(AutoLoanEntity oldEntity, AutoLoanEntity newEntity) {
+        oldEntity.setName(newEntity.getName());
+        oldEntity.setMinLoanAmount(newEntity.getMinLoanAmount());
+        oldEntity.setMaxLoanAmount(newEntity.getMaxLoanAmount());
+        oldEntity.setMinLoanTerm(newEntity.getMinLoanTerm());
+        oldEntity.setMaxLoanTerm(newEntity.getMaxLoanTerm());
+        oldEntity.setMinLoanRate(newEntity.getMinLoanRate());
+        oldEntity.setUrl(newEntity.getUrl());
+        oldEntity.setComment(newEntity.getComment());
+        oldEntity.setMileage(newEntity.getMileage());
+    }
 }

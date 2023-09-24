@@ -3,6 +3,9 @@ package com.bigdata.lending.service;
 import com.bigdata.lending.model.dto.AutoLoanProduct;
 import com.bigdata.lending.model.dto.ConsumerProduct;
 import com.bigdata.lending.model.dto.MortgageProduct;
+import com.bigdata.lending.model.entity.AutoLoanEntity;
+import com.bigdata.lending.model.entity.ConsumerEntity;
+import com.bigdata.lending.model.entity.MortgageEntity;
 import com.bigdata.lending.model.enums.LendingType;
 import com.bigdata.lending.repository.AutoLoanRepository;
 import com.bigdata.lending.repository.ConsumerRepository;
@@ -15,9 +18,13 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @RequiredArgsConstructor
 public class LendingService {
+
     private final AutoLoanRepository autoLoanRepository;
+
     private final ConsumerRepository consumerRepository;
+
     private final MortgageRepository mortgageRepository;
+
     private final MappingUtils mappingUtils;
 
     @Transactional
@@ -62,5 +69,33 @@ public class LendingService {
             case MORTGAGE -> mortgageRepository.getReferenceById(id);
             case AUTO_LOAN -> autoLoanRepository.getReferenceById(id);
         };
+    }
+
+    @Transactional
+    public void updateById(Integer id, LendingType lendingType, Object lendingRequest) {
+        ObjectMapper objectMapper = new ObjectMapper();
+        switch (lendingType) {
+            case CONSUMER -> {
+                ConsumerProduct consumerProduct = objectMapper.convertValue(lendingRequest, ConsumerProduct.class);
+                var consumerEntity = mappingUtils.mapToEntity(consumerProduct);
+                ConsumerEntity consumer = (ConsumerEntity) consumerRepository.getReferenceById(id);
+                mappingUtils.update(consumer, consumerEntity);
+                consumerRepository.save(consumer);
+            }
+            case AUTO_LOAN -> {
+                AutoLoanProduct autoLoanProduct = objectMapper.convertValue(lendingRequest, AutoLoanProduct.class);
+                var autoLoanEntity = mappingUtils.mapToEntity(autoLoanProduct);
+                AutoLoanEntity autoLoan = (AutoLoanEntity) autoLoanRepository.getReferenceById(id);
+                mappingUtils.update(autoLoan, autoLoanEntity);
+                autoLoanRepository.save(autoLoan);
+            }
+            case MORTGAGE -> {
+                MortgageProduct mortgageProduct = objectMapper.convertValue(lendingRequest, MortgageProduct.class);
+                var mortgageEntity = mappingUtils.mapToEntity(mortgageProduct);
+                MortgageEntity mortgage = (MortgageEntity) mortgageRepository.getReferenceById(id);
+                mappingUtils.update(mortgage, mortgageEntity);
+                mortgageRepository.save(mortgage);
+            }
+        }
     }
 }

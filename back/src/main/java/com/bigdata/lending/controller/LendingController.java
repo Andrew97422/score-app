@@ -51,7 +51,7 @@ public class LendingController {
             summary = "Удаление продукта",
             description = "Удаление продукта по его id админом банка"
     )
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}/delete")
     public ResponseEntity<HttpStatus> deleteLending(
             @PathVariable @Parameter(name = "id удаляемого продукта") Integer id,
             @RequestParam @Parameter(name = "Тип продукта") LendingType lendingType
@@ -89,11 +89,19 @@ public class LendingController {
             summary = "Обновление продукта (изменение)",
             description = "Обновление по id админом банка"
     )
-    @PatchMapping("/update/{id}")
+    @PatchMapping("/{id}/update")
     public ResponseEntity<Integer> updateLending(
             @PathVariable @Parameter(name = "id обновляемого продукта") Integer id,
-            @RequestParam @Parameter(name = "Тип продукта") LendingType lendingType
+            @RequestParam @Parameter(name = "Тип продукта") LendingType lendingType,
+            @RequestBody @Parameter(name = "Новые данные") Object lendingRequest
     ) {
-        return ResponseEntity.ok(id);
+        try {
+            lendingService.updateById(id, lendingType, lendingRequest);
+            log.info("Lending {} was updated", id);
+            return ResponseEntity.ok(id);
+        } catch (EntityNotFoundException e) {
+            log.error("Lending {} was not found", id);
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 }
