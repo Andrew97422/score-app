@@ -27,8 +27,6 @@ public class AuthService {
 
     private final UserRepository userRepository;
 
-    private final PasswordEncoder passwordEncoder;
-
     private final JwtService jwtService;
 
     private final AuthenticationManager authenticationManager;
@@ -38,7 +36,6 @@ public class AuthService {
     @Transactional
     public void register(RegisterRequest request) throws IllegalArgumentException {
         var user = mappingUtils.mapToEntity(request, false);
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
 
         if (userRepository.existsByLogin(user.getLogin())) {
             log.error("User {} was not saved. It's already exists", user.getLogin());
@@ -77,5 +74,19 @@ public class AuthService {
 
     public void doLogout(Authentication authentication, HttpServletRequest request, HttpServletResponse response) {
         logoutHandler.logout(request, response, authentication);
+    }
+
+    @Transactional
+    public void registerOperator(RegisterRequest request) throws IllegalArgumentException {
+        var operator = mappingUtils.mapOperatorToEntity(request);
+
+        if (userRepository.existsByLogin(request.getLogin())) {
+            log.error("User {} was not saved. It's already exists", operator.getLogin());
+            throw new IllegalArgumentException("Operator " + operator.getLogin() + " already exists");
+        }
+
+        userRepository.save(operator);
+
+        log.info("{} was registered", operator.getLogin());
     }
 }

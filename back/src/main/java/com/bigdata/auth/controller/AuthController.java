@@ -14,6 +14,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -73,6 +74,7 @@ public class AuthController {
             summary = "Выход для пользователя",
             description = "Выход для пользователя, далее перенапрвляет на страницу логина"
     )
+    @PreAuthorize("hasAnyAuthority('USER', 'OPERATOR', 'SUPER_ADMIN')")
     @PostMapping("/logout")
     public String performLogout(
             @AuthenticationPrincipal UserEntity user,
@@ -83,5 +85,24 @@ public class AuthController {
         log.info("Logouting user {}...", user.getLogin());
         authService.doLogout(authentication, request, response);
         return "redirect:/login";
+    }
+
+    @Operation(
+            summary = "Регистрация операциониста",
+            description = "Регистрация операциониста, доступно админу банка"
+    )
+    @PreAuthorize("hasAnyAuthority('SUPER_ADMIN', 'USER')")
+    @PostMapping("/operator/register")
+    public ResponseEntity<?> registerOperator(
+            @RequestBody RegisterRequest request
+    ) {
+        try {
+            authService.registerOperator(request);
+            return ResponseEntity.ok(HttpStatus.CREATED);
+        } catch (IllegalArgumentException e) {
+            return e.getMessage().endsWith("exists") ?
+                    ResponseEntity.status(HttpStatus.CONFLICT).build() :
+                    ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
     }
 }
