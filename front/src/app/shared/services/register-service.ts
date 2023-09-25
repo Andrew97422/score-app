@@ -75,9 +75,8 @@ export class RegisterService {
 
   downloadPdf(id: number): void {
     this.http.get(
-      this.baseUrl + '/api/v1/application/create_pdf', {
+      this.baseUrl + `/api/v1/application/${id}/create_pdf`, {
         responseType: 'blob',
-        params: { id },
         headers: { Authorization: 'Bearer ' + this.sessionService.getToken() }
       })
     .subscribe((blob) => {

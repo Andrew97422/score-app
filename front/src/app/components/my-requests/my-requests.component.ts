@@ -54,7 +54,7 @@ export class MyRequestsComponent implements OnInit {
     await this.dialog.open(RequestInputComponent, {data: new InputDialogModel({
       title: 'Свойства заявки',
       dialogType: InputDialogType.View,
-      data: data.application
+      data: data
     })}).afterClosed().toPromise();
   }
 

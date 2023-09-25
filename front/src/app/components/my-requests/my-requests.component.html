@@ -53,19 +53,19 @@
                                     </svg>
                                 </ng-container>
 
-                                <div>{{LendingTypeExt.getName(x.application.lendingType)}}</div>
+                                <div>{{LendingTypeExt.getName(x.lendingType)}}</div>
                             </div>
                         </td>
-                        <td><div>{{getDateTime(x.application)}}</div></td>
-                        <td><div>{{x.application.creditAmount}}</div></td>
+                        <td><div>{{getDateTime(x)}}</div></td>
+                        <td><div>{{x.creditAmount}}</div></td>
                         <td><div>{{x.status == 'APPROVED' ? 'Одобрено' : x.status == 'IN_PROGRESS' ? 'В процессе' : 'Отказано'}}</div></td>
                         <td><div><a href="http://localhost:4200/shop">http://localhost:4200/shop</a></div></td>
                         <td>     
-                            <svg (click)="download(x.application.id)"
+                            <svg (click)="download(x.id)"
                             xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="M480-320 280-520l56-58 104 104v-326h80v326l104-104 56 58-200 200ZM240-160q-33 0-56.5-23.5T160-240v-120h80v120h480v-120h80v120q0 33-23.5 56.5T720-160H240Z"/></svg>                          
                         </td>
                         <td>                            
-                            <mat-icon (click)="delete(x.application)">
+                            <mat-icon (click)="delete(x)">
                                 <span class="material-symbols-outlined">
                                     delete
                                 </span>
@@ -125,19 +125,19 @@
                                     </svg>
                                 </ng-container>
 
-                                <div>{{LendingTypeExt.getName(x.application.lendingType)}}</div>
+                                <div>{{LendingTypeExt.getName(x.lendingType)}}</div>
                             </div>
                         </td>
-                        <td><div>{{getDateTime(x.application)}}</div></td>
-                        <td><div>{{x.application.creditAmount}}</div></td>
+                        <td><div>{{getDateTime(x)}}</div></td>
+                        <td><div>{{x.creditAmount}}</div></td>
                         <td><div>{{x.status == 'APPROVED' ? 'Одобрено' : x.status == 'IN_PROGRESS' ? 'В процессе' : 'Отказано'}}</div></td>
                         <td><div><a href="http://localhost:4200/shop">http://localhost:4200/shop</a></div></td>
                         <td>     
-                            <svg (click)="download(x.application.id)"
+                            <svg (click)="download(x.id)"
                             xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="M480-320 280-520l56-58 104 104v-326h80v326l104-104 56 58-200 200ZM240-160q-33 0-56.5-23.5T160-240v-120h80v120h480v-120h80v120q0 33-23.5 56.5T720-160H240Z"/></svg>                          
                         </td>
                         <td>                                
-                            <mat-icon (click)="delete(x.application)">
+                            <mat-icon (click)="delete(x)">
                                 <span class="material-symbols-outlined">
                                     delete
                                 </span>
@@ -197,19 +197,19 @@
                                     </svg>
                                 </ng-container>
 
-                                <div>{{LendingTypeExt.getName(x.application.lendingType)}}</div>
+                                <div>{{LendingTypeExt.getName(x.lendingType)}}</div>
                             </div>
                         </td>
-                        <td><div>{{getDateTime(x.application)}}</div></td>
-                        <td><div>{{x.application.creditAmount}}</div></td>
+                        <td><div>{{getDateTime(x)}}</div></td>
+                        <td><div>{{x.creditAmount}}</div></td>
                         <td><div>{{x.status == 'APPROVED' ? 'Одобрено' : x.status == 'IN_PROGRESS' ? 'В процессе' : 'Отказано'}}</div></td>
                         <td><div><a href="http://localhost:4200/shop">http://localhost:4200/shop</a></div></td>
                         <td>     
-                            <svg (click)="download(x.application.id)"
+                            <svg (click)="download(x.id)"
                             xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="M480-320 280-520l56-58 104 104v-326h80v326l104-104 56 58-200 200ZM240-160q-33 0-56.5-23.5T160-240v-120h80v120h480v-120h80v120q0 33-23.5 56.5T720-160H240Z"/></svg>                          
                         </td>
                         <td>                                
-                            <mat-icon (click)="delete(x.application)">
+                            <mat-icon (click)="delete(x)">
                                 <span class="material-symbols-outlined">
                                     delete
                                 </span>
