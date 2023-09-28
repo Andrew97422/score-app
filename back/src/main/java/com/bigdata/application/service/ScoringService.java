@@ -3,13 +3,13 @@ package com.bigdata.application.service;
 import com.bigdata.application.model.entity.LoanApplicationEntity;
 import com.bigdata.application.model.enums.ApplicationStatus;
 import com.bigdata.application.repository.ApplicationRepository;
-import com.bigdata.lending.model.entity.AutoLoanEntity;
-import com.bigdata.lending.model.entity.ConsumerEntity;
-import com.bigdata.lending.model.entity.GuideEntity;
-import com.bigdata.lending.model.entity.MortgageEntity;
-import com.bigdata.lending.repository.AutoLoanRepository;
-import com.bigdata.lending.repository.ConsumerRepository;
-import com.bigdata.lending.repository.MortgageRepository;
+import com.bigdata.products.autoloan.model.entity.AutoLoanEntity;
+import com.bigdata.products.autoloan.repository.AutoLoanRepository;
+import com.bigdata.products.common.CommonEntity;
+import com.bigdata.products.consumer.model.entity.ConsumerEntity;
+import com.bigdata.products.consumer.repository.ConsumerRepository;
+import com.bigdata.products.mortgage.model.entity.MortgageEntity;
+import com.bigdata.products.mortgage.repository.MortgageRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -25,8 +25,11 @@ import java.util.List;
 public class ScoringService {
 
     private final AutoLoanRepository autoLoanRepository;
+
     private final ConsumerRepository consumerRepository;
+
     private final MortgageRepository mortgageRepository;
+
     private final ApplicationRepository applicationRepository;
 
     @Transactional
@@ -40,7 +43,7 @@ public class ScoringService {
             application.setFinalScoring(scoring);
 
             if (scoring > 106) {
-                List<GuideEntity> guides = guides(application);
+                List<CommonEntity> guides = guides(application);
                 guides = filteredGuides(guides);
 
                 if (guides.isEmpty()) {
@@ -67,7 +70,7 @@ public class ScoringService {
     }
 
     @Transactional(readOnly = true)
-    public List<GuideEntity> guides(LoanApplicationEntity loanApplication) {
+    public List<CommonEntity> guides(LoanApplicationEntity loanApplication) {
         List<AutoLoanEntity> autoLoanEntities = autoLoanRepository
                 .findByMinLoanAmountLessThan(loanApplication.getCreditAmount());
         List<MortgageEntity> mortgageEntities = mortgageRepository
@@ -75,7 +78,7 @@ public class ScoringService {
         List<ConsumerEntity> consumerEntities = consumerRepository
                 .findByMinLoanAmountLessThan(loanApplication.getCreditAmount());
 
-        List<GuideEntity> guides = new ArrayList<>();
+        List<CommonEntity> guides = new ArrayList<>();
         guides.addAll(autoLoanEntities);
         guides.addAll(mortgageEntities);
         guides.addAll(consumerEntities);
@@ -83,7 +86,7 @@ public class ScoringService {
         return guides;
     }
 
-    public List<GuideEntity> filteredGuides(List<GuideEntity> guides) {
+    public List<CommonEntity> filteredGuides(List<CommonEntity> guides) {
         return guides.stream()
                 .sorted()
                 .limit(5)
