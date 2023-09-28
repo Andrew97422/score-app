@@ -12,7 +12,7 @@ import org.jetbrains.annotations.NotNull;
 @AllArgsConstructor
 @SuperBuilder
 @MappedSuperclass
-public class CommonEntity implements Comparable<CommonEntity> {
+public abstract class CommonEntity implements Comparable<CommonEntity> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

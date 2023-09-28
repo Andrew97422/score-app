@@ -2,7 +2,6 @@ package com.bigdata.products.common;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
@@ -11,7 +10,7 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
-public class CommonProduct {
+public abstract class CommonProduct {
 
     @Schema(name = "name", description = "Название продукта")
     private String name;
