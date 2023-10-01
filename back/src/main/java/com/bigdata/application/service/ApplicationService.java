@@ -12,7 +12,6 @@ import com.bigdata.user.model.enums.Role;
 import com.bigdata.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -34,9 +33,14 @@ public class ApplicationService {
 
     private final ApplicationUtils applicationUtils;
 
+
     public void addNewApplicationWithoutAuth(ScoringApplicationWithoutAuthRequest request) {
         var application = applicationUtils.mapToEntity(request);
-
+        //SimpleMailMessage message = new SimpleMailMessage();
+        //message.setText("message");
+        //message.setTo("nosoff.4ndr@yandex.ru");
+        //message.setSubject("Activation Code");
+        mailSender.sendEmail("andryushka.nosov.03@mail.ru", "Activation Code", "MESSAGE");
         scoringService.score(application, request.getBirthday());
     }
 
@@ -45,19 +49,8 @@ public class ApplicationService {
             ScoringApplicationWithAuthRequest request, UserEntity user
     ) {
         var application = applicationUtils.mapToEntity(request, user);
-        //sendEmail("nosoff.4ndr@yandex.ru", "andryushka.nosov.03@mail.ru", "KU");
+        mailSender.sendEmail("nosoff.4ndr@yandex.ru", "Activation Code", "MESSAGE");
         scoringService.score(application, user.getBirthday());
-    }
-
-    public void sendEmail(String toAddress, String subject, String message) {
-        final SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
-        simpleMailMessage.setFrom("nosoff.4ndr@yandex.ru");
-        simpleMailMessage.setTo("andryushka.nosov.03@mail.ru");
-        simpleMailMessage.setSubject("KUKU");
-        simpleMailMessage.setText("KUKUKUKU");
-        mailSender.send(simpleMailMessage);
-        //emailService.sendSimpleEmail(toAddress, subject, message);
-        log.info("Message to email {} has been sent.", toAddress);
     }
 
     @Transactional(readOnly = true)

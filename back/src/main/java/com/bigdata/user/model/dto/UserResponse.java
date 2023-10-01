@@ -1,6 +1,5 @@
 package com.bigdata.user.model.dto;
 
-import com.bigdata.user.model.entity.UserEntity;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
@@ -21,9 +20,6 @@ public class UserResponse {
     @Schema(description = "Логин", name = "login")
     private String login;
 
-    @Schema(description = "Пароль", name = "password")
-    private String password;
-
     @Schema(description = "Фамилия", name = "lastName")
     private String lastName;
 
@@ -43,15 +39,4 @@ public class UserResponse {
 
     @Schema(description = "Email", name = "email")
     private String email;
-
-    public void mapEntityToDto(UserEntity user) {
-        setLogin(user.getLogin());
-        setPassword(user.getPassword());
-        setEmail(user.getEmail());
-        setBirthday(user.getBirthday());
-        setPhone(user.getPhone());
-        setLastName(user.getLastName());
-        setFirstName(user.getFirstName());
-        setSurName(user.getSurName());
-    }
 }

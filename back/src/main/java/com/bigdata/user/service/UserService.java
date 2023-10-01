@@ -27,10 +27,8 @@ public class UserService {
             log.error("User {} wasn't found", id);
             return new UsernameNotFoundException("Пользователь не был найден");
         });
-        var response = new UserResponse();
-        response.mapEntityToDto(user);
 
-        return response;
+        return userUtils.mapToDto(user);
     }
 
     @Transactional
