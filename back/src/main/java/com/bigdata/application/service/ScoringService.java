@@ -3,20 +3,15 @@ package com.bigdata.application.service;
 import com.bigdata.application.model.entity.LoanApplicationEntity;
 import com.bigdata.application.model.enums.ApplicationStatus;
 import com.bigdata.application.repository.ApplicationRepository;
-import com.bigdata.products.autoloan.model.entity.AutoLoanEntity;
-import com.bigdata.products.autoloan.repository.AutoLoanRepository;
 import com.bigdata.products.common.CommonEntity;
-import com.bigdata.products.consumer.model.entity.ConsumerEntity;
-import com.bigdata.products.consumer.repository.ConsumerRepository;
-import com.bigdata.products.mortgage.model.entity.MortgageEntity;
-import com.bigdata.products.mortgage.repository.MortgageRepository;
+import com.bigdata.products.common.ProductService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
+import java.time.Period;
 import java.util.List;
 
 @Service
@@ -24,13 +19,9 @@ import java.util.List;
 @Slf4j
 public class ScoringService {
 
-    private final AutoLoanRepository autoLoanRepository;
-
-    private final ConsumerRepository consumerRepository;
-
-    private final MortgageRepository mortgageRepository;
-
     private final ApplicationRepository applicationRepository;
+
+    private final ProductService productService;
 
     @Transactional
     public void score(LoanApplicationEntity application, LocalDate birthday) {
@@ -43,7 +34,7 @@ public class ScoringService {
             application.setFinalScoring(scoring);
 
             if (scoring > 106) {
-                List<CommonEntity> guides = guides(application);
+                List<CommonEntity> guides = guides(application.getCreditAmount());
                 guides = filteredGuides(guides);
 
                 if (guides.isEmpty()) {
@@ -66,24 +57,45 @@ public class ScoringService {
 
     private float calculateScoring(LoanApplicationEntity application, LocalDate birthday) {
         log.info("Calculate scoring for application {}, having {}", application.getId(), birthday);
-        return application.scoreCalculate(birthday);
+
+        float total = 0;
+
+        int age = Period.between(birthday, LocalDate.now()).getYears();
+        if (21 <= age && age <= 22) total += 9;
+        else if (23 <= age && age <= 45) total += 15;
+        else if (46 <= age && age <= 64) total += 34;
+        else if (65 <= age && age <= 70) total += 10;
+
+        switch (application.getWorkExperience().getName()) {
+            case LESS_THAN_YEAR_AND_HALF -> total += 14;
+            case ONE_AND_HALF_TO_TEN -> total += 27;
+            case ELEVEN_TO_TWENTY, MORE_THAN_TWENTY -> total += 34;
+        }
+
+        if (application.getCurrentDebtLoad().getAmountLoanPayments() >= 0
+                && application.getCurrentDebtLoad().getMonthlyIncome() > 0) {
+            float currentDebtLoad = application.getCurrentDebtLoad().getAmountLoanPayments() /
+                    application.getCurrentDebtLoad().getMonthlyIncome();
+
+            if (currentDebtLoad >= 0 && currentDebtLoad < 0.1)   total += 58;
+            else if (currentDebtLoad > 0.11 && currentDebtLoad < 0.5)   total += 43;
+            else if (currentDebtLoad > 0.51 && currentDebtLoad < 0.7)   total += 21;
+            else if (currentDebtLoad > 0.71)   total += 10;
+        }
+
+        switch (application.getCurrentDebtLoad().getCountActiveLoans()) {
+            case NO_CREDITS -> total += 40;
+            case FROM_ONE_TO_TWO -> total += 34;
+            case FROM_THREE_TO_FIVE -> total += 15;
+            case MORE_THAN_FIVE -> total += 3;
+        }
+
+        return total;
     }
 
     @Transactional(readOnly = true)
-    public List<CommonEntity> guides(LoanApplicationEntity loanApplication) {
-        List<AutoLoanEntity> autoLoanEntities = autoLoanRepository
-                .findByMinLoanAmountLessThan(loanApplication.getCreditAmount());
-        List<MortgageEntity> mortgageEntities = mortgageRepository
-                .findByMinLoanAmountLessThan(loanApplication.getCreditAmount());
-        List<ConsumerEntity> consumerEntities = consumerRepository
-                .findByMinLoanAmountLessThan(loanApplication.getCreditAmount());
-
-        List<CommonEntity> guides = new ArrayList<>();
-        guides.addAll(autoLoanEntities);
-        guides.addAll(mortgageEntities);
-        guides.addAll(consumerEntities);
-
-        return guides;
+    public List<CommonEntity> guides(float creditAmount) {
+        return productService.guides(creditAmount);
     }
 
     public List<CommonEntity> filteredGuides(List<CommonEntity> guides) {

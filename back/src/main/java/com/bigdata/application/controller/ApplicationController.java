@@ -118,7 +118,7 @@ public class ApplicationController {
             summary = "Удаление заявки",
             description = "Удаление заявки по её id"
     )
-    @DeleteMapping("/{id}/delete")
+    @DeleteMapping("/{id}")
     @PreAuthorize("hasAuthority('USER')")
     public ResponseEntity<HttpStatus> deleteApplicationById(
         @PathVariable (name = "id") Integer id,

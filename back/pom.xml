@@ -91,6 +91,10 @@
             <scope>test</scope>
         </dependency>
         <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+        </dependency>
+        <dependency>
             <groupId>com.jpomykala</groupId>
             <artifactId>spring-higher-order-components</artifactId>
             <version>1.0.11</version>

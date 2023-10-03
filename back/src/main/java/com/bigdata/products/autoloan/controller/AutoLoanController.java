@@ -51,7 +51,7 @@ public class AutoLoanController implements CommonController<AutoLoanProduct> {
             summary = "Удаление продукта",
             description = "Удаление продукта по его id админом банка"
     )
-    @DeleteMapping("/{id}/delete")
+    @DeleteMapping("/{id}")
     public ResponseEntity<HttpStatus> deleteLending(
             @PathVariable @Parameter(name = "id удаляемого продукта") Integer id
     ) {
@@ -87,7 +87,7 @@ public class AutoLoanController implements CommonController<AutoLoanProduct> {
             summary = "Обновление продукта (изменение)",
             description = "Обновление по id админом банка"
     )
-    @PatchMapping("/{id}/update")
+    @PatchMapping("/{id}")
     public ResponseEntity<Integer> updateLending(
             @PathVariable @Parameter(name = "id обновляемого продукта") Integer id,
             @RequestBody @Parameter(name = "Новые данные") AutoLoanProduct autoLoanProduct

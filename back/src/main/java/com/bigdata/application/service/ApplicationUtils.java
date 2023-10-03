@@ -144,45 +144,27 @@ public class ApplicationUtils {
         if (application.getLendingType().equals(LendingType.MORTGAGE)) {
             chunk2 = new Chunk("Вам доступно несколько ипотечных\n" +
                     "предложений, вот самые выгодные из них:", font1);
-
-            Paragraph paragraph2 = new Paragraph(chunk2);
-            paragraph2.setSpacingBefore(paragraph1.getSpacingAfter() + 10F);
-            paragraph2.setSpacingAfter(15F);
-            paragraph2.setAlignment(Element.ALIGN_CENTER);
-            document.add(paragraph2);
-
-            for (int i = 0; i < guides.size(); i++) {
-                Chunk chunk = new Chunk((i + 1) + ".  " + guides.get(i).getName() +
-                        ", для Вас ставка - " + String.format("%.2f", guides.get(i).getMinLoanRate()) + " %\n");
-                chunk.setAnchor(guides.get(i).getUrl());
-                Paragraph paragraph = new Paragraph(chunk);
-                paragraph.setSpacingAfter(15F);
-                paragraph.setSpacingBefore(paragraph.getSpacingAfter() + 10F);
-                document.add(paragraph);
-            }
-
         } else {
             chunk2 = new Chunk("""
                     Вам доступно несколько кредитных
                     предложений, выбрали самые выгодные
                      для Вас""", font1);
+        }
 
-            Paragraph paragraph2 = new Paragraph(chunk2);
-            paragraph2.setSpacingBefore(paragraph1.getSpacingAfter() + 10F);
-            paragraph2.setSpacingAfter(15F);
-            paragraph2.setAlignment(Element.ALIGN_CENTER);
-            document.add(paragraph2);
+        Paragraph paragraph2 = new Paragraph(chunk2);
+        paragraph2.setSpacingBefore(paragraph1.getSpacingAfter() + 10F);
+        paragraph2.setSpacingAfter(15F);
+        paragraph2.setAlignment(Element.ALIGN_CENTER);
+        document.add(paragraph2);
 
-            for (int i = 0; i < guides.size(); i++) {
-                Chunk chunk = new Chunk((i + 1) + ".  Кредит " + guides.get(i).getName() +
-                        ", для Вас ставка - " + String.format("%.2f", guides.get(i).getMinLoanRate()) + " %\n");
-                chunk.setAnchor(guides.get(i).getUrl());
-                Paragraph paragraph = new Paragraph(chunk);
-                paragraph.setSpacingAfter(15F);
-                paragraph.setSpacingBefore(paragraph.getSpacingAfter() + 10F);
-                document.add(paragraph);
-            }
-
+        for (int i = 0; i < guides.size(); i++) {
+            Chunk chunk = new Chunk((i + 1) + ".  " + guides.get(i).getName() +
+                    ", для Вас ставка - " + String.format("%.2f", guides.get(i).getMinLoanRate()) + " %\n");
+            chunk.setAnchor(guides.get(i).getUrl());
+            Paragraph paragraph = new Paragraph(chunk);
+            paragraph.setSpacingAfter(15F);
+            paragraph.setSpacingBefore(paragraph.getSpacingAfter() + 10F);
+            document.add(paragraph);
         }
         document.close();
 

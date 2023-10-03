@@ -12,7 +12,6 @@ import com.bigdata.user.model.enums.Role;
 import com.bigdata.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -40,7 +39,7 @@ public class ApplicationService {
         //message.setText("message");
         //message.setTo("nosoff.4ndr@yandex.ru");
         //message.setSubject("Activation Code");
-        mailSender.sendEmail("andryushka.nosov.03@mail.ru", "Activation Code", "MESSAGE");
+        //mailSender.sendEmail("andryushka.nosov.03@mail.ru", "Activation Code", "MESSAGE");
         scoringService.score(application, request.getBirthday());
     }
 
@@ -49,7 +48,7 @@ public class ApplicationService {
             ScoringApplicationWithAuthRequest request, UserEntity user
     ) {
         var application = applicationUtils.mapToEntity(request, user);
-        mailSender.sendEmail("nosoff.4ndr@yandex.ru", "Activation Code", "MESSAGE");
+        //mailSender.sendEmail("nosoff.4ndr@yandex.ru", "Activation Code", "MESSAGE");
         scoringService.score(application, user.getBirthday());
     }
 
@@ -93,7 +92,7 @@ public class ApplicationService {
             application = applicationRepository.getReferenceById(id);
         }
 
-        List<CommonEntity> guides = scoringService.guides(application);
+        List<CommonEntity> guides = scoringService.guides(application.getCreditAmount());
         guides = scoringService.filteredGuides(guides);
 
         log.info("Found {} suitable loan products for the user {}.", guides.size(), application.getId());
