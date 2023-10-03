@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 import org.jetbrains.annotations.NotNull;
 
+import java.time.LocalDateTime;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -41,6 +43,9 @@ public abstract class CommonEntity implements Comparable<CommonEntity> {
 
     @Column(name = "comment")
     private String comment;
+
+    @Column(name = "start_date")
+    private LocalDateTime startDate;
 
     @Override
     public int compareTo(@NotNull CommonEntity o) {

@@ -18,6 +18,7 @@ public class ConsumerUtils implements CommonUtils<ConsumerProduct, ConsumerEntit
                 .url(request.getUrl())
                 .comment(request.getComment())
                 .discount(request.getDiscount())
+                .startDate(request.getStartDate())
                 .build();
     }
 
@@ -32,6 +33,7 @@ public class ConsumerUtils implements CommonUtils<ConsumerProduct, ConsumerEntit
                 .url(consumerEntity.getUrl())
                 .comment(consumerEntity.getComment())
                 .discount(consumerEntity.getDiscount())
+                .startDate(consumerEntity.getStartDate())
                 .build();
     }
 
@@ -45,5 +47,6 @@ public class ConsumerUtils implements CommonUtils<ConsumerProduct, ConsumerEntit
         oldEntity.setUrl(newEntity.getUrl());
         oldEntity.setComment(newEntity.getComment());
         oldEntity.setDiscount(newEntity.getDiscount());
+        oldEntity.setStartDate(newEntity.getStartDate());
     }
 }

@@ -19,6 +19,7 @@ public class AutoLoanUtils implements CommonUtils<AutoLoanProduct, AutoLoanEntit
                 .url(request.getUrl())
                 .comment(request.getComment())
                 .mileage(request.getMileage())
+                .startDate(request.getStartDate())
                 .build();
     }
 
@@ -33,6 +34,7 @@ public class AutoLoanUtils implements CommonUtils<AutoLoanProduct, AutoLoanEntit
                 .url(autoLoan.getUrl())
                 .comment(autoLoan.getComment())
                 .mileage(autoLoan.getMileage())
+                .startDate(autoLoan.getStartDate())
                 .build();
     }
 
@@ -46,5 +48,6 @@ public class AutoLoanUtils implements CommonUtils<AutoLoanProduct, AutoLoanEntit
         oldEntity.setUrl(newEntity.getUrl());
         oldEntity.setComment(newEntity.getComment());
         oldEntity.setMileage(newEntity.getMileage());
+        oldEntity.setStartDate(newEntity.getStartDate());
     }
 }

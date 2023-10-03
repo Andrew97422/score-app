@@ -20,6 +20,7 @@ public class MortgageUtils implements CommonUtils<MortgageProduct, MortgageEntit
                 .comment(mortgageProduct.getComment())
                 .addToInterest(mortgageProduct.getAddToInterest())
                 .downPayment(mortgageProduct.getDownPayment())
+                .startDate(mortgageProduct.getStartDate())
                 .build();
     }
 
@@ -35,6 +36,7 @@ public class MortgageUtils implements CommonUtils<MortgageProduct, MortgageEntit
                 .comment(mortgageEntity.getComment())
                 .addToInterest(mortgageEntity.getAddToInterest())
                 .downPayment(mortgageEntity.getDownPayment())
+                .startDate(mortgageEntity.getStartDate())
                 .build();
     }
 
@@ -49,6 +51,7 @@ public class MortgageUtils implements CommonUtils<MortgageProduct, MortgageEntit
         oldEntity.setComment(newEntity.getComment());
         oldEntity.setAddToInterest(newEntity.getAddToInterest());
         oldEntity.setDownPayment(newEntity.getDownPayment());
+        oldEntity.setStartDate(newEntity.getStartDate());
     }
 
 }

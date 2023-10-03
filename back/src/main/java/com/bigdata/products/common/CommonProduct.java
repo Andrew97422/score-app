@@ -6,6 +6,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
+import java.time.LocalDateTime;
+
 @Data
 @SuperBuilder
 @NoArgsConstructor
@@ -35,4 +37,7 @@ public abstract class CommonProduct {
 
     @Schema(name = "comment", description = "Краткое описание продукта")
     private String comment;
+
+    @Schema(name = "start_date", description = "Начало действия кредитного продукта")
+    private LocalDateTime startDate;
 }
