@@ -4,7 +4,7 @@ services:
   app:
     image: 'docker-spring-boot-postgres:latest'
     build:
-      context: ../../..
+      context: back
       dockerfile: ./Dockerfile
     container_name: app
     environment:
@@ -21,8 +21,8 @@ services:
     container_name: db
     restart: always
     build:
-      context: ../../..
-      dockerfile: ./Dockerfile.development
+      context: back
+      dockerfile: ../back/Dockerfile.development
 
     ports:
       - "5432:5432"
