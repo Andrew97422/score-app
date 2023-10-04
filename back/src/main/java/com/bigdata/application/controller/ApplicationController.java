@@ -4,7 +4,7 @@ import com.bigdata.application.model.dto.ApplicationResponse;
 import com.bigdata.application.model.dto.ScoringApplicationWithAuthRequest;
 import com.bigdata.application.model.dto.ScoringApplicationWithoutAuthRequest;
 import com.bigdata.application.service.ApplicationService;
-import com.bigdata.lending.model.enums.LendingType;
+import com.bigdata.products.common.LendingType;
 import com.bigdata.user.model.entity.UserEntity;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -118,7 +118,7 @@ public class ApplicationController {
             summary = "Удаление заявки",
             description = "Удаление заявки по её id"
     )
-    @DeleteMapping("/{id}/delete")
+    @DeleteMapping("/{id}")
     @PreAuthorize("hasAuthority('USER')")
     public ResponseEntity<HttpStatus> deleteApplicationById(
         @PathVariable (name = "id") Integer id,

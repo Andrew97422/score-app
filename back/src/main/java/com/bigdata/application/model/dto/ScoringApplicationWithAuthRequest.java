@@ -1,18 +1,11 @@
 package com.bigdata.application.model.dto;
 
-import com.bigdata.application.model.entity.CurrentDebtLoadEntity;
-import com.bigdata.application.model.entity.LoanApplicationEntity;
-import com.bigdata.application.model.entity.WorkExperienceEntity;
-import com.bigdata.application.model.enums.ApplicationStatus;
 import com.bigdata.application.model.enums.CountActiveLoans;
 import com.bigdata.application.model.enums.LoanCollateralType;
 import com.bigdata.application.model.enums.WorkExperience;
-import com.bigdata.lending.model.enums.LendingType;
-import com.bigdata.user.model.entity.UserEntity;
+import com.bigdata.products.common.LendingType;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
-
-import java.time.LocalDateTime;
 
 @Data
 @Schema(name = "Заявка на скоринг", description = "Заполняется авторизованным пользователем")

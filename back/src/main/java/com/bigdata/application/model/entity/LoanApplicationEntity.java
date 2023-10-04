@@ -1,15 +1,13 @@
 package com.bigdata.application.model.entity;
 
 import com.bigdata.application.model.enums.ApplicationStatus;
-import com.bigdata.lending.model.enums.LendingType;
+import com.bigdata.products.common.LendingType;
 import com.bigdata.user.model.entity.UserEntity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.Period;
 
 @Entity
 @Data
@@ -93,40 +91,4 @@ public class LoanApplicationEntity {
     @ToString.Exclude
     @JoinColumn(name = "user_id")
     private UserEntity user;
-
-    public float scoreCalculate(LocalDate birthday) {
-        float total = 0;
-
-        int age = Period.between(birthday, LocalDate.now()).getYears();
-        if (21 <= age && age <= 22) total += 9;
-        else if (23 <= age && age <= 45) total += 15;
-        else if (46 <= age && age <= 64) total += 34;
-        else if (65 <= age && age <= 70) total += 10;
-
-        switch (getWorkExperience().getName()) {
-            case LESS_THAN_YEAR_AND_HALF -> total += 14;
-            case ONE_AND_HALF_TO_TEN -> total += 27;
-            case ELEVEN_TO_TWENTY, MORE_THAN_TWENTY -> total += 34;
-        }
-
-        if (getCurrentDebtLoad().getAmountLoanPayments() >= 0
-                && getCurrentDebtLoad().getMonthlyIncome() > 0) {
-            float currentDebtLoad = getCurrentDebtLoad().getAmountLoanPayments() /
-                    getCurrentDebtLoad().getMonthlyIncome();
-
-            if (currentDebtLoad >= 0 && currentDebtLoad < 0.1)   total += 58;
-            else if (currentDebtLoad > 0.11 && currentDebtLoad < 0.5)   total += 43;
-            else if (currentDebtLoad > 0.51 && currentDebtLoad < 0.7)   total += 21;
-            else if (currentDebtLoad > 0.71)   total += 10;
-        }
-
-        switch (getCurrentDebtLoad().getCountActiveLoans()) {
-            case NO_CREDITS -> total += 40;
-            case FROM_ONE_TO_TWO -> total += 34;
-            case FROM_THREE_TO_FIVE -> total += 15;
-            case MORE_THAN_FIVE -> total += 3;
-        }
-
-        return total;
-    }
 }

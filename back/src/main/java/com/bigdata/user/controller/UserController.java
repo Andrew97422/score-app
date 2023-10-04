@@ -48,7 +48,7 @@ public class UserController {
             description = "Обновление пользователя по его идентификатору"
     )
     @PreAuthorize("hasAnyAuthority('USER')")
-    @PatchMapping("/update/{id}")
+    @PatchMapping("/{id}")
     public ResponseEntity<Integer> updateUser(
             @PathVariable @Parameter(description = "Идентификатор пользователя") String id,
             @RequestBody @Parameter(description = "Полученная информация о пользователе") UpdateUserRequest request
@@ -60,7 +60,7 @@ public class UserController {
             summary = "Удаление пользователя",
             description = "Удаление пользователя по его идентификатору"
     )
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     @PreAuthorize("hasAnyAuthority('USER')")
     public ResponseEntity<?> deleteUser(
             @PathVariable @Parameter(description = "Идентификатор пользователя") String id

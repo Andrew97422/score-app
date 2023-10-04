@@ -1,6 +1,7 @@
 package com.bigdata.user.service;
 
 import com.bigdata.user.model.dto.UpdateUserRequest;
+import com.bigdata.user.model.dto.UserResponse;
 import com.bigdata.user.model.entity.UserEntity;
 import com.bigdata.user.model.enums.Role;
 import lombok.RequiredArgsConstructor;
@@ -38,5 +39,17 @@ public class UserUtils {
         user.setLastName(updatedUser.getLastName());
         user.setSurName(updatedUser.getSurName());
         user.setObtainedFrom(updatedUser.isObtainedFrom());
+    }
+
+    public UserResponse mapToDto(UserEntity user) {
+        return UserResponse.builder()
+                .login(user.getLogin())
+                .email(user.getEmail())
+                .birthday(user.getBirthday())
+                .phone(user.getPhone())
+                .lastName(user.getLastName())
+                .firstName(user.getFirstName())
+                .surName(user.getSurName())
+                .build();
     }
 }
