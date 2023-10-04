@@ -10,17 +10,26 @@
 html, body {
   width: 100%;
   height: 100%;
+  overflow: hidden;
 }
 
 .component {
   overflow: auto;
   position: absolute;
-  top: 0;
-  left: 200px;
-  height: 100%;
-  width: calc(100% - 200px);
+  top: 48px;
+  left: 0;
+  height: calc(100% - 48px);
+  width: 100%;
   display: inline-block;
   padding: 12px;
+  background-color: #e8e1e8;
+}
+
+.mat-card {
+  background: white;
+  padding: 10px;
+  border-radius: 4px;
+  box-shadow: 0 4px 4px #0003;
 }
 
 .mat-mdc-card {
@@ -85,7 +94,32 @@ input:read-only, .mat-mdc-select-disabled {
   color: #666 !important;
 }
 
-/*
+
+table {
+  width: 100%;
+  table-layout: fixed;
+  background: white;
+}
+
+table tr:hover {
+  background-color: #f2f1f5;
+}
+
+table tr {
+  border-bottom: 1px solid #d6d5da;
+  cursor: pointer !important;
+}
+
+table tr td {
+  padding: 2px;
+}
+
+table tr td div {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 ::-webkit-scrollbar-thumb, ::-webkit-scrollbar-thumb {
   border-radius: 50px;
   width: 10px;
@@ -94,5 +128,4 @@ input:read-only, .mat-mdc-select-disabled {
 
 ::-webkit-scrollbar {
   width: 10px;
-}*/
-
+}

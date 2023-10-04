@@ -3,13 +3,16 @@
     left: 0;
     right: 0;
     top: 0;
-    width: 200px;
-    height: 100%;
-    display: flex !important;
+    width: 100%;
+    height: 48px;
+    display: flex!important;
     z-index: 99;
     align-items: center;
-    background: linear-gradient(rgb(0 75 140),white) !important;
-    flex-direction: column !important;
+    background: rgb(0 75 140);
+    flex-direction: row !important;
+    color: white;
+    padding-right: 10px;
+    box-shadow: 0 4px 4px 0 rgba(0,0,0,.2);
 }
 
 .favicon {
@@ -27,21 +30,26 @@
     white-space: nowrap;
 }
 
+a {
+    color: white !important;  
+}
+
 .nav-menu-item {
     display: flex;
     align-items: center;
-    width: 100%;
+    height: 100%;
     justify-content: start;
     cursor: pointer;
     color: white !important;
     text-decoration: none !important;
     font-size: 16px;
     border-radius: 0 !important;
+    padding: 0 10px !important;
 }
 
 .nav-menu-item-active {
     color: orange !important;
-    background-color: rgba(0,0,0,.1);
+    background-color: rgba(0,0,0,.2);
 }
 
 .circle {
@@ -56,7 +64,6 @@
 }
 
 .link-icon {
-    height: 30px;
-    width: 100%;
-    margin: 10px;
+    height: 24px;
+    margin: 10px 20px;
 }

@@ -8,7 +8,9 @@ import { HttpClient } from '@angular/common/http';
 import { SessionService } from './session.service';
 import { Observable } from 'rxjs';
 import { AuthenticationResponse } from '../models/authentication-response';
+import { AuthorizationSource } from '../../shared/models/authorization-source';
 import * as moment from 'moment';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Injectable({ providedIn: 'root'})
 export class RegisterService {
@@ -17,7 +19,8 @@ export class RegisterService {
   constructor(
     private router: Router,
     private http: HttpClient,
-    private sessionService: SessionService) {
+    private sessionService: SessionService,
+    private snackBar: MatSnackBar) {
   }
 
   getUser(id: number): Observable<Object> {
@@ -26,11 +29,9 @@ export class RegisterService {
     });
   }
 
-  login(loginData: LoginData): void {
+  login(loginData: LoginData, authorizationSource: AuthorizationSource = AuthorizationSource.None): void {
     this.http.post(this.baseUrl + '/api/v1/login', loginData).subscribe((x: AuthenticationResponse) => {
-      console.log(x);
-      this.router.navigate(['']);
-      this.sessionService.createSession(x.id, true, x.token);
+      this.sessionService.createSession(x.id, true, x.token, authorizationSource);
     });
   }
 
@@ -52,11 +53,12 @@ export class RegisterService {
   sendRequest(userData: RequestData): void {
     this.http.post(this.baseUrl + '/api/v1/application/register', userData, {
       headers: {Authorization: 'Bearer ' + this.sessionService.getToken()}
-    }).subscribe(x => console.log(x));
+    }).subscribe(() => this.snackBar.open(`Заявка на кредит на сумму ${userData.amount} отправлена успешно`, 'OK', { duration: 36000 }));
   }
 
   sendRequestWithoutAuth(userData: RequestData): void {
-    this.http.post(this.baseUrl + '/api/v1/application/noauth/register', userData).subscribe(x => console.log(x));
+    this.http.post(this.baseUrl + '/api/v1/application/noauth/register', userData)
+    .subscribe(() => this.snackBar.open(`Заявка на кредит на сумму ${userData.amount} отправлена успешно`, 'OK', { duration: 36000 }));
   }
 
   getRequets(type: LendingType): Observable<Object> {

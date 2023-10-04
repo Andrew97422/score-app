@@ -1,12 +1,11 @@
 import { Component, Inject } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { RegisterService } from 'src/app/shared/services/register-service';
 import { WorkExperienceExt } from 'src/app/shared/models/work-experience';
 import { CountActiveLoansExt } from 'src/app/shared/models/count-active-loans';
 import { LendingType, LendingTypeExt } from 'src/app/shared/models/lending-type';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { InputDialogModel, InputDialogType } from '../../../shared/models/input-dialog-type';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'request-input',
@@ -23,29 +22,16 @@ export class RequestInputComponent {
 
   constructor(
     private fb: FormBuilder,
-    private router: Router,
     private registerService: RegisterService,
     private dialogRef: MatDialogRef<RequestInputComponent>,
     @Inject(MAT_DIALOG_DATA) public data: InputDialogModel<any>) {
       this.form = this.fb.group({
-        lendingType: [
-          null, [Validators.required]
-        ],
-        workExperience: [
-          null, [Validators.required]
-        ],
-        countActiveLoans: [
-          null, [Validators.required]
-        ],
-        currentDebtLoad: [
-          null, [Validators.min(0)]
-        ],
-        monthlyIncome: [
-          null, [Validators.min(0)]
-        ],
-        amount: [
-          null, [Validators.required]
-        ],
+        lendingType: null,
+        workExperience: null,
+        countActiveLoans: null,
+        currentDebtLoad: null,
+        monthlyIncome: null,
+        amount: null,
         term: null,
         minRate: null,
         maxRate: null,
@@ -62,7 +48,7 @@ export class RequestInputComponent {
         this.form.controls.lendingType.setValue(data.data.lendingType);
         this.form.controls.workExperience.setValue(data.data.workExperience?.name);
         this.form.controls.countActiveLoans.setValue(data.data.currentDebtLoad?.countActiveLoans);
-        this.form.controls.currentDebtLoad.setValue(data.data.currentDebtLoad?.countActiveLoans);
+        this.form.controls.currentDebtLoad.setValue(data.data.currentDebtLoad ?? data.data.currentDebtLoad?.countActiveLoans);
         this.form.controls.monthlyIncome.setValue(data.data.monthlyIncome);
         this.form.controls.term.setValue(data.data.term);
         this.form.controls.military.setValue(data.data.military);
@@ -78,10 +64,10 @@ export class RequestInputComponent {
       }
   }
 
+  //
   submit(): void {
     const result = this.form.getRawValue();
     this.registerService.sendRequest(result);
     this.dialogRef.close();
-    //this.router.navigate(['']);
   }
 }

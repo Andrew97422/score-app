@@ -5,6 +5,8 @@ import { Router } from '@angular/router';
 import { DataService } from 'src/app/shared/services/data.service';
 import { RegisterService } from 'src/app/shared/services/register-service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { PsbAuthorizationComponent } from '../psb-authorization/psb-authorization.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'login',
@@ -17,6 +19,7 @@ export class LoginComponent {
   constructor(
     public router: Router,
     private fb: FormBuilder,
+    private dialog: MatDialog,
     private vkService: VKService,
     public dataService: DataService,
     public sessionService: SessionService,
@@ -40,6 +43,11 @@ export class LoginComponent {
 
   async login(): Promise<void> {
     this.registerService.login(this.form.getRawValue());
+    this.router.navigate(['']);
+  }
+
+  psbAuthorize(): void {
+    this.dialog.open(PsbAuthorizationComponent);
   }
 
   async vkAuthorize(): Promise<void> {

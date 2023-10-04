@@ -21,18 +21,22 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatSelectModule } from '@angular/material/select';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { ShopComponent } from './components/shop/shop.component';
 import { LoginComponent } from './components/login/login.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { MyRequestsComponent } from './components/my-requests/my-requests.component';
 import { RequestInputComponent } from './components/my-requests/request-input/request-input.component';
-import { MatDialogModule } from '@angular/material/dialog';
+import { MAT_DIALOG_DEFAULT_OPTIONS, MatDialogConfig, MatDialogModule } from '@angular/material/dialog';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { MyDataComponent } from './components/my-data/my-data.component';
 import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
 
 import { InternalServerErrorInterceptor } from './shared/services/internal-server-error-interceptor';
+import { ShopPrototypeComponent } from './components/shop/shop-prototype/shop-prototype.component';
+import { ProductComponent } from './components/shop/shop-prototype/product/product.component';
+import { PsbAuthorizationComponent } from './components/psb-authorization/psb-authorization.component';
 
 @NgModule({
     imports: [ 
@@ -55,7 +59,8 @@ import { InternalServerErrorInterceptor } from './shared/services/internal-serve
         MatCheckboxModule,
         MatDialogModule,
         MatTooltipModule,
-        HttpClientModule
+        HttpClientModule,
+        MatSnackBarModule
     ],
     declarations: [
         NavMenuComponent,
@@ -66,11 +71,15 @@ import { InternalServerErrorInterceptor } from './shared/services/internal-serve
         RequestInputComponent,
         ShopComponent,
         MyDataComponent,
-        ConfirmDialogComponent
+        ConfirmDialogComponent,
+        ShopPrototypeComponent,
+        ProductComponent,
+        PsbAuthorizationComponent
     ],
     bootstrap:    [ AppComponent ],
     providers: [
         { provide: MAT_DATE_LOCALE, useValue: 'ru-RU' },
+        { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: { ...new MatDialogConfig(), disableClose: true } },
         { provide: HTTP_INTERCEPTORS, useClass: InternalServerErrorInterceptor, multi: true }
     ]  
 })

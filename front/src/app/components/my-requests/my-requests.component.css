@@ -6,6 +6,9 @@ table tr th mat-icon {
     font-size: 14px; height: 12px; cursor: pointer;
 }
 
+table tr td svg {
+    min-width: 24px;
+}
 
 table tr th {
     padding: 2px;
@@ -45,30 +48,6 @@ table tr td:nth-child(5) mat-icon:hover {
     color: blue !important;
 }
 
-table {
-    width: 100%;
-    table-layout: fixed;
-}
-
-table tr:hover {
-    background-color: #f2f1f5;
-}
-
-table tr {
-    border-bottom: 1px solid #d6d5da;
-}
-
-table tr td {
-    cursor: default;
-    padding: 2px;
-}
-
-table tr td div {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
-
 .add-button {
     padding: 10px; cursor: pointer; width: 180px;
 }
@@ -92,4 +71,8 @@ table tr td div {
 
 .requests-header:hover {
     background-color: #f2f1f5;
+}
+
+.component {
+    background-color: #e8e1e8
 }

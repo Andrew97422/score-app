@@ -22,7 +22,7 @@
     </svg>
 
     <a mat-button class="nav-menu-item" [class.nav-menu-item-active]="router.url=='/'" routerLink="/">
-        Мои заявки
+        Моя страница
     </a>
 
     <a mat-button class="nav-menu-item" [class.nav-menu-item-active]="router.url=='/myData'" routerLink="/myData">
@@ -31,15 +31,6 @@
 
     <div fxFlex></div>
     <div fxLayout="row" fxLayoutGap="8px" fxLayoutAlign="start center" style="padding: 0 10px;">
-        <ng-container *ngIf="userData?.photoUrl; else circle">
-            <img [attr.src]="userData?.photoUrl" style="border-radius: 50%; width: 40px; height: 40px;">
-        </ng-container>
-        <ng-template #circle>
-            <div class="circle">
-                {{(userData?.firstName[0] || 'НС') + (userData?.lastName[0] || '')}}
-            </div>
-        </ng-template>
-
         <div fxLayoutAlign="start center">
             {{(userData?.firstName || 'имя пользователя неизвестно') + ' ' + (userData?.lastName[0] + '.')}}
         </div>

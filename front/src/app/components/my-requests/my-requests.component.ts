@@ -7,6 +7,9 @@ import { InputDialogModel, InputDialogType } from 'src/app/shared/models/input-d
 import * as moment from 'moment';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 import { ConfirmData } from '../confirm-dialog/confirm-data.model';
+import { SessionService } from 'src/app/shared/services/session.service';
+import { DataService } from 'src/app/shared/services/data.service';
+import { CardType } from 'src/app/shared/models/card-type';
 
 @Component({
   selector: 'my-requests',
@@ -14,18 +17,33 @@ import { ConfirmData } from '../confirm-dialog/confirm-data.model';
   styleUrls: ['./my-requests.component.css']
 })
 export class MyRequestsComponent implements OnInit {
+  CardType = CardType;
   LendingType = LendingType;
   LendingTypeExt = LendingTypeExt;
   consumers: any;
   autoLoans: any;
   mortgages:  any;
+  userData: any;
+  userCards: any;
+  credits: any;
   
   constructor(
     private dialog: MatDialog,
+    private dataService: DataService,
+    private sessionService: SessionService,
     private registerService: RegisterService) {}
 
   async ngOnInit(): Promise<void> {
+    this.registerService.getUser(this.sessionService.getSessionID() as unknown as number).subscribe((x: any) => {
+      this.userData = x;
+      this.userCards = this.dataService.getUserCards(x.login);
+      this.credits = this.dataService.getCredits(x.login);
+    });
     this.loadRequests();
+  }
+
+  getCardNumber(number: string): string {
+    return '...' + number.slice(number.length - 4);
   }
 
   getDateTime(req): string {
@@ -36,8 +54,8 @@ export class MyRequestsComponent implements OnInit {
   sort(lendingType: LendingType, sortDirection: string): void {
     let items = lendingType == LendingType.CONSUMER ? this.consumers : lendingType == LendingType.AUTO_LOAN ? this.autoLoans : this.mortgages;
     items = sortDirection
-      ? items.sort((a, b) => this.getDateTime(a.application) > this.getDateTime(b.application) ? -1 : 1)
-      : items.sort((a, b) => this.getDateTime(a.application) > this.getDateTime(b.application) ? 1 : -1);
+      ? items.sort((a, b) => this.getDateTime(a) > this.getDateTime(b) ? -1 : 1)
+      : items.sort((a, b) => this.getDateTime(a) > this.getDateTime(b) ? 1 : -1);
   }
 
   async createRequest(): Promise<void> {

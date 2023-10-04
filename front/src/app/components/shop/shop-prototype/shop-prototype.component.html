@@ -1,0 +1,52 @@
+<div class="nav-menu" fxLayout="row" fxLayoutGap="10px">
+    <svg width="40px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M6.24223 4.5H17.7578L19.5 8.85556V18L18.75 18.75H5.25L4.5 18V8.85556L6.24223 4.5ZM7.25777 6L6.35777 8.25H17.6422L16.7422 6H7.25777ZM18 9.75H6V17.25H18V9.75ZM9.59473 13.6553L10.6554 12.5946L11.25 13.1892V11.25H12.75V13.1894L13.3447 12.5946L14.4054 13.6553L12.0001 16.0606L9.59473 13.6553Z" 
+        fill="white"/>
+    </svg>
+
+    <div>Магазин</div>
+</div>
+
+<div class="component" fxLayout="column">
+    <div fxFlex fxLayout="column" class="mat-card" style="overflow: auto; padding-top: 0;">
+        <div fxLayout="row" class="header" matRipple #auto_exp (click)="auto_exp.checked=!auto_exp.checked">
+            <mat-icon>
+                <span class="material-symbols-outlined">
+                    {{auto_exp.checked ? 'chevron_right' : 'expand_more'}}
+                </span>
+            </mat-icon>
+            <div class="title">Продажа автомобилей</div>
+        </div>
+        <table *ngIf="!auto_exp.checked">
+            <tr *ngFor="let x of cars" (click)="viewProduct(x)">
+                <td>
+                    <img width="200px" [attr.src]="x.imgUrl">
+                </td>
+                <td>
+                    <div>{{x.name}}</div>
+                    <div>{{x.price}} ₽</div>
+                </td>
+            </tr>
+        </table>
+
+        <div fxLayout="row" class="header" matRipple #home_exp (click)="home_exp.checked=!home_exp.checked">
+            <mat-icon>
+                <span class="material-symbols-outlined">
+                    {{home_exp.checked ? 'chevron_right' : 'expand_more'}}
+                </span>
+            </mat-icon>
+            <div class="title">Продажа домов, дач, коттеджей, таунхаусов</div>
+        </div>
+        <table *ngIf="!home_exp.checked">
+            <tr *ngFor="let x of homes" (click)="viewProduct(x)">
+                <td>
+                    <img width="200px" [attr.src]="x.imgUrl">
+                </td>
+                <td>
+                    <div>{{x.name}}</div>
+                    <div>{{x.price}} ₽</div>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>

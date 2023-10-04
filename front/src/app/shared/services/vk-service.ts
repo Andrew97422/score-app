@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { SessionService } from './session.service';
 import { DataService } from './data.service';
+import { AuthorizationSource } from '../models/authorization-source';
 
 declare var VK: any;
 @Injectable({
@@ -57,7 +58,7 @@ export class VKService {
     login(): void {
         VK.Auth.login((response) => {
             if (response.session) {
-                this.sessionService.createSession(response.session.user.id, true, '');
+                this.sessionService.createSession(response.session.user.id, true, '', AuthorizationSource.VK);
                 this.getProfile();
 
                 this.router.navigate(['']);

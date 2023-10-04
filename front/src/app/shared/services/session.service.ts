@@ -8,6 +8,10 @@ export class SessionService {
     return localStorage.getItem('token');
   }
 
+  getAuthorizationSource() {
+    return +localStorage.getItem('authorizationSource');
+  }
+
   getSessionID(): string {
     return localStorage.getItem('id');
   }
@@ -16,10 +20,11 @@ export class SessionService {
     return localStorage.getItem('isLoggedIn');
   }
 
-  createSession(id, status, token): void {
+  createSession(id, status, token, authorizationSource): void {
     localStorage.setItem('id', id);
     localStorage.setItem('isLoggedIn', status);
     localStorage.setItem('token', token);
+    localStorage.setItem('authorizationSource', authorizationSource);
   }
 
   destroySession(): void {

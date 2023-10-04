@@ -15,6 +15,9 @@
               "polyfills": "src/polyfills.ts",
               "tsConfig": "tsconfig.json",
               "aot": true,
+              "assets": [
+                "src/assets/*"
+              ],
               "styles": [
                 "node_modules/bootstrap/dist/css/bootstrap.min.css",
                 "src/styles.scss"
