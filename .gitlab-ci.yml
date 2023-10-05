@@ -1,11 +1,53 @@
-stages:
-  - build
-  - deploy
+image: maven:3.8.4-openjdk-17
 
-maven-build:
-  image: maven:3-jdk-17
+variables:
+  POSTGRES_DB: bigdata
+  POSTGRES_USER: postgres
+  POSTGRES_PASSWORD: 123
+
+cache:
+  paths:
+    – ./back/target/*.jar
+  stages:
+    – test
+    – build
+    – deploy
+
+test:
+  stage: test
+  script:
+    – mvn test
+
+build:
   stage: build
-  script: "mvn package -B"
+  script:
+
+    – mkdir -p target
+    – mv pom.xml target
+    – cd target
+    – for i in {0..9}; do mv ./pom.xml ./maven_build_$i; done
+    – cp ./pom.xml .
+    – find . -name 'maven_build*' -exec mv {} . \;
+    – rm -rf maven_build*
+    – touch /var/lib/docker/tmp/buildinfo
+    – echo "Building..."
+    – mvn -DskipTests clean package
+
   artifacts:
     paths:
-      - target/*.jar
+      – ./back/target/*.jar
+
+deploy:
+  stage: deploy
+  script:
+    - docker-compose up
+    #– docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN
+    #– DOCKER_IMAGE=my-docker-image mvn docker:build -Dmaven.docker.debug=true
+    #– sleep 10
+    #– docker push my-docker-image
+
+spring_cache:
+  cache:
+    key: ${CI_COMMIT_REF_SLUG}
+    policy: push
+    recreate_on_error: true
