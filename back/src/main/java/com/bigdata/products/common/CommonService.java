@@ -1,5 +1,7 @@
 package com.bigdata.products.common;
 
+import java.util.List;
+
 public interface CommonService<A extends CommonProduct> {
     Integer registerNewLending(A a);
 
@@ -8,4 +10,12 @@ public interface CommonService<A extends CommonProduct> {
     A getById(Integer id);
 
     void updateById(Integer id, A a);
+
+    void addProductToSchedulingToSetActive();
+
+    void addProductToSchedulingToSetNotActive();
+
+    void makeActive(List<Integer> ids);
+
+    void makeNotActive(List<Integer> ids);
 }

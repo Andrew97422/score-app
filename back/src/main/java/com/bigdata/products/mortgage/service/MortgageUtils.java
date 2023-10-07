@@ -8,50 +8,24 @@ import org.springframework.stereotype.Service;
 @Service
 public class MortgageUtils implements CommonUtils<MortgageProduct, MortgageEntity> {
 
-    public MortgageEntity mapToEntity(MortgageProduct mortgageProduct) {
-        return MortgageEntity.builder()
-                .name(mortgageProduct.getName())
-                .minLoanAmount(mortgageProduct.getMinAmount())
-                .maxLoanAmount(mortgageProduct.getMaxAmount())
-                .minLoanTerm(mortgageProduct.getMinTerm())
-                .maxLoanTerm(mortgageProduct.getMaxTerm())
-                .minLoanRate(mortgageProduct.getMinRate())
-                .url(mortgageProduct.getUrl())
-                .comment(mortgageProduct.getComment())
-                .addToInterest(mortgageProduct.getAddToInterest())
-                .downPayment(mortgageProduct.getDownPayment())
-                .startDate(mortgageProduct.getStartDate())
-                .build();
+    @Override
+    public void mapToEntity(MortgageProduct mortgageProduct, MortgageEntity mortgageEntity) {
+        CommonUtils.super.mapToEntity(mortgageProduct, mortgageEntity);
+        mortgageEntity.setDownPayment(mortgageProduct.getDownPayment());
+        mortgageEntity.setAddToInterest(mortgageProduct.getAddToInterest());
     }
 
-    public MortgageProduct mapToDto(MortgageEntity mortgageEntity) {
-        return MortgageProduct.builder()
-                .name(mortgageEntity.getName())
-                .minAmount(mortgageEntity.getMinLoanAmount())
-                .maxAmount(mortgageEntity.getMaxLoanAmount())
-                .minTerm(mortgageEntity.getMinLoanTerm())
-                .maxTerm(mortgageEntity.getMaxLoanTerm())
-                .minRate(mortgageEntity.getMinLoanRate())
-                .url(mortgageEntity.getUrl())
-                .comment(mortgageEntity.getComment())
-                .addToInterest(mortgageEntity.getAddToInterest())
-                .downPayment(mortgageEntity.getDownPayment())
-                .startDate(mortgageEntity.getStartDate())
-                .build();
+    @Override
+    public void mapToDto(MortgageProduct mortgageProduct, MortgageEntity mortgageEntity) {
+        CommonUtils.super.mapToDto(mortgageProduct, mortgageEntity);
+        mortgageProduct.setAddToInterest(mortgageEntity.getAddToInterest());
+        mortgageProduct.setDownPayment(mortgageEntity.getDownPayment());
     }
 
+    @Override
     public void update(MortgageEntity oldEntity, MortgageEntity newEntity) {
-        oldEntity.setName(newEntity.getName());
-        oldEntity.setMinLoanAmount(newEntity.getMinLoanAmount());
-        oldEntity.setMaxLoanAmount(newEntity.getMaxLoanAmount());
-        oldEntity.setMinLoanTerm(newEntity.getMinLoanTerm());
-        oldEntity.setMaxLoanTerm(newEntity.getMaxLoanTerm());
-        oldEntity.setMinLoanRate(newEntity.getMinLoanRate());
-        oldEntity.setUrl(newEntity.getUrl());
-        oldEntity.setComment(newEntity.getComment());
+        CommonUtils.super.update(oldEntity, newEntity);
         oldEntity.setAddToInterest(newEntity.getAddToInterest());
         oldEntity.setDownPayment(newEntity.getDownPayment());
-        oldEntity.setStartDate(newEntity.getStartDate());
     }
-
 }

@@ -47,6 +47,12 @@ public abstract class CommonEntity implements Comparable<CommonEntity> {
     @Column(name = "start_date")
     private LocalDateTime startDate;
 
+    @Column(name = "finish_date")
+    private LocalDateTime finishDate;
+
+    @Column(name = "is_active")
+    private boolean active;
+
     @Override
     public int compareTo(@NotNull CommonEntity o) {
         int diff = (int) (getMinLoanRate() - o.getMinLoanRate());

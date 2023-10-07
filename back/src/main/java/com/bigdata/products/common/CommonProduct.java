@@ -40,4 +40,10 @@ public abstract class CommonProduct {
 
     @Schema(name = "start_date", description = "Начало действия кредитного продукта")
     private LocalDateTime startDate;
+
+    @Schema(name = "finish_date", description = "Конец действия кредитного продукта")
+    private LocalDateTime finishDate;
+
+    @Schema(name = "active", description = "Активный продукт")
+    private boolean active;
 }
