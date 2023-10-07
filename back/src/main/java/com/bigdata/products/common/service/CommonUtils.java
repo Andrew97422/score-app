@@ -1,4 +1,7 @@
-package com.bigdata.products.common;
+package com.bigdata.products.common.service;
+
+import com.bigdata.products.common.model.CommonEntity;
+import com.bigdata.products.common.model.CommonProduct;
 
 public interface CommonUtils<A extends CommonProduct, B extends CommonEntity> {
     default void mapToEntity(A a, B b) {

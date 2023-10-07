@@ -1,6 +1,6 @@
 package com.bigdata.products.consumer.repository;
 
-import com.bigdata.products.common.CommonRepository;
+import com.bigdata.products.common.repository.CommonRepository;
 import com.bigdata.products.consumer.model.entity.ConsumerEntity;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;

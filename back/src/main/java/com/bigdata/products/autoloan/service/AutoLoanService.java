@@ -3,7 +3,7 @@ package com.bigdata.products.autoloan.service;
 import com.bigdata.products.autoloan.model.dto.AutoLoanProduct;
 import com.bigdata.products.autoloan.model.entity.AutoLoanEntity;
 import com.bigdata.products.autoloan.repository.AutoLoanRepository;
-import com.bigdata.products.common.CommonService;
+import com.bigdata.products.common.service.CommonService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;

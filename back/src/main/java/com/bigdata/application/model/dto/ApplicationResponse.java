@@ -3,7 +3,7 @@ package com.bigdata.application.model.dto;
 import com.bigdata.application.model.enums.ApplicationStatus;
 import com.bigdata.application.model.enums.CountActiveLoans;
 import com.bigdata.application.model.enums.WorkExperience;
-import com.bigdata.products.common.LendingType;
+import com.bigdata.products.common.model.LendingType;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

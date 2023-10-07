@@ -1,5 +1,6 @@
 package com.bigdata.products.common;
 
+import com.bigdata.products.common.model.CommonProduct;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 

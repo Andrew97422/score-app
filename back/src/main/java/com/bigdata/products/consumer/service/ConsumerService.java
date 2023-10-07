@@ -1,6 +1,6 @@
 package com.bigdata.products.consumer.service;
 
-import com.bigdata.products.common.CommonService;
+import com.bigdata.products.common.service.CommonService;
 import com.bigdata.products.consumer.model.dto.ConsumerProduct;
 import com.bigdata.products.consumer.model.entity.ConsumerEntity;
 import com.bigdata.products.consumer.repository.ConsumerRepository;

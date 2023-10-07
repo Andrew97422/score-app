@@ -2,7 +2,7 @@ package com.bigdata.products.autoloan.service;
 
 import com.bigdata.products.autoloan.model.dto.AutoLoanProduct;
 import com.bigdata.products.autoloan.model.entity.AutoLoanEntity;
-import com.bigdata.products.common.CommonUtils;
+import com.bigdata.products.common.service.CommonUtils;
 import org.springframework.stereotype.Service;
 
 @Service

@@ -1,6 +1,6 @@
 package com.bigdata.products.mortgage.model.dto;
 
-import com.bigdata.products.common.CommonProduct;
+import com.bigdata.products.common.model.CommonProduct;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 import lombok.experimental.SuperBuilder;

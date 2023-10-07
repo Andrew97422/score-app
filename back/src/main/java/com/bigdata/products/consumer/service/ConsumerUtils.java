@@ -1,6 +1,6 @@
 package com.bigdata.products.consumer.service;
 
-import com.bigdata.products.common.CommonUtils;
+import com.bigdata.products.common.service.CommonUtils;
 import com.bigdata.products.consumer.model.dto.ConsumerProduct;
 import com.bigdata.products.consumer.model.entity.ConsumerEntity;
 import org.springframework.stereotype.Service;

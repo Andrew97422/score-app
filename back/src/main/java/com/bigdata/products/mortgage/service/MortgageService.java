@@ -1,6 +1,6 @@
 package com.bigdata.products.mortgage.service;
 
-import com.bigdata.products.common.CommonService;
+import com.bigdata.products.common.service.CommonService;
 import com.bigdata.products.mortgage.model.dto.MortgageProduct;
 import com.bigdata.products.mortgage.model.entity.MortgageEntity;
 import com.bigdata.products.mortgage.repository.MortgageRepository;

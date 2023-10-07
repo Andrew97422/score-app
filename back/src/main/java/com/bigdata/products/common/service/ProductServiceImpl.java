@@ -1,7 +1,8 @@
-package com.bigdata.products.common;
+package com.bigdata.products.common.service;
 
 import com.bigdata.products.autoloan.model.entity.AutoLoanEntity;
 import com.bigdata.products.autoloan.repository.AutoLoanRepository;
+import com.bigdata.products.common.model.CommonEntity;
 import com.bigdata.products.consumer.model.entity.ConsumerEntity;
 import com.bigdata.products.consumer.repository.ConsumerRepository;
 import com.bigdata.products.mortgage.model.entity.MortgageEntity;

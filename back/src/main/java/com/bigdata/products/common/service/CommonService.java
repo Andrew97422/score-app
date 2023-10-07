@@ -1,4 +1,6 @@
-package com.bigdata.products.common;
+package com.bigdata.products.common.service;
+
+import com.bigdata.products.common.model.CommonProduct;
 
 import java.util.List;
 

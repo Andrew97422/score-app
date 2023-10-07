@@ -1,7 +1,7 @@
 package com.bigdata.application.model.entity;
 
 import com.bigdata.application.model.enums.ApplicationStatus;
-import com.bigdata.products.common.LendingType;
+import com.bigdata.products.common.model.LendingType;
 import com.bigdata.user.model.entity.UserEntity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;

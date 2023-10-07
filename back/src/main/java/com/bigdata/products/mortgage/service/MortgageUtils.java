@@ -1,6 +1,6 @@
 package com.bigdata.products.mortgage.service;
 
-import com.bigdata.products.common.CommonUtils;
+import com.bigdata.products.common.service.CommonUtils;
 import com.bigdata.products.mortgage.model.dto.MortgageProduct;
 import com.bigdata.products.mortgage.model.entity.MortgageEntity;
 import org.springframework.stereotype.Service;
