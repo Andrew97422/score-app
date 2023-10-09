@@ -29,9 +29,11 @@ export class RegisterService {
     });
   }
 
-  login(loginData: LoginData, authorizationSource: AuthorizationSource = AuthorizationSource.None): void {
+  login(loginData: LoginData, authorizationSource: AuthorizationSource = AuthorizationSource.None, router = false): void {
     this.http.post(this.baseUrl + '/api/v1/login', loginData).subscribe((x: AuthenticationResponse) => {
       this.sessionService.createSession(x.id, true, x.token, authorizationSource);
+      if (router)
+        this.router.navigate(['']);
     });
   }
 
@@ -45,7 +47,7 @@ export class RegisterService {
   }
 
   editUser(id: number, userData: UserAuthData): void {
-    this.http.patch(this.baseUrl + '/api/v1/user/update/' + id, userData, {
+    this.http.patch(this.baseUrl + '/api/v1/user/' + id, userData, {
       headers: {Authorization: 'Bearer ' + this.sessionService.getToken()}
     }).subscribe();
   }
@@ -71,7 +73,7 @@ export class RegisterService {
   }
 
   deleteRequets(id: number): void {
-    this.http.delete(this.baseUrl + '/api/v1/application/delete', {params: { id }, headers: {Authorization: 'Bearer ' + this.sessionService.getToken()}})
+    this.http.delete(this.baseUrl + '/api/v1/application/' + id, {headers: {Authorization: 'Bearer ' + this.sessionService.getToken()}})
     .subscribe(x => x);
   }
 

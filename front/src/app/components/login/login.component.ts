@@ -7,6 +7,7 @@ import { RegisterService } from 'src/app/shared/services/register-service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PsbAuthorizationComponent } from '../psb-authorization/psb-authorization.component';
 import { MatDialog } from '@angular/material/dialog';
+import { AuthorizationSource } from 'src/app/shared/models/authorization-source';
 
 @Component({
   selector: 'login',
@@ -42,8 +43,7 @@ export class LoginComponent {
   }
 
   async login(): Promise<void> {
-    this.registerService.login(this.form.getRawValue());
-    this.router.navigate(['']);
+    this.registerService.login(this.form.getRawValue(), AuthorizationSource.None, true);
   }
 
   psbAuthorize(): void {
