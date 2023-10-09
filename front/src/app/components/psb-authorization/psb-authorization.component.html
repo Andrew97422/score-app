@@ -30,9 +30,15 @@
                 <mat-label>Пароль</mat-label>
                 <input matInput type="password" formControlName="password" required>
             </mat-form-field>
-            <button mat-stroked-button color="primary" (click)="login()" [disabled]="form?.invalid">
-                Войти
-            </button>
+
+            <div fxFlex fxLayout="row" fxLayoutGap="8px">
+                <button mat-stroked-button color="primary" (click)="login()" [disabled]="form?.invalid">
+                    Войти
+                </button>
+                <button mat-button mat-dialog-close>
+                    Отмена
+                </button>
+            </div>
 
             <div fxLayoutAlign="center center" style="margin-top: 20px;">
                 Еще не зарегистрированы?
