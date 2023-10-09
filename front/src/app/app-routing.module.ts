@@ -7,6 +7,7 @@ import { ShopComponent } from './components/shop/shop.component';
 import { MyDataComponent } from './components/my-data/my-data.component';
 import { ShopPrototypeComponent } from './components/shop/shop-prototype/shop-prototype.component';
 import { ProductComponent } from './components/shop/shop-prototype/product/product.component';
+import { CreditProductsComponent } from './components/credit-products/credit-products.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -15,7 +16,8 @@ const routes: Routes = [
   { path: 'shop', component: ShopComponent },
   { path: 'myData', component: MyDataComponent },
   { path: 'prototype', component: ShopPrototypeComponent },
-  { path: 'product', component: ProductComponent}
+  { path: 'product', component: ProductComponent},
+  { path: 'creditProducts', component: CreditProductsComponent}
 ];
 
 @NgModule({

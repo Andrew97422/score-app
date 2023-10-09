@@ -37,6 +37,8 @@ import { InternalServerErrorInterceptor } from './shared/services/internal-serve
 import { ShopPrototypeComponent } from './components/shop/shop-prototype/shop-prototype.component';
 import { ProductComponent } from './components/shop/shop-prototype/product/product.component';
 import { PsbAuthorizationComponent } from './components/psb-authorization/psb-authorization.component';
+import { CreditProductsComponent } from './components/credit-products/credit-products.component';
+import { CreditProductInputComponent } from './components/credit-products/credit-product-input/credit-product-input.component';
 
 @NgModule({
     imports: [ 
@@ -74,7 +76,9 @@ import { PsbAuthorizationComponent } from './components/psb-authorization/psb-au
         ConfirmDialogComponent,
         ShopPrototypeComponent,
         ProductComponent,
-        PsbAuthorizationComponent
+        PsbAuthorizationComponent,
+        CreditProductsComponent,
+        CreditProductInputComponent
     ],
     bootstrap:    [ AppComponent ],
     providers: [

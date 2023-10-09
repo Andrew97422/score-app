@@ -1,5 +1,4 @@
 <div class="nav-menu" fxLayout="column">
-    <!--<img src="https://www.psbank.ru/-/media/Files/Bank/Brand/PSB_logo_white_png.png" class="link-icon">-->
     <svg id="Слой_1" data-name="Слой 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 98 30" height="30px" class="link-icon" matRipple>
         <defs>
         <style>
@@ -22,11 +21,15 @@
     </svg>
 
     <a mat-button class="nav-menu-item" [class.nav-menu-item-active]="router.url=='/'" routerLink="/">
-        Моя страница
+        Заявки
     </a>
 
     <a mat-button class="nav-menu-item" [class.nav-menu-item-active]="router.url=='/myData'" routerLink="/myData">
-        Мои данные
+        Данные пользователя
+    </a>
+
+    <a mat-button class="nav-menu-item" [class.nav-menu-item-active]="router.url=='/creditProducts'" routerLink="/creditProducts">
+        Кредитные продукты
     </a>
 
     <div fxFlex></div>

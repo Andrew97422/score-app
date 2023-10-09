@@ -1,0 +1,75 @@
+<div [formGroup]="form" fxFlex fxLayout="column" style="padding: 20px;">
+    <h4>Создание кредитного продукта</h4>
+    <div fxLayout="column" style="width: 500px; max-height: calc(100vh - 200px); overflow: auto; padding: 20px; margin: 0 -20px;">
+        <mat-form-field appearance="outline" color="primery">
+            <mat-label>Название продукта</mat-label>
+            <input matInput color="primery" formControlName="name" required>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" color="primery">
+            <mat-label>Минимальная сумма кредита</mat-label>
+            <input type="number" matInput color="primery" formControlName="minAmount">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" color="primery">
+            <mat-label>Максимальная сумма кредита</mat-label>
+            <input type="number" matInput color="primery" formControlName="maxAmount">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" color="primery">
+            <mat-label>Минимальный срок кредита</mat-label>
+            <input type="number" matInput color="primery" formControlName="minTerm">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" color="primery">
+            <mat-label>Максимальный срок кредита</mat-label>
+            <input type="number" matInput color="primery" formControlName="maxTerm">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" color="primery">
+            <mat-label>Минимальная процентная ставка</mat-label>
+            <input type="number" matInput color="primery" formControlName="minRate">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" color="primery">
+            <mat-label>Ссылка на описание продукта</mat-label>
+            <input matInput color="primery" formControlName="url">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" color="primery">
+            <mat-label>Краткое описание продукта</mat-label>
+            <input matInput color="primery" formControlName="comment">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" color="primery">
+            <mat-label>Начало действия</mat-label>
+            <input matInput [matDatepicker]="picker" formControlName="startDate">
+            <mat-datepicker-toggle matIconSuffix [for]="picker">
+            </mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+
+
+        <mat-form-field appearance="outline" color="primery">
+            <mat-label>Конец действия</mat-label>
+            <input matInput [matDatepicker]="picker2" formControlName="finishDate">
+            <mat-datepicker-toggle matIconSuffix [for]="picker2">
+            </mat-datepicker-toggle>
+            <mat-datepicker #picker2></mat-datepicker>
+        </mat-form-field>
+
+        <mat-checkbox color="primery" formControlName="active">
+            Активный продукт
+        </mat-checkbox>
+    </div>
+
+    <div fxLayout="row" fxLayoutGap="10px" style="padding-top: 20px;">
+        <button fxFlex mat-stroked-button color="primary" (click)="submit()" [disabled]="form?.invalid">
+            Создать
+        </button>
+
+        <button fxFlex mat-stroked-button color="primary" mat-dialog-close style="color: black !important; background: white;">
+            Отмена
+        </button>
+    </div>
+</div>
