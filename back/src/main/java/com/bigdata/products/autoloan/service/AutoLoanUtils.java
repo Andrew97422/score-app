@@ -2,52 +2,27 @@ package com.bigdata.products.autoloan.service;
 
 import com.bigdata.products.autoloan.model.dto.AutoLoanProduct;
 import com.bigdata.products.autoloan.model.entity.AutoLoanEntity;
-import com.bigdata.products.common.CommonUtils;
+import com.bigdata.products.common.service.CommonUtils;
 import org.springframework.stereotype.Service;
 
 @Service
 public class AutoLoanUtils implements CommonUtils<AutoLoanProduct, AutoLoanEntity> {
 
-    public AutoLoanEntity mapToEntity(AutoLoanProduct request) {
-        return AutoLoanEntity.builder()
-                .name(request.getName())
-                .minLoanAmount(request.getMinAmount())
-                .maxLoanAmount(request.getMaxAmount())
-                .minLoanTerm(request.getMinTerm())
-                .maxLoanTerm(request.getMaxTerm())
-                .minLoanRate(request.getMinRate())
-                .url(request.getUrl())
-                .comment(request.getComment())
-                .mileage(request.getMileage())
-                .startDate(request.getStartDate())
-                .build();
+    @Override
+    public void mapToEntity(AutoLoanProduct request, AutoLoanEntity entity) {
+        CommonUtils.super.mapToEntity(request, entity);
+        entity.setMileage(request.getMileage());
     }
 
-    public AutoLoanProduct mapToDto(AutoLoanEntity autoLoan) {
-        return AutoLoanProduct.builder()
-                .name(autoLoan.getName())
-                .minAmount(autoLoan.getMinLoanAmount())
-                .maxAmount(autoLoan.getMaxLoanAmount())
-                .minTerm(autoLoan.getMinLoanTerm())
-                .maxTerm(autoLoan.getMaxLoanTerm())
-                .minRate(autoLoan.getMinLoanRate())
-                .url(autoLoan.getUrl())
-                .comment(autoLoan.getComment())
-                .mileage(autoLoan.getMileage())
-                .startDate(autoLoan.getStartDate())
-                .build();
+    @Override
+    public void mapToDto(AutoLoanProduct product, AutoLoanEntity autoLoan) {
+        CommonUtils.super.mapToDto(product, autoLoan);
+        autoLoan.setMileage(product.getMileage());
     }
 
+    @Override
     public void update(AutoLoanEntity oldEntity, AutoLoanEntity newEntity) {
-        oldEntity.setName(newEntity.getName());
-        oldEntity.setMinLoanAmount(newEntity.getMinLoanAmount());
-        oldEntity.setMaxLoanAmount(newEntity.getMaxLoanAmount());
-        oldEntity.setMinLoanTerm(newEntity.getMinLoanTerm());
-        oldEntity.setMaxLoanTerm(newEntity.getMaxLoanTerm());
-        oldEntity.setMinLoanRate(newEntity.getMinLoanRate());
-        oldEntity.setUrl(newEntity.getUrl());
-        oldEntity.setComment(newEntity.getComment());
+        CommonUtils.super.update(oldEntity, newEntity);
         oldEntity.setMileage(newEntity.getMileage());
-        oldEntity.setStartDate(newEntity.getStartDate());
     }
 }

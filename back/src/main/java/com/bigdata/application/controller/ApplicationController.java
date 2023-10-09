@@ -4,7 +4,7 @@ import com.bigdata.application.model.dto.ApplicationResponse;
 import com.bigdata.application.model.dto.ScoringApplicationWithAuthRequest;
 import com.bigdata.application.model.dto.ScoringApplicationWithoutAuthRequest;
 import com.bigdata.application.service.ApplicationService;
-import com.bigdata.products.common.LendingType;
+import com.bigdata.products.common.model.LendingType;
 import com.bigdata.user.model.entity.UserEntity;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;

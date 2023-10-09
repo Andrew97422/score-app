@@ -1,10 +1,9 @@
 package com.bigdata.products.consumer.model.entity;
 
-import com.bigdata.products.common.CommonEntity;
+import com.bigdata.products.common.model.CommonEntity;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
-import org.jetbrains.annotations.NotNull;
 
 @EqualsAndHashCode(callSuper = true)
 @Entity

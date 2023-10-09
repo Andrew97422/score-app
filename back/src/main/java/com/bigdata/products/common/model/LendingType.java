@@ -1,4 +1,4 @@
-package com.bigdata.products.common;
+package com.bigdata.products.common.model;
 
 public enum LendingType {
     CONSUMER,

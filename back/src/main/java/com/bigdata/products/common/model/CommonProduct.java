@@ -1,4 +1,4 @@
-package com.bigdata.products.common;
+package com.bigdata.products.common.model;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
@@ -40,4 +40,10 @@ public abstract class CommonProduct {
 
     @Schema(name = "start_date", description = "Начало действия кредитного продукта")
     private LocalDateTime startDate;
+
+    @Schema(name = "finish_date", description = "Конец действия кредитного продукта")
+    private LocalDateTime finishDate;
+
+    @Schema(name = "active", description = "Активный продукт")
+    private boolean active;
 }

@@ -31,3 +31,7 @@ spring:
           starttls:
             enable: true
             required: true
+  task:
+    scheduling:
+      pool:
+        size: 10

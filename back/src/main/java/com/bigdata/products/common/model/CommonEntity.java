@@ -1,4 +1,4 @@
-package com.bigdata.products.common;
+package com.bigdata.products.common.model;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -46,6 +46,12 @@ public abstract class CommonEntity implements Comparable<CommonEntity> {
 
     @Column(name = "start_date")
     private LocalDateTime startDate;
+
+    @Column(name = "finish_date")
+    private LocalDateTime finishDate;
+
+    @Column(name = "is_active")
+    private boolean active;
 
     @Override
     public int compareTo(@NotNull CommonEntity o) {

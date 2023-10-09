@@ -1,5 +1,6 @@
-package com.bigdata.products.common;
+package com.bigdata.products.common.repository;
 
+import com.bigdata.products.common.model.CommonEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.NoRepositoryBean;
 
