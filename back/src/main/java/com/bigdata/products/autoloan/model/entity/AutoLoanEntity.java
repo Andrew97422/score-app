@@ -5,6 +5,8 @@ import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
+import java.util.List;
+
 @EqualsAndHashCode(callSuper = true)
 @Entity
 @Data
@@ -17,4 +19,6 @@ public class AutoLoanEntity extends CommonEntity {
     @Column(name = "car_mileage")
     private String mileage;
 
+    @OneToMany
+    private List<AutoLoanCacheEntity> autoLoanCache;
 }

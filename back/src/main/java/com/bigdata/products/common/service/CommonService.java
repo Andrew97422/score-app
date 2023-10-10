@@ -17,7 +17,5 @@ public interface CommonService<A extends CommonProduct> {
 
     void addProductToSchedulingToSetNotActive();
 
-    void makeActive(List<Integer> ids);
-
-    void makeNotActive(List<Integer> ids);
+    void changeActive(List<Integer> ids, boolean active);
 }

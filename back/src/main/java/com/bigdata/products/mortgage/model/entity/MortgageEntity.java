@@ -5,6 +5,8 @@ import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
+import java.util.List;
+
 @EqualsAndHashCode(callSuper = true)
 @Entity
 @Data
@@ -19,4 +21,7 @@ public class MortgageEntity extends CommonEntity {
 
     @Column(name = "down_payment")
     private String downPayment;
+
+    @OneToMany
+    private List<MortgageCacheEntity> mortgageCache;
 }

@@ -1,8 +1,11 @@
 package com.bigdata.products.mortgage.service;
 
+import com.bigdata.products.common.model.LendingType;
 import com.bigdata.products.common.service.CommonService;
 import com.bigdata.products.mortgage.model.dto.MortgageProduct;
+import com.bigdata.products.mortgage.model.entity.MortgageCacheEntity;
 import com.bigdata.products.mortgage.model.entity.MortgageEntity;
+import com.bigdata.products.mortgage.repository.MortgageCacheRepository;
 import com.bigdata.products.mortgage.repository.MortgageRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.scheduling.annotation.EnableScheduling;
@@ -10,6 +13,9 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
@@ -26,13 +32,22 @@ public class MortgageService implements CommonService<MortgageProduct> {
 
     private final MortgageUtils mortgageUtils;
 
+    private final MortgageCacheRepository mortgageCacheRepository;
+
     ScheduledThreadPoolExecutor poolExecutor = new ScheduledThreadPoolExecutor(10);
 
     @Transactional
     public Integer registerNewLending(MortgageProduct mortgageProduct) {
         var mortgageEntity = new MortgageEntity();
         mortgageUtils.mapToEntity(mortgageProduct, mortgageEntity);
-        mortgageRepository.save(mortgageEntity);
+
+        var cacheProduct = serialize(mortgageEntity);
+        //List<MortgageCacheEntity> list = mortgageEntity.getMortgageCache();
+        //list.add(cacheProduct);
+        //mortgageEntity.setMortgageCache(list);
+
+        //mortgageRepository.save(mortgageEntity);
+        mortgageCacheRepository.saveAndFlush(cacheProduct);
         return mortgageEntity.getId();
     }
 
@@ -60,56 +75,57 @@ public class MortgageService implements CommonService<MortgageProduct> {
 
     @Override
     @Scheduled(cron = "0 * * * * ?")
+    @Transactional
     public void addProductToSchedulingToSetActive() {
         List<Integer> soonActive = mortgageRepository.findAllSoonActive()
                 .stream().map(MortgageEntity::getId).toList();
         if (!soonActive.isEmpty()) {
-            makeActive(soonActive);
+            changeActive(soonActive, true);
         }
     }
 
     @Override
+    @Scheduled(cron = "0 * * * * ?")
+    @Transactional
     public void addProductToSchedulingToSetNotActive() {
         List<Integer> soonNotActive = mortgageRepository.findAllSoonNotActive()
                 .stream().map(MortgageEntity::getId).toList();
         if (!soonNotActive.isEmpty()) {
-            makeNotActive(soonNotActive);
+            changeActive(soonNotActive, false);
         }
     }
 
     @Override
-    public void makeActive(List<Integer> ids) {
+    @Transactional
+    public void changeActive(List<Integer> ids, boolean active) {
         ids.forEach((id) -> {
             var mortgageEntity = mortgageRepository.getReferenceById(id);
 
-            LocalDateTime timeActive = mortgageEntity.getStartDate();
-            long timeToActive = timeActive.toEpochSecond(ZoneOffset.systemDefault().getRules().getOffset(Instant.EPOCH));
+            LocalDateTime time = active ? mortgageEntity.getStartDate() : mortgageEntity.getFinishDate();
+            long timeLong = time.toEpochSecond(ZoneOffset.systemDefault().getRules().getOffset(Instant.EPOCH));
 
             poolExecutor.schedule(() -> {
-                mortgageEntity.setActive(true);
+                mortgageEntity.setActive(active);
                 mortgageRepository.save(mortgageEntity);
-            }, timeToActive - LocalDateTime.now()
-                    .toEpochSecond(ZoneOffset.systemDefault().getRules().getOffset(Instant.EPOCH)),
-                    TimeUnit.SECONDS
-            );
+            }, timeLong - LocalDateTime.now().toEpochSecond(
+                    ZoneOffset.systemDefault().getRules().getOffset(Instant.EPOCH)
+            ), TimeUnit.SECONDS);
         });
     }
 
-    @Override
-    public void makeNotActive(List<Integer> ids) {
-        ids.forEach((id) -> {
-            var mortgageEntity = mortgageRepository.getReferenceById(id);
+    private MortgageCacheEntity serialize(MortgageEntity mortgage) {
+        var mortgageCacheProduct = new MortgageCacheEntity();
 
-            LocalDateTime timeNotActive = mortgageEntity.getFinishDate();
-            long timeToNotActive = timeNotActive.toEpochSecond(ZoneOffset.systemDefault().getRules().getOffset(Instant.EPOCH));
+        mortgageCacheProduct.setMortgage(mortgage);
+        mortgageCacheProduct.setLendingType(LendingType.MORTGAGE);
 
-            poolExecutor.schedule(() -> {
-                mortgageEntity.setActive(false);
-                mortgageRepository.save(mortgageEntity);
-            }, timeToNotActive - LocalDateTime.now()
-                    .toEpochSecond(ZoneOffset.systemDefault().getRules().getOffset(Instant.EPOCH)),
-                    TimeUnit.SECONDS
-            );
-        });
+        try (ByteArrayOutputStream bos = new ByteArrayOutputStream();
+             ObjectOutputStream out = new ObjectOutputStream(bos)) {
+            out.writeObject(mortgage);
+            mortgageCacheProduct.setProduct(bos.toByteArray());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return mortgageCacheProduct;
     }
 }

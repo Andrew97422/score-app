@@ -1,14 +1,21 @@
 package com.bigdata.products.consumer.service;
 
+import com.bigdata.products.autoloan.model.entity.AutoLoanCacheEntity;
+import com.bigdata.products.common.model.LendingType;
 import com.bigdata.products.common.service.CommonService;
 import com.bigdata.products.consumer.model.dto.ConsumerProduct;
+import com.bigdata.products.consumer.model.entity.ConsumerCacheEntity;
 import com.bigdata.products.consumer.model.entity.ConsumerEntity;
+import com.bigdata.products.consumer.repository.ConsumerCacheRepository;
 import com.bigdata.products.consumer.repository.ConsumerRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
@@ -24,13 +31,22 @@ public class ConsumerService implements CommonService<ConsumerProduct> {
 
     private final ConsumerUtils consumerUtils;
 
+    private final ConsumerCacheRepository consumerCacheRepository;
+
     ScheduledThreadPoolExecutor poolExecutor = new ScheduledThreadPoolExecutor(10);
 
     @Transactional
     public Integer registerNewLending(ConsumerProduct consumerProduct) {
         var consumerEntity = new ConsumerEntity();
         consumerUtils.mapToEntity(consumerProduct, consumerEntity);
-        consumerRepository.save(consumerEntity);
+
+        var cacheProduct = serialize(consumerEntity);
+        //List<ConsumerCacheEntity> list = consumerEntity.getConsumerCache();
+        //list.add(cacheProduct);
+        //consumerEntity.setConsumerCache(list);
+
+        //consumerRepository.save(consumerEntity);
+        consumerCacheRepository.saveAndFlush(cacheProduct);
         return consumerEntity.getId();
     }
 
@@ -51,6 +67,7 @@ public class ConsumerService implements CommonService<ConsumerProduct> {
     public void updateById(Integer id, ConsumerProduct consumerProduct) {
         var consumer = consumerRepository.getReferenceById(id);
         var consumerEntity = new ConsumerEntity();
+
         consumerUtils.mapToEntity(consumerProduct, consumerEntity);
         consumerUtils.update(consumer, consumerEntity);
         consumerRepository.save(consumer);
@@ -58,55 +75,56 @@ public class ConsumerService implements CommonService<ConsumerProduct> {
 
     @Override
     @Scheduled(cron = "0 * * * * ?")
+    @Transactional
     public void addProductToSchedulingToSetActive() {
         List<Integer> soonActive = consumerRepository.findAllSoonActive()
                 .stream().map(ConsumerEntity::getId).toList();
         if (!soonActive.isEmpty()) {
-            makeActive(soonActive);
+            changeActive(soonActive, true);
         }
     }
 
     @Override
     @Scheduled(cron = "0 * * * * ?")
+    @Transactional
     public void addProductToSchedulingToSetNotActive() {
         List<Integer> soonNotActive = consumerRepository.findAllSoonNotActive()
                 .stream().map(ConsumerEntity::getId).toList();
         if (!soonNotActive.isEmpty()) {
-            makeActive(soonNotActive);
+            changeActive(soonNotActive, false);
         }
     }
 
     @Override
-    public void makeActive(List<Integer> ids) {
+    @Transactional
+    public void changeActive(List<Integer> ids, boolean active) {
         ids.forEach((id) -> {
             var consumerEntity = consumerRepository.getReferenceById(id);
 
-            LocalDateTime timeActive = consumerEntity.getStartDate();
-            long timeToActive = timeActive.toEpochSecond(ZoneOffset.systemDefault().getRules().getOffset(Instant.EPOCH));
+            LocalDateTime time = active ? consumerEntity.getStartDate() : consumerEntity.getFinishDate();
+            long timeLong = time.toEpochSecond(ZoneOffset.systemDefault().getRules().getOffset(Instant.EPOCH));
 
             poolExecutor.schedule(() -> {
-                        consumerEntity.setActive(true);
-                        consumerRepository.save(consumerEntity);
-                    },timeToActive - LocalDateTime.now()
-                            .toEpochSecond(ZoneOffset.systemDefault().getRules().getOffset(Instant.EPOCH))
-                    , TimeUnit.SECONDS);
+                consumerEntity.setActive(active);
+                consumerRepository.save(consumerEntity);
+            }, timeLong - LocalDateTime.now()
+                    .toEpochSecond(ZoneOffset.systemDefault().getRules().getOffset(Instant.EPOCH)), TimeUnit.SECONDS);
         });
     }
 
-    @Override
-    public void makeNotActive(List<Integer> ids) {
-        ids.forEach((id) -> {
-            var consumerEntity = consumerRepository.getReferenceById(id);
+    private ConsumerCacheEntity serialize(ConsumerEntity consumer) {
+        var consumerCacheProduct = new ConsumerCacheEntity();
 
-            LocalDateTime timeNotActive = consumerEntity.getFinishDate();
-            long timeToNotActive = timeNotActive.toEpochSecond(ZoneOffset.systemDefault().getRules().getOffset(Instant.EPOCH));
+        consumerCacheProduct.setConsumer(consumer);
+        consumerCacheProduct.setLendingType(LendingType.CONSUMER);
 
-            poolExecutor.schedule(() -> {
-                        consumerEntity.setActive(false);
-                        consumerRepository.save(consumerEntity);
-                    },timeToNotActive - LocalDateTime.now()
-                            .toEpochSecond(ZoneOffset.systemDefault().getRules().getOffset(Instant.EPOCH))
-                    , TimeUnit.SECONDS);
-        });
+        try (ByteArrayOutputStream bos = new ByteArrayOutputStream();
+             ObjectOutputStream out = new ObjectOutputStream(bos)) {
+            out.writeObject(consumer);
+            consumerCacheProduct.setProduct(bos.toByteArray());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return consumerCacheProduct;
     }
 }

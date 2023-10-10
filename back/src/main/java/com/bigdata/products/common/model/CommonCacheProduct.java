@@ -1,11 +1,17 @@
 package com.bigdata.products.common.model;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 @Data
-@Entity
-public class CommonCacheProduct {
+@SuperBuilder
+@MappedSuperclass
+@NoArgsConstructor
+@AllArgsConstructor
+public abstract class CommonCacheProduct {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

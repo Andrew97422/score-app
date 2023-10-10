@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 import org.jetbrains.annotations.NotNull;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @Data
@@ -14,7 +15,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @SuperBuilder
 @MappedSuperclass
-public abstract class CommonEntity implements Comparable<CommonEntity> {
+public abstract class CommonEntity implements Comparable<CommonEntity>, Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

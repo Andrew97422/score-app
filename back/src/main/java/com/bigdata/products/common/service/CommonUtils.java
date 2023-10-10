@@ -15,8 +15,8 @@ public interface CommonUtils<A extends CommonProduct, B extends CommonEntity> {
         b.setComment(a.getComment());
         b.setStartDate(a.getStartDate());
         b.setFinishDate(a.getFinishDate());
-        b.setActive(a.isActive());
-    };
+        b.setActive(false);
+    }
 
     default void mapToDto(A a, B b) {
         a.setName(b.getName());
@@ -29,8 +29,8 @@ public interface CommonUtils<A extends CommonProduct, B extends CommonEntity> {
         a.setComment(b.getComment());
         a.setStartDate(b.getStartDate());
         a.setFinishDate(b.getFinishDate());
-        a.setActive(b.isActive());
-    };
+        a.setActive(false);
+    }
 
     default void update(B b1, B b2) {
         b1.setName(b2.getName());
@@ -44,5 +44,5 @@ public interface CommonUtils<A extends CommonProduct, B extends CommonEntity> {
         b1.setStartDate(b2.getStartDate());
         b1.setFinishDate(b2.getFinishDate());
         b1.setActive(b2.isActive());
-    };
+    }
 }
