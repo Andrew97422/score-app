@@ -7,6 +7,7 @@ import com.bigdata.products.mortgage.model.entity.MortgageCacheEntity;
 import com.bigdata.products.mortgage.model.entity.MortgageEntity;
 import com.bigdata.products.mortgage.repository.MortgageCacheRepository;
 import com.bigdata.products.mortgage.repository.MortgageRepository;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -20,8 +21,10 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
 @Service
 @EnableScheduling
@@ -119,6 +122,15 @@ public class MortgageService implements CommonService<MortgageProduct> {
                     ZoneOffset.systemDefault().getRules().getOffset(Instant.EPOCH)
             ), TimeUnit.SECONDS);
         });
+    }
+
+    @Override
+    public List<MortgageProduct> getAllProducts() {
+        return Optional.of(mortgageRepository.findAll().stream().map((p) -> {
+            var product = new MortgageProduct();
+            mortgageUtils.mapToDto(product, p);
+            return product;
+        }).collect(Collectors.toList())).orElseThrow(EntityNotFoundException::new);
     }
 
     private MortgageCacheEntity serialize(MortgageEntity mortgage) {

@@ -7,6 +7,7 @@ import com.bigdata.products.autoloan.repository.AutoLoanCacheRepository;
 import com.bigdata.products.autoloan.repository.AutoLoanRepository;
 import com.bigdata.products.common.model.LendingType;
 import com.bigdata.products.common.service.CommonService;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -19,8 +20,10 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -119,6 +122,16 @@ public class AutoLoanService implements CommonService<AutoLoanProduct> {
                     .toEpochSecond(ZoneOffset.systemDefault().getRules().getOffset(Instant.EPOCH))
             , TimeUnit.SECONDS);
         });
+    }
+
+    @Override
+    @Transactional
+    public List<AutoLoanProduct> getAllProducts() {
+        return Optional.of(autoLoanRepository.findAll().stream().map((p) -> {
+            var product = new AutoLoanProduct();
+            autoLoanUtils.mapToDto(product, p);
+            return product;
+        }).collect(Collectors.toList())).orElseThrow(EntityNotFoundException::new);
     }
 
     private AutoLoanCacheEntity serialize(AutoLoanEntity autoLoan) {

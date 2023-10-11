@@ -14,6 +14,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 @CrossOrigin
@@ -98,6 +100,16 @@ public class MortgageController implements CommonController<MortgageProduct> {
             return ResponseEntity.ok(id);
         } catch (EntityNotFoundException e) {
             log.error("Lending {} was not found", id);
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @Override
+    public ResponseEntity<List<MortgageProduct>> getAllProducts() {
+        try {
+            return ResponseEntity.ok(mortgageService.getAllProducts());
+        } catch (EntityNotFoundException e) {
+            log.error("Mortgages were not found!");
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }

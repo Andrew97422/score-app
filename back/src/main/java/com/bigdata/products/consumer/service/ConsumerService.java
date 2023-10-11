@@ -7,6 +7,7 @@ import com.bigdata.products.consumer.model.entity.ConsumerCacheEntity;
 import com.bigdata.products.consumer.model.entity.ConsumerEntity;
 import com.bigdata.products.consumer.repository.ConsumerCacheRepository;
 import com.bigdata.products.consumer.repository.ConsumerRepository;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -19,8 +20,10 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -116,6 +119,15 @@ public class ConsumerService implements CommonService<ConsumerProduct> {
             }, timeLong - LocalDateTime.now()
                     .toEpochSecond(ZoneOffset.systemDefault().getRules().getOffset(Instant.EPOCH)), TimeUnit.SECONDS);
         });
+    }
+
+    @Override
+    public List<ConsumerProduct> getAllProducts() {
+        return Optional.of(consumerRepository.findAll().stream().map((p) -> {
+            var product = new ConsumerProduct();
+            consumerUtils.mapToDto(product, p);
+            return product;
+        }).collect(Collectors.toList())).orElseThrow(EntityNotFoundException::new);
     }
 
     private ConsumerCacheEntity serialize(ConsumerEntity consumer) {

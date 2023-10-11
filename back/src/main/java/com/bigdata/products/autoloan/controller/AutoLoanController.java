@@ -14,6 +14,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 @CrossOrigin
@@ -102,4 +104,18 @@ public class AutoLoanController implements CommonController<AutoLoanProduct> {
         }
     }
 
+    @Operation(
+            summary = "Получение всех продукта",
+            description = "Получение всех продуктов по id админом банка"
+    )
+    @Override
+    @GetMapping
+    public ResponseEntity<List<AutoLoanProduct>> getAllProducts() {
+        try {
+            return ResponseEntity.ok(autoLoanService.getAllProducts());
+        } catch (EntityNotFoundException e) {
+            log.error("Autoloans were not found!");
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
 }

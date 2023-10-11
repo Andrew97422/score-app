@@ -18,4 +18,6 @@ public interface CommonService<A extends CommonProduct> {
     void addProductToSchedulingToSetNotActive();
 
     void changeActive(List<Integer> ids, boolean active);
+
+    List<A> getAllProducts();
 }
