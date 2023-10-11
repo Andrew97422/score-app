@@ -42,11 +42,11 @@ public class MortgageService implements CommonService<MortgageProduct> {
         mortgageUtils.mapToEntity(mortgageProduct, mortgageEntity);
 
         var cacheProduct = serialize(mortgageEntity);
-        //List<MortgageCacheEntity> list = mortgageEntity.getMortgageCache();
-        //list.add(cacheProduct);
-        //mortgageEntity.setMortgageCache(list);
+        List<MortgageCacheEntity> list = mortgageEntity.getMortgageCache();
+        list.add(cacheProduct);
+        mortgageEntity.setMortgageCache(list);
 
-        //mortgageRepository.save(mortgageEntity);
+        mortgageRepository.save(mortgageEntity);
         mortgageCacheRepository.saveAndFlush(cacheProduct);
         return mortgageEntity.getId();
     }
@@ -68,9 +68,17 @@ public class MortgageService implements CommonService<MortgageProduct> {
     public void updateById(Integer id, MortgageProduct mortgageProduct) {
         var mortgage = mortgageRepository.getReferenceById(id);
         var mortgageEntity = new MortgageEntity();
+
         mortgageUtils.mapToEntity(mortgageProduct, mortgageEntity);
         mortgageUtils.update(mortgage, mortgageEntity);
+
+        var cacheProduct = serialize(mortgage);
+        List<MortgageCacheEntity> list = mortgage.getMortgageCache();
+        list.add(cacheProduct);
+        mortgage.setMortgageCache(list);
+
         mortgageRepository.save(mortgage);
+        mortgageCacheRepository.save(cacheProduct);
     }
 
     @Override

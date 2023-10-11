@@ -5,12 +5,15 @@ import com.bigdata.products.mortgage.model.dto.MortgageProduct;
 import com.bigdata.products.mortgage.model.entity.MortgageEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+
 @Service
 public class MortgageUtils implements CommonUtils<MortgageProduct, MortgageEntity> {
 
     @Override
     public void mapToEntity(MortgageProduct mortgageProduct, MortgageEntity mortgageEntity) {
         CommonUtils.super.mapToEntity(mortgageProduct, mortgageEntity);
+        mortgageEntity.setMortgageCache(new ArrayList<>());
         mortgageEntity.setDownPayment(mortgageProduct.getDownPayment());
         mortgageEntity.setAddToInterest(mortgageProduct.getAddToInterest());
     }

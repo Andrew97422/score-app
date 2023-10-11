@@ -5,9 +5,7 @@ import com.bigdata.products.autoloan.model.entity.AutoLoanCacheEntity;
 import com.bigdata.products.autoloan.model.entity.AutoLoanEntity;
 import com.bigdata.products.autoloan.repository.AutoLoanCacheRepository;
 import com.bigdata.products.autoloan.repository.AutoLoanRepository;
-import com.bigdata.products.common.model.CommonCacheProduct;
 import com.bigdata.products.common.model.LendingType;
-import com.bigdata.products.common.repository.CommonCacheRepository;
 import com.bigdata.products.common.service.CommonService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -42,11 +40,11 @@ public class AutoLoanService implements CommonService<AutoLoanProduct> {
         autoLoanUtils.mapToEntity(autoLoanProduct, autoLoanEntity);
 
         var cacheProduct = serialize(autoLoanEntity);
-        //List<AutoLoanCacheEntity> list = autoLoanEntity.getAutoLoanCache();
-        //list.add(cacheProduct);
-        //autoLoanEntity.setAutoLoanCache(list);
+        List<AutoLoanCacheEntity> list = autoLoanEntity.getAutoLoanCache();
+        list.add(cacheProduct);
+        autoLoanEntity.setAutoLoanCache(list);
 
-        //autoLoanRepository.save(autoLoanEntity);
+        autoLoanRepository.save(autoLoanEntity);
         commonCacheRepository.save(cacheProduct);
 
         return autoLoanEntity.getId();
@@ -73,7 +71,14 @@ public class AutoLoanService implements CommonService<AutoLoanProduct> {
 
         autoLoanUtils.mapToEntity(autoLoanProduct, autoLoanEntity);
         autoLoanUtils.update(autoLoan, autoLoanEntity);
+
+        var cacheProduct = serialize(autoLoan);
+        List<AutoLoanCacheEntity> list = autoLoan.getAutoLoanCache();
+        list.add(cacheProduct);
+        autoLoan.setAutoLoanCache(list);
+
         autoLoanRepository.save(autoLoan);
+        commonCacheRepository.save(cacheProduct);
     }
 
     @Override

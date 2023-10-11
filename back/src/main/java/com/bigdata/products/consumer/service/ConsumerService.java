@@ -1,6 +1,5 @@
 package com.bigdata.products.consumer.service;
 
-import com.bigdata.products.autoloan.model.entity.AutoLoanCacheEntity;
 import com.bigdata.products.common.model.LendingType;
 import com.bigdata.products.common.service.CommonService;
 import com.bigdata.products.consumer.model.dto.ConsumerProduct;
@@ -70,7 +69,14 @@ public class ConsumerService implements CommonService<ConsumerProduct> {
 
         consumerUtils.mapToEntity(consumerProduct, consumerEntity);
         consumerUtils.update(consumer, consumerEntity);
+
+        var cacheProduct = serialize(consumer);
+        List<ConsumerCacheEntity> list = consumer.getConsumerCache();
+        list.add(cacheProduct);
+        consumer.setConsumerCache(list);
+
         consumerRepository.save(consumer);
+        consumerCacheRepository.save(cacheProduct);
     }
 
     @Override

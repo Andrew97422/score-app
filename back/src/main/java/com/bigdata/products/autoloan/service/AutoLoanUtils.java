@@ -5,12 +5,15 @@ import com.bigdata.products.autoloan.model.entity.AutoLoanEntity;
 import com.bigdata.products.common.service.CommonUtils;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+
 @Service
 public class AutoLoanUtils implements CommonUtils<AutoLoanProduct, AutoLoanEntity> {
 
     @Override
     public void mapToEntity(AutoLoanProduct request, AutoLoanEntity entity) {
         CommonUtils.super.mapToEntity(request, entity);
+        entity.setAutoLoanCache(new ArrayList<>());
         entity.setMileage(request.getMileage());
     }
 
