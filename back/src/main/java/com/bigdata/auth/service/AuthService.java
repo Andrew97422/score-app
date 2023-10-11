@@ -88,4 +88,18 @@ public class AuthService {
 
         log.info("{} was registered", operator.getLogin());
     }
+
+    @Transactional
+    public void registerSuperAdmin(RegisterRequest request) throws IllegalArgumentException {
+        var superAdmin = mappingUtils.mapSuperAdminToEntity(request);
+
+        if (userRepository.existsByLogin(request.getLogin())) {
+            log.error("User {} eas not saved. It's already exists", superAdmin.getLogin());
+            throw new IllegalArgumentException("Superadmin " + superAdmin.getLogin() + " already exists");
+        }
+
+        userRepository.save(superAdmin);
+
+        log.info("{} was registered", superAdmin.getLogin());
+    }
 }

@@ -42,4 +42,19 @@ public class AuthUtils {
                 .obtainedFrom(false)
                 .build();
     }
+
+    public UserEntity mapSuperAdminToEntity(RegisterRequest request) {
+        return UserEntity.builder()
+                .role(Role.SUPER_ADMIN)
+                .lastName(request.getLastName())
+                .firstName(request.getFirstName())
+                .surName(request.getSurName())
+                .birthday(request.getBirthday())
+                .phone(request.getPhone())
+                .email(request.getEmail())
+                .login(request.getLogin())
+                .password(passwordEncoder.encode(request.getPassword()))
+                .obtainedFrom(false)
+                .build();
+    }
 }

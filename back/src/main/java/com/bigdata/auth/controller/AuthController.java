@@ -105,4 +105,24 @@ public class AuthController {
                     ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
     }
+
+    @Operation(
+            summary = "Регистрация админа банка",
+            description = "Регистрация админа банка, доступно админу банка"
+    )
+    @PreAuthorize("hasAnyAuthority('SUPER_ADMIN', 'USER')")
+    @PostMapping("/admin/register")
+    public ResponseEntity<?> registerAdmin(
+            @RequestBody RegisterRequest request
+    ) {
+        try {
+            authService.registerSuperAdmin(request);
+            return ResponseEntity.ok(HttpStatus.CREATED);
+        } catch (IllegalArgumentException e) {
+            return e.getMessage().endsWith("exists") ?
+                    ResponseEntity.status(HttpStatus.CONFLICT).build() :
+                    ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
+    }
+
 }
