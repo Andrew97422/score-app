@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "current_debt_load")
 public class CurrentDebtLoadEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @Column(name = "count_active_loans")

@@ -18,7 +18,8 @@ import java.time.LocalDateTime;
 public abstract class CommonEntity implements Comparable<CommonEntity>, Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(columnDefinition = "serial")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @Column(name = "name")

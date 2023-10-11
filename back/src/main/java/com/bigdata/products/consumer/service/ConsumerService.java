@@ -41,12 +41,12 @@ public class ConsumerService implements CommonService<ConsumerProduct> {
         consumerUtils.mapToEntity(consumerProduct, consumerEntity);
 
         var cacheProduct = serialize(consumerEntity);
-        //List<ConsumerCacheEntity> list = consumerEntity.getConsumerCache();
-        //list.add(cacheProduct);
-        //consumerEntity.setConsumerCache(list);
+        List<ConsumerCacheEntity> list = consumerEntity.getConsumerCache();
+        list.add(cacheProduct);
+        consumerEntity.setConsumerCache(list);
 
-        //consumerRepository.save(consumerEntity);
-        consumerCacheRepository.saveAndFlush(cacheProduct);
+        consumerRepository.save(consumerEntity);
+        consumerCacheRepository.save(cacheProduct);
         return consumerEntity.getId();
     }
 

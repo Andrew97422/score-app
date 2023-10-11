@@ -2,22 +2,28 @@ server:
   port: 8081
 
 spring:
+  sql:
+    init:
+      mode: always
+
   datasource:
     url: jdbc:postgresql://localhost:5432/bigdata
     username: postgres
     password: 123
     driver-class-name: org.postgresql.Driver
+
   jpa:
-    generate-ddl: false
+    generate-ddl: true
     properties:
       hibernate:
         jdbc:
           lob:
             non_contextual_creation: true
-    show-sql: false
+    show-sql: true
     hibernate:
-      ddl-auto: update
+      ddl-auto: create-drop
     open-in-view: true
+    defer-datasource-initialization: true
   mail:
     host: smtp.yandex.ru
     username: Passw0rd #bigdata.andrew@gmail.com

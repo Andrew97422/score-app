@@ -2,8 +2,11 @@ package com.bigdata.products.consumer.service;
 
 import com.bigdata.products.common.service.CommonUtils;
 import com.bigdata.products.consumer.model.dto.ConsumerProduct;
+import com.bigdata.products.consumer.model.entity.ConsumerCacheEntity;
 import com.bigdata.products.consumer.model.entity.ConsumerEntity;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
 
 @Service
 public class ConsumerUtils implements CommonUtils<ConsumerProduct, ConsumerEntity> {
@@ -11,6 +14,7 @@ public class ConsumerUtils implements CommonUtils<ConsumerProduct, ConsumerEntit
     @Override
     public void mapToEntity(ConsumerProduct request, ConsumerEntity entity) {
         CommonUtils.super.mapToEntity(request, entity);
+        entity.setConsumerCache(new ArrayList<>());
         entity.setDiscount(request.getDiscount());
     }
 
