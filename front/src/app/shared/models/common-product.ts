@@ -1,4 +1,5 @@
 export class CommonProduct {
+    id: number;
     name: string;
     minAmount: number;
     maxAmount: number;

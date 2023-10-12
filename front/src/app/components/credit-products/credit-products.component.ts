@@ -7,6 +7,7 @@ import { ConsumerService } from 'src/app/shared/services/consumer-service';
 import { MortgageService } from 'src/app/shared/services/mortgage.service';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 import { ConfirmData } from '../confirm-dialog/confirm-data.model';
+import { LendingType } from 'src/app/shared/models/lending-type';
 
 @Component({
   selector: 'credit-products',
@@ -14,6 +15,8 @@ import { ConfirmData } from '../confirm-dialog/confirm-data.model';
   styleUrls: ['./credit-products.component.css']
 })
 export class CreditProductsComponent {
+  LendingType = LendingType;
+
   selectProduct: CommonProduct;
   autoLoanProducts: AutoLoanProduct[];
   consumerProducts: ConsumerProduct[];
@@ -38,7 +41,7 @@ export class CreditProductsComponent {
       });
   }
 
-  async delete(product: CommonProduct): Promise<void> {
+  async delete(product: CommonProduct, lendingType: LendingType): Promise<void> {
     const answer = await this.dialog.open(ConfirmDialogComponent, {data: new ConfirmData({
       title: 'Удаление',
       buttonName: 'Удалить',
@@ -46,6 +49,17 @@ export class CreditProductsComponent {
     })}).afterClosed().toPromise();
     
     if (answer == true) {
+      if (lendingType == LendingType.CONSUMER) {
+        this.consumerService.delete(product.id);
+      }
+
+      if (lendingType == LendingType.AUTO_LOAN) {
+        this.autoloanService.delete(product.id);
+      }
+
+      if (lendingType == LendingType.MORTGAGE) {
+        this.mortgageService.delete(product.id);
+      }
     }
   }
 
