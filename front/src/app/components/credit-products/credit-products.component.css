@@ -29,8 +29,8 @@
     color: red;
 }
 
-.product-active {
-    color: orangered;
+.product-active li {
+    border-left: 24px solid #88bb00;
 }
 
 .product:hover {

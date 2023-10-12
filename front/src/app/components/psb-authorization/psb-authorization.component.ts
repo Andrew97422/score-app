@@ -6,6 +6,7 @@ import { RegisterService } from 'src/app/shared/services/register-service';
 import { RequestData } from 'src/app/shared/models/request-data';
 import { DataService } from 'src/app/shared/services/data.service';
 import { CountActiveLoans } from 'src/app/shared/models/count-active-loans';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'psb-authorization',
@@ -16,6 +17,7 @@ export class PsbAuthorizationComponent {
   form: FormGroup;
 
   constructor(
+    private router: Router,
     private fb: FormBuilder,
     private registerService: RegisterService,
     private dataService: DataService,
@@ -33,7 +35,7 @@ export class PsbAuthorizationComponent {
 
   async login(): Promise<void> {
     this.dialogRef.close();
-    this.registerService.login(this.form.getRawValue(), AuthorizationSource.PSB);
+    this.registerService.login(this.form.getRawValue(), AuthorizationSource.PSB, !this.data);
 
     if (!this.data) return;
     const creditCount = this.dataService.getCredits(this.form.controls.username.value)?.length;

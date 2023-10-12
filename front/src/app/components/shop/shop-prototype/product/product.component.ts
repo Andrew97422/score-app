@@ -6,6 +6,8 @@ import { RegisterService } from 'src/app/shared/services/register-service';
 import { RequestData } from 'src/app/shared/models/request-data';
 import { MatDialog } from '@angular/material/dialog';
 import { PsbAuthorizationComponent } from 'src/app/components/psb-authorization/psb-authorization.component';
+import { WorkExperience } from 'src/app/shared/models/work-experience';
+import { CountActiveLoans } from 'src/app/shared/models/count-active-loans';
 
 @Component({
   selector: 'product',
@@ -54,7 +56,9 @@ export class ProductComponent {
           data: new RequestData({
             amount: this.form.controls.amount.value,
             lendingType: this.form.controls.lendingType.value,
-            currentDebtLoad: this.form.controls.monthlyPaymentAmount.value
+            currentDebtLoad: this.form.controls.monthlyPaymentAmount.value,
+            // TODO временная затычка
+            workExperience: WorkExperience.MORE_THAN_TWENTY
           })
       });
 
@@ -65,7 +69,10 @@ export class ProductComponent {
       amount: this.form.controls.amount.value,
       lendingType: this.form.controls.lendingType.value,
       psbClient: this.form.controls.psbClient.value,
-      currentDebtLoad: this.form.controls.monthlyPaymentAmount.value
+      currentDebtLoad: this.form.controls.monthlyPaymentAmount.value,
+      // TODO временная затычка
+      workExperience: WorkExperience.MORE_THAN_TWENTY,
+      countActiveLoans: CountActiveLoans.NO_CREDITS
     }));
   }
   
