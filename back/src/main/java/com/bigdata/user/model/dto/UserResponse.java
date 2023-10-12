@@ -1,5 +1,6 @@
 package com.bigdata.user.model.dto;
 
+import com.bigdata.user.model.enums.Role;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
@@ -16,6 +17,12 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @Schema(name = "Ответ пользователю на получение сущности")
 public class UserResponse {
+
+    @Schema(description = "Id пользователя", name = "id")
+    private Integer id;
+
+    @Schema(description = "Роль пользователя (USER, OPERATOR, SUPER_ADMIN)", name = "role")
+    private Role role;
 
     @Schema(description = "Логин", name = "login")
     private String login;

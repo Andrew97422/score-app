@@ -51,6 +51,8 @@ public class UserUtils {
 
     public UserResponse mapToDto(UserEntity user) {
         return UserResponse.builder()
+                .id(user.getId())
+                .role(user.getRole())
                 .login(user.getLogin())
                 .email(user.getEmail())
                 .birthday(user.getBirthday())
