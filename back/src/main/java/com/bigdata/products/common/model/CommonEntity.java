@@ -1,5 +1,6 @@
 package com.bigdata.products.common.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -47,9 +48,11 @@ public abstract class CommonEntity implements Comparable<CommonEntity>, Serializ
     private String comment;
 
     @Column(name = "start_date")
+    @JsonFormat(pattern="yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime startDate;
 
     @Column(name = "finish_date")
+    @JsonFormat(pattern="yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime finishDate;
 
     @Column(name = "is_active")

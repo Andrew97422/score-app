@@ -4,6 +4,7 @@ import com.bigdata.application.model.enums.ApplicationStatus;
 import com.bigdata.application.model.enums.CountActiveLoans;
 import com.bigdata.application.model.enums.WorkExperience;
 import com.bigdata.products.common.model.LendingType;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -21,6 +22,7 @@ public class ApplicationResponse {
     private int id;
 
     @Schema(name = "Дата создания заявки")
+    @JsonFormat(pattern="yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime applicationDateTime;
 
     @Schema(name = "Согласие на обработку персональных данных")
