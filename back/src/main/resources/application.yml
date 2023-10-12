@@ -19,7 +19,7 @@ spring:
         jdbc:
           lob:
             non_contextual_creation: true
-    show-sql: true
+    show-sql: false
     hibernate:
       ddl-auto: create-drop
     open-in-view: true
