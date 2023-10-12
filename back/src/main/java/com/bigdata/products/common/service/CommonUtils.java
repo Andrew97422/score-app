@@ -19,6 +19,7 @@ public interface CommonUtils<A extends CommonProduct, B extends CommonEntity> {
     }
 
     default void mapToDto(A a, B b) {
+        a.setId(b.getId());
         a.setName(b.getName());
         a.setMinAmount(b.getMinLoanAmount());
         a.setMaxAmount(b.getMaxLoanAmount());

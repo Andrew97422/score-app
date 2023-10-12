@@ -14,6 +14,9 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public abstract class CommonProduct {
 
+    @Schema(name = "id", description = "id продукта")
+    private Integer id;
+
     @Schema(name = "name", description = "Название продукта")
     private String name;
 
