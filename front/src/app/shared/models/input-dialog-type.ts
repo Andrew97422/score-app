@@ -1,5 +1,7 @@
 export enum InputDialogType {
-    Create, View
+    Create,
+    Edit,
+    View
 }
 
 export class InputDialogModel<T> {

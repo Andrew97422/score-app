@@ -9,18 +9,27 @@
                             <div fxLayout="column" fxFlex fxLayoutGap="10px">
                                 <div *ngFor="let product of consumerProducts" class="product" matRipple
                                     [class.product-active]="product.active"
-                                    [class.product-select]="selectProduct.id== product.id"
+                                    [class.product-select]="selectProduct?.id== product.id"
                                     (click)="selectProduct=product">
                                     <li>
-                                        <div fxLayout="row" fxFlex>
+                                        <div fxLayout="row" fxFlex fxLayoutGap="10px">
                                             {{product.name}}
 
                                             <div fxFlex></div>
-                                            <mat-icon (click)="delete(product, LendingType.CONSUMER)">
-                                                <span class="material-symbols-outlined">
-                                                    delete
-                                                </span>
-                                            </mat-icon>
+                                            <div>
+                                                <mat-icon (click)="editProduct(product, LendingType.CONSUMER)">
+                                                    <span class="material-symbols-outlined">
+                                                        edit
+                                                    </span>
+                                                </mat-icon>
+                                            </div>
+                                            <div>
+                                                <mat-icon (click)="delete(product, LendingType.CONSUMER)">
+                                                    <span class="material-symbols-outlined">
+                                                        delete
+                                                    </span>
+                                                </mat-icon>
+                                            </div>
                                         </div>
                                     </li>
                                 </div>
@@ -31,18 +40,29 @@
                             <div fxLayout="column" fxFlex fxLayoutGap="10px">
                                 <div *ngFor="let product of autoLoanProducts" class="product" matRipple
                                     [class.product-active]="product.active"
-                                    [class.product-select]="selectProduct.id== product.id"
+                                    [class.product-select]="selectProduct?.id== product.id"
                                     (click)="selectProduct=product">
                                     <li>
-                                        <div fxLayout="row" fxFlex>
+                                        <div fxLayout="row" fxFlex fxLayoutGap="10px">
                                             {{product.name}}
 
                                             <div fxFlex></div>
-                                            <mat-icon (click)="delete(product, LendingType.AUTO_LOAN)">
-                                                <span class="material-symbols-outlined">
-                                                    delete
-                                                </span>
-                                            </mat-icon>
+
+                                            <div>
+                                                <mat-icon (click)="editProduct(product, LendingType.AUTO_LOAN)">
+                                                    <span class="material-symbols-outlined">
+                                                        edit
+                                                    </span>
+                                                </mat-icon>
+                                            </div>
+
+                                            <div>
+                                                <mat-icon (click)="delete(product, LendingType.AUTO_LOAN)">
+                                                    <span class="material-symbols-outlined">
+                                                        delete
+                                                    </span>
+                                                </mat-icon>
+                                            </div>
                                         </div>
                                     </li>
                                 </div>
@@ -53,18 +73,28 @@
                             <div fxLayout="column" fxFlex fxLayoutGap="10px">
                                 <div *ngFor="let product of mortgageProducts" class="product" matRipple
                                     [class.product-active]="product.active"
-                                    [class.product-select]="selectProduct.id== product.id"
+                                    [class.product-select]="selectProduct?.id== product.id"
                                     (click)="selectProduct=product">
                                     <li>
-                                        <div fxLayout="row" fxFlex>
+                                        <div fxLayout="row" fxFlex fxLayoutGap="10px">
                                             {{product.name}}
 
                                             <div fxFlex></div>
-                                            <mat-icon (click)="delete(product, LendingType.MORTGAGE)">
-                                                <span class="material-symbols-outlined">
-                                                    delete
-                                                </span>
-                                            </mat-icon>
+                                            <div>
+                                                <mat-icon (click)="editProduct(product, LendingType.MORTGAGE)">
+                                                    <span class="material-symbols-outlined">
+                                                        edit
+                                                    </span>
+                                                </mat-icon>
+                                            </div>
+
+                                            <div>
+                                                <mat-icon (click)="delete(product, LendingType.MORTGAGE)">
+                                                    <span class="material-symbols-outlined">
+                                                        delete
+                                                    </span>
+                                                </mat-icon>
+                                            </div>
                                         </div>
                                     </li>
                                 </div>
@@ -80,16 +110,16 @@
                 <div fxFlex>
                     <form *ngIf="selectProduct" fxFlex style="overflow: auto;">
                         <h6>Карточка продукта</h6>
-                        <li>Название продукта: {{selectProduct.name}}</li>
-                        <li>Минимальная сумма кредита: {{selectProduct.minAmount}}</li>
-                        <li>Максимальная сумма кредита: {{selectProduct.maxAmount}}</li>
-                        <li>Минимальный срок кредита: {{selectProduct.minTerm}}</li>
-                        <li>Максимальный срок кредита: {{selectProduct.maxTerm}}</li>
-                        <li>Минимальная процентная ставка: {{selectProduct.minRate}}</li>
-                        <li>Ссылка на описание продукта: <a>{{selectProduct.url}}</a></li>
-                        <li>Краткое описание продукта: {{selectProduct.comment}}</li>
-                        <li>Начало действия кредитного продукта: {{selectProduct.startDate}}</li>
-                        <li>Конец действия кредитного продукта: {{selectProduct.finishDate}}</li>
+                        <li>Название продукта: {{selectProduct?.name}}</li>
+                        <li>Минимальная сумма кредита: {{selectProduct?.minAmount}}</li>
+                        <li>Максимальная сумма кредита: {{selectProduct?.maxAmount}}</li>
+                        <li>Минимальный срок кредита: {{selectProduct?.minTerm}}</li>
+                        <li>Максимальный срок кредита: {{selectProduct?.maxTerm}}</li>
+                        <li>Минимальная процентная ставка: {{selectProduct?.minRate}}</li>
+                        <li>Ссылка на описание продукта: <a>{{selectProduct?.url}}</a></li>
+                        <li>Краткое описание продукта: {{selectProduct?.comment}}</li>
+                        <li>Начало действия кредитного продукта: {{selectProduct?.startDate}}</li>
+                        <li>Конец действия кредитного продукта: {{selectProduct?.finishDate}}</li>
                     </form>
                 </div>
             </div>

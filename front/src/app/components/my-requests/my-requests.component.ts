@@ -47,8 +47,7 @@ export class MyRequestsComponent implements OnInit {
   }
 
   getDateTime(req): string {
-    const dateTime = req.applicationDateTime;
-    return moment(new Date(dateTime[0], dateTime[1]-1, dateTime[2], dateTime[3], dateTime[4])).format('DD.MM.YYYY HH:mm:ss');
+    return moment(req.applicationDateTime).format('DD.MM.YYYY HH:mm:ss');
   }
 
   sort(lendingType: LendingType, sortDirection: string): void {

@@ -8,6 +8,7 @@ import { MortgageService } from 'src/app/shared/services/mortgage.service';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 import { ConfirmData } from '../confirm-dialog/confirm-data.model';
 import { LendingType } from 'src/app/shared/models/lending-type';
+import { InputDialogModel, InputDialogType } from 'src/app/shared/models/input-dialog-type';
 
 @Component({
   selector: 'credit-products',
@@ -27,18 +28,7 @@ export class CreditProductsComponent {
     private consumerService: ConsumerService,
     private autoloanService: AutoloanService,
     private mortgageService: MortgageService) {
-      consumerService.getProducts().subscribe(x => {
-        this.consumerProducts = x as ConsumerProduct[];
-        this.selectProduct = this.consumerProducts[0];
-      });
-
-      autoloanService.getProducts().subscribe(x => {
-        this.autoLoanProducts = x as AutoLoanProduct[];
-      });
-
-      mortgageService.getProducts().subscribe(x => {
-        this.mortgageProducts = x as AutoLoanProduct[];
-      });
+      this.loadProducts();
   }
 
   async delete(product: CommonProduct, lendingType: LendingType): Promise<void> {
@@ -64,6 +54,39 @@ export class CreditProductsComponent {
   }
 
   async createProduct(): Promise<void> {
-    await this.dialog.open(CreditProductInputComponent).afterClosed().toPromise();
+    await this.dialog.open(CreditProductInputComponent, {data: new InputDialogModel({
+      title: 'Новый кредитный продукт',
+      applyButton: 'Создать',
+      dialogType: InputDialogType.Create
+    })}).afterClosed().toPromise();
+
+    //this.loadProducts();
+  }
+
+  async editProduct(product: CommonProduct, lendingType: LendingType): Promise<void> {
+    product.lendingType = lendingType;
+    await this.dialog.open(CreditProductInputComponent, {data: new InputDialogModel({
+      title: 'Редактирование кредитного продукта',
+      applyButton: 'Применить',
+      dialogType: InputDialogType.Edit,
+      data: product
+    })}).afterClosed().toPromise();
+
+    //this.loadProducts();
+  }
+
+  private loadProducts(): void {
+    this.consumerService.getProducts().subscribe(x => {
+      this.consumerProducts = x as ConsumerProduct[];
+      this.selectProduct = this.consumerProducts[0];
+    });
+
+    this.autoloanService.getProducts().subscribe(x => {
+      this.autoLoanProducts = x as AutoLoanProduct[];
+    });
+
+    this.mortgageService.getProducts().subscribe(x => {
+      this.mortgageProducts = x as AutoLoanProduct[];
+    });
   }
 }

@@ -25,8 +25,12 @@
     display: flex;
 }
 
+.product li mat-icon {
+    color: gray;
+}
+
 .product li mat-icon:hover {
-    color: red;
+    color: black;
 }
 
 .product-active li {

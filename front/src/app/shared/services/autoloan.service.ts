@@ -25,6 +25,12 @@ export class AutoloanService {
       }).subscribe((x) => console.log(x));
     }
 
+    edit(product: AutoLoanProduct): void {
+      this.http.patch(this.baseUrl + '/api/v1/autoloan', product, {
+        headers: {Authorization: 'Bearer ' + this.sessionService.getToken()}
+      }).subscribe((x) => console.log(x));
+    }
+
     getProducts(): Observable<Object> {
         return this.http.get(this.baseUrl + '/api/v1/autoloan', {
           headers: {Authorization: 'Bearer ' + this.sessionService.getToken()}

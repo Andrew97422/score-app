@@ -1,3 +1,5 @@
+import { LendingType } from './lending-type';
+
 export class CommonProduct {
     id: number;
     name: string;
@@ -11,6 +13,8 @@ export class CommonProduct {
     startDate: string;
     finishDate: string;
     active: boolean;
+
+    lendingType: LendingType;
 }
 
 export class AutoLoanProduct extends CommonProduct {
@@ -19,4 +23,9 @@ export class AutoLoanProduct extends CommonProduct {
 
 export class ConsumerProduct extends CommonProduct {
     discount: string;
+}
+
+export class MortgageProduct extends CommonProduct {
+    addToInterest: string;
+    downPayment: string;
 }

@@ -25,6 +25,12 @@ export class ConsumerService {
         }).subscribe((x) => console.log(x));
     }
 
+    edit(consumerProduct: ConsumerProduct): void {
+        this.http.patch(this.baseUrl + '/api/v1/consumer', consumerProduct, {
+          headers: {Authorization: 'Bearer ' + this.sessionService.getToken()}
+        }).subscribe((x) => console.log(x));
+    }
+
     getProducts(): Observable<Object> {
         return this.http.get(this.baseUrl + '/api/v1/consumer', {
           headers: {Authorization: 'Bearer ' + this.sessionService.getToken()}

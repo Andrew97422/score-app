@@ -1,6 +1,15 @@
 <div [formGroup]="form" fxFlex fxLayout="column" style="padding: 20px;">
-    <h4>Создание кредитного продукта</h4>
+    <h4>{{data.title}}</h4>
     <div fxLayout="column" style="width: 500px; max-height: calc(100vh - 200px); overflow: auto; padding: 20px; margin: 0 -20px;">
+        <mat-form-field appearance="outline" color="primery">
+            <mat-label>Вид кредита</mat-label>
+            <mat-select formControlName="lendingType">
+                <mat-option *ngFor="let x of LendingTypeExt.getAll()" [value]="x">
+                    {{LendingTypeExt.getName(x)}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+
         <mat-form-field appearance="outline" color="primery">
             <mat-label>Название продукта</mat-label>
             <input matInput color="primery" formControlName="name" required>
@@ -8,7 +17,7 @@
 
         <mat-form-field appearance="outline" color="primery">
             <mat-label>Минимальная сумма кредита</mat-label>
-            <input type="number" matInput color="primery" formControlName="minAmount">
+            <input type="number" matInput color="primery" formControlName="minAmount" required>
         </mat-form-field>
 
         <mat-form-field appearance="outline" color="primery">
@@ -18,17 +27,17 @@
 
         <mat-form-field appearance="outline" color="primery">
             <mat-label>Минимальный срок кредита</mat-label>
-            <input type="number" matInput color="primery" formControlName="minTerm">
+            <input type="number" matInput color="primery" formControlName="minTerm" required>
         </mat-form-field>
 
         <mat-form-field appearance="outline" color="primery">
             <mat-label>Максимальный срок кредита</mat-label>
-            <input type="number" matInput color="primery" formControlName="maxTerm">
+            <input type="number" matInput color="primery" formControlName="maxTerm" required>
         </mat-form-field>
 
         <mat-form-field appearance="outline" color="primery">
             <mat-label>Минимальная процентная ставка</mat-label>
-            <input type="number" matInput color="primery" formControlName="minRate">
+            <input type="number" matInput color="primery" formControlName="minRate" required>
         </mat-form-field>
 
         <mat-form-field appearance="outline" color="primery">
@@ -38,12 +47,13 @@
 
         <mat-form-field appearance="outline" color="primery">
             <mat-label>Краткое описание продукта</mat-label>
-            <input matInput color="primery" formControlName="comment">
+            <textarea matInput color="primery" formControlName="comment">
+            </textarea>
         </mat-form-field>
 
         <mat-form-field appearance="outline" color="primery">
             <mat-label>Начало действия</mat-label>
-            <input matInput [matDatepicker]="picker" formControlName="startDate">
+            <input matInput [matDatepicker]="picker" formControlName="startDate" required>
             <mat-datepicker-toggle matIconSuffix [for]="picker">
             </mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
@@ -57,15 +67,11 @@
             </mat-datepicker-toggle>
             <mat-datepicker #picker2></mat-datepicker>
         </mat-form-field>
-
-        <mat-checkbox color="primery" formControlName="active">
-            Активный продукт
-        </mat-checkbox>
     </div>
 
     <div fxLayout="row" fxLayoutGap="10px" style="padding-top: 20px;">
         <button fxFlex mat-stroked-button color="primary" (click)="submit()" [disabled]="form?.invalid">
-            Создать
+            {{data.applyButton}}
         </button>
 
         <button fxFlex mat-stroked-button color="primary" mat-dialog-close style="color: black !important; background: white;">
