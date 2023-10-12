@@ -15,3 +15,7 @@ export class CommonProduct {
 export class AutoLoanProduct extends CommonProduct {
     mileage: string;
 }
+
+export class ConsumerProduct extends CommonProduct {
+    discount: string;
+}

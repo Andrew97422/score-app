@@ -120,6 +120,10 @@ table tr td div {
   white-space: nowrap;
 }
 
+.mat-mdc-tab-list {
+  border-bottom: 1px solid #aaa;
+}
+
 ::-webkit-scrollbar-thumb, ::-webkit-scrollbar-thumb {
   border-radius: 50px;
   width: 10px;

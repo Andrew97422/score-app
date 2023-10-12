@@ -105,6 +105,7 @@ public class ConsumerController implements CommonController<ConsumerProduct> {
     }
 
     @Override
+    @GetMapping
     public ResponseEntity<List<ConsumerProduct>> getAllProducts() {
         try {
             return ResponseEntity.ok(consumerService.getAllProducts());

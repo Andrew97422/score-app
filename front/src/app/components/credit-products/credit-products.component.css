@@ -1,0 +1,31 @@
+.product {
+    padding: 8px;
+    /*border-radius: 4px;
+    border: 1px solid rgb(0 75 140);*/
+    cursor: pointer;
+}
+
+.product-select {
+    background-color: #f2f1f5;
+}
+
+.product li {
+    border-left: 24px solid gray;
+    display: flex;
+    padding-left: 10px;
+    /*align-items: center;
+    justify-content: center;*/
+}
+
+.product-active {
+    color: orangered;
+}
+
+.product:hover {
+    background-color: #f2f1f5;
+}
+
+form {
+    border-left: 1px solid #888;
+    padding-left: 10px;
+}

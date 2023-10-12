@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
-import { CreditProductService } from 'src/app/shared/services/credit-products.service';
+import { AutoloanService } from 'src/app/shared/services/autoloan.service';
 
 @Component({
   selector: 'credit-product-input',
@@ -13,7 +13,7 @@ export class CreditProductInputComponent {
 
   constructor(
     private fb: FormBuilder,
-    private creditProductService: CreditProductService,
+    private autoloanService: AutoloanService,
     private dialogRef: MatDialogRef<CreditProductInputComponent>) {
       this.form = this.fb.group({
         name: null,
@@ -33,7 +33,7 @@ export class CreditProductInputComponent {
 
 
   submit(): void {
-    this.creditProductService.register(this.form.getRawValue());
+    this.autoloanService.register(this.form.getRawValue());
     this.dialogRef.close();
   }
 }

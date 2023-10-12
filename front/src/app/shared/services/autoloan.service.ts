@@ -2,9 +2,10 @@ import { AutoLoanProduct } from '../models/common-product';
 import { HttpClient } from '@angular/common/http';
 import { SessionService } from './session.service';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 
 @Injectable({ providedIn: 'root'})
-export class CreditProductService {
+export class AutoloanService {
     private baseUrl = 'http://localhost:8081';
 
     constructor(
@@ -16,5 +17,11 @@ export class CreditProductService {
         this.http.post(this.baseUrl + '/api/v1/autoloan/register', product, {
           headers: {Authorization: 'Bearer ' + this.sessionService.getToken()}
         }).subscribe((x) => console.log(x));
+    }
+
+    getProducts(): Observable<Object> {
+        return this.http.get(this.baseUrl + '/api/v1/autoloan', {
+          headers: {Authorization: 'Bearer ' + this.sessionService.getToken()}
+        });
     }
 }

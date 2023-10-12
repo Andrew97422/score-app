@@ -22,6 +22,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatTabsModule } from '@angular/material/tabs';
 
 import { ShopComponent } from './components/shop/shop.component';
 import { LoginComponent } from './components/login/login.component';
@@ -62,7 +63,8 @@ import { CreditProductInputComponent } from './components/credit-products/credit
         MatDialogModule,
         MatTooltipModule,
         HttpClientModule,
-        MatSnackBarModule
+        MatSnackBarModule,
+        MatTabsModule
     ],
     declarations: [
         NavMenuComponent,

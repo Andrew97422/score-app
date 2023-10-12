@@ -105,6 +105,7 @@ public class MortgageController implements CommonController<MortgageProduct> {
     }
 
     @Override
+    @GetMapping
     public ResponseEntity<List<MortgageProduct>> getAllProducts() {
         try {
             return ResponseEntity.ok(mortgageService.getAllProducts());
