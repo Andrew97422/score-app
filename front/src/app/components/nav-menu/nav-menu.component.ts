@@ -1,9 +1,11 @@
 import { Component } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { DataService } from 'src/app/shared/services/data.service';
 import { RegisterService } from 'src/app/shared/services/register-service';
 import { SessionService } from 'src/app/shared/services/session.service';
 import { VKService } from 'src/app/shared/services/vk-service';
+import { MyDataComponent } from '../my-data/my-data.component';
 
 @Component({
   selector: 'nav-menu',
@@ -17,6 +19,7 @@ export class NavMenuComponent {
 
   constructor(
     public router: Router,
+    private dialog: MatDialog,
     public dataService: DataService,
     public sessionService: SessionService,
     private vkService: VKService,
@@ -28,5 +31,9 @@ export class NavMenuComponent {
 
   logout(): void {
     this.vkService.logout();
+  }
+
+  async viewUserData(): Promise<void> {
+    await this.dialog.open(MyDataComponent).afterClosed().toPromise();
   }
 }

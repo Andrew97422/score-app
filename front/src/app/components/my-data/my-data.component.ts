@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatDialogRef } from '@angular/material/dialog';
 import * as moment from 'moment';
 import { RegisterService } from 'src/app/shared/services/register-service';
 import { SessionService } from 'src/app/shared/services/session.service';
@@ -19,7 +20,8 @@ export class MyDataComponent {
   constructor(
     private fb: FormBuilder,
     private registerService: RegisterService,
-    private sessionService: SessionService) {
+    private sessionService: SessionService,
+    private dialogRef: MatDialogRef<MyDataComponent>) {
       this.form = this.fb.group({
         login: null,
         password: null,
@@ -58,6 +60,7 @@ export class MyDataComponent {
     const result = this.form.getRawValue();
     result.birthday = moment(result.birthday).format('DD.MM.YYYY');
     this.registerService.editUser(this.sessionService.getSessionID() as unknown as number, result);
+    this.dialogRef.close();
   }
   
   rollback(): void {

@@ -67,3 +67,13 @@ a {
     height: 24px;
     margin: 10px 20px;
 }
+
+.user-name {
+    cursor: pointer;
+    padding: 10px;
+}
+
+.user-name:hover {
+    cursor: pointer;
+    background-color: rgba(0,0,0,.2);
+}

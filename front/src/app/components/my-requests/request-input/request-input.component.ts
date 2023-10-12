@@ -64,7 +64,6 @@ export class RequestInputComponent {
       }
   }
 
-  //
   submit(): void {
     const result = this.form.getRawValue();
     this.registerService.sendRequest(result);
