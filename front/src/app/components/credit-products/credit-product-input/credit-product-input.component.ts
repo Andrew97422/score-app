@@ -54,6 +54,8 @@ export class CreditProductInputComponent {
         this.form.controls.comment.setValue(data.data.comment);
         this.form.controls.startDate.setValue(new Date(data.data.startDate));
         this.form.controls.finishDate.setValue(new Date(data.data.finishDate));
+
+        this.form.controls.lendingType.disable();
       }
   }
 

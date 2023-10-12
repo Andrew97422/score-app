@@ -110,16 +110,16 @@
                 <div fxFlex>
                     <form *ngIf="selectProduct" fxFlex style="overflow: auto;">
                         <h6>Карточка продукта</h6>
-                        <li>Название продукта: {{selectProduct?.name}}</li>
+                        <li>Название: {{selectProduct?.name}}</li>
                         <li>Минимальная сумма кредита: {{selectProduct?.minAmount}}</li>
                         <li>Максимальная сумма кредита: {{selectProduct?.maxAmount}}</li>
-                        <li>Минимальный срок кредита: {{selectProduct?.minTerm}}</li>
+                        <li>Минимальный срок кредита: {{selectProduct?.minTerm}}%</li>
                         <li>Максимальный срок кредита: {{selectProduct?.maxTerm}}</li>
                         <li>Минимальная процентная ставка: {{selectProduct?.minRate}}</li>
-                        <li>Ссылка на описание продукта: <a>{{selectProduct?.url}}</a></li>
-                        <li>Краткое описание продукта: {{selectProduct?.comment}}</li>
-                        <li>Начало действия кредитного продукта: {{selectProduct?.startDate}}</li>
-                        <li>Конец действия кредитного продукта: {{selectProduct?.finishDate}}</li>
+                        <li>Ссылка на описание: <a>{{selectProduct?.url}}</a></li>
+                        <li>Краткое описание: {{selectProduct?.comment}}</li>
+                        <li>Начало действия: {{selectProduct?.startDate | date:'dd.MM.yyyy HH:mm:ss'}}</li>
+                        <li>Конец действия: {{selectProduct?.finishDate | date:'dd.MM.yyyy HH:mm:ss'}}</li>
                     </form>
                 </div>
             </div>
