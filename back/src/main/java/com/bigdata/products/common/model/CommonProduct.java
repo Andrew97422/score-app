@@ -1,5 +1,6 @@
 package com.bigdata.products.common.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -41,9 +42,11 @@ public abstract class CommonProduct {
     @Schema(name = "comment", description = "Краткое описание продукта")
     private String comment;
 
+    @JsonFormat(pattern="yyyy-MM-dd'T'HH:mm:ss")
     @Schema(name = "start_date", description = "Начало действия кредитного продукта")
     private LocalDateTime startDate;
 
+    @JsonFormat(pattern="yyyy-MM-dd'T'HH:mm:ss")
     @Schema(name = "finish_date", description = "Конец действия кредитного продукта")
     private LocalDateTime finishDate;
 
