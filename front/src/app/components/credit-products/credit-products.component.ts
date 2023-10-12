@@ -5,6 +5,8 @@ import { CreditProductInputComponent } from './credit-product-input/credit-produ
 import { AutoLoanProduct, CommonProduct, ConsumerProduct } from 'src/app/shared/models/common-product';
 import { ConsumerService } from 'src/app/shared/services/consumer-service';
 import { MortgageService } from 'src/app/shared/services/mortgage.service';
+import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
+import { ConfirmData } from '../confirm-dialog/confirm-data.model';
 
 @Component({
   selector: 'credit-products',
@@ -34,6 +36,17 @@ export class CreditProductsComponent {
       mortgageService.getProducts().subscribe(x => {
         this.mortgageProducts = x as AutoLoanProduct[];
       });
+  }
+
+  async delete(product: CommonProduct): Promise<void> {
+    const answer = await this.dialog.open(ConfirmDialogComponent, {data: new ConfirmData({
+      title: 'Удаление',
+      buttonName: 'Удалить',
+      desription: 'Удалить кредитный продукт ' + product.name + '?'
+    })}).afterClosed().toPromise();
+    
+    if (answer == true) {
+    }
   }
 
   async createProduct(): Promise<void> {

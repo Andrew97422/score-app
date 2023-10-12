@@ -17,6 +17,18 @@
     justify-content: center;*/
 }
 
+.product li mat-icon {
+    display: none;
+}
+
+.product:hover li mat-icon {
+    display: flex;
+}
+
+.product li mat-icon:hover {
+    color: red;
+}
+
 .product-active {
     color: orangered;
 }
@@ -26,6 +38,10 @@
 }
 
 form {
-    border-left: 1px solid #888;
-    padding-left: 10px;
+    padding: 20px;
+    box-sizing: border-box;
+    margin: 10px;
+    border: 1px solid rgb(0 75 140);
+    border-radius: 4px;
+    background-color: #f2f1f5
 }

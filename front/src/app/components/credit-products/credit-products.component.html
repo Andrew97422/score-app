@@ -12,7 +12,16 @@
                                     [class.product-select]="selectProduct.name == product.name"
                                     (click)="selectProduct=product">
                                     <li>
-                                        {{product.name}}
+                                        <div fxLayout="row" fxFlex>
+                                            {{product.name}}
+
+                                            <div fxFlex></div>
+                                            <mat-icon (click)="delete(product)">
+                                                <span class="material-symbols-outlined">
+                                                    delete
+                                                </span>
+                                            </mat-icon>
+                                        </div>
                                     </li>
                                 </div>
                             </div>
@@ -25,7 +34,16 @@
                                     [class.product-select]="selectProduct.name == product.name"
                                     (click)="selectProduct=product">
                                     <li>
-                                        {{product.name}}
+                                        <div fxLayout="row" fxFlex>
+                                            {{product.name}}
+
+                                            <div fxFlex></div>
+                                            <mat-icon (click)="delete(product)">
+                                                <span class="material-symbols-outlined">
+                                                    delete
+                                                </span>
+                                            </mat-icon>
+                                        </div>
                                     </li>
                                 </div>
                             </div>
@@ -38,7 +56,16 @@
                                     [class.product-select]="selectProduct.name == product.name"
                                     (click)="selectProduct=product">
                                     <li>
-                                        {{product.name}}
+                                        <div fxLayout="row" fxFlex>
+                                            {{product.name}}
+
+                                            <div fxFlex></div>
+                                            <mat-icon (click)="delete(product)">
+                                                <span class="material-symbols-outlined">
+                                                    delete
+                                                </span>
+                                            </mat-icon>
+                                        </div>
                                     </li>
                                 </div>
                             </div>
@@ -62,6 +89,7 @@
                         <li>Ссылка на описание продукта: <a>{{selectProduct.url}}</a></li>
                         <li>Краткое описание продукта: {{selectProduct.comment}}</li>
                         <li>Начало действия кредитного продукта: {{selectProduct.startDate}}</li>
+                        <li>Конец действия кредитного продукта: {{selectProduct.finishDate}}</li>
                     </form>
                 </div>
             </div>
