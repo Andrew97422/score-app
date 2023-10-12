@@ -8,6 +8,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Map;
+import java.util.Set;
+
 @Service
 @RequiredArgsConstructor
 public class UserUtils {
@@ -29,16 +34,19 @@ public class UserUtils {
                 .build();
     }
 
-    public void updateData(UserEntity user, UserEntity updatedUser) {
-        user.setBirthday(updatedUser.getBirthday());
-        user.setLogin(updatedUser.getLogin());
-        user.setEmail(updatedUser.getEmail());
-        user.setPassword(passwordEncoder.encode(updatedUser.getPassword()));
-        user.setPhone(updatedUser.getPhone());
-        user.setFirstName(updatedUser.getFirstName());
-        user.setLastName(updatedUser.getLastName());
-        user.setSurName(updatedUser.getSurName());
-        user.setObtainedFrom(updatedUser.isObtainedFrom());
+    public void updateData(UserEntity user, Map<String, String> map) {
+        Set<String> fields = map.keySet();
+        for (String field : fields) {
+            if (field.equals("login"))  user.setLogin(map.get(field));
+            if (field.equals("password"))   user.setPassword(passwordEncoder.encode(map.get(field)));
+            if (field.equals("lastName"))   user.setLastName(map.get(field));
+            if (field.equals("firstName"))  user.setFirstName(map.get(field));
+            if (field.equals("surName"))    user.setSurName(map.get(field));
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+            if (field.equals("birthday"))   user.setBirthday(LocalDate.parse(map.get(field), formatter));
+            if (field.equals("phone"))  user.setPhone(map.get(field));
+            if (field.equals("email"))  user.setEmail(map.get(field));
+        }
     }
 
     public UserResponse mapToDto(UserEntity user) {

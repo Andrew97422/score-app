@@ -1,6 +1,5 @@
 package com.bigdata.user.controller;
 
-import com.bigdata.user.model.dto.UpdateUserRequest;
 import com.bigdata.user.model.dto.UserResponse;
 import com.bigdata.user.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -13,6 +12,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Map;
 
 @RestController
 @CrossOrigin
@@ -51,7 +52,7 @@ public class UserController {
     @PatchMapping("/{id}")
     public ResponseEntity<Integer> updateUser(
             @PathVariable @Parameter(description = "Идентификатор пользователя") String id,
-            @RequestBody @Parameter(description = "Полученная информация о пользователе") UpdateUserRequest request
+            @RequestBody @Parameter(description = "Полученная информация о пользователе") Map<String, String> request
     ) {
         return ResponseEntity.ok(userService.updateUserById(Integer.parseInt(id), request));
     }
