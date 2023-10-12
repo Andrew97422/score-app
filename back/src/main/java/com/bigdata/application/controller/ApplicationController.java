@@ -40,7 +40,7 @@ public class ApplicationController {
                     "результат будет прислан на email."
     )
     @PostMapping("/register")
-    @PreAuthorize("hasAuthority('USER')")
+    @PreAuthorize("hasAnyAuthority('USER', 'OPERATOR', 'SUPER_ADMIN')")
     public ResponseEntity<HttpStatus> registerApplicationWithAuthentication(
             @RequestBody @Parameter(name = "Заявка") ScoringApplicationWithAuthRequest request,
             @AuthenticationPrincipal UserEntity user
@@ -61,7 +61,7 @@ public class ApplicationController {
             description = "Получение одной заявки по id"
     )
     @GetMapping("/{id}")
-    @PreAuthorize("hasAnyAuthority('USER', 'OPERATOR')")
+    @PreAuthorize("hasAnyAuthority('USER', 'OPERATOR', 'SUPER_ADMIN')")
     public ResponseEntity<ApplicationResponse> getApplicationById(
         @PathVariable @Parameter(name = "Id заявки") Integer id,
         @AuthenticationPrincipal UserEntity user
@@ -104,7 +104,7 @@ public class ApplicationController {
             description = "Получение списка заявок по типу type"
     )
     @GetMapping
-    @PreAuthorize("hasAnyAuthority('USER', 'OPERATOR')")
+    @PreAuthorize("hasAnyAuthority('USER', 'OPERATOR', 'SUPER_ADMIN')")
     public ResponseEntity<ApplicationResponseList> getApplicationsByType(
             @RequestParam (name = "type") LendingType type,
             @AuthenticationPrincipal UserEntity user
@@ -119,7 +119,7 @@ public class ApplicationController {
             description = "Удаление заявки по её id"
     )
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasAuthority('USER')")
+    @PreAuthorize("hasAnyAuthority('USER', 'OPERATOR', 'SUPER_ADMIN')")
     public ResponseEntity<HttpStatus> deleteApplicationById(
         @PathVariable (name = "id") Integer id,
         @AuthenticationPrincipal UserEntity user
@@ -134,7 +134,7 @@ public class ApplicationController {
             description = "Создаёт PDF-файл по id заявке"
     )
     @GetMapping("/{id}/create_pdf")
-    @PreAuthorize("hasAnyAuthority('USER', 'OPERATOR')")
+    @PreAuthorize("hasAnyAuthority('USER', 'OPERATOR', 'SUPER_ADMIN')")
     public ResponseEntity<byte[]> createPdfDocument(
         @PathVariable (name = "id") Integer id,
         @AuthenticationPrincipal UserEntity user
