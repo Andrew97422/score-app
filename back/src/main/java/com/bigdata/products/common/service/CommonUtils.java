@@ -3,6 +3,8 @@ package com.bigdata.products.common.service;
 import com.bigdata.products.common.model.CommonEntity;
 import com.bigdata.products.common.model.CommonProduct;
 
+import java.time.LocalDateTime;
+
 public interface CommonUtils<A extends CommonProduct, B extends CommonEntity> {
     default void mapToEntity(A a, B b) {
         b.setName(a.getName());
@@ -15,7 +17,7 @@ public interface CommonUtils<A extends CommonProduct, B extends CommonEntity> {
         b.setComment(a.getComment());
         b.setStartDate(a.getStartDate());
         b.setFinishDate(a.getFinishDate());
-        b.setActive(false);
+        b.setActive(LocalDateTime.now().isBefore(a.getFinishDate()) && LocalDateTime.now().isAfter(a.getStartDate()));
     }
 
     default void mapToDto(A a, B b) {
@@ -30,7 +32,7 @@ public interface CommonUtils<A extends CommonProduct, B extends CommonEntity> {
         a.setComment(b.getComment());
         a.setStartDate(b.getStartDate());
         a.setFinishDate(b.getFinishDate());
-        a.setActive(false);
+        a.setActive(b.isActive());
     }
 
     default void update(B b1, B b2) {
