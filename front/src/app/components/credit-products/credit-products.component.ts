@@ -9,6 +9,7 @@ import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.compone
 import { ConfirmData } from '../confirm-dialog/confirm-data.model';
 import { LendingType } from 'src/app/shared/models/lending-type';
 import { InputDialogModel, InputDialogType } from 'src/app/shared/models/input-dialog-type';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'credit-products',
@@ -39,17 +40,21 @@ export class CreditProductsComponent {
     })}).afterClosed().toPromise();
     
     if (answer == true) {
+      let result = new Observable<Object>();
+
       if (lendingType == LendingType.CONSUMER) {
-        this.consumerService.delete(product.id);
+        result = this.consumerService.delete(product.id);
       }
 
       if (lendingType == LendingType.AUTO_LOAN) {
-        this.autoloanService.delete(product.id);
+        result = this.autoloanService.delete(product.id);
       }
 
       if (lendingType == LendingType.MORTGAGE) {
-        this.mortgageService.delete(product.id);
+        result = this.mortgageService.delete(product.id);
       }
+
+      result.subscribe(() => this.loadProducts());
     }
   }
 
@@ -60,7 +65,7 @@ export class CreditProductsComponent {
       dialogType: InputDialogType.Create
     })}).afterClosed().toPromise();
 
-    //this.loadProducts();
+    this.loadProducts();
   }
 
   async editProduct(product: CommonProduct, lendingType: LendingType): Promise<void> {
@@ -72,21 +77,21 @@ export class CreditProductsComponent {
       data: product
     })}).afterClosed().toPromise();
 
-    //this.loadProducts();
+    this.loadProducts();
   }
 
   private loadProducts(): void {
     this.consumerService.getProducts().subscribe(x => {
-      this.consumerProducts = x as ConsumerProduct[];
+      this.consumerProducts = [...x as ConsumerProduct[]];
       this.selectProduct = this.consumerProducts[0];
     });
 
     this.autoloanService.getProducts().subscribe(x => {
-      this.autoLoanProducts = x as AutoLoanProduct[];
+      this.autoLoanProducts = [...x as AutoLoanProduct[]];
     });
 
     this.mortgageService.getProducts().subscribe(x => {
-      this.mortgageProducts = x as AutoLoanProduct[];
+      this.mortgageProducts = [...x as AutoLoanProduct[]];
     });
   }
 }

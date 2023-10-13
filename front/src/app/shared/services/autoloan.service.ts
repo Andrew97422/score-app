@@ -19,10 +19,10 @@ export class AutoloanService {
         }).subscribe((x) => console.log(x));
     }
 
-    delete(id: number): void {
-      this.http.delete(this.baseUrl + '/api/v1/autoloan/' + id, {
+    delete(id: number): Observable<Object> {
+      return this.http.delete(this.baseUrl + '/api/v1/autoloan/' + id, {
         headers: {Authorization: 'Bearer ' + this.sessionService.getToken()}
-      }).subscribe((x) => console.log(x));
+      });
     }
 
     edit(product: AutoLoanProduct): void {

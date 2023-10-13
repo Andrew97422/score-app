@@ -20,13 +20,17 @@
         <path class="cls-2" d="M71.1679,20.7374c-3.4951,0-5.4599-2.569-5.4599-5.7443,0-2.5495,1.4305-5.74974,5.361-5.74974a6.01678,6.01678,0,0,1,4.5967,2.20354L78.8502,8.255a10.4385,10.4385,0,0,0-8.0306-3.76185A10.13332,10.13332,0,0,0,60.4712,14.9931a10.38481,10.38481,0,0,0,18.7871,6.2172l-3.2044-3.2132A5.6542,5.6542,0,0,1,71.1679,20.7374Zm19.099.0123h-3.975V16.7541h3.975c1.2355,0,2.4858.488,2.4858,1.9922C92.7527,20.2512,91.5024,20.7497,90.2669,20.7497Zm.4987-8.2563H86.2919V9.49982H96.255V4.9996H81.0551v20s7.47-.0004,9.9598-.0004c3.993,0,6.9855-2.0066,6.9855-6.2529C98.0004,14.4928,95.0079,12.4934,90.7656,12.4934ZM39.8984,24.9996h5.2369V9.49982h7.9795V24.9996h5.2368v-20H39.8984Z"/>
     </svg>
 
-    <a mat-button class="nav-menu-item" [class.nav-menu-item-active]="router.url=='/'" routerLink="/">
+    <div>Подбор кредитных продуктов</div>
+    <!--
+    <a *ngIf="userData.role == 'USER'"
+    mat-button class="nav-menu-item" [class.nav-menu-item-active]="router.url=='/'" routerLink="/">
         Заявки
     </a>
 
-    <a mat-button class="nav-menu-item" [class.nav-menu-item-active]="router.url=='/creditProducts'" routerLink="/creditProducts">
+    <a *ngIf="userData.role == 'SUPER_ADMIN'"
+    mat-button class="nav-menu-item" [class.nav-menu-item-active]="router.url=='/creditProducts'" routerLink="/creditProducts">
         Кредитные продукты
-    </a>
+    </a>-->
 
     <div fxFlex></div>
     <div fxLayout="row" fxLayoutGap="8px" fxLayoutAlign="start center" style="padding: 0 10px;">

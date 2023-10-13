@@ -24,7 +24,6 @@ export class NavMenuComponent {
     public sessionService: SessionService,
     private vkService: VKService,
     private registerService: RegisterService) {
-      this.userData = this.dataService.getUserProfile();
       this.registerService.getUser(this.sessionService.getSessionID() as unknown as number).subscribe(x =>
         this.userData = x);
   }

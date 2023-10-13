@@ -39,6 +39,7 @@ export class MyRequestsComponent implements OnInit {
       this.userCards = this.dataService.getUserCards(x.login);
       this.credits = this.dataService.getCredits(x.login);
     });
+
     this.loadRequests();
   }
 
