@@ -50,7 +50,7 @@ public class UserController {
     )
     @PreAuthorize("hasAnyAuthority('USER', 'OPERATOR', 'SUPER_ADMIN')")
     @PatchMapping("/{id}")
-    public ResponseEntity<Integer> updateUser(
+    public ResponseEntity<String> updateUser(
             @PathVariable @Parameter(description = "Идентификатор пользователя") String id,
             @RequestBody @Parameter(description = "Полученная информация о пользователе") Map<String, String> request
     ) {
