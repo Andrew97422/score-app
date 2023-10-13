@@ -40,12 +40,12 @@ public class UserService {
         userRepository.saveAndFlush(user);
 
         StringBuilder builder = new StringBuilder();
-        builder.append(user.getLastName());
+        builder.append(user.getLastName().trim());
         builder.append(" ");
-        builder.append(user.getFirstName());
+        builder.append(user.getFirstName().trim());
         builder.append(" ");
-        builder.append(user.getSurName());
-        builder.append(" ").append("(").append(user.getLogin()).append(")");
+        builder.append(user.getSurName().trim());
+        builder.append(" ").append("(").append(user.getLogin().trim()).append(")");
         log.info("User {} was successfully updated.", builder);
         return builder.toString();
     }

@@ -10,13 +10,13 @@ import java.util.List;
 @Repository
 public interface AutoLoanRepository extends CommonRepository<AutoLoanEntity> {
     @Query(
-            value = "SELECT * FROM auto_loan WHERE (now() - start_date) < '24 hours'",
+            value = "SELECT * FROM auto_loan WHERE (now() - start_date) < '24 hours' and is_perpetual = false",
             nativeQuery = true
     )
     List<AutoLoanEntity> findAllSoonActive();
 
     @Query(
-            value = "SELECT * FROM auto_loan WHERE (now() - finish_date) < '24 hours'",
+            value = "SELECT * FROM auto_loan WHERE (now() - finish_date) < '24 hours' and is_perpetual = false",
             nativeQuery = true
     )
     List<AutoLoanEntity> findAllSoonNotActive();

@@ -10,13 +10,13 @@ import java.util.List;
 @Repository
 public interface ConsumerRepository extends CommonRepository<ConsumerEntity> {
     @Query(
-            value = "SELECT * FROM consumer WHERE (now() - start_date) < '24 hours'",
+            value = "SELECT * FROM consumer WHERE (now() - start_date) < '24 hours' and is_perpetual = false",
             nativeQuery = true
     )
     List<ConsumerEntity> findAllSoonActive();
 
     @Query(
-            value = "SELECT * FROM consumer WHERE (now() - finish_date) < '24 hours'",
+            value = "SELECT * FROM consumer WHERE (now() - finish_date) < '24 hours' and is_perpetual = false",
             nativeQuery = true
     )
     List<ConsumerEntity> findAllSoonNotActive();
