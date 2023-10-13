@@ -10,6 +10,7 @@ import { ConfirmData } from '../confirm-dialog/confirm-data.model';
 import { SessionService } from 'src/app/shared/services/session.service';
 import { DataService } from 'src/app/shared/services/data.service';
 import { CardType } from 'src/app/shared/models/card-type';
+import { RequestData } from 'src/app/shared/models/request-data';
 
 @Component({
   selector: 'my-requests',
@@ -20,9 +21,9 @@ export class MyRequestsComponent implements OnInit {
   CardType = CardType;
   LendingType = LendingType;
   LendingTypeExt = LendingTypeExt;
-  consumers: any;
-  autoLoans: any;
-  mortgages:  any;
+  consumers: RequestData[];
+  autoLoans: RequestData[];
+  mortgages: RequestData[];
   userData: any;
   userCards: any;
   credits: any;
@@ -47,15 +48,11 @@ export class MyRequestsComponent implements OnInit {
     return '...' + number.slice(number.length - 4);
   }
 
-  getDateTime(req): string {
-    return moment(req.applicationDateTime).format('DD.MM.YYYY HH:mm:ss');
-  }
-
   sort(lendingType: LendingType, sortDirection: string): void {
     let items = lendingType == LendingType.CONSUMER ? this.consumers : lendingType == LendingType.AUTO_LOAN ? this.autoLoans : this.mortgages;
     items = sortDirection
-      ? items.sort((a, b) => this.getDateTime(a) > this.getDateTime(b) ? -1 : 1)
-      : items.sort((a, b) => this.getDateTime(a) > this.getDateTime(b) ? 1 : -1);
+      ? items.sort((a, b) => a.applicationDateTime > b.applicationDateTime ? -1 : 1)
+      : items.sort((a, b) => a.applicationDateTime > b.applicationDateTime ? 1 : -1);
   }
 
   async createRequest(): Promise<void> {
@@ -81,7 +78,7 @@ export class MyRequestsComponent implements OnInit {
       title: 'Удаление',
       buttonName: 'Удалить',
       desription: 'Удалить заявку на ' + (req.lendingType == LendingType.MORTGAGE ? 'ипотеку' : LendingTypeExt.getName(req.lendingType).toLowerCase()) 
-      + ' от ' + this.getDateTime(req) + '?'
+      + ' от ' + moment(req.applicationDateTime).format('DD.MM.YYYY MM:hh:ss') + '?'
     })}).afterClosed().toPromise();
     
     if (answer == true) {
@@ -95,8 +92,8 @@ export class MyRequestsComponent implements OnInit {
   }
 
   private loadRequests(): void {
-    this.registerService.getRequets(LendingType.AUTO_LOAN).subscribe((x: any) => this.autoLoans = x.applications);
-    this.registerService.getRequets(LendingType.CONSUMER).subscribe((x: any) => this.consumers = x.applications);
-    this.registerService.getRequets(LendingType.MORTGAGE).subscribe((x: any) => this.mortgages = x.applications);
+    this.registerService.getRequets(LendingType.AUTO_LOAN).subscribe((x: any) => this.autoLoans = x.applications as RequestData[]);
+    this.registerService.getRequets(LendingType.CONSUMER).subscribe((x: any) => this.consumers = x.applications as RequestData[]);
+    this.registerService.getRequets(LendingType.MORTGAGE).subscribe((x: any) => this.mortgages = x.applications as RequestData[]);
   }
 }

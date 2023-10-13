@@ -1,7 +1,5 @@
 .product {
     padding: 8px;
-    /*border-radius: 4px;
-    border: 1px solid rgb(0 75 140);*/
     cursor: pointer;
 }
 
@@ -10,11 +8,9 @@
 }
 
 .product li {
-    border-left: 24px solid gray;
+    border-left: 10px solid gray;
     display: flex;
     padding-left: 10px;
-    /*align-items: center;
-    justify-content: center;*/
 }
 
 .product li mat-icon {
@@ -34,7 +30,7 @@
 }
 
 .product-active li {
-    border-left: 24px solid #88bb00;
+    border-left: 10px solid #88bb00;
 }
 
 .product:hover {

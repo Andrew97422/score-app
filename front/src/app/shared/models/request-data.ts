@@ -19,6 +19,8 @@ export class RequestData {
     newSubjectsResident: boolean;
     itSpecialist: boolean;
     birthday: string;
+    user: string;
+    applicationDateTime: string;
 
     constructor(init: Partial<RequestData>) {
         Object.assign(this, init);

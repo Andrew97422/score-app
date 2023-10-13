@@ -40,7 +40,6 @@ import { ProductComponent } from './components/shop/shop-prototype/product/produ
 import { PsbAuthorizationComponent } from './components/psb-authorization/psb-authorization.component';
 import { CreditProductsComponent } from './components/credit-products/credit-products.component';
 import { CreditProductInputComponent } from './components/credit-products/credit-product-input/credit-product-input.component';
-import { HomeComponent } from './components/home/home.component';
 
 @NgModule({
     imports: [ 
@@ -81,8 +80,7 @@ import { HomeComponent } from './components/home/home.component';
         ProductComponent,
         PsbAuthorizationComponent,
         CreditProductsComponent,
-        CreditProductInputComponent,
-        HomeComponent
+        CreditProductInputComponent
     ],
     bootstrap:    [ AppComponent ],
     providers: [

@@ -6,27 +6,27 @@
                 <div fxLayout="column" fxFlex="2 1 0%">
                     <mat-tab-group fxFlex>
                         <mat-tab label="Потребительский кредит">                
-                            <div fxLayout="column" fxFlex fxLayoutGap="10px">
+                            <div fxLayout="column" fxFlex fxLayoutGap="10px" style="padding-top: 10px;">
                                 <div *ngFor="let product of consumerProducts" class="product" matRipple
                                     [class.product-active]="product.active"
                                     [class.product-select]="selectProduct?.id== product.id"
                                     (click)="selectProduct=product">
                                     <li>
                                         <div fxLayout="row" fxFlex fxLayoutGap="10px">
-                                            <div>{{product.name}}</div>
-                                            <div>До {{product.maxAmount}} ₽</div>
-                                            <div>От {{product.minRate}}%</div>
-                                            <div>До {{product.maxTerm}} лет</div>
+                                            <div fxFlex>{{product.name}}</div>
+                                            <div fxFlex>До {{product.maxAmount}} ₽</div>
+                                            <div fxFlex>От {{product.minRate}}%</div>
+                                            <div fxFlex>До {{product.maxTerm}} лет</div>
 
                                             <div fxFlex></div>
-                                            <div>
+                                            <div style="width: 24px;">
                                                 <mat-icon (click)="editProduct(product, LendingType.CONSUMER)">
                                                     <span class="material-symbols-outlined">
                                                         edit
                                                     </span>
                                                 </mat-icon>
                                             </div>
-                                            <div>
+                                            <div style="width: 24px;">
                                                 <mat-icon (click)="delete(product, LendingType.CONSUMER)">
                                                     <span class="material-symbols-outlined">
                                                         delete
@@ -40,21 +40,20 @@
                         </mat-tab>
 
                         <mat-tab label="Автокредит">
-                            <div fxLayout="column" fxFlex fxLayoutGap="10px">
+                            <div fxLayout="column" fxFlex fxLayoutGap="10px" style="padding-top: 10px;">
                                 <div *ngFor="let product of autoLoanProducts" class="product" matRipple
                                     [class.product-active]="product.active"
                                     [class.product-select]="selectProduct?.id== product.id"
                                     (click)="selectProduct=product">
                                     <li>
                                         <div fxLayout="row" fxFlex fxLayoutGap="10px">
-                                            <div>{{product.name}}</div>
-                                            <div>До {{product.maxAmount}} ₽</div>
-                                            <div>От {{product.minRate}}%</div>
-                                            <div>До {{product.maxTerm}} лет</div>
-
+                                            <div fxFlex>{{product.name}}</div>
+                                            <div fxFlex>До {{product.maxAmount}} ₽</div>
+                                            <div fxFlex>От {{product.minRate}}%</div>
+                                            <div fxFlex>До {{product.maxTerm}} лет</div>
                                             <div fxFlex></div>
 
-                                            <div>
+                                            <div style="width: 24px;">
                                                 <mat-icon (click)="editProduct(product, LendingType.AUTO_LOAN)">
                                                     <span class="material-symbols-outlined">
                                                         edit
@@ -62,7 +61,7 @@
                                                 </mat-icon>
                                             </div>
 
-                                            <div>
+                                            <div style="width: 24px;">
                                                 <mat-icon (click)="delete(product, LendingType.AUTO_LOAN)">
                                                     <span class="material-symbols-outlined">
                                                         delete
@@ -76,20 +75,20 @@
                         </mat-tab>
 
                         <mat-tab label="Ипотека">
-                            <div fxLayout="column" fxFlex fxLayoutGap="10px">
+                            <div fxLayout="column" fxFlex fxLayoutGap="10px" style="padding-top: 10px;">
                                 <div *ngFor="let product of mortgageProducts" class="product" matRipple
                                     [class.product-active]="product.active"
                                     [class.product-select]="selectProduct?.id== product.id"
                                     (click)="selectProduct=product">
                                     <li>
                                         <div fxLayout="row" fxFlex fxLayoutGap="20px">
-                                            <div>{{product.name}}</div>
-                                            <div>До {{product.maxAmount}} ₽</div>
-                                            <div>От {{product.minRate}}%</div>
-                                            <div>До {{product.maxTerm}} лет</div>
+                                            <div fxFlex>{{product.name}}</div>
+                                            <div fxFlex>До {{product.maxAmount}} ₽</div>
+                                            <div fxFlex>От {{product.minRate}}%</div>
+                                            <div fxFlex>До {{product.maxTerm}} лет</div>
 
                                             <div fxFlex></div>
-                                            <div>
+                                            <div style="width: 24px;">
                                                 <mat-icon (click)="editProduct(product, LendingType.MORTGAGE)">
                                                     <span class="material-symbols-outlined">
                                                         edit
@@ -97,7 +96,7 @@
                                                 </mat-icon>
                                             </div>
 
-                                            <div>
+                                            <div style="width: 24px;">
                                                 <mat-icon (click)="delete(product, LendingType.MORTGAGE)">
                                                     <span class="material-symbols-outlined">
                                                         delete
