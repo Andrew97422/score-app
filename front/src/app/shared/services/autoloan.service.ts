@@ -26,7 +26,7 @@ export class AutoloanService {
     }
 
     edit(product: AutoLoanProduct): void {
-      this.http.patch(this.baseUrl + '/api/v1/autoloan', product, {
+      this.http.patch(this.baseUrl + '/api/v1/autoloan/' + product.id, product, {
         headers: {Authorization: 'Bearer ' + this.sessionService.getToken()}
       }).subscribe((x) => console.log(x));
     }

@@ -26,7 +26,7 @@ export class ConsumerService {
     }
 
     edit(consumerProduct: ConsumerProduct): void {
-        this.http.patch(this.baseUrl + '/api/v1/consumer', consumerProduct, {
+        this.http.patch(this.baseUrl + '/api/v1/consumer/' + consumerProduct.id, consumerProduct, {
           headers: {Authorization: 'Bearer ' + this.sessionService.getToken()}
         }).subscribe((x) => console.log(x));
     }

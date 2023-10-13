@@ -1,6 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import * as moment from 'moment';
 import { InputDialogModel, InputDialogType } from 'src/app/shared/models/input-dialog-type';
 import { LendingType, LendingTypeExt } from 'src/app/shared/models/lending-type';
 import { AutoloanService } from 'src/app/shared/services/autoloan.service';
@@ -26,10 +27,10 @@ export class CreditProductInputComponent {
     @Inject(MAT_DIALOG_DATA) public data: InputDialogModel<any>) {
       this.form = this.fb.group({
         id: null,
-        lendingType: null,
+        lendingType: LendingType.CONSUMER,
         name: null,
-        minAmount: 50000,
-        maxAmount: null,
+        minAmount: 10000,
+        maxAmount: 5000000,
         minTerm: 1,
         maxTerm: 30,
         minRate: 8.4,
@@ -37,7 +38,7 @@ export class CreditProductInputComponent {
         url: null,
         comment: null,
         startDate: new Date(),
-        finishDate: null
+        finishDate: new Date()
       });
 
       if (data.data) {
@@ -61,31 +62,35 @@ export class CreditProductInputComponent {
 
   submit(): void {
     const lendingType = this.form.controls.lendingType.value;
+    const result = this.form.getRawValue();
+    result.startDate = moment(result.startDate).format('yyyy-MM-DDTHH:mm:ss');
+    result.finishDate = !result.finishDate ? null: moment(result.finishDate).format('yyyy-MM-DDTHH:mm:ss');
+
     if (this.data.dialogType == InputDialogType.Create) {
       if (lendingType == LendingType.AUTO_LOAN) {
-        this.autoloanService.register(this.form.getRawValue());
+        this.autoloanService.register(result);
       }
       
       if (lendingType == LendingType.CONSUMER) {
-        this.consumerService.register(this.form.getRawValue());
+        this.consumerService.register(result);
       }
   
       if (lendingType == LendingType.MORTGAGE) {
-        this.mortgageService.register(this.form.getRawValue());
+        this.mortgageService.register(result);
       }
     }
 
     if (this.data.dialogType == InputDialogType.Edit) {
       if (lendingType == LendingType.AUTO_LOAN) {
-        this.autoloanService.edit(this.form.getRawValue());
+        this.autoloanService.edit(result);
       }
       
       if (lendingType == LendingType.CONSUMER) {
-        this.consumerService.edit(this.form.getRawValue());
+        this.consumerService.edit(result);
       }
   
       if (lendingType == LendingType.MORTGAGE) {
-        this.mortgageService.edit(this.form.getRawValue());
+        this.mortgageService.edit(result);
       }
     }
 

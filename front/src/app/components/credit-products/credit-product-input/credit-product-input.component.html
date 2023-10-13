@@ -62,7 +62,7 @@
 
         <mat-form-field appearance="outline" color="primery">
             <mat-label>Конец действия</mat-label>
-            <input matInput [matDatepicker]="picker2" formControlName="finishDate">
+            <input matInput [matDatepicker]="picker2" formControlName="finishDate" required>
             <mat-datepicker-toggle matIconSuffix [for]="picker2">
             </mat-datepicker-toggle>
             <mat-datepicker #picker2></mat-datepicker>

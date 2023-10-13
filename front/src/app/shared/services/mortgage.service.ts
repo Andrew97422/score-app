@@ -26,7 +26,7 @@ export class MortgageService {
     }
 
     edit(product: MortgageProduct): void {
-      this.http.patch(this.baseUrl + '/api/v1/mortgage', product, {
+      this.http.patch(this.baseUrl + '/api/v1/mortgage/' + product.id, product, {
         headers: {Authorization: 'Bearer ' + this.sessionService.getToken()}
       }).subscribe((x) => console.log(x));
     }
