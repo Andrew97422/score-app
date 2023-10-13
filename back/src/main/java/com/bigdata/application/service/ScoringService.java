@@ -33,7 +33,7 @@ public class ScoringService {
 
             application.setFinalScoring(scoring);
 
-            if (scoring > 106) {
+            if (scoring >= 85) {
                 List<CommonEntity> guides = guides(application.getCreditAmount());
                 guides = filteredGuides(guides);
 
