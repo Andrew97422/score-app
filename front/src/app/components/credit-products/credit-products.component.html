@@ -13,7 +13,10 @@
                                     (click)="selectProduct=product">
                                     <li>
                                         <div fxLayout="row" fxFlex fxLayoutGap="10px">
-                                            {{product.name}}
+                                            <div>{{product.name}}</div>
+                                            <div>До {{product.maxAmount}} ₽</div>
+                                            <div>От {{product.minRate}}%</div>
+                                            <div>До {{product.maxTerm}} лет</div>
 
                                             <div fxFlex></div>
                                             <div>
@@ -36,7 +39,7 @@
                             </div>
                         </mat-tab>
 
-                        <mat-tab label="Автокридит">
+                        <mat-tab label="Автокредит">
                             <div fxLayout="column" fxFlex fxLayoutGap="10px">
                                 <div *ngFor="let product of autoLoanProducts" class="product" matRipple
                                     [class.product-active]="product.active"
@@ -44,7 +47,10 @@
                                     (click)="selectProduct=product">
                                     <li>
                                         <div fxLayout="row" fxFlex fxLayoutGap="10px">
-                                            {{product.name}}
+                                            <div>{{product.name}}</div>
+                                            <div>До {{product.maxAmount}} ₽</div>
+                                            <div>От {{product.minRate}}%</div>
+                                            <div>До {{product.maxTerm}} лет</div>
 
                                             <div fxFlex></div>
 
@@ -76,8 +82,11 @@
                                     [class.product-select]="selectProduct?.id== product.id"
                                     (click)="selectProduct=product">
                                     <li>
-                                        <div fxLayout="row" fxFlex fxLayoutGap="10px">
-                                            {{product.name}}
+                                        <div fxLayout="row" fxFlex fxLayoutGap="20px">
+                                            <div>{{product.name}}</div>
+                                            <div>До {{product.maxAmount}} ₽</div>
+                                            <div>От {{product.minRate}}%</div>
+                                            <div>До {{product.maxTerm}} лет</div>
 
                                             <div fxFlex></div>
                                             <div>
@@ -109,7 +118,7 @@
 
                 <div fxFlex>
                     <form *ngIf="selectProduct" fxFlex style="overflow: auto;">
-                        <h6>Кредитный продукт "{{selectProduct?.name}}"</h6>
+                        <h6>{{selectProduct?.name}}</h6>
                         <li>Минимальная сумма кредита: {{selectProduct?.minAmount}}</li>
                         <li>Максимальная сумма кредита: {{selectProduct?.maxAmount}}</li>
                         <li>Минимальный срок кредита: {{selectProduct?.minTerm}}</li>
