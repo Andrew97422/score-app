@@ -58,6 +58,9 @@ public abstract class CommonEntity implements Comparable<CommonEntity>, Serializ
     @Column(name = "is_active")
     private boolean active;
 
+    @Column(name = "is_perpetual")
+    private boolean perpetual;
+
     @Override
     public int compareTo(@NotNull CommonEntity o) {
         int diff = (int) (getMinLoanRate() - o.getMinLoanRate());

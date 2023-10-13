@@ -16,8 +16,15 @@ public interface CommonUtils<A extends CommonProduct, B extends CommonEntity> {
         b.setUrl(a.getUrl());
         b.setComment(a.getComment());
         b.setStartDate(a.getStartDate());
-        b.setFinishDate(a.getFinishDate());
-        b.setActive(LocalDateTime.now().isBefore(a.getFinishDate()) && LocalDateTime.now().isAfter(a.getStartDate()));
+        if (a.getFinishDate() == null) {
+            b.setFinishDate(LocalDateTime.now().plusYears(100));
+            b.setPerpetual(true);
+            b.setActive(LocalDateTime.now().isAfter(a.getStartDate()));
+        } else {
+            b.setPerpetual(false);
+            b.setFinishDate(a.getFinishDate());
+            b.setActive(LocalDateTime.now().isBefore(a.getFinishDate()) && LocalDateTime.now().isAfter(a.getStartDate()));
+        }
     }
 
     default void mapToDto(A a, B b) {
