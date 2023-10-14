@@ -86,5 +86,5 @@ public class ApplicationResponse {
     private ApplicationStatus status;
 
     @Schema(name = "Id пользователя")
-    private Integer user;
+    private String user;
 }

@@ -78,6 +78,13 @@ public class ApplicationUtils {
     }
 
     public ApplicationResponse mapToApplicationResponse(LoanApplicationEntity application) {
+        StringBuilder builder = new StringBuilder();
+        builder.append(application.getUser().getLastName().trim());
+        builder.append(" ");
+        builder.append(application.getUser().getFirstName().trim());
+        builder.append(" ");
+        builder.append(application.getUser().getSurName().trim());
+        builder.append(" ").append("(").append(application.getUser().getLogin().trim()).append(")");
         return ApplicationResponse.builder()
                 .id(application.getId())
                 .consentPersonalData(application.isConsentPersonalData())
@@ -101,7 +108,7 @@ public class ApplicationUtils {
                 .isPsbClient(application.isPsbClient())
                 .isNewSubjectsResident(application.isNewSubjectsResident())
                 .status(application.getStatus())
-                .user(application.getUser().getId())
+                .user(builder.toString())
                 .build();
     }
 

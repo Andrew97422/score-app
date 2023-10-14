@@ -30,7 +30,7 @@ public class UserService {
     }
 
     @Transactional
-    public String updateUserById(int id, Map<String, String> map) {
+    public Integer updateUserById(int id, Map<String, String> map) {
         var user = userRepository.findById(id).orElseThrow(() -> {
             log.error("User {} wasn't found", id);
             return new UsernameNotFoundException("Пользователь не был найден");
@@ -39,15 +39,8 @@ public class UserService {
         userUtils.updateData(user, map);
         userRepository.saveAndFlush(user);
 
-        StringBuilder builder = new StringBuilder();
-        builder.append(user.getLastName().trim());
-        builder.append(" ");
-        builder.append(user.getFirstName().trim());
-        builder.append(" ");
-        builder.append(user.getSurName().trim());
-        builder.append(" ").append("(").append(user.getLogin().trim()).append(")");
-        log.info("User {} was successfully updated.", builder);
-        return builder.toString();
+        log.info("User {} was successfully updated.", id);
+        return id;
     }
 
     @Transactional
