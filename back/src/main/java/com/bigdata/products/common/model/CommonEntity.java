@@ -44,7 +44,7 @@ public abstract class CommonEntity implements Comparable<CommonEntity>, Serializ
     @Column(name = "url")
     private String url;
 
-    @Column(name = "comment")
+    @Column(name = "comment", columnDefinition = "VARCHAR(2048)")
     private String comment;
 
     @Column(name = "start_date")
