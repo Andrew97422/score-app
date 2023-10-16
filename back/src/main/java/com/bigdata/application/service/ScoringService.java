@@ -4,6 +4,7 @@ import com.bigdata.application.model.entity.LoanApplicationEntity;
 import com.bigdata.application.model.enums.ApplicationStatus;
 import com.bigdata.application.repository.ApplicationRepository;
 import com.bigdata.products.common.model.CommonEntity;
+import com.bigdata.products.common.model.LendingType;
 import com.bigdata.products.common.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -34,7 +35,7 @@ public class ScoringService {
             application.setFinalScoring(scoring);
 
             if (scoring >= 85) {
-                List<CommonEntity> guides = guides(application.getCreditAmount());
+                List<CommonEntity> guides = guides(application.getCreditAmount(), application.getLendingType());
                 guides = filteredGuides(guides);
 
                 if (guides.isEmpty()) {
@@ -94,8 +95,8 @@ public class ScoringService {
     }
 
     @Transactional(readOnly = true)
-    public List<CommonEntity> guides(float creditAmount) {
-        return productService.guides(creditAmount);
+    public List<CommonEntity> guides(float creditAmount, LendingType lendingType) {
+        return productService.guides(creditAmount, lendingType);
     }
 
     public List<CommonEntity> filteredGuides(List<CommonEntity> guides) {

@@ -3,7 +3,8 @@ package org.example;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @SpringBootApplication
@@ -16,8 +17,13 @@ public class Main {
         SpringApplication.run(Main.class, args);
     }
 
-    @GetMapping("/")
-    public String hello() {
-        return "String";
+    record UserInfo(String firstName, String lastName, String surName) {}
+
+    @PostMapping("/")
+    public UserInfo hello(
+            @RequestBody UserInfo c
+    ) {
+        System.out.println("Получен " + c.toString());
+        return c;
     }
 }
