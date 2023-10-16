@@ -48,7 +48,7 @@ export class RequestInputComponent {
         this.form.controls.lendingType.setValue(data.data.lendingType);
         this.form.controls.workExperience.setValue(data.data.workExperience);
         this.form.controls.countActiveLoans.setValue(data.data.countActiveLoans);
-        this.form.controls.currentDebtLoad.setValue(data.data.currentDebtLoad);
+        this.form.controls.currentDebtLoad.setValue(data.data.amountLoanPayments);
         this.form.controls.monthlyIncome.setValue(data.data.monthlyIncome);
         this.form.controls.term.setValue(data.data.term);
         this.form.controls.military.setValue(data.data.military);

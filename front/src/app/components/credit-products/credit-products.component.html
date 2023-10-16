@@ -3,7 +3,7 @@
         <div fxFlex fxLayout="column" fxLayoutGap="8px">
             <h5>Кредитные продукты</h5>
             <div fxLayout="row" fxFlex fxLayoutGap="10px" style="overflow: hidden;">
-                <div fxLayout="column" fxFlex="2 1 0%">
+                <div fxLayout="column" fxFlex="3 1 0%">
                     <mat-tab-group fxFlex>
                         <mat-tab label="Потребительский кредит">                
                             <div fxLayout="column" fxFlex fxLayoutGap="10px" style="padding-top: 10px;">
@@ -17,7 +17,7 @@
                                             <div fxFlex>До {{product.maxAmount}} ₽</div>
                                             <div fxFlex>От {{product.minRate}}%</div>
                                             <div fxFlex>До {{product.maxTerm}} месяцев</div>
-                                            
+
                                             <div style="width: 24px;">
                                                 <mat-icon (click)="editProduct(product, LendingType.CONSUMER)">
                                                     <span class="material-symbols-outlined">
