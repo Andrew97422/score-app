@@ -78,8 +78,8 @@ public class ConsumerService implements CommonService<ConsumerProduct> {
         list.add(cacheProduct);
         consumer.setConsumerCache(list);
 
-        consumerRepository.save(consumer);
         consumerCacheRepository.save(cacheProduct);
+        consumerRepository.save(consumer);
     }
 
     @Override

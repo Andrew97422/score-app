@@ -15,6 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.FileOutputStream;
 import java.util.List;
 
 @Service
@@ -92,7 +93,7 @@ public class ApplicationService {
             application = applicationRepository.getReferenceById(id);
         }
 
-        List<CommonEntity> guides = scoringService.guides(application.getCreditAmount());
+        List<CommonEntity> guides = scoringService.guides(application.getCreditAmount(), application.getLendingType());
         guides = scoringService.filteredGuides(guides);
 
         log.info("Found {} suitable loan products for the user {}.", guides.size(), application.getId());

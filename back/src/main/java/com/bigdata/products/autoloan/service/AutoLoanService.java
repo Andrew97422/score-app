@@ -80,8 +80,8 @@ public class AutoLoanService implements CommonService<AutoLoanProduct> {
         list.add(cacheProduct);
         autoLoan.setAutoLoanCache(list);
 
-        autoLoanRepository.save(autoLoan);
         commonCacheRepository.save(cacheProduct);
+        autoLoanRepository.save(autoLoan);
     }
 
     @Override

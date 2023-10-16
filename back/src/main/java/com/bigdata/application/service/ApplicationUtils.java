@@ -168,6 +168,7 @@ public class ApplicationUtils {
             Chunk chunk = new Chunk((i + 1) + ".  " + guides.get(i).getName() +
                     ", для Вас ставка - " + String.format("%.2f", guides.get(i).getMinLoanRate()) + " %\n");
             chunk.setAnchor(guides.get(i).getUrl());
+            chunk.setFont(font1);
             Paragraph paragraph = new Paragraph(chunk);
             paragraph.setSpacingAfter(15F);
             paragraph.setSpacingBefore(paragraph.getSpacingAfter() + 10F);

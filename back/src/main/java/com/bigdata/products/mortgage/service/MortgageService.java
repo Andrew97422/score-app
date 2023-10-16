@@ -80,8 +80,8 @@ public class MortgageService implements CommonService<MortgageProduct> {
         list.add(cacheProduct);
         mortgage.setMortgageCache(list);
 
-        mortgageRepository.save(mortgage);
         mortgageCacheRepository.save(cacheProduct);
+        mortgageRepository.save(mortgage);
     }
 
     @Override
