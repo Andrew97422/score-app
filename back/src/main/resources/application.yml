@@ -19,6 +19,8 @@ spring:
         jdbc:
           lob:
             non_contextual_creation: true
+        connection:
+          characterEnconding: utf-8
     show-sql: false
     hibernate:
       ddl-auto: update
