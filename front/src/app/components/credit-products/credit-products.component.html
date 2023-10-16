@@ -16,9 +16,8 @@
                                             <div fxFlex>{{product.name}}</div>
                                             <div fxFlex>До {{product.maxAmount}} ₽</div>
                                             <div fxFlex>От {{product.minRate}}%</div>
-                                            <div fxFlex>До {{product.maxTerm}} лет</div>
-
-                                            <div fxFlex></div>
+                                            <div fxFlex>До {{product.maxTerm}} месяцев</div>
+                                            
                                             <div style="width: 24px;">
                                                 <mat-icon (click)="editProduct(product, LendingType.CONSUMER)">
                                                     <span class="material-symbols-outlined">
@@ -50,8 +49,7 @@
                                             <div fxFlex>{{product.name}}</div>
                                             <div fxFlex>До {{product.maxAmount}} ₽</div>
                                             <div fxFlex>От {{product.minRate}}%</div>
-                                            <div fxFlex>До {{product.maxTerm}} лет</div>
-                                            <div fxFlex></div>
+                                            <div fxFlex>До {{product.maxTerm}} месяцев</div>
 
                                             <div style="width: 24px;">
                                                 <mat-icon (click)="editProduct(product, LendingType.AUTO_LOAN)">
@@ -85,9 +83,8 @@
                                             <div fxFlex>{{product.name}}</div>
                                             <div fxFlex>До {{product.maxAmount}} ₽</div>
                                             <div fxFlex>От {{product.minRate}}%</div>
-                                            <div fxFlex>До {{product.maxTerm}} лет</div>
+                                            <div fxFlex>До {{product.maxTerm}} месяцев</div>
 
-                                            <div fxFlex></div>
                                             <div style="width: 24px;">
                                                 <mat-icon (click)="editProduct(product, LendingType.MORTGAGE)">
                                                     <span class="material-symbols-outlined">

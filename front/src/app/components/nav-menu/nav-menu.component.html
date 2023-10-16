@@ -32,7 +32,7 @@
     <div fxFlex></div>
     <div fxLayout="row" fxLayoutGap="8px" fxLayoutAlign="start center" style="padding: 0 10px;">
         <div fxLayoutAlign="start center" class="user-name" matRipple (click)="viewUserData()">
-            {{(userData?.firstName || 'имя пользователя неизвестно') + ' ' + (userData?.lastName[0] + '.')}}
+            {{(userData?.firstName || 'имя пользователя неизвестно') + ' ' + (userData?.lastName ? (userData?.lastName[0] + '.') : '')}}
         </div>
     </div>
 
