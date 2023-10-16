@@ -61,7 +61,7 @@ table tr td:nth-child(5) mat-icon:hover {
     /*color: white;
     background: linear-gradient(50deg, rgb(0 75 140),white);*/
     font-weight: 600;
-    font-size: 18px;
+    font-size: 16px;
     background: white;
     cursor: pointer;
     min-height: 32px;

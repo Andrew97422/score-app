@@ -17,7 +17,7 @@
             </mat-icon>
             <div class="title">Продажа автомобилей</div>
         </div>
-        <table *ngIf="!auto_exp.checked">
+        <table *ngIf="!auto_exp.checked" class="shop">
             <tr *ngFor="let x of cars" (click)="viewProduct(x)">
                 <td>
                     <img width="200px" [attr.src]="x.imgUrl">
@@ -37,7 +37,7 @@
             </mat-icon>
             <div class="title">Продажа домов, дач, коттеджей, таунхаусов</div>
         </div>
-        <table *ngIf="!home_exp.checked">
+        <table *ngIf="!home_exp.checked" class="shop">
             <tr *ngFor="let x of homes" (click)="viewProduct(x)">
                 <td>
                     <img width="200px" [attr.src]="x.imgUrl">

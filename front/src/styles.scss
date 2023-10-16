@@ -101,12 +101,15 @@ table {
   background: white;
 }
 
-table tr:hover {
+table:not(.shop) tr:nth-child(2n) {
   background-color: #f2f1f5;
 }
 
+table tr:hover {
+  background-color: rgba(0, 75, 140, 0.2);
+}
+
 table tr {
-  border-bottom: 1px solid #d6d5da;
   cursor: pointer !important;
 }
 

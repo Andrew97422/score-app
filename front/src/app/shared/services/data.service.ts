@@ -10,13 +10,13 @@ import { RegisterService } from './register-service';
 export class DataService {
   userCards = [
     {
-      login: '1',
+      login: 'user',
       amount: '100 099',
       type: CardType.Debit,
       number: '0000 0000 0000 1247'
     },
     {
-      login: '1',
+      login: 'user',
       amount: '1 000 001',
       type: CardType.Credit,
       number: '0000 0000 0000 1041'
@@ -25,7 +25,7 @@ export class DataService {
 
   credits = [
     {
-      login: '1',
+      login: 'user',
       name: 'Ипотека СЖ с господдержкой 2020',
       amount: '1 500 499'
     }

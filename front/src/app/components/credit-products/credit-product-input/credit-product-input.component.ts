@@ -38,7 +38,7 @@ export class CreditProductInputComponent {
         url: null,
         comment: null,
         startDate: new Date(),
-        finishDate: new Date()
+        finishDate: new Date(moment().add(10, 'y').format('DD.MM.YYYY'))
       });
 
       if (data.data) {
