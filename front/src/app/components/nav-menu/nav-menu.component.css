@@ -13,6 +13,7 @@
     color: white;
     padding-right: 10px;
     box-shadow: 0 4px 4px 0 rgba(0,0,0,.2);
+    background: var(--main-color);
 }
 
 .title {
@@ -49,6 +50,11 @@ a {
     font-size: 16px;
     border-radius: 0 !important;
     padding: 0 10px !important;
+}
+
+.nav-menu-item:hover {
+    cursor: pointer;
+    background-color: rgba(0,0,0,.4);
 }
 
 .nav-menu-item-active {

@@ -1,6 +1,10 @@
 @import "https://use.fontawesome.com/releases/v5.5.0/css/all.css";
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 
+:root {
+  --main-color: rgb(2 115 160);
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -94,7 +98,6 @@ input:read-only, .mat-mdc-select-disabled {
   color: #666 !important;
 }
 
-
 table {
   width: 100%;
   table-layout: fixed;
@@ -105,8 +108,14 @@ table:not(.shop) tr:nth-child(2n) {
   background-color: #f2f1f5;
 }
 
+table:not(.shop) tr:not(:nth-child(1)):hover {
+  background-color: rgb(2, 120, 165, 0.3) !important;
+  //color: white !important;
+}
+
 table tr:hover {
-  background-color: rgba(0, 75, 140, 0.2);
+  background-color: #f2f1f5 !important;
+  //color: white !important;
 }
 
 table tr {
@@ -127,10 +136,25 @@ table tr td div {
   border-bottom: 1px solid #aaa;
 }
 
+.mat-mdc-tab.mdc-tab--active .mdc-tab__text-label {
+  color: var(--main-color) !important;
+}
+
+.mat-mdc-tab .mdc-tab-indicator__content--underline {
+  color: var(--main-color) !important;
+}
+
+.mat-mdc-tab .mdc-tab-indicator__content--underline {
+  border-color: var(--main-color) !important;
+}
+
+.mat-mdc-button:not(:disabled) {
+  color: var(--main-color) !important;
+}
+
 ::-webkit-scrollbar-thumb, ::-webkit-scrollbar-thumb {
-  border-radius: 50px;
   width: 10px;
-  background-color: gray;
+  background-color: var(--main-color);
 }
 
 ::-webkit-scrollbar {

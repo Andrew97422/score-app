@@ -4,7 +4,7 @@
 }
 
 .product-select {
-    background-color: #f2f1f5;
+    background-color: rgb(2, 115, 160, 0.2) !important;
 }
 
 .product li {
@@ -40,7 +40,6 @@
 form {
     padding: 20px;
     box-sizing: border-box;
-    border: 1px solid rgb(0 75 140);
     border-radius: 4px;
-    background-color: #f2f1f5
+    background-color: rgb(2, 115, 160, 0.2)
 }
