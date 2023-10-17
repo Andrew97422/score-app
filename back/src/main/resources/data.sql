@@ -69,9 +69,9 @@ insert into mortgage values(default, true, 'На покупку жилья и д
 insert into mortgage values(default, true, 'Кредит на покупку готового или строящегося жилья в ДФО', '2035-10-10T00:00:00',
                             6000000, 240, 600000, 1.5, 36, 'Дальневосточная ипотека', true,
                             '2023-10-11T18:16:16', 'https://www.psbank.ru/Personal/Mortgage/East', '', 'От 20%');
-insert into users values(default, '08.12.1990', 'nosoff.4ndr@yandex.ru',  'User', '', 'user', 'false',
+insert into users values(default, '08.12.1990', 'nosoff.4ndr@yandex.ru',  'Тестовый пользователь', '', 'user', 'false',
                          '$2a$08$k5Q7lc0vPm8V5Ymr8izXO.tbF0UEMyxZy90b3C7x9koXUyOOEp2mu', '89108688194', 'USER', '');
-insert into users values(default, '05.03.1954', 'nosoff.4ndr@yandex.ru', 'Operator', '', 'operator', 'false',
+insert into users values(default, '05.03.1954', 'nosoff.4ndr@yandex.ru', 'Операционист', '', 'operator', 'false',
                          '$2a$08$XBCh8V3D1fxYuCNHdovOKORhq13SsNwHTwkKIRJD77RoMKuKDZK3O', '89108688194', 'OPERATOR', '');
-insert into users values(default, '03.07.1967', 'nosoff.4ndr@yandex.ru', 'Administrator', '', 'admin', 'false',
+insert into users values(default, '03.07.1967', 'nosoff.4ndr@yandex.ru', 'Администратор', '', 'admin', 'false',
                          '$2a$08$fEMnfSV6zp8IDWypU6uHK.vX8lFzjlzRR4I8xzjB7iB2MYFESIy4K', '89108688194', 'SUPER_ADMIN', '');

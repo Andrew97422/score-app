@@ -10,6 +10,9 @@ import { ConfirmData } from '../confirm-dialog/confirm-data.model';
 import { LendingType } from 'src/app/shared/models/lending-type';
 import { InputDialogModel, InputDialogType } from 'src/app/shared/models/input-dialog-type';
 import { Observable } from 'rxjs';
+import { RegisterService } from 'src/app/shared/services/register-service';
+import { SessionService } from 'src/app/shared/services/session.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'credit-products',
@@ -25,10 +28,18 @@ export class CreditProductsComponent {
   mortgageProducts: AutoLoanProduct[];
 
   constructor(
+    private router: Router,
     private dialog: MatDialog,
     private consumerService: ConsumerService,
     private autoloanService: AutoloanService,
-    private mortgageService: MortgageService) {
+    private mortgageService: MortgageService,
+    private sessionService: SessionService,
+    private registerService: RegisterService) {
+      this.registerService.getUser(this.sessionService.getSessionID() as unknown as number).subscribe((x: any) => {
+          if (x.role != 'SUPER_ADMIN') router.navigate(['']);
+        }
+      );
+
       this.loadProducts();
   }
 
