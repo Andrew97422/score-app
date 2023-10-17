@@ -1,7 +1,13 @@
-FROM node:lts-buster
+# ----------[ Build ]----------
+FROM node:18-alpine AS build
 WORKDIR /usr/src/app
-COPY package.json package-lock.json ./
+COPY package*.json ./
 RUN npm install
 COPY . .
+RUN npm install -g @angular/cli
 RUN npm run build
-RUN npm run start
+
+# ----------[ Deploy ]----------
+FROM nginx:1-alpine
+COPY nginx.conf /etc/nginx/nginx.conf
+COPY --from=build /usr/src/app/dist/chat /usr/share/nginx/html

@@ -1,53 +1,48 @@
 version: '3'
-
 services:
   front:
-    build:
-      context: front
-      dockerfile: ./Dockerfile
-    volumes:
-      - ./front:/srv/front
-      - /usr/src/app
+    build: ./front
     ports:
-      - "8080:8080"
+      - "3000:80"
     environment:
-      - NODE_OPTIONS=2048
-    #depends_on:
-    #  - back
+      - NODE_OPTIONS=--max-old-space-size=4096
 
-  #back:
-  #  image: 'docker-spring-boot-postgres:latest'
-  #  build:
-  #    context: back
-  #    dockerfile: ./Dockerfile
-  #  container_name: back
-  #  environment:
-  #    - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/bigdata
-  #    - SPRING_DATASOURCE_USERNAME=postgres
-  #    - SPRING_DATASOURCE_PASSWORD=123
-  #  ports:
-  #    - "8081:8081"
-  #  depends_on:
-  #    - db
+    depends_on:
+      - back
 
-  #db:
-  #  image: postgres:14-alpine
-  #  container_name: db
-  #  restart: always
-  #  build:
-  #    context: back
-  #    dockerfile: ../back/Dockerfile.development
+  back:
+    image: 'docker-spring-boot-postgres:latest'
+    build:
+      context: back
+      dockerfile: ./Dockerfile
+    container_name: back
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/bigdata
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=123
+    ports:
+      - "8081:8081"
+    depends_on:
+      - db
 
-  #  ports:
-  #    - "5432:5432"
+  db:
+    image: postgres:14-alpine
+    container_name: db
+    restart: always
+    build:
+      context: back
+      dockerfile: ../back/Dockerfile.development
 
-  #  environment:
-  #    POSTGRES_USER: postgres
-  #    POSTGRES_PASSWORD: 123
-  #    POSTGRES_DB: bigdata
+    ports:
+      - "5432:5432"
 
-  #  volumes:
-  #    - postgres_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 123
+      POSTGRES_DB: bigdata
 
-#volumes:
-#  postgres_data:
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
