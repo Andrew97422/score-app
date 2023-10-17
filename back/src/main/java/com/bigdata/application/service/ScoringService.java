@@ -102,6 +102,7 @@ public class ScoringService {
     public List<CommonEntity> filteredGuides(List<CommonEntity> guides) {
         return guides.stream()
                 .sorted()
+                .filter(CommonEntity::isActive)
                 .limit(5)
                 .sorted((o1, o2) ->
                         (int) (o2.getMinLoanRate() - o1.getMinLoanRate()))
