@@ -74,7 +74,7 @@
                     <div class="title">Заявки на кредит</div>
                 </div>
                 <table *ngIf="!consumers_exp.checked">
-                    <tr>
+                    <tr *ngIf="consumers?.length">
                         <th>Название</th>
                         <th>Дата
                             <mat-icon #sorting (click)="sorting.direction = !sorting.direction; sort(LendingType.CONSUMER, sorting.direction)">
@@ -91,7 +91,7 @@
                         <th></th>
                     </tr>
 
-                    <tr *ngFor="let x of consumers"  (dblclick)="viewRequest(x)">
+                    <tr *ngFor="let x of consumers" (dblclick)="viewRequest(x)">
                         <td>
                             <div fxLayout="row" fxLayoutGap="4px">
                                 <ng-container *ngIf="x.status == 'APPROVED'">
@@ -146,7 +146,7 @@
                 </div>
         
                 <table *ngIf="!autoLoans_exp.checked">
-                    <tr>
+                    <tr *ngIf="autoLoans?.length">
                         <th>Название</th>
                         <th>Дата
 
@@ -219,7 +219,7 @@
                 </div>
                 
                 <table *ngIf="!mortgages_exp.checked">
-                    <tr>
+                    <tr *ngIf="mortgages?.length">
                         <th>Название</th>
                         <th>Дата
 

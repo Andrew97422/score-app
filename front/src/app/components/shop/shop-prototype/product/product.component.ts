@@ -2,12 +2,12 @@ import { Component } from '@angular/core';
 import { StateService } from '../../../../shared/services/state-service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LendingType, LendingTypeExt } from 'src/app/shared/models/lending-type';
-import { RegisterService } from 'src/app/shared/services/register-service';
 import { RequestData } from 'src/app/shared/models/request-data';
 import { MatDialog } from '@angular/material/dialog';
 import { PsbAuthorizationComponent } from 'src/app/components/psb-authorization/psb-authorization.component';
-import { WorkExperience } from 'src/app/shared/models/work-experience';
 import { CountActiveLoans } from 'src/app/shared/models/count-active-loans';
+import { InputDialogModel, InputDialogType } from 'src/app/shared/models/input-dialog-type';
+import { RequestInputComponent } from 'src/app/components/my-requests/request-input/request-input.component';
 
 @Component({
   selector: 'product',
@@ -23,8 +23,7 @@ export class ProductComponent {
   constructor(
     public stateService: StateService,
     private fb: FormBuilder,
-    private dialog: MatDialog,
-    private registerService: RegisterService) {
+    private dialog: MatDialog) {
     this.form = this.fb.group({
       lendingType: stateService.product?.lendingType,
       amount: [stateService.product?.price, Validators.required],
@@ -57,23 +56,24 @@ export class ProductComponent {
             amount: this.form.controls.amount.value,
             lendingType: this.form.controls.lendingType.value,
             currentDebtLoad: this.form.controls.monthlyPaymentAmount.value,
-            // TODO временная затычка
-            workExperience: WorkExperience.MORE_THAN_TWENTY
           })
       });
 
       return;
     }
 
-    this.registerService.sendRequest(new RequestData({
-      amount: this.form.controls.amount.value,
-      lendingType: this.form.controls.lendingType.value,
-      psbClient: this.form.controls.psbClient.value,
-      currentDebtLoad: this.form.controls.monthlyPaymentAmount.value,
-      // TODO временная затычка
-      workExperience: WorkExperience.MORE_THAN_TWENTY,
-      countActiveLoans: CountActiveLoans.NO_CREDITS
-    }));
+    await this.dialog.open(RequestInputComponent, {data: new InputDialogModel({
+      title: 'Новая заявка',
+      applyButton: 'Создать',
+      dialogType: InputDialogType.Create,
+      data: {
+        creditAmount: this.form.controls.amount.value,
+        lendingType: this.form.controls.lendingType.value,
+        amountLoanPayments: this.form.controls.monthlyPaymentAmount.value,
+        psbClient: true,
+        countActiveLoans: CountActiveLoans.NO_CREDITS
+      }
+    })}).afterClosed().toPromise();
   }
   
   private calcMonthlyPaymentAmount(): void {
