@@ -37,7 +37,7 @@
 
                     <div fxLayout="column" fxFlex>
                         <div>
-                            <div fxLayout="row" class="requests-header" matRipple #credits_exp (click)="credits_exp.checked=!credits_exp.checked" style="margin-left: 24px;">
+                            <div fxLayout="row" class="requests-header" matRipple #credits_exp (click)="credits_exp.checked=!credits_exp.checked">
                                 <mat-icon>
                                     <span class="material-symbols-outlined">
                                         {{credits_exp.checked ? 'chevron_right' : 'expand_more'}}
@@ -45,7 +45,7 @@
                                 </mat-icon>
                                 <div class="title">Кредиты</div>
                             </div>
-                            <div *ngIf="!credits_exp.checked" style="padding-left: 34px;">
+                            <div *ngIf="!credits_exp.checked" style="padding-left: 24px;">
                                 <div *ngIf="credits?.length; else noData">
                                     <li *ngFor="let credit of credits">
                                         <b>{{credit.name + '. ' + credit.amount}} ₽</b>
