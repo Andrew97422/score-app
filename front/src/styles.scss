@@ -80,8 +80,8 @@ a {
 
 
 .mat-mdc-outlined-button:not(:disabled) {
-  color: white !important;
-  background: cornflowerblue;
+  background: var(--main-color);
+  color: #fff!important;
 }
 
 input:read-only, .mat-mdc-select-disabled {
