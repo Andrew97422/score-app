@@ -12,7 +12,7 @@
                                     (click)="selectProduct=product; selectTab = LendingType.CONSUMER">
                                     <li>
                                         <div fxLayout="column" fxFlex>
-                                            <div fxFlex fxLayout="row">
+                                            <div fxFlex fxLayout="row" fxLayoutGap="10px">
                                                 <div fxFlex style="font-weight: 500">{{product.name}}</div>
                                                 <div style="width: 24px;">
                                                     <mat-icon (click)="editProduct(product, LendingType.CONSUMER)">
@@ -52,7 +52,7 @@
                                     (click)="selectProduct=product; selectTab = LendingType.MORTGAGE">
                                     <li>
                                         <div fxLayout="column" fxFlex>
-                                            <div fxFlex fxLayout="row">
+                                            <div fxFlex fxLayout="row" fxLayoutGap="10px">
                                                 <div fxFlex style="font-weight: 500">{{product.name}}</div>
                                                 <div style="width: 24px;">
                                                     <mat-icon (click)="editProduct(product, LendingType.MORTGAGE)">
@@ -92,7 +92,7 @@
                                     (click)="selectProduct=product; selectTab = LendingType.AUTO_LOAN">
                                     <li>
                                         <div fxLayout="column" fxFlex>
-                                            <div fxFlex fxLayout="row">
+                                            <div fxFlex fxLayout="row" fxLayoutGap="10px">
                                                 <div fxFlex style="font-weight: 500">{{product.name}}</div>
                                                 <div style="width: 24px;">
                                                     <mat-icon (click)="editProduct(product, LendingType.AUTO_LOAN)">
@@ -158,9 +158,14 @@
                             </div>
                         </div>
 
-                        <div>Период действия: {{selectProduct?.startDate | date:'dd.MM.yyyy'}} - {{selectProduct?.finishDate | date:'dd.MM.yyyy'}}</div>
+                        <div>
+                            Период действия: {{selectProduct?.startDate | date:'dd.MM.yyyy'}} - {{selectProduct?.finishDate | date:'dd.MM.yyyy'}}
+                        </div>
 
-                        <a [attr.href]="selectProduct?.url">Подробное описание продукта на сайте ПСБ</a>
+                        <a [attr.href]="selectProduct?.url" fxLayout="row" class="link" matRipple>
+                            <svg width="24px" height="24px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-external-link"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                            <div>Подробное описание продукта на сайте ПСБ</div>
+                        </a>
                         
                     </form>
                 </div>
