@@ -109,12 +109,12 @@ table:not(.shop) tr:nth-child(2n) {
 }
 
 table:not(.shop) tr:not(:nth-child(1)):hover {
-  background-color: rgb(2, 120, 165, 0.3) !important;
+  background-color: #E9E9F7 !important;
   //color: white !important;
 }
 
 table tr:hover {
-  background-color: #f2f1f5 !important;
+  background-color:#f2f1f5 !important;
   //color: white !important;
 }
 
@@ -156,19 +156,24 @@ table tr td div {
   --mdc-secondary-navigation-tab-container-height: 36px !important;
   background-color: #f2f1f5 !important;
   border-radius: 5px !important;
-  padding: 5px !important;
   margin-bottom: 10px;
 }
 
 .mdc-tab-indicator--active{
   background-color: white !important;
   border-radius: 5px !important;
+  box-shadow: 0 0 10px rgba(0,0,0,.02), 0 10px 30px rgba(0,0,0,.05);
+}
+
+.mat-mdc-tab.mdc-tab {
+  margin: 4px !important;
 }
 
 .mat-mdc-tab-list {
   border: 0 !important;
 }
 
+/*
 ::-webkit-scrollbar-thumb, ::-webkit-scrollbar-thumb {
   width: 10px;
   background-color: var(--main-color);
@@ -177,3 +182,4 @@ table tr td div {
 ::-webkit-scrollbar {
   width: 10px;
 }
+*/

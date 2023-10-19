@@ -4,7 +4,6 @@
 }
 
 .product-select {
-    font-weight: 500;
     color: var(--main-color);
     background-color: #E9E9F7;
 }
@@ -40,9 +39,10 @@
 }
 
 form {
-    padding: 20px;
+    padding: 10px;
     box-sizing: border-box;
-    background-color: #f8f8fc;
+    background-color: #E9E9F7;
+    border-radius: 4px;
 }
 
 .mat-button {
