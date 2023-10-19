@@ -33,7 +33,7 @@ html, body {
   background: white;
   padding: 10px;
   border-radius: 5px;
-  box-shadow: none;
+  box-shadow: 0 4px 4px 0 rgba(0,0,0,.2);
 }
 
 .mat-mdc-card {
@@ -154,7 +154,7 @@ table tr td div {
 
 .mat-mdc-tab-header {
   --mdc-secondary-navigation-tab-container-height: 36px !important;
-  background-color: #f2f1f5 !important;
+  background-color: #f0f0f7 !important;
   border-radius: 5px !important;
   margin-bottom: 10px;
 }
@@ -173,6 +173,19 @@ table tr td div {
   border: 0 !important;
 }
 
+.mat-tooltip {
+  max-width: unset !important;
+}
+
+.mdc-tab {
+  min-width: 90px;
+  padding-right: 6px !important;
+  padding-left: 6px !important;
+}
+
+.mat-mdc-tab-labels {
+  width: 0;
+}
 /*
 ::-webkit-scrollbar-thumb, ::-webkit-scrollbar-thumb {
   width: 10px;

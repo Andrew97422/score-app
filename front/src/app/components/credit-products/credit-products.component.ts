@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { AutoloanService } from '../../shared/services/autoloan.service'
 import { MatDialog } from '@angular/material/dialog';
 import { CreditProductInputComponent } from './credit-product-input/credit-product-input.component';
@@ -21,6 +21,11 @@ import { Router } from '@angular/router';
 })
 export class CreditProductsComponent {
   LendingType = LendingType;
+
+  smollWindow = window.innerWidth < 900;
+  @HostListener('window:resize', ['$event']) onresize(e) {
+    this.smollWindow = e.target.innerWidth < 900;
+  }
 
   selectTab = LendingType.CONSUMER;
   selectProduct: CommonProduct;
