@@ -4,11 +4,13 @@
 }
 
 .product-select {
-    background-color: rgb(2, 115, 160, 0.2) !important;
+    font-weight: 500;
+    color: var(--main-color);
+    background-color: #E9E9F7;
 }
 
 .product li {
-    border-left: 10px solid gray;
+    border-left: 8px solid gray;
     display: flex;
     padding-left: 10px;
 }
@@ -30,15 +32,22 @@
 }
 
 .product-active li {
-    border-left: 10px solid #88bb00;
+    border-left: 8px solid #88bb00;
 }
 
-.product:hover {
+.product:not(.product-select):hover {
     background-color: #f2f1f5;
 }
 
 form {
     padding: 20px;
     box-sizing: border-box;
-    border-left: 1px solid rgb(2, 115, 160)
+    background-color: #f8f8fc;
+}
+
+.mat-button {
+    width: 200px !important;
+    height: 42px !important;
+    background: var(--main-color) !important;
+    color: white !important;
 }

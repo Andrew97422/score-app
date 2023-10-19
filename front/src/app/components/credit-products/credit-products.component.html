@@ -1,16 +1,16 @@
 <div class="component">
     <div fxLayout="row" fxFlex class="mat-card">
-        <div fxFlex fxLayout="column" fxLayoutGap="8px">
+        <div fxFlex fxLayout="column" fxLayoutGap="16px">
             <h5>Кредитные продукты</h5>
             <div fxLayout="row" fxFlex fxLayoutGap="10px" style="overflow: hidden;">
                 <div fxLayout="column" fxFlex="3 1 0%">
                     <mat-tab-group fxFlex style="overflow: hidden;">
                         <mat-tab label="Потребительский кредит">                
-                            <div fxLayout="column" fxFlex fxLayoutGap="10px" style="padding-top: 10px;">
+                            <div fxLayout="column" fxFlex fxLayoutGap="10px">
                                 <div *ngFor="let product of consumerProducts" class="product" matRipple
                                     [class.product-active]="product.active"
-                                    [class.product-select]="selectProduct?.id== product.id"
-                                    (click)="selectProduct=product">
+                                    [class.product-select]="selectProduct?.id == product.id && selectTab == LendingType.CONSUMER"
+                                    (click)="selectProduct=product; selectTab = LendingType.CONSUMER">
                                     <li>
                                         <div fxLayout="row" fxFlex fxLayoutGap="10px">
                                             <div fxFlex>{{product.name}}</div>
@@ -39,11 +39,11 @@
                         </mat-tab>
 
                         <mat-tab label="Автокредит">
-                            <div fxLayout="column" fxFlex fxLayoutGap="10px" style="padding-top: 10px;">
+                            <div fxLayout="column" fxFlex fxLayoutGap="10px">
                                 <div *ngFor="let product of autoLoanProducts" class="product" matRipple
                                     [class.product-active]="product.active"
-                                    [class.product-select]="selectProduct?.id== product.id"
-                                    (click)="selectProduct=product">
+                                    [class.product-select]="selectProduct?.id == product.id && selectTab == LendingType.AUTO_LOAN"
+                                    (click)="selectProduct=product; selectTab = LendingType.AUTO_LOAN">
                                     <li>
                                         <div fxLayout="row" fxFlex fxLayoutGap="10px">
                                             <div fxFlex>{{product.name}}</div>
@@ -73,11 +73,11 @@
                         </mat-tab>
 
                         <mat-tab label="Ипотека">
-                            <div fxLayout="column" fxFlex fxLayoutGap="10px" style="padding-top: 10px;">
+                            <div fxLayout="column" fxFlex fxLayoutGap="10px">
                                 <div *ngFor="let product of mortgageProducts" class="product" matRipple
                                     [class.product-active]="product.active"
-                                    [class.product-select]="selectProduct?.id== product.id"
-                                    (click)="selectProduct=product">
+                                    [class.product-select]="selectProduct?.id==product.id && selectTab == LendingType.MORTGAGE"
+                                    (click)="selectProduct=product; selectTab = LendingType.MORTGAGE">
                                     <li>
                                         <div fxLayout="row" fxFlex fxLayoutGap="20px">
                                             <div fxFlex>{{product.name}}</div>
@@ -106,10 +106,6 @@
                             </div>
                         </mat-tab>
                     </mat-tab-group>
-
-                    <button mat-button color="primary" (click)="createProduct()">
-                        Создать кредитный продукт
-                    </button>
                 </div>
 
                 <div fxFlex>
@@ -127,6 +123,10 @@
                     </form>
                 </div>
             </div>
+         
+            <button class="mat-button" mat-button color="primary" (click)="createProduct()">
+                Создать кредитный продукт
+            </button>
         </div>
     </div>
 </div>

@@ -22,6 +22,7 @@ import { Router } from '@angular/router';
 export class CreditProductsComponent {
   LendingType = LendingType;
 
+  selectTab = LendingType.CONSUMER;
   selectProduct: CommonProduct;
   autoLoanProducts: AutoLoanProduct[];
   consumerProducts: ConsumerProduct[];

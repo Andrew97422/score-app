@@ -2,7 +2,7 @@
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 
 :root {
-  --main-color: rgb(2 115 160);
+  --main-color: #585892;
 }
 
 * {
@@ -25,15 +25,15 @@ html, body {
   height: calc(100% - 48px);
   width: 100%;
   display: inline-block;
-  padding: 0 12px;
+  padding: 12px;
   background-color: #e8e1e8;
 }
 
 .mat-card {
   background: white;
   padding: 10px;
-  border-radius: 4px;
-  box-shadow: 0 4px 4px #0003;
+  border-radius: 5px;
+  box-shadow: none;
 }
 
 .mat-mdc-card {
@@ -137,7 +137,7 @@ table tr td div {
 }
 
 .mat-mdc-tab.mdc-tab--active .mdc-tab__text-label {
-  color: var(--main-color) !important;
+  color: black !important;
 }
 
 .mat-mdc-tab .mdc-tab-indicator__content--underline {
@@ -148,8 +148,25 @@ table tr td div {
   border-color: var(--main-color) !important;
 }
 
-.mat-card {
-  border-radius: 0 !important;
+.mdc-tab-indicator--active .mdc-tab-indicator__content {
+  opacity: 0 !important;
+}
+
+.mat-mdc-tab-header {
+  --mdc-secondary-navigation-tab-container-height: 36px !important;
+  background-color: #f2f1f5 !important;
+  border-radius: 5px !important;
+  padding: 5px !important;
+  margin-bottom: 10px;
+}
+
+.mdc-tab-indicator--active{
+  background-color: white !important;
+  border-radius: 5px !important;
+}
+
+.mat-mdc-tab-list {
+  border: 0 !important;
 }
 
 ::-webkit-scrollbar-thumb, ::-webkit-scrollbar-thumb {
