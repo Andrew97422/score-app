@@ -1,5 +1,5 @@
 .product {
-    padding: 8px;
+    padding: 6px;
     cursor: pointer;
 }
 
@@ -9,9 +9,9 @@
 }
 
 .product li {
-    border-left: 8px solid gray;
+    /*border-left: 8px solid gray;*/
+    color: gray;
     display: flex;
-    padding-left: 10px;
 }
 
 .product li mat-icon {
@@ -31,7 +31,8 @@
 }
 
 .product-active li {
-    border-left: 8px solid #88bb00;
+    /*border-left: 8px solid #88bb00;*/
+    color: black;
 }
 
 .product:not(.product-select):hover {

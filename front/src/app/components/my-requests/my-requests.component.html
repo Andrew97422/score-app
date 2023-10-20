@@ -1,7 +1,7 @@
 <div class="component">
-    <div fxLayout="row" fxFlex class="mat-card">
+    <div fxLayout="row" fxFlex class="mat-card" style="overflow: hidden;">
     
-        <div fxFlex fxLayout="column">
+        <div fxFlex fxLayout="column" style="overflow: hidden;">
             <ng-container *ngIf="userData?.role == 'USER'">
                 <h5>Данные от ПСБ</h5>
                 <div fxLayout="row wrap">
@@ -66,7 +66,7 @@
             </ng-container>
 
             <h5>Заявки</h5>
-            <div fxFlex fxLayout="column" fxLayoutGap="8px" style="overflow: auto; padding-left: 16px;">
+            <div fxFlex fxLayout="column" fxLayoutGap="8px" style="overflow: auto;">
                 <div fxLayout="row" class="requests-header" matRipple #consumers_exp (click)="consumers_exp.checked=!consumers_exp.checked">
                     <mat-icon>
                         <span class="material-symbols-outlined">
