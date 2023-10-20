@@ -1,78 +1,17 @@
-table tr td:first-child, table tr th:first-child {
-    padding-left: 24px !important;
+.item {
+    position: relative;
+    padding: 20px;
+    border-radius: 10px;
+    border: 1px solid #CED4DA;
+    margin: 0 10px 10px 0;
+    height: 138px;
 }
 
-table tr th mat-icon {
-    font-size: 14px; height: 12px; cursor: pointer;
-}
-
-table tr td svg {
-    min-width: 24px;
-}
-
-table tr th {
-    padding: 2px;
-    font-size: 14px;
-    font-weight: 400;
-}
-
-table tr th:last-child, table tr td:last-child {
-    max-width: 50px;
-    width: 50px;
-}
-
-table tr td:last-child mat-icon {
-    cursor: pointer;
-    visibility: hidden;
-    color: gray !important;
-    padding: 3px 0;
-}
-
-table tr td:nth-child(6) svg {
-    cursor: pointer;
-}
-
-table tr td mat-icon {
-    min-width: 24px;
-}
-
-table tr:hover td:last-child mat-icon, table tr:hover td:nth-child(5) mat-icon {
-    visibility: visible;
-}
-
-table tr td:last-child mat-icon:hover {
-    color: red !important;
-}
-
-table tr td:nth-child(5) mat-icon:hover {
-    color: blue !important;
-}
-
-.add-button {
-    padding: 10px; cursor: pointer; width: 180px;
+.psb-card {
+    color: white !important;
 }
 
 .add-button:hover {
-    background-color: #f2f1f5;
-}
-
-.requests-header {
-    padding: 4px 0;
-    /*color: white;
-    background: linear-gradient(50deg, rgb(0 75 140),white);*/
-    font-weight: 600;
-    font-size: 16px;
-    background: white;
     cursor: pointer;
-    min-height: 32px;
-    position: sticky;
-    top: 0;
-}
-
-.requests-header:hover {
     background-color: #f2f1f5;
-}
-
-.component {
-    background-color: #e8e1e8
 }

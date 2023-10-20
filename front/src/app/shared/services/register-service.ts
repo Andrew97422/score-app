@@ -14,7 +14,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Injectable({ providedIn: 'root'})
 export class RegisterService {
-  private baseUrl = '';
+  private baseUrl = 'http://91.107.126.118:8081';
 
   constructor(
     private router: Router,

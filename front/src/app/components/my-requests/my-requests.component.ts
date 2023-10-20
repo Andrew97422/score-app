@@ -24,6 +24,9 @@ export class MyRequestsComponent implements OnInit {
   consumers: RequestData[];
   autoLoans: RequestData[];
   mortgages: RequestData[];
+
+  requests: RequestData[] = [];
+
   userData: any;
   userCards: any;
   credits: any;
@@ -45,7 +48,7 @@ export class MyRequestsComponent implements OnInit {
   }
 
   getCardNumber(number: string): string {
-    return '...' + number.slice(number.length - 4);
+    return number.slice(number.length - 4);
   }
 
   sort(lendingType: LendingType, sortDirection: string): void {
@@ -92,8 +95,22 @@ export class MyRequestsComponent implements OnInit {
   }
 
   private loadRequests(): void {
-    this.registerService.getRequets(LendingType.AUTO_LOAN).subscribe((x: any) => this.autoLoans = x.applications as RequestData[]);
-    this.registerService.getRequets(LendingType.CONSUMER).subscribe((x: any) => this.consumers = x.applications as RequestData[]);
-    this.registerService.getRequets(LendingType.MORTGAGE).subscribe((x: any) => this.mortgages = x.applications as RequestData[]);
+    this.requests = [];
+    this.registerService.getRequets(LendingType.AUTO_LOAN).subscribe((x: any) => {
+      this.autoLoans = x.applications as RequestData[];
+      this.requests = [...this.requests, ...this.autoLoans]
+    });
+
+    this.registerService.getRequets(LendingType.CONSUMER).subscribe((x: any) => 
+    {
+      this.consumers = x.applications as RequestData[];
+      this.requests = [...this.requests, ...this.consumers]
+    });
+
+    this.registerService.getRequets(LendingType.MORTGAGE).subscribe((x: any) =>  
+    {
+      this.mortgages = x.applications as RequestData[];
+      this.requests = [...this.requests, ...this.mortgages]
+    });
   }
 }
