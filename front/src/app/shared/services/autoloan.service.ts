@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 
 @Injectable({ providedIn: 'root'})
 export class AutoloanService {
-    private baseUrl = 'http://localhost:8081';
+    private baseUrl = '';
 
     constructor(
         private http: HttpClient,
