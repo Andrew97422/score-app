@@ -155,11 +155,10 @@ table tr td div {
   --mdc-secondary-navigation-tab-container-height: 36px !important;
   margin-bottom: 10px;
   border-radius: 5px;
-  background-color: #f0f0f7;
 }
 
 .mat-mdc-tab.mdc-tab--active .mdc-tab__text-label {
-  color: #d9602f!important;
+  color: #ff8800!important;
 }
 
 .mat-mdc-tab-list {
@@ -179,13 +178,13 @@ table tr td div {
 .mat-mdc-tab-labels {
   width: 0;
 }
-/*
+
 ::-webkit-scrollbar-thumb, ::-webkit-scrollbar-thumb {
   width: 10px;
   background-color: var(--main-color);
+  border-radius: 10px;
 }
 
 ::-webkit-scrollbar {
   width: 10px;
 }
-*/

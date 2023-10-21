@@ -50,6 +50,7 @@ a {
     font-size: 16px;
     border-radius: 0 !important;
     padding: 0 10px !important;
+    text-align: center;
 }
 
 .nav-menu-item:hover {
@@ -58,7 +59,7 @@ a {
 }
 
 .nav-menu-item-active {
-    color: #D9602F !important;
+    color: orange !important;
 }
 
 .link-icon {

@@ -7,7 +7,7 @@
 .product-select {
     color: var(--main-color);
     background-color: #f0f0f7;
-    border-left: 4px solid;
+    border-left: 4px solid #ff8800;
 }
 
 .product li {

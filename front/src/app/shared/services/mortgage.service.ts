@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 
 @Injectable({ providedIn: 'root'})
 export class MortgageService {
-    private baseUrl = 'http://91.107.126.118:8081';
+    private baseUrl = location.protocol + '//' + location.host.slice(0, location.host.indexOf(':')) + ':8081';
 
     constructor(
         private http: HttpClient,
