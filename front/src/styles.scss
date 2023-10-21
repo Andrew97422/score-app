@@ -26,14 +26,13 @@ html, body {
   height: calc(100% - 56px);
   width: 100%;
   display: inline-block;
-  padding: 0 10px 10px;
+  padding: 10px;
 }
 
 .mat-card {
   background: white;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 4px 4px 0 rgba(0,0,0,.2);
+  padding: 12px;
+  border-radius: 5px;
   border: 1px solid #CED4DA;
 }
 
@@ -155,6 +154,8 @@ table tr td div {
 .mat-mdc-tab-header {
   --mdc-secondary-navigation-tab-container-height: 36px !important;
   margin-bottom: 10px;
+  border-radius: 5px;
+  background-color: #f0f0f7;
 }
 
 .mat-mdc-tab.mdc-tab--active .mdc-tab__text-label {

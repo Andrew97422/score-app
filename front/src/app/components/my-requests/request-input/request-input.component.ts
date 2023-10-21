@@ -26,6 +26,7 @@ export class RequestInputComponent {
     private dialogRef: MatDialogRef<RequestInputComponent>,
     @Inject(MAT_DIALOG_DATA) public data: InputDialogModel<any>) {
       this.form = this.fb.group({
+        user: null,
         lendingType: null,
         workExperience: null,
         countActiveLoans: null,
@@ -44,6 +45,7 @@ export class RequestInputComponent {
       });
 
       if (data.data) {
+        this.form.controls.user.setValue(data.data.user);
         this.form.controls.amount.setValue(data.data.creditAmount);
         this.form.controls.lendingType.setValue(data.data.lendingType);
         this.form.controls.workExperience.setValue(data.data.workExperience);

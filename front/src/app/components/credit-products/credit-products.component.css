@@ -1,11 +1,13 @@
 .product {
     padding: 6px;
     cursor: pointer;
+    border-left: 4px solid transparent;
 }
 
 .product-select {
     color: var(--main-color);
-    background-color: #E9E9F7;
+    background-color: #f0f0f7;
+    border-left: 4px solid;
 }
 
 .product li {
