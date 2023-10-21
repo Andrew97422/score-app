@@ -1,7 +1,12 @@
 import { Component } from '@angular/core';
-import { StateService } from '../../../shared/services/state-service';
-import { Router } from '@angular/router';
-import { LendingType } from 'src/app/shared/models/lending-type';
+import { LendingType, LendingTypeExt } from 'src/app/shared/models/lending-type';
+import { RequestInputComponent } from '../../my-requests/request-input/request-input.component';
+import { InputDialogModel, InputDialogType } from 'src/app/shared/models/input-dialog-type';
+import { CountActiveLoans } from 'src/app/shared/models/count-active-loans';
+import { PsbAuthorizationComponent } from '../../psb-authorization/psb-authorization.component';
+import { RequestData } from 'src/app/shared/models/request-data';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'shop-prototype',
@@ -9,54 +14,71 @@ import { LendingType } from 'src/app/shared/models/lending-type';
   styleUrls: ['./shop-prototype.component.css']
 })
 export class ShopPrototypeComponent {
-  cars = [
-    {
-      imgUrl: 'https://60.img.avito.st/image/1/1.ZZrnN7a4yXPRgEt-oUpzlsuVy3VZlktl0ZvLcVeewXlR.8RJ4scVZkeB_CB6ZcNYwkbtI8XdUNM7GcGbrQCtcfTU',
-      name: 'SsangYong Kyron 2.0 MT, 2010, 131 000 км',
-      price: '799000',
-      lendingType: LendingType.AUTO_LOAN
-    },
-    {
-      imgUrl: 'https://40.img.avito.st/image/1/1.OEvHrra5lKLxGRavu-pRBwsNkqhzjYIgfg2WpnsHnqA.9lmnQt6xPES6pFd0O8SscRf75ovJiYeIT0xM2A6Vm0w',
-      name: 'Chery Tiggo 4 Pro 1.5 CVT, 2023',
-      price: '2329900',
-      lendingType: LendingType.AUTO_LOAN
-    },
-    {
-      imgUrl: 'https://20.img.avito.st/image/1/1.cVH4yba43bjOfl-1luwyIuhr375GaF-uzmXfukhg1bJO.4bOIgIgRSHrowdxXOva5BAUq_tNVj5-X3WSlPOv5Ptk',
-      name: 'EXEED LX 1.6 AMT, 2023',
-      price: '3230000',
-      lendingType: LendingType.AUTO_LOAN
-    }
-  ];
-
-  homes = [
-    {
-      imgUrl: 'https://80.img.avito.st/image/1/1.8HwSUra6XJUk5d6Yfh2JMdPxWp-mcUoXq_Fek7L3Xg.i6k65QVssh-7ORbpF1OrrcmODI_4ZW-Ua2RPp_jkmnA',
-      name: 'Дом 92 м² на участке 6 сот.',
-      price: '6440000',
-      lendingType: LendingType.MORTGAGE
-    },
-    {
-      imgUrl: 'https://90.img.avito.st/image/1/1.3bylRba5cVWT8vNYkzrcv7Pnc1Mb5PNDk-lzVxfwdVc.WLdTDCPpz-6qxB55d4cGffonKg7uJ3eQu7Ve1_nAzRg',
-      name: 'Дом 95 м² на участке 7 сот.',
-      price: '7653000',
-      lendingType: LendingType.MORTGAGE
-    },
-    {
-      imgUrl: 'https://60.img.avito.st/image/1/1.37wQjba5c1UmOvFYIvaBqSAvcVOuLPFDJiFxV6I4d1c.OXjizywTQax9nn9K2DsBeVtoFfmRD6k3-PDKuSH9igM',
-      name: 'Таунхаус 115 м² на участке 6 сот.',
-      price: '6700000',
-      lendingType: LendingType.MORTGAGE
-    }
-  ];
-
+  LendingTypeExt = LendingTypeExt;
+  
+  form: FormGroup;
+  maxYearCount = 5;
+  
   constructor(
-    private stateService: StateService,
-    private router: Router) {}
+    private fb: FormBuilder,
+    private dialog: MatDialog) {
+    this.form = this.fb.group({
+      lendingType: LendingType.MORTGAGE,
+      amount: [null, Validators.required],
+      yearCount: 1,
+      monthlyPaymentAmount: null,
+      psbClient: null
+    });
 
-  viewProduct(product): void {
-    this.stateService.product = product;
-    this.router.navigate(['product']);
+    this.form.controls.monthlyPaymentAmount.disable();
+    this.form.controls.lendingType.valueChanges.subscribe((type) => {
+      if (type == LendingType.MORTGAGE) {
+        this.maxYearCount = 30;
+      } else {
+        this.maxYearCount = 5;
+      }
+    });
+
+    this.calcMonthlyPaymentAmount();
+
+    this.form.valueChanges.subscribe(() => {
+      if (this.form.invalid) return;
+      this.calcMonthlyPaymentAmount();
+    });
+  }
+
+  async calcCredit(): Promise<void> {
+    if (this.form.controls.psbClient.value) {
+      this.dialog.open(PsbAuthorizationComponent, {
+          data: new RequestData({
+            amount: this.form.controls.amount.value,
+            lendingType: this.form.controls.lendingType.value,
+            currentDebtLoad: this.form.controls.monthlyPaymentAmount.value,
+          })
+      });
+
+      return;
+    }
+
+    await this.dialog.open(RequestInputComponent, {data: new InputDialogModel({
+      title: 'Новая заявка',
+      applyButton: 'Создать',
+      dialogType: InputDialogType.Create,
+      data: {
+        creditAmount: this.form.controls.amount.value,
+        lendingType: this.form.controls.lendingType.value,
+        amountLoanPayments: this.form.controls.monthlyPaymentAmount.value,
+        psbClient: true,
+        countActiveLoans: CountActiveLoans.NO_CREDITS
+      }
+    })}).afterClosed().toPromise();
+  }
+  
+  private calcMonthlyPaymentAmount(): void {
+    const s = this.form.controls.amount.value ?? 0;
+    const n = this.form.controls.yearCount.value * 12;
+    const p = 8.4 / (12 * 100);
+    const x = s * (p + p / ((1+p)**n - 1));
+    this.form.controls.monthlyPaymentAmount.setValue(Math.round(x));
   }
 }

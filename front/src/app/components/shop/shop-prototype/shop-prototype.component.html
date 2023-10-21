@@ -1,52 +1,45 @@
-<div class="nav-menu" fxLayout="row" fxLayoutGap="10px">
-    <svg width="40px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path fill-rule="evenodd" clip-rule="evenodd" d="M6.24223 4.5H17.7578L19.5 8.85556V18L18.75 18.75H5.25L4.5 18V8.85556L6.24223 4.5ZM7.25777 6L6.35777 8.25H17.6422L16.7422 6H7.25777ZM18 9.75H6V17.25H18V9.75ZM9.59473 13.6553L10.6554 12.5946L11.25 13.1892V11.25H12.75V13.1894L13.3447 12.5946L14.4054 13.6553L12.0001 16.0606L9.59473 13.6553Z" 
-        fill="white"/>
-    </svg>
+<div class="shop-component">
+    <iframe fxFlex #iframe src="https://www.avito.ru/novosibirsk/nedvizhimost" width="100%" height="100%" frameborder="0">
+    </iframe>
 
-    <div>Магазин</div>
-</div>
+    <mat-card fxFlex="0 1 400px" class="wiget">
+        <h4>Заполните данные о выбранном товаре</h4>
+        <form [formGroup]="form" fxLayout="column" fxFlex style="padding-top: 16px;">
+            <mat-form-field appearance="outline" color="primery">
+                <mat-label>Вид кредита</mat-label>
+                <mat-select formControlName="lendingType">
+                    <mat-option *ngFor="let x of LendingTypeExt.getAll()" [value]="x">
+                        {{LendingTypeExt.getName(x)}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
 
-<div class="component" fxLayout="column">
-    <div fxFlex fxLayout="column" class="mat-card" style="overflow: auto; padding-top: 0;">
-        <div fxLayout="row" class="header" matRipple #auto_exp (click)="auto_exp.checked=!auto_exp.checked">
-            <mat-icon>
-                <span class="material-symbols-outlined">
-                    {{auto_exp.checked ? 'chevron_right' : 'expand_more'}}
-                </span>
-            </mat-icon>
-            <div class="title">Продажа автомобилей</div>
-        </div>
-        <table *ngIf="!auto_exp.checked" class="shop">
-            <tr *ngFor="let x of cars" (click)="viewProduct(x)">
-                <td>
-                    <img width="200px" [attr.src]="x.imgUrl">
-                </td>
-                <td>
-                    <div>{{x.name}}</div>
-                    <div>{{x.price}} ₽</div>
-                </td>
-            </tr>
-        </table>
+            <mat-form-field fxFlex appearance="outline">
+                <mat-label>Сумма кредита</mat-label>
+                <input type="number" matInput formControlName="amount" required>
+            </mat-form-field>
 
-        <div fxLayout="row" class="header" matRipple #home_exp (click)="home_exp.checked=!home_exp.checked">
-            <mat-icon>
-                <span class="material-symbols-outlined">
-                    {{home_exp.checked ? 'chevron_right' : 'expand_more'}}
-                </span>
-            </mat-icon>
-            <div class="title">Продажа домов, дач, коттеджей, таунхаусов</div>
-        </div>
-        <table *ngIf="!home_exp.checked" class="shop">
-            <tr *ngFor="let x of homes" (click)="viewProduct(x)">
-                <td>
-                    <img width="200px" [attr.src]="x.imgUrl">
-                </td>
-                <td>
-                    <div>{{x.name}}</div>
-                    <div>{{x.price}} ₽</div>
-                </td>
-            </tr>
-        </table>
-    </div>
+            <mat-form-field fxFlex appearance="outline">
+                <mat-label>Период кредита (количество лет)</mat-label>
+                <input type="number" [max]="maxYearCount" min="1" matInput formControlName="yearCount">
+            </mat-form-field>
+
+            <div>
+                *Минимальная ставка для клиентов ПСБ составляет <b>8,4%</b>
+            </div>
+
+            <mat-form-field fxFlex appearance="outline" style="padding-top: 30px;">
+                <mat-label>Сумма ежемесячного платежа</mat-label>
+                <input type="number" matInput formControlName="monthlyPaymentAmount">
+            </mat-form-field>
+
+            <mat-checkbox color="primery" formControlName="psbClient">
+                Клиент ПСБ
+            </mat-checkbox>
+            
+            <button fxFlex mat-stroked-button color="primary" [disabled]="!form?.valid" (click)="calcCredit()" style="margin-top: 20px;">
+                Подать заявку
+            </button>
+        </form>
+    </mat-card>
 </div>

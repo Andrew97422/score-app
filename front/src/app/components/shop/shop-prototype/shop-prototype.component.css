@@ -1,41 +1,15 @@
-.nav-menu {
+.wiget {
+    position: absolute; right: 20px; bottom: 20px;
+    box-shadow: var(--vkui--elevation2, 0 4px 32px 0 rgba(0, 16, 61, 0.32)) !important;
+    padding: 20px !important;
+}
+
+.shop-component {
     position: absolute;
-    left: 0;
-    right: 0;
-    top: 0;
+    background-color: #e8e1e8;
     width: 100%;
-    height: 56px;
-    display: flex!important;
-    z-index: 99;
+    height: 100%;
+    display: flex;
     align-items: center;
-    background: rgb(140 0 0);
-    flex-direction: row!important;
-    color: #fff;
-    padding: 0 10px;
-    box-shadow: 0 4px 4px #0003;
-    font-size: 20px;
-}
-
-table tr td:first-child, table tr th:first-child {
-    width: 240px;
-    padding-left: 24px !important;
-}
-
-.header {
-    padding: 8px 0;
-    font-weight: 600;
-    font-size: 18px;
-    background: white;
-    cursor: pointer;
-    min-height: 40px;
-    position: sticky;
-    top: 0;
-}
-
-.header:hover {
-    background-color: #f2f1f5;
-}
-
-table tr td {
-    padding: 8px;
+    justify-content: center;
 }

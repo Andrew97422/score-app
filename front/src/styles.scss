@@ -154,7 +154,6 @@ table tr td div {
 .mat-mdc-tab-header {
   --mdc-secondary-navigation-tab-container-height: 36px !important;
   margin-bottom: 10px;
-  border-radius: 5px;
 }
 
 .mat-mdc-tab.mdc-tab--active .mdc-tab__text-label {
@@ -177,6 +176,10 @@ table tr td div {
 
 .mat-mdc-tab-labels {
   width: 0;
+}
+
+.mdc-tab-indicator--active {
+  background-color: #f0f0f7 !important;
 }
 
 ::-webkit-scrollbar-thumb, ::-webkit-scrollbar-thumb {

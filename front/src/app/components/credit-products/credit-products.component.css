@@ -1,18 +1,14 @@
 .product {
     padding: 6px;
     cursor: pointer;
-    border-left: 4px solid transparent;
+    border-left: 4px solid gray;
 }
 
 .product-select {
-    color: var(--main-color);
     background-color: #f0f0f7;
-    border-left: 4px solid #ff8800;
 }
 
 .product li {
-    /*border-left: 8px solid gray;*/
-    color: gray;
     display: flex;
 }
 
@@ -32,9 +28,8 @@
     color: black;
 }
 
-.product-active li {
-    /*border-left: 8px solid #88bb00;*/
-    color: black;
+.product-active {
+    border-left: 4px solid #ff8800;
 }
 
 .product:not(.product-select):hover {
@@ -48,8 +43,8 @@ form {
 }
 
 .mat-button {
-    width: 200px !important;
-    height: 42px !important;
+    width: 240px !important;
+    height: 32px !important;
     background: var(--main-color) !important;
     color: white !important;
 }

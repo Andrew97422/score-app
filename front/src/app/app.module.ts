@@ -36,7 +36,6 @@ import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dial
 
 import { InternalServerErrorInterceptor } from './shared/services/internal-server-error-interceptor';
 import { ShopPrototypeComponent } from './components/shop/shop-prototype/shop-prototype.component';
-import { ProductComponent } from './components/shop/shop-prototype/product/product.component';
 import { PsbAuthorizationComponent } from './components/psb-authorization/psb-authorization.component';
 import { CreditProductsComponent } from './components/credit-products/credit-products.component';
 import { CreditProductInputComponent } from './components/credit-products/credit-product-input/credit-product-input.component';
@@ -77,7 +76,6 @@ import { CreditProductInputComponent } from './components/credit-products/credit
         MyDataComponent,
         ConfirmDialogComponent,
         ShopPrototypeComponent,
-        ProductComponent,
         PsbAuthorizationComponent,
         CreditProductsComponent,
         CreditProductInputComponent
