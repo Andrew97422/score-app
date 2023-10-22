@@ -24,7 +24,6 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTabsModule } from '@angular/material/tabs';
 
-import { ShopComponent } from './components/shop/shop.component';
 import { LoginComponent } from './components/login/login.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { MyRequestsComponent } from './components/my-requests/my-requests.component';
@@ -35,7 +34,6 @@ import { MyDataComponent } from './components/my-data/my-data.component';
 import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
 
 import { InternalServerErrorInterceptor } from './shared/services/internal-server-error-interceptor';
-import { ShopPrototypeComponent } from './components/shop/shop-prototype/shop-prototype.component';
 import { PsbAuthorizationComponent } from './components/psb-authorization/psb-authorization.component';
 import { CreditProductsComponent } from './components/credit-products/credit-products.component';
 import { CreditProductInputComponent } from './components/credit-products/credit-product-input/credit-product-input.component';
@@ -72,10 +70,8 @@ import { CreditProductInputComponent } from './components/credit-products/credit
         SignUpComponent,
         MyRequestsComponent,
         RequestInputComponent,
-        ShopComponent,
         MyDataComponent,
         ConfirmDialogComponent,
-        ShopPrototypeComponent,
         PsbAuthorizationComponent,
         CreditProductsComponent,
         CreditProductInputComponent
