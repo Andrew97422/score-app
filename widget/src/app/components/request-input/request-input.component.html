@@ -1,0 +1,85 @@
+<div [formGroup]="form" fxFlex fxLayout="column" style="padding: 20px;">
+    <h4>{{data.title}}</h4>
+    <div fxLayout="column" style="width: 500px; max-height: calc(100vh - 200px); overflow: auto; padding: 20px; margin: 0 -20px;">
+        <mat-form-field *ngIf="data.dialogType==InputDialogType.View" appearance="outline" color="primery">
+            <mat-label>Пользователь</mat-label>
+            <input matInput color="primery" formControlName="user">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" color="primery">
+            <mat-label>Вид кредита</mat-label>
+            <mat-select formControlName="lendingType">
+                <mat-option *ngFor="let x of LendingTypeExt.getAll()" [value]="x">
+                    {{LendingTypeExt.getName(x)}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" color="primery">
+            <mat-label>Сумма кредита</mat-label>
+            <input type="number" matInput color="primery" formControlName="amount" required>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" color="primery">
+            <mat-label>Стаж работы</mat-label>
+            <mat-select formControlName="workExperience" required>
+                <mat-option *ngFor="let x of WorkExperienceExt.getAll()" [value]="x">
+                    {{WorkExperienceExt.getName(x)}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" color="primery">
+            <mat-label>Количество действующих кредитов</mat-label>
+            <mat-select formControlName="countActiveLoans" required>
+                <mat-option *ngFor="let x of CountActiveLoansExt.getAll()" [value]="x">
+                    {{CountActiveLoansExt.getName(x)}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" color="primery">
+            <mat-label>Сумма ежемесячных платежей по кредитам</mat-label>
+            <input type="number" matInput color="primery" formControlName="currentDebtLoad" required>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" color="primery">
+            <mat-label>Ежемесячный доход</mat-label>
+            <input type="number" matInput color="primery" formControlName="monthlyIncome" required>
+        </mat-form-field>
+
+        <mat-checkbox color="primery" formControlName="military">
+            Военнослужащий или работник ОПК России
+        </mat-checkbox>
+
+        <mat-checkbox color="primery" formControlName="stateEmployee">
+            Государственный служащий
+        </mat-checkbox>
+
+        <mat-checkbox color="primery" formControlName="psbClient">
+            Клиент ПСБ
+        </mat-checkbox>
+
+        <mat-checkbox color="primery" formControlName="farEastInhabitant">
+            Житель Данного Востока
+        </mat-checkbox>
+
+        <mat-checkbox color="primery" formControlName="newSubjectsResident">
+            Житель Новых субъектов РФ
+        </mat-checkbox>
+
+        <mat-checkbox color="primery" formControlName="itSpecialist">
+            ИТ-специалист
+        </mat-checkbox>
+    </div>
+
+    <div fxLayout="row" fxLayoutGap="10px" style="padding-top: 20px;">
+        <button *ngIf="data.applyButton" fxFlex mat-stroked-button color="primary" (click)="submit()" [disabled]="form?.invalid">
+            {{data.applyButton}}
+        </button>
+
+        <button fxFlex mat-stroked-button color="primary" mat-dialog-close style="color: black !important; background: white;">
+            Отмена
+        </button>
+    </div>
+</div>
