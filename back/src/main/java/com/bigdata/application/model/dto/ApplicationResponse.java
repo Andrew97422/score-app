@@ -85,6 +85,9 @@ public class ApplicationResponse {
     @Schema(name = "Статус заявки")
     private ApplicationStatus status;
 
-    @Schema(name = "Id пользователя")
+    @Schema(name = "Пользователь")
     private String user;
+
+    @Schema(name = "Id пользователя")
+    private Integer userId;
 }
