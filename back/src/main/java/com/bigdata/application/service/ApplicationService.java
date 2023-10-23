@@ -57,10 +57,12 @@ public class ApplicationService {
     public List<ApplicationResponse> getApplicationsList(LendingType type, UserEntity user) {
         List<ApplicationResponse> applications;
         if (user.getRole().equals(Role.USER)) {
+            log.info("Applications for user");
              applications = user.getApplicationsList().stream()
                      .filter(i -> i.getLendingType().equals(type))
                      .map(applicationUtils::mapToApplicationResponse).toList();
         } else {
+            log.info("Applications for operator and admin");
             applications = applicationRepository.findAll().stream()
                     .filter(i -> i.getLendingType().equals(type))
                     .map(applicationUtils::mapToApplicationResponse).toList();

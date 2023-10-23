@@ -109,7 +109,7 @@ public class ApplicationUtils {
                 .isNewSubjectsResident(application.isNewSubjectsResident())
                 .status(application.getStatus())
                 .user(builder.toString())
-                .id(application.getUser().getId())
+                .userId(application.getUser().getId())
                 .build();
     }
 
