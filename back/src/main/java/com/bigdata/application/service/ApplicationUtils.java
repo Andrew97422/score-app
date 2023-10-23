@@ -117,7 +117,7 @@ public class ApplicationUtils {
                              List<CommonEntity> guides) throws DocumentException,
             URISyntaxException, IOException {
 
-        Path path = Paths.get(ClassLoader.getSystemResource("img/logo.jpg").toURI());
+        Path path = Paths.get(ClassLoader.getSystemResource("img/logo.jpg").getPath());
 
         Document document = new Document();
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
