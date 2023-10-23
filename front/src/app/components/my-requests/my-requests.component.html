@@ -6,7 +6,7 @@
                 <div>
                     <h5>Карты</h5>
                     <div *ngIf="userCards?.length; else noData" fxLayout="row wrap" fxLayoutGap="10px">
-                        <div *ngFor="let card of userCards" fxLayout="column" [style.background-color]="card.type == CardType.Debit ? '#212529' : '#2E2A80'"
+                        <div *ngFor="let card of userCards" fxLayout="column" [style.background-color]="card.type == CardType.Debit ? '#212529' : 'rgba(43, 44, 132)'"
                         class="item psb-card" fxLayoutGap="10px" fxFlex="240px">
                             <div fxLayout="row">
                                 <div>{{(card.type == CardType.Debit ? 'Дебетовая ' : 'Кредитная ')}}</div>
@@ -51,7 +51,7 @@
                 <h5>Заявки</h5>
                 <div fxLayout="row wrap">
                     <div *ngFor="let x of requests" fxFlex="240px"
-                    [style.border-color]="x.status == 'APPROVED' ? 'green' : '#ff8800'"
+                    [style.border-color]="x.status == 'APPROVED' ? 'green' : 'rgba(234, 86, 20)'"
                     [style.background-color]="x.status == 'APPROVED' ? '#4bff0014' : 'rgb(217 96 47 / 8%)'"
                     class="item">
                         <div fxLayout="row">

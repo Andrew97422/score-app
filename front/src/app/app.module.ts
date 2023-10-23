@@ -32,11 +32,13 @@ import { MAT_DIALOG_DEFAULT_OPTIONS, MatDialogConfig, MatDialogModule } from '@a
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { MyDataComponent } from './components/my-data/my-data.component';
 import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
+import { MatRadioModule } from '@angular/material/radio';
 
 import { InternalServerErrorInterceptor } from './shared/services/internal-server-error-interceptor';
 import { PsbAuthorizationComponent } from './components/psb-authorization/psb-authorization.component';
 import { CreditProductsComponent } from './components/credit-products/credit-products.component';
 import { CreditProductInputComponent } from './components/credit-products/credit-product-input/credit-product-input.component';
+import { SettingsComponent } from './components/settings/settings.component';
 
 @NgModule({
     imports: [ 
@@ -61,7 +63,8 @@ import { CreditProductInputComponent } from './components/credit-products/credit
         MatTooltipModule,
         HttpClientModule,
         MatSnackBarModule,
-        MatTabsModule
+        MatTabsModule,
+        MatRadioModule
     ],
     declarations: [
         NavMenuComponent,
@@ -74,7 +77,8 @@ import { CreditProductInputComponent } from './components/credit-products/credit
         ConfirmDialogComponent,
         PsbAuthorizationComponent,
         CreditProductsComponent,
-        CreditProductInputComponent
+        CreditProductInputComponent,
+        SettingsComponent
     ],
     bootstrap:    [ AppComponent ],
     providers: [
