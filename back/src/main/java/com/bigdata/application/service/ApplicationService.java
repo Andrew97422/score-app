@@ -15,7 +15,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.io.FileOutputStream;
 import java.util.List;
 
 @Service
@@ -103,6 +102,7 @@ public class ApplicationService {
             return applicationUtils.formPdfDoc(application, guides);
         } catch (Exception e) {
             log.error("Problem with forming document for the application {}", application.getId());
+            log.error(e.getMessage());
             return new byte[0];
         }
     }
