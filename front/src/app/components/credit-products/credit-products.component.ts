@@ -22,9 +22,9 @@ import { Router } from '@angular/router';
 export class CreditProductsComponent {
   LendingType = LendingType;
 
-  smollWindow = window.innerWidth < 900;
+  smollWindow = window.innerWidth < 1000;
   @HostListener('window:resize', ['$event']) onresize(e) {
-    this.smollWindow = e.target.innerWidth < 900;
+    this.smollWindow = e.target.innerWidth < 1000;
   }
 
   selectTab = LendingType.CONSUMER;
