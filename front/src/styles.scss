@@ -313,6 +313,10 @@ table tr td div {
   background-color: #f0f0f7 !important;
 }
 
+.mat-mdc-form-field-icon-prefix>.mat-icon, .mat-mdc-form-field-icon-suffix>.mat-icon {
+  padding: 6px !important;
+}
+
 ::-webkit-scrollbar-thumb, ::-webkit-scrollbar-thumb {
   width: 10px;
   background-color: var(--main-color);

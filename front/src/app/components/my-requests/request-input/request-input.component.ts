@@ -4,8 +4,10 @@ import { RegisterService } from 'src/app/shared/services/register-service';
 import { WorkExperienceExt } from 'src/app/shared/models/work-experience';
 import { CountActiveLoansExt } from 'src/app/shared/models/count-active-loans';
 import { LendingType, LendingTypeExt } from 'src/app/shared/models/lending-type';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { InputDialogModel, InputDialogType } from '../../../shared/models/input-dialog-type';
+import { SessionService } from 'src/app/shared/services/session.service';
+import { MyDataComponent } from '../../my-data/my-data.component';
 
 @Component({
   selector: 'request-input',
@@ -19,12 +21,17 @@ export class RequestInputComponent {
   LendingTypeExt = LendingTypeExt;
   LendingType = LendingType;
   form: FormGroup;
+  userData: any;
 
   constructor(
     private fb: FormBuilder,
+    private dialog: MatDialog,
+    private sessionService: SessionService,
     private registerService: RegisterService,
     private dialogRef: MatDialogRef<RequestInputComponent>,
     @Inject(MAT_DIALOG_DATA) public data: InputDialogModel<any>) {
+      this.registerService.getUser(this.sessionService.getSessionID() as unknown as number).subscribe((x: any) => this.userData = x);
+
       this.form = this.fb.group({
         user: null,
         lendingType: null,
@@ -64,6 +71,10 @@ export class RequestInputComponent {
       if (data.dialogType == InputDialogType.View) {
         this.form.disable();
       }
+  }
+
+  async viewUserData(): Promise<void> {
+    await this.dialog.open(MyDataComponent, {data: this.data.data.userId}).afterClosed().toPromise();
   }
 
   submit(): void {

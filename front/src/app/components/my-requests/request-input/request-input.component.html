@@ -1,9 +1,14 @@
 <div [formGroup]="form" fxFlex fxLayout="column" style="padding: 20px;">
     <h4>{{data.title}}</h4>
     <div fxLayout="column" style="width: 500px; max-height: calc(100vh - 200px); overflow: auto; padding: 20px; margin: 0 -20px;">
-        <mat-form-field *ngIf="data.dialogType==InputDialogType.View" appearance="outline" color="primery">
+        <mat-form-field *ngIf="data.dialogType==InputDialogType.View && userData?.role == 'SUPER_ADMIN'" appearance="outline" color="primery">
             <mat-label>Пользователь</mat-label>
             <input matInput color="primery" formControlName="user">
+            <mat-icon matSuffix (click)="viewUserData()" style="cursor: pointer;">
+                <span class="material-symbols-outlined">
+                    person_search
+                </span>
+            </mat-icon>
         </mat-form-field>
 
         <mat-form-field appearance="outline" color="primery">

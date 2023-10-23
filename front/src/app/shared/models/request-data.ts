@@ -20,6 +20,7 @@ export class RequestData {
     itSpecialist: boolean;
     birthday: string;
     user: string;
+    userId: number;
     applicationDateTime: string;
 
     constructor(init: Partial<RequestData>) {

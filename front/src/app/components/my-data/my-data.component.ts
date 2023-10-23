@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import * as moment from 'moment';
 import { RegisterService } from 'src/app/shared/services/register-service';
 import { SessionService } from 'src/app/shared/services/session.service';
@@ -21,7 +21,8 @@ export class MyDataComponent {
     private fb: FormBuilder,
     private registerService: RegisterService,
     private sessionService: SessionService,
-    private dialogRef: MatDialogRef<MyDataComponent>) {
+    private dialogRef: MatDialogRef<MyDataComponent>,
+    @Inject(MAT_DIALOG_DATA) public userId: number) {
       this.form = this.fb.group({
         login: null,
         password: null,
@@ -43,7 +44,7 @@ export class MyDataComponent {
         ]
       });
       
-    this.registerService.getUser(this.sessionService.getSessionID() as unknown as number).subscribe((x: any) => {
+    this.registerService.getUser((userId ?? this.sessionService.getSessionID() as unknown as number)).subscribe((x: any) => {
       this.form.controls.login.setValue(x.login);
       this.form.controls.password.setValue(x.password);
       this.form.controls.lastName.setValue(x.lastName);
