@@ -7,6 +7,7 @@
         <option value="$PROJECT_DIR$/back/pom.xml" />
         <option value="$PROJECT_DIR$/front/pom.xml" />
         <option value="$PROJECT_DIR$/bki-emulation/pom.xml" />
+        <option value="$PROJECT_DIR$/widget/pom.xml" />
       </list>
     </option>
   </component>
