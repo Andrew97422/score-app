@@ -103,6 +103,7 @@ public class ApplicationService {
             return applicationUtils.formPdfDoc(application, guides);
         } catch (Exception e) {
             log.error("Problem with forming document for the application {}", application.getId());
+            log.error(e.getMessage());
             return new byte[0];
         }
     }
