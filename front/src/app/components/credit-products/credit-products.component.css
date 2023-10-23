@@ -1,11 +1,32 @@
 .product {
-    padding: 6px;
-    cursor: pointer;
-    border-left: 4px solid gray;
+    padding: 16px 30px 16px 16px;
+    width: 500px; 
+    border-radius: 10px; 
+    margin-bottom: 10px;
+    position: relative;
+    border: 1px solid #CED4DA;
+    height: 150px;
+    line-height: 16px;
+    text-decoration: none !important;
+    color: black !important;
 }
 
-.product-select {
-    background-color: #f0f0f7;
+.product a {
+    color: black !important;
+    text-decoration: none !important;
+}
+
+.product-active {
+    border: 1px solid #ff8800;
+}
+
+.add-button {
+    border: 1px solid #CED4DA !important;
+}
+
+.add-button:hover {
+    cursor: pointer;
+    background-color: #f2f1f5; 
 }
 
 .product li {
@@ -26,10 +47,6 @@
 
 .product li mat-icon:hover {
     color: black;
-}
-
-.product-active {
-    border-left: 4px solid #ff8800;
 }
 
 .product:not(.product-select):hover {

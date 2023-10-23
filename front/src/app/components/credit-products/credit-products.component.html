@@ -1,185 +1,147 @@
 <div class="component">
     <div fxFlex fxLayoutGap="6px" [fxLayout]="smollWindow ? 'column' : 'row'">
-        <div fxLayout="row" fxFlex class="mat-card" fxFlex="2 1 0%">
+        <div fxLayout="row" fxFlex class="mat-card" fxFlex>
             <div fxFlex fxLayout="column" fxLayoutGap="16px">
                 <div fxLayout="row" fxFlex fxLayoutGap="10px" style="overflow: hidden;">
                     <div fxLayout="column" fxFlex>
                         <mat-tab-group fxFlex style="overflow: hidden;">
                             <mat-tab label="Потребительский кредит">                
-                                <div fxLayout="column" fxFlex fxLayoutGap="10px">
-                                    <div *ngFor="let product of consumerProducts" class="product" matRipple
+                                <div fxLayout="row wrap" fxFlex fxLayoutGap="10px">
+                                    <div *ngFor="let product of consumerProducts" class="product" [attr.href]="product?.url" matRipple
                                         [class.product-active]="product.active"
-                                        [class.product-select]="selectProduct?.id == product.id && selectTab == LendingType.CONSUMER"
                                         (click)="selectProduct=product; selectTab = LendingType.CONSUMER">
-                                        <li>
-                                            <div fxLayout="column" fxFlex>
-                                                <div fxFlex fxLayout="row" fxLayoutGap="10px">
-                                                    <div fxFlex>{{product.name}}</div>
-                                                    <div style="width: 24px;">
-                                                        <mat-icon (click)="editProduct(product, LendingType.CONSUMER)">
-                                                            <span class="material-symbols-outlined">
-                                                                edit
-                                                            </span>
-                                                        </mat-icon>
+                                        <div fxFlex fxLayout="column" fxLayoutGap="6px">
+                                            <div fxLayout="row">
+                                                <a [attr.href]="product?.url">{{product?.name}}</a>
+                                                <button mat-icon-button [matMenuTriggerFor]="menu" 
+                                                style="position: absolute; top: 0; right: 0; min-width: 24px; min-width: 36px; width: 36px; align-items: center; display: flex;">
+                                                    <mat-icon>more_horiz</mat-icon>
+                                                </button>
+                                                <mat-menu #menu="matMenu">
+                                                    <button mat-menu-item (click)="$event.stopPropagation(); editProduct(product, LendingType.CONSUMER)">
+                                                    <span>Редактировать</span>
+                                                    </button>
+                                                    <button mat-menu-item (click)="$event.stopPropagation(); delete(product, LendingType.CONSUMER)">
+                                                    <span>Удалить</span>
+                                                    </button>
+                                                </mat-menu>
+                                            </div>
+                                
+                                            <div fxFlex fxLayout="column" style="overflow: auto; font-size: 14px; color: gray;" fxLayoutGap="6px">
+                                                <div>{{product?.comment}}</div>
+                                                <div fxLayout="row" fxLayoutGap="8px">
+                                                    <div>
+                                                        От {{product?.minRate}}%
                                                     </div>
-                                                    <div style="width: 24px;">
-                                                        <mat-icon (click)="delete(product, LendingType.CONSUMER)">
-                                                            <span class="material-symbols-outlined">
-                                                                delete
-                                                            </span>
-                                                        </mat-icon>
+                                                    <div>
+                                                        До {{product?.maxTerm}} мес.
+                                                    </div>
+                                                    <div>
+                                                        До {{selectProduct?.maxAmount/1000000}} млн ₽
                                                     </div>
                                                 </div>
-                                                <!--
-                                                <div fxLayout="column" fxFlex style="padding-left: 10px;" fxLayoutGap="10px">
-                                                   
-                                                    <div fxFlex> {{product.comment}} </div> 
-                                                    <div fxLayout="row" fxFlex fxLayoutGap="10px">
-                                                        <div fxFlex>До {{product.maxAmount}} ₽</div>
-                                                        <div fxFlex>От {{product.minRate}}%</div>
-                                                        <div fxFlex>До {{product.maxTerm}} месяцев</div>
-                                                    </div>
-                                                </div>-->
                                             </div>
-                                        </li>
+                                        </div>
+                                    </div>
+
+                                    <div fxLayout="column" matRipple (click)="createProduct()" class="product add-button">
+                                        <div fxFlex fxLayoutAlign="center center">
+                                            <mat-icon>
+                                                <span class="material-symbols-outlined">
+                                                    add
+                                                </span>
+                                            </mat-icon>
+                                        </div>
+                                        <div fxLayoutAlign="center center"> Создать кредитный продукт </div>
                                     </div>
                                 </div>
                             </mat-tab>
 
                             <mat-tab label="Ипотека">
-                                <div fxLayout="column" fxFlex fxLayoutGap="10px">
-                                    <div *ngFor="let product of mortgageProducts" class="product" matRipple
+                                <div fxLayout="row wrap" fxFlex fxLayoutGap="10px">
+                                    <div *ngFor="let product of mortgageProducts" class="product" [attr.href]="product?.url" matRipple
                                         [class.product-active]="product.active"
-                                        [class.product-select]="selectProduct?.id==product.id && selectTab == LendingType.MORTGAGE"
                                         (click)="selectProduct=product; selectTab = LendingType.MORTGAGE">
-                                        <li>
-                                            <div fxLayout="column" fxFlex>
-                                                <div fxFlex fxLayout="row" fxLayoutGap="10px">
-                                                    <div fxFlex>{{product.name}}</div>
-                                                    <div style="width: 24px;">
-                                                        <mat-icon (click)="editProduct(product, LendingType.MORTGAGE)">
-                                                            <span class="material-symbols-outlined">
-                                                                edit
-                                                            </span>
-                                                        </mat-icon>
+                                        <div fxFlex fxLayout="column" fxLayoutGap="6px">
+                                            <div fxLayout="row">
+                                                <a [attr.href]="product?.url">{{product?.name}}</a>
+                                                <button mat-icon-button [matMenuTriggerFor]="menu" (click)="$event.stopPropagation()"
+                                                style="position: absolute; top: 0; right: 0; min-width: 24px; min-width: 36px; width: 36px; align-items: center; display: flex;">
+                                                    <mat-icon>more_horiz</mat-icon>
+                                                </button>
+                                                <mat-menu #menu="matMenu">
+                                                    <button mat-menu-item (click)="$event.stopPropagation(); editProduct(product, LendingType.MORTGAGE)">
+                                                    <span>Редактировать</span>
+                                                    </button>
+                                                    <button mat-menu-item (click)="$event.stopPropagation(); delete(product, LendingType.MORTGAGE)">
+                                                    <span>Удалить</span>
+                                                    </button>
+                                                </mat-menu>
+                                            </div>
+                                
+                                            <div fxFlex fxLayout="column" style="overflow: auto; font-size: 14px; color: gray;" fxLayoutGap="6px">
+                                                <div>{{product?.comment}}</div>
+                                                <div fxLayout="row" fxLayoutGap="8px">
+                                                    <div>
+                                                        От {{product?.minRate}}%
                                                     </div>
-                                                    <div style="width: 24px;">
-                                                        <mat-icon (click)="delete(product, LendingType.MORTGAGE)">
-                                                            <span class="material-symbols-outlined">
-                                                                delete
-                                                            </span>
-                                                        </mat-icon>
+                                                    <div>
+                                                        До {{product?.maxTerm}} мес.
+                                                    </div>
+                                                    <div>
+                                                        До {{selectProduct?.maxAmount/1000000}} млн ₽
                                                     </div>
                                                 </div>
-                                                <!--
-                                                <div fxLayout="column" fxFlex style="padding-left: 10px;" fxLayoutGap="10px">
-                                                    
-                                                <div fxFlex> {{product.comment}} </div> 
-                                                    <div fxLayout="row" fxFlex fxLayoutGap="10px">
-                                                        <div fxFlex>До {{product.maxAmount}}₽</div>
-                                                        <div fxFlex>От {{product.minRate}}%</div>
-                                                        <div fxFlex>До {{product.maxTerm}} месяцев</div>
-                                                    </div>
-                                                </div>-->
                                             </div>
-                                        </li>
+                                        </div>
                                     </div>
                                 </div>
                             </mat-tab>
 
                             <mat-tab label="Автокредит">
-                                <div fxLayout="column" fxFlex fxLayoutGap="10px">
-                                    <div *ngFor="let product of autoLoanProducts" class="product" matRipple
+                                <div fxLayout="row wrap" fxFlex fxLayoutGap="10px">
+                                    <div *ngFor="let product of autoLoanProducts" class="product" [attr.href]="product?.url" matRipple
                                         [class.product-active]="product.active"
-                                        [class.product-select]="selectProduct?.id == product.id && selectTab == LendingType.AUTO_LOAN"
                                         (click)="selectProduct=product; selectTab = LendingType.AUTO_LOAN">
-                                        <li>
-                                            <div fxLayout="column" fxFlex>
-                                                <div fxFlex fxLayout="row" fxLayoutGap="10px">
-                                                    <div fxFlex>{{product.name}}</div>
-                                                    <div style="width: 24px;">
-                                                        <mat-icon (click)="editProduct(product, LendingType.AUTO_LOAN)">
-                                                            <span class="material-symbols-outlined">
-                                                                edit
-                                                            </span>
-                                                        </mat-icon>
+                                        <div fxFlex fxLayout="column" fxLayoutGap="6px">
+                                            <div fxLayout="row">
+                                                <a [attr.href]="product?.url">{{product?.name}}</a>
+                                                <button mat-icon-button [matMenuTriggerFor]="menu" 
+                                                style="position: absolute; top: 0; right: 0; min-width: 24px; min-width: 36px; width: 36px; align-items: center; display: flex;">
+                                                    <mat-icon>more_horiz</mat-icon>
+                                                </button>
+                                                <mat-menu #menu="matMenu">
+                                                    <button mat-menu-item (click)="$event.stopPropagation(); editProduct(product, LendingType.AUTO_LOAN)">
+                                                    <span>Редактировать</span>
+                                                    </button>
+                                                    <button mat-menu-item (click)="$event.stopPropagation(); delete(product, LendingType.AUTO_LOAN)">
+                                                    <span>Удалить</span>
+                                                    </button>
+                                                </mat-menu>
+                                            </div>
+                                
+                                            <div fxFlex fxLayout="column" style="overflow: auto; font-size: 14px; color: gray;" fxLayoutGap="6px">
+                                                <div>{{product?.comment}}</div>
+                                                <div fxLayout="row" fxLayoutGap="8px">
+                                                    <div>
+                                                        От {{product?.minRate}}%
                                                     </div>
-                                                    <div style="width: 24px;">
-                                                        <mat-icon (click)="delete(product, LendingType.AUTO_LOAN)">
-                                                            <span class="material-symbols-outlined">
-                                                                delete
-                                                            </span>
-                                                        </mat-icon>
+                                                    <div>
+                                                        До {{product?.maxTerm}} мес.
+                                                    </div>
+                                                    <div>
+                                                        До {{selectProduct?.maxAmount/1000000}} млн ₽
                                                     </div>
                                                 </div>
-                                                <!--
-                                                <div fxLayout="column" fxFlex style="padding-left: 10px;" fxLayoutGap="10px">
-                                                    
-                                                    <div fxFlex> {{product.comment}} </div> 
-                                                    <div fxLayout="row" fxFlex fxLayoutGap="10px">
-                                                        <div fxFlex>До {{product.maxAmount}} ₽</div>
-                                                        <div fxFlex>От {{product.minRate}}%</div>
-                                                        <div fxFlex>До {{product.maxTerm}} месяцев</div>
-                                                    </div>
-                                                </div>-->
                                             </div>
-                                        </li>
+                                        </div>
                                     </div>
                                 </div>
                             </mat-tab>
                         </mat-tab-group>
                     </div>
-
                 </div>
-            
-                <button class="mat-button" mat-button color="primary" (click)="createProduct()">
-                    Создать кредитный продукт
-                </button>
             </div>
         </div>
-
-        <form class="mat-card" *ngIf="selectProduct" fxFlex fxLayout="column">
-            <h5>{{selectProduct?.name}}</h5>
-
-            <div fxFlex fxLayout="column" style="overflow: auto;" fxLayoutGap="8px">
-                <div>{{selectProduct?.comment}}</div>
-                <div fxLayout="row" fxFlex="100px" fxLayoutAlign="center center" style="font-weight: 600; font-size: 19px;">
-                    <div fxLayout="column" fxLayoutAlign="center start" style="padding: 6px;">
-                        <div>
-                            От {{selectProduct?.minRate}}%
-                        </div>
-                        <div style="font-size: 13px;">
-                            Ставка
-                        </div>
-                    </div>
-                    <div fxLayout="column" fxFlex style="border-left: 1px solid; border-right: 1px solid; padding: 6px;" fxLayoutAlign="center start">
-                        <div>
-                            От {{selectProduct?.minTerm}} до {{selectProduct?.maxTerm}} мес.
-                        </div>
-                        <div style="font-size: 13px;">
-                            Срок кредита
-                        </div>
-                    </div>
-                    <div fxLayout="column" fxFlex fxLayoutAlign="center start" style="padding: 6px;">
-                        <div>
-                            От {{selectProduct?.minAmount/1000000}} млн до {{selectProduct?.maxAmount/1000000}} млн ₽
-                        </div>
-                        <div style="font-size: 13px;">
-                            Сумма
-                        </div>
-                    </div>
-                </div>
-
-                <div>
-                    Период действия: {{selectProduct?.startDate | date:'dd.MM.yyyy'}} - {{selectProduct?.finishDate | date:'dd.MM.yyyy'}}
-                </div>
-
-                <a [attr.href]="selectProduct?.url" fxLayout="row" class="link" matRipple fxLayoutAlign="start center" fxLayoutGap="8px">
-                    <svg 
-                    width="24px" height="24px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-external-link"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
-                    <div>Подробное описание продукта на сайте ПСБ</div>
-                </a>
-            </div>
-        </form>
     </div>
 </div>
