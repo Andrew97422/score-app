@@ -10,4 +10,4 @@ RUN npm run build
 # ----------[ Deploy ]----------
 FROM nginx:1-alpine
 COPY nginx.conf /etc1/nginx/nginx.conf
-COPY --from=build /usr1/src/app/dist/chat /usr/share/nginx/html
+COPY --from=build /usr1/src/app/dist/chat /usr1/share/nginx/html
