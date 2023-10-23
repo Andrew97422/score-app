@@ -17,7 +17,6 @@ import org.springframework.stereotype.Service;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.net.URISyntaxException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
@@ -115,9 +114,10 @@ public class ApplicationUtils {
 
     public byte[] formPdfDoc(LoanApplicationEntity application,
                              List<CommonEntity> guides) throws DocumentException,
-            URISyntaxException, IOException {
+            IOException {
 
-        Path path = Paths.get(ClassLoader.getSystemResource("img/logo.jpg").getPath());
+        LoaderUtils loaderUtils = new LoaderUtils();
+        Path path = Paths.get(loaderUtils.getResource("img/logo.jpg").getPath());
 
         Document document = new Document();
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
