@@ -106,7 +106,7 @@ a {
 
   form {
     background: white !important;
-    border-radius: 0 0 10px 10px;
+    border-radius: inherit;
   }
 
   .mdc-text-field--outlined.mdc-text-field--disabled .mdc-floating-label--float-above {

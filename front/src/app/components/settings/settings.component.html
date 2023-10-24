@@ -3,7 +3,7 @@
     <div fxFlex style="overflow: auto;">
         <mat-tab-group fxFlex>
             <mat-tab label="Виджет"> 
-                <div fxLayout="row" fxLayoutGap="8px">
+                <div fxLayout="row" fxLayoutGap="8px" style="padding-bottom: 6px;">
                     <mat-card fxLayout="column" fxFlex="0 1 370px" class="wiget" [class]="WidgetThemeExt.getClassName(theme.value)" style="height: fit-content;">
                         <div class="header" fxLayout="column">
                             <div #toggle_button (click)="toggle_button.checked = !toggle_button.checked" matRipple style="cursor: pointer;" fxLayoutGap="10px">

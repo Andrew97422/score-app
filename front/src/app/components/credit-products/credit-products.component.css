@@ -4,11 +4,11 @@
     border-radius: 10px; 
     margin-bottom: 10px;
     position: relative;
-    border: 1px solid #CED4DA;
     height: 140px;
     line-height: 16px;
     text-decoration: none !important;
     color: black !important;
+    background-color: whitesmoke;
 }
 
 .product a {
@@ -17,11 +17,13 @@
 }
 
 .product-active {
-    border: 1px solid #ff8800;
+    background-color: #E9E9F7;
 }
 
 .add-button {
-    border: 1px solid #CED4DA !important;
+    border: 1px dashed black!important;
+    background: white;
+    color: black!important;
 }
 
 .add-button:hover {
@@ -49,9 +51,6 @@
     color: black;
 }
 
-.product:not(.product-select):hover {
-    background-color: #f2f1f5;
-}
 
 form {
     padding: 10px;
@@ -75,4 +74,8 @@ form {
 
 .link:hover {
     background-color: #f2f1f5;
+}
+
+a:hover {
+    background-color: rgba(0,0,0, 0.05);
 }
