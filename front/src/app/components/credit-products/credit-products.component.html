@@ -1,12 +1,12 @@
 <div class="component">
     <div fxFlex fxLayoutGap="6px" [fxLayout]="smollWindow ? 'column' : 'row'">
-        <div fxLayout="row" class="mat-card" fxFlex>
+        <div fxLayout="row" class="mat-card" fxFlex style="padding: 0;">
             <div fxFlex fxLayout="column" fxLayoutGap="16px">
                 <div fxLayout="row" fxFlex fxLayoutGap="10px" style="overflow: hidden;">
                     <div fxLayout="column" fxFlex>
                         <mat-tab-group fxFlex style="overflow: hidden;">
                             <mat-tab label="Потребительский кредит">                
-                                <div fxLayout="row wrap" fxFlex fxLayoutGap="10px">
+                                <div fxLayout="row wrap" fxFlex fxLayoutGap="10px" style="padding-left: 10px;">
                                     <div *ngFor="let product of consumerProducts" class="product" [attr.href]="product?.url" matRipple fxFlex="0 1 350px"
                                         [class.product-active]="product.active"
                                         (click)="selectProduct=product; selectTab = LendingType.CONSUMER">
@@ -60,7 +60,7 @@
                             </mat-tab>
 
                             <mat-tab label="Ипотека">
-                                <div fxLayout="row wrap" fxFlex fxLayoutGap="10px">
+                                <div fxLayout="row wrap" fxFlex fxLayoutGap="10px" style="padding-left: 10px;">
                                     <div *ngFor="let product of mortgageProducts" class="product" [attr.href]="product?.url" matRipple fxFlex="0 1 350px"
                                         [class.product-active]="product.active"
                                         (click)="selectProduct=product; selectTab = LendingType.MORTGAGE">
@@ -114,7 +114,7 @@
                             </mat-tab>
 
                             <mat-tab label="Автокредит">
-                                <div fxLayout="row wrap" fxFlex fxLayoutGap="10px">
+                                <div fxLayout="row wrap" fxFlex fxLayoutGap="10px" style="padding-left: 10px;">
                                     <div *ngFor="let product of autoLoanProducts" class="product" [attr.href]="product?.url" matRipple fxFlex="0 1 350px"
                                         [class.product-active]="product.active"
                                         (click)="selectProduct=product; selectTab = LendingType.AUTO_LOAN">

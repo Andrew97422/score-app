@@ -3,9 +3,9 @@
     <mat-tab-group fxFlex>
         <mat-tab label="Виджет"> -->
         <div fxLayout="row" class="mat-card" fxFlex>
-            <div fxLayout="column" fxLayoutGap="8px">
-                <h5>Настройка виджета</h5>
-                <div fxFlex fxLayout="column" style="overflow: auto;">
+            <div fxLayout="column">
+                <h6>Настройка виджета</h6>
+                <div fxFlex fxLayout="column" style="overflow: auto; margin: 0 -10px;">
                     <div fxLayout="row wrap" fxLayoutGap="8px">
                         <mat-radio-group [formControl]="theme" fxLayout="row wrap" style="padding: 8px 0;">
                             <mat-radio-button *ngFor="let theme of WidgetThemeExt.getAll()" [value]="theme">
@@ -76,8 +76,13 @@
                         </form>
                     </mat-card>
                 </div>
-            </div>   
-        </div>  
+
+                <button mat-stroked-button color="primary" style="width: fit-content; margin-top: 10px;">
+                    Применить
+                </button>
+            </div> 
+        </div>
+
         <!--</mat-tab>
         
         <mat-tab label="Другие настройки">      

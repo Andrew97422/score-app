@@ -1,9 +1,9 @@
 <div class="component">
-    <div fxLayout="row" fxFlex class="mat-card" style="overflow: hidden;"> 
+    <div fxLayout="row" fxFlex class="mat-card" style="overflow: hidden; padding-right: 0;"> 
         <div fxFlex fxLayout="column" style="overflow: auto;" fxLayoutGap="10px">
             <ng-container *ngIf="userData?.role == 'USER'">
                 <div>
-                    <h5>Карты</h5>
+                    <h6>Карты</h6>
                     <div *ngIf="userCards?.length; else noData" fxLayout="row wrap" fxLayoutGap="10px">
                         <div *ngFor="let card of userCards" fxLayout="column" [style.background-color]="card.type == CardType.Debit ? '#212529' : 'rgba(43, 44, 132)'"
                         class="item psb-card" fxLayoutGap="10px" fxFlex="240px">
@@ -32,7 +32,7 @@
                 </div>
 
                 <div>
-                    <h5>Кредиты</h5>
+                    <h6>Кредиты</h6>
                     <div *ngIf="credits?.length; else noData">
                         <div *ngFor="let credit of credits" fxFlex="240px" class="item credit">
                             <div>{{credit.name}}</div>
@@ -48,7 +48,7 @@
             </ng-container>
 
             <div fxLayout="column">
-                <h5>Заявки</h5>
+                <h6>Заявки</h6>
                 <div fxLayout="row wrap">
                     <div *ngFor="let x of requests" fxFlex="240px"
                     [style.background-color]="x.status == 'APPROVED' ? 'rgba(25, 135, 84, 0.2)' : 'rgb(217 47 47 / 20%)'"

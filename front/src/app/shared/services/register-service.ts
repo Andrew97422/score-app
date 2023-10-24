@@ -6,7 +6,7 @@ import { LoginData } from '../models/login-data';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { SessionService } from './session.service';
-import { Observable } from 'rxjs';
+import { Observable, catchError } from 'rxjs';
 import { AuthenticationResponse } from '../models/authentication-response';
 import { AuthorizationSource } from '../../shared/models/authorization-source';
 import * as moment from 'moment';
@@ -30,7 +30,14 @@ export class RegisterService {
   }
 
   login(loginData: LoginData, authorizationSource: AuthorizationSource = AuthorizationSource.None, router = false): void {
-    this.http.post(this.baseUrl + '/api/v1/login', loginData).subscribe((x: AuthenticationResponse) => {
+    this.http.post(this.baseUrl + '/api/v1/login', loginData)
+    .pipe(
+      catchError(async (err) => {
+        this.snackBar.open(`Неправильное имя пользователя или пароль`, 'OK', { duration: 36000 });
+        throw err;
+      })
+    )
+    .subscribe(async (x: AuthenticationResponse) => {
       this.sessionService.createSession(x.id, true, x.token, authorizationSource);
       if (router)
         this.router.navigate(['']);
