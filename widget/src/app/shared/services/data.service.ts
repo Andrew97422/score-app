@@ -30,7 +30,8 @@ export class DataService {
     {
       login: 'user',
       name: 'Ипотека СЖ с господдержкой 2020',
-      amount: '1 500 499'
+      amount: '1 500 499',
+      monthlyPaymentAmount: 20000
     }
   ]
   data: { creditAmount: any; lendingType: any; amountLoanPayments: any; psbClient: boolean; countActiveLoans: import("c:/Users/Сергей/Desktop/back/score-app/widget/src/app/shared/models/count-active-loans").CountActiveLoans; };

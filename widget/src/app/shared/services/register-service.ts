@@ -34,7 +34,9 @@ export class RegisterService {
   login(loginData: LoginData, authorizationSource: AuthorizationSource = AuthorizationSource.None): void {
     const requestCreator = async () => {
       const dataService = this.inj.get(DataService);
-      const creditCount = dataService.getCredits();
+      const credits = dataService.getCredits();
+      const amountLoanPayments = credits.reduce((res, it) => res + it.monthlyPaymentAmount, 0);
+      const creditCount = credits?.length;
       dataService.dialogRef?.close();
       await this.dialog.open(RequestInputComponent, {data: new InputDialogModel({
         title: 'Новая заявка',
@@ -43,7 +45,7 @@ export class RegisterService {
         data: {
           creditAmount: dataService.data?.creditAmount,
           lendingType: dataService.data?.lendingType,
-          amountLoanPayments: dataService.data?.amountLoanPayments,
+          amountLoanPayments: creditCount == 0 ? 0 : amountLoanPayments,
           psbClient: authorizationSource == AuthorizationSource.PSB,
           countActiveLoans: (creditCount > 0 && creditCount <= 2) ? CountActiveLoans.FROM_ONE_TO_TWO 
           : (creditCount > 2 && creditCount <= 5) ? CountActiveLoans.FROM_THREE_TO_FIVE

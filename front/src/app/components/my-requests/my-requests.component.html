@@ -37,6 +37,7 @@
                         <div *ngFor="let credit of credits" fxFlex="240px" class="item">
                             <div>{{credit.name}}</div>
                             <div style="font-size: 20px;">{{credit.amount}} ₽</div>
+                            <div style="font-size: 14px;"> Еж. платеж: {{credit.monthlyPaymentAmount}}₽</div>
                         </div>
                     </div>
                 </div>

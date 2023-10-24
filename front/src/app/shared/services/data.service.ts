@@ -13,7 +13,7 @@ export class DataService {
       login: 'user',
       amount: '100 099',
       type: CardType.Debit,
-      number: '0000 0000 0000 1247'
+      number: '0000 0000 0000 1247',
     },
     {
       login: 'user',
@@ -27,7 +27,8 @@ export class DataService {
     {
       login: 'user',
       name: 'Ипотека СЖ с господдержкой 2020',
-      amount: '1 500 499'
+      amount: '1 500 499',
+      monthlyPaymentAmount:  20000
     }
   ]
 

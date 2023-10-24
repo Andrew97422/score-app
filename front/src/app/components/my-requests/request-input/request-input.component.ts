@@ -2,7 +2,7 @@ import { Component, Inject } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { RegisterService } from 'src/app/shared/services/register-service';
 import { WorkExperienceExt } from 'src/app/shared/models/work-experience';
-import { CountActiveLoansExt } from 'src/app/shared/models/count-active-loans';
+import { CountActiveLoans, CountActiveLoansExt } from 'src/app/shared/models/count-active-loans';
 import { LendingType, LendingTypeExt } from 'src/app/shared/models/lending-type';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { InputDialogModel, InputDialogType } from '../../../shared/models/input-dialog-type';
@@ -71,6 +71,12 @@ export class RequestInputComponent {
       if (data.dialogType == InputDialogType.View) {
         this.form.disable();
       }
+
+      this.form.controls.countActiveLoans.valueChanges.subscribe(x => {
+        if (x == CountActiveLoans.NO_CREDITS) {
+          this.form.controls.currentDebtLoad.setValue(0);
+        }
+      });
   }
 
   async viewUserData(): Promise<void> {
