@@ -38,14 +38,7 @@ export class CreditProductsComponent {
     private dialog: MatDialog,
     private consumerService: ConsumerService,
     private autoloanService: AutoloanService,
-    private mortgageService: MortgageService,
-    private sessionService: SessionService,
-    private registerService: RegisterService) {
-      this.registerService.getUser(this.sessionService.getSessionID() as unknown as number).subscribe((x: any) => {
-          if (x.role != 'SUPER_ADMIN') router.navigate(['']);
-        }
-      );
-
+    private mortgageService: MortgageService) {
       this.loadProducts();
   }
 

@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { SessionService } from './shared/services/session.service';
+import { RegisterService } from './shared/services/register-service';
      
 @Component({
     selector: 'my-app',
@@ -7,6 +9,17 @@ import { Router } from '@angular/router';
 })
 export class AppComponent {
     constructor(
-        public router: Router) {
+        public router: Router,
+        private sessionService: SessionService,
+        private registerService: RegisterService) {
+            if (!this.sessionService.getToken()) {
+                router.navigate(['login']);
+                return;
+            }
+
+            this.registerService.getUser(this.sessionService.getSessionID() as unknown as number).subscribe((x: any) => {
+                if (x.role != 'SUPER_ADMIN') router.navigate(['']);
+              }
+            );
       }
 }
