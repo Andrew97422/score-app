@@ -9,13 +9,13 @@ export class WidgetThemeExt {
     static getName(v: WidgetTheme): string {
         switch(v) {
             case WidgetTheme.Standard:
-                return 'Стандартная'
+                return 'Стандартная тема'
             case WidgetTheme.Blue:
-                return 'Синяя'
+                return 'Синяя тема'
             case WidgetTheme.Orange:
-                return 'Оранжевая'
+                return 'Оранжевая тема'
             case WidgetTheme.Gray:
-                return 'Серая'
+                return 'Серая тема'
             default:
                 return ''
         }

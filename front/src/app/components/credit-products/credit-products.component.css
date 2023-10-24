@@ -23,6 +23,7 @@
     border: 1px dashed black!important;
     background: white;
     color: black!important;
+    margin-right: 10px;
 }
 
 .add-button:hover {

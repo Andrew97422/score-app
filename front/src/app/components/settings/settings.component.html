@@ -1,12 +1,11 @@
-<div fxLayout="column" style="padding: 20px; max-width: 100vw !important; min-width: 400px;" fxLayoutGap="20px">
+<div fxLayout="column" style="padding: 20px; max-width: 100vw !important; min-width: 400px;">
     <h3>Настройки</h3>
-    <div style="overflow: auto; max-height: calc(100vh - 200px);">
+    <div style="overflow: auto; max-height: calc(100vh - 200px); margin: 0 -20px 20px -20px; padding: 0 20px;">
         <!--
         <mat-tab-group fxFlex>
             <mat-tab label="Виджет"> -->
                 <div fxLayout="column" fxLayoutGap="8px" style="padding-bottom: 6px; height: 550px;">
                     <div fxLayout="row wrap" fxLayoutGap="8px">
-                        <div fxLayoutAlign="center center">Тема: </div>
                         <mat-radio-group [formControl]="theme" fxLayout="row wrap">
                             <mat-radio-button *ngFor="let theme of WidgetThemeExt.getAll()" [value]="theme">
                                 {{WidgetThemeExt.getName(theme)}}
