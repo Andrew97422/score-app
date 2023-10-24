@@ -34,7 +34,7 @@
                 <div>
                     <h5>Кредиты</h5>
                     <div *ngIf="credits?.length; else noData">
-                        <div *ngFor="let credit of credits" fxFlex="240px" class="item">
+                        <div *ngFor="let credit of credits" fxFlex="240px" class="item credit">
                             <div>{{credit.name}}</div>
                             <div style="font-size: 20px;">{{credit.amount}} ₽</div>
                             <div style="font-size: 14px;"> Еж. платеж: {{credit.monthlyPaymentAmount}}₽</div>
@@ -51,8 +51,7 @@
                 <h5>Заявки</h5>
                 <div fxLayout="row wrap">
                     <div *ngFor="let x of requests" fxFlex="240px"
-                    [style.border-color]="x.status == 'APPROVED' ? 'green' : 'rgba(234, 86, 20)'"
-                    [style.background-color]="x.status == 'APPROVED' ? '#4bff0014' : 'rgb(217 96 47 / 8%)'"
+                    [style.background-color]="x.status == 'APPROVED' ? 'rgba(25, 135, 84, 0.2)' : 'rgba(217, 96, 47, 0.2)'"
                     class="item">
                         <div fxLayout="row">
                             <div>{{LendingTypeExt.getName(x.lendingType)}}</div>
