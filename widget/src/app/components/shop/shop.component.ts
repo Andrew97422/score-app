@@ -1,10 +1,8 @@
 import { Component } from '@angular/core';
 import { LendingType, LendingTypeExt } from 'src/app/shared/models/lending-type';
-import { InputDialogModel, InputDialogType } from 'src/app/shared/models/input-dialog-type';
 import { CountActiveLoans } from 'src/app/shared/models/count-active-loans';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { RequestInputComponent } from '../request-input/request-input.component';
 import { LoginComponent } from '../login/login.component';
 import { DataService } from 'src/app/shared/services/data.service';
 

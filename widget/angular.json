@@ -1,7 +1,7 @@
 {
     "version": 1,
     "projects": {
-      "chat": {
+      "widget": {
         "projectType": "application",
         "root": "",
         "sourceRoot": "src",
@@ -9,7 +9,7 @@
           "build": {
             "builder": "@angular-devkit/build-angular:browser",
             "options": {
-              "outputPath": "dist/chat",
+              "outputPath": "dist/widget",
               "index": "src/index.html",
               "main": "src/main.ts",
               "polyfills": "src/polyfills.ts",
@@ -27,10 +27,10 @@
           "serve": {
             "builder": "@angular-devkit/build-angular:dev-server",
             "options": {
-              "browserTarget": "chat:build"
+              "browserTarget": "widget:build"
             },
             "configurations": {
-              "production": {"browserTarget": "chat:build:production" }
+              "production": {"browserTarget": "widget:build:production" }
             }
           }
         }

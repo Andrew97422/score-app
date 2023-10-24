@@ -4,6 +4,7 @@ import { SessionService } from './session.service';
 import { AuthorizationSource } from '../models/authorization-source';
 import { RegisterService } from './register-service';
 import { MatDialogRef } from '@angular/material/dialog';
+import { CountActiveLoans } from '../models/count-active-loans';
 
 @Injectable({
   providedIn: 'root'
@@ -34,7 +35,7 @@ export class DataService {
       monthlyPaymentAmount: 20000
     }
   ]
-  data: { creditAmount: any; lendingType: any; amountLoanPayments: any; psbClient: boolean; countActiveLoans: import("c:/Users/Сергей/Desktop/back/score-app/widget/src/app/shared/models/count-active-loans").CountActiveLoans; };
+  data: { creditAmount: any; lendingType: any; amountLoanPayments: any; psbClient: boolean; countActiveLoans: CountActiveLoans; };
 
   constructor(
     private registerService: RegisterService,
