@@ -1,6 +1,6 @@
-<div fxLayout="column" style="padding: 20px; width: 600px; height: calc(100vh - 300px);" fxLayoutGap="20px">
+<div fxLayout="column" style="padding: 20px;" fxLayoutGap="20px">
     <h3>Настройки</h3>
-    <div fxFlex style="overflow: auto;">
+    <div style="overflow: auto; max-height: calc(100vh - 400px); width: 600px;">
         <mat-tab-group fxFlex>
             <mat-tab label="Виджет"> 
                 <div fxLayout="row" fxLayoutGap="8px" style="padding-bottom: 6px;">
@@ -74,13 +74,14 @@
                     </div>
                 </div>     
             </mat-tab>
+            <!--
             <mat-tab label="Другие настройки">      
-            </mat-tab>
+            </mat-tab>-->
         </mat-tab-group>
     </div>
     
     <div fxLayout="row" fxLayoutGap="8px">
-        <button mat-stroked-button color="primary">
+        <button mat-stroked-button color="primary" mat-dialog-close>
             Применить
         </button>
         <button mat-button mat-dialog-close>
