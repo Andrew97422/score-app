@@ -75,6 +75,9 @@ export class RequestInputComponent {
       this.form.controls.countActiveLoans.valueChanges.subscribe(x => {
         if (x == CountActiveLoans.NO_CREDITS) {
           this.form.controls.currentDebtLoad.setValue(0);
+          this.form.controls.currentDebtLoad.disable();
+        } else {
+          this.form.controls.currentDebtLoad.enable();
         }
       });
   }
