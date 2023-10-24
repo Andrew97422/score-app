@@ -125,9 +125,9 @@ a {
     flex-direction: row;
     box-sizing: border-box;
     display: flex;
-    padding: 16px;
+    padding: 12px;
     color: white;
-    font-size: 18px; line-height: 18px;
+    font-size: 16px; line-height: 16px;
     margin-bottom: -2px;
   }
 
@@ -150,9 +150,9 @@ a {
     flex-direction: row;
     box-sizing: border-box;
     display: flex;
-    padding: 16px;
+    padding: 12px;
     color: white;
-    font-size: 18px; line-height: 18px;
+    font-size: 16px; line-height: 16px;
     margin-bottom: -2px;
   }
 
@@ -198,9 +198,10 @@ a {
   }
 }
 
+/*
 .mat-mdc-outlined-button:disabled {
   color: black !important;
-}
+}*/
 
 .mat-mdc-outlined-button:not(:disabled) {
   background: var(--main-color);

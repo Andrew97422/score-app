@@ -51,7 +51,7 @@
                 <h5>Заявки</h5>
                 <div fxLayout="row wrap">
                     <div *ngFor="let x of requests" fxFlex="240px"
-                    [style.background-color]="x.status == 'APPROVED' ? 'rgba(25, 135, 84, 0.2)' : 'rgba(217, 96, 47, 0.2)'"
+                    [style.background-color]="x.status == 'APPROVED' ? 'rgba(25, 135, 84, 0.2)' : 'rgb(217 47 47 / 20%)'"
                     class="item">
                         <div fxLayout="row">
                             <div>{{LendingTypeExt.getName(x.lendingType)}}</div>

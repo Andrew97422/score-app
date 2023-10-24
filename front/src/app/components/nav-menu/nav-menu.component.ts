@@ -6,7 +6,6 @@ import { RegisterService } from 'src/app/shared/services/register-service';
 import { SessionService } from 'src/app/shared/services/session.service';
 import { VKService } from 'src/app/shared/services/vk-service';
 import { MyDataComponent } from '../my-data/my-data.component';
-import { SettingsComponent } from '../settings/settings.component';
 
 @Component({
   selector: 'nav-menu',
@@ -31,10 +30,6 @@ export class NavMenuComponent {
 
   logout(): void {
     this.vkService.logout();
-  }
-
-  async openSettings(): Promise<void> {
-    await this.dialog.open(SettingsComponent).afterClosed().toPromise();
   }
 
   async viewUserData(): Promise<void> {
