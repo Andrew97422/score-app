@@ -5,6 +5,8 @@ RUN mvn -f /usr/src/app/pom.xml clean package
 
 FROM openjdk:17-alpine
 COPY --from=build /usr/src/app/target/*.jar /application.jar
+COPY --from=build /usr/src/app/target/classes/img /img
+COPY --from=build /usr/src/app/target/classes/fonts /fonts
 WORKDIR .
 
 EXPOSE 8081
