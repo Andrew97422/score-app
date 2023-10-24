@@ -123,7 +123,10 @@ public class ApplicationUtils {
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         PdfWriter.getInstance(document, byteArrayOutputStream);
 
-        Image img = Image.getInstance("/img/logo.jpg");
+        Path path = Paths.get("resources/img/logo.jpg");
+        System.out.println(path.toAbsolutePath());
+        Image img = Image.getInstance(path.toString());
+
         //Image img = Image.getInstance(path.toAbsolutePath().toString());
         img.scalePercent(PageSize.A4.getWidth() / img.getScaledWidth() * 100);
         img.setAbsolutePosition(0, PageSize.A4.getHeight() -

@@ -1,12 +1,12 @@
 version: '3'
 services:
 
-  #avito-emulation:
-  #  build: ./widget
-  #  ports:
-  #    - "3001:80"
-  #  environment:
-  #    - NODE_OPTIONS=--max-old-space-size=4096
+  drom-emulation:
+    build: ./widget
+    ports:
+      - "3001:80"
+    environment:
+      - NODE_OPTIONS=--max-old-space-size=4096
 
   front:
     build: ./front
