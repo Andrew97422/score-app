@@ -115,15 +115,16 @@ public class ApplicationUtils {
 
     public byte[] formPdfDoc(LoanApplicationEntity application,
                              List<CommonEntity> guides) throws DocumentException,
-            URISyntaxException, IOException {
+            IOException {
 
-        Path path = Paths.get(ClassLoader.getSystemResource("img/logo.jpg").getPath());
+        //Path path = Paths.get("back/src/main/resources/img/logo.jpg");
 
         Document document = new Document();
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         PdfWriter.getInstance(document, byteArrayOutputStream);
 
-        Image img = Image.getInstance(path.toAbsolutePath().toString());
+        Image img = Image.getInstance("/img/logo.jpg");
+        //Image img = Image.getInstance(path.toAbsolutePath().toString());
         img.scalePercent(PageSize.A4.getWidth() / img.getScaledWidth() * 100);
         img.setAbsolutePosition(0, PageSize.A4.getHeight() -
                 img.getScaledHeight()

@@ -9,10 +9,13 @@
         <outputRelativeToContentRoot value="true" />
         <module name="back" />
         <module name="bki-emulation" />
-        <module name="front" />
+        <module name="front (2)" />
+        <module name="front (1)" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel target="17" />
+    <bytecodeTargetLevel target="17">
+      <module name="front" target="1.5" />
+    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
