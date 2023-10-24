@@ -7,7 +7,7 @@
                         <mat-tab-group fxFlex style="overflow: hidden;">
                             <mat-tab label="Потребительский кредит">                
                                 <div fxLayout="row wrap" fxFlex fxLayoutGap="10px">
-                                    <div *ngFor="let product of consumerProducts" class="product" [attr.href]="product?.url" matRipple
+                                    <div *ngFor="let product of consumerProducts" class="product" [attr.href]="product?.url" matRipple fxFlex="0 1 350px"
                                         [class.product-active]="product.active"
                                         (click)="selectProduct=product; selectTab = LendingType.CONSUMER">
                                         <div fxFlex fxLayout="column">
@@ -46,7 +46,7 @@
                                         </div>
                                     </div>
 
-                                    <div fxLayout="column" matRipple (click)="createProduct(LendingType.CONSUMER)" class="product add-button">
+                                    <div fxLayout="column" matRipple (click)="createProduct(LendingType.CONSUMER)" class="product add-button" fxFlex="0 1 350px">
                                         <div fxFlex fxLayoutAlign="center center">
                                             <mat-icon>
                                                 <span class="material-symbols-outlined">
@@ -61,7 +61,7 @@
 
                             <mat-tab label="Ипотека">
                                 <div fxLayout="row wrap" fxFlex fxLayoutGap="10px">
-                                    <div *ngFor="let product of mortgageProducts" class="product" [attr.href]="product?.url" matRipple
+                                    <div *ngFor="let product of mortgageProducts" class="product" [attr.href]="product?.url" matRipple fxFlex="0 1 350px"
                                         [class.product-active]="product.active"
                                         (click)="selectProduct=product; selectTab = LendingType.MORTGAGE">
                                         <div fxFlex fxLayout="column">
@@ -100,7 +100,7 @@
                                         </div>
                                     </div>
 
-                                    <div fxLayout="column" matRipple (click)="createProduct(LendingType.MORTGAGE)" class="product add-button">
+                                    <div fxLayout="column" matRipple (click)="createProduct(LendingType.MORTGAGE)" class="product add-button" fxFlex="0 1 350px">
                                         <div fxFlex fxLayoutAlign="center center">
                                             <mat-icon>
                                                 <span class="material-symbols-outlined">
@@ -115,7 +115,7 @@
 
                             <mat-tab label="Автокредит">
                                 <div fxLayout="row wrap" fxFlex fxLayoutGap="10px">
-                                    <div *ngFor="let product of autoLoanProducts" class="product" [attr.href]="product?.url" matRipple
+                                    <div *ngFor="let product of autoLoanProducts" class="product" [attr.href]="product?.url" matRipple fxFlex="0 1 350px"
                                         [class.product-active]="product.active"
                                         (click)="selectProduct=product; selectTab = LendingType.AUTO_LOAN">
                                         <div fxFlex fxLayout="column">
@@ -154,7 +154,7 @@
                                         </div>
                                     </div>
 
-                                    <div fxLayout="column" matRipple (click)="createProduct(LendingType.AUTO_LOAN)" class="product add-button">
+                                    <div fxLayout="column" matRipple (click)="createProduct(LendingType.AUTO_LOAN)" class="product add-button" fxFlex="0 1 350px">
                                         <div fxFlex fxLayoutAlign="center center">
                                             <mat-icon>
                                                 <span class="material-symbols-outlined">

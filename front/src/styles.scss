@@ -11,16 +11,20 @@
   box-sizing: border-box;
 }
 
-html {
-  zoom: 125%;
-}
-
 html, body {
   width: 100%;
   height: 100%;
   overflow: hidden;
-  background-color: #e8e1e8 !important;
+  background-color: #e4e1e8 !important;
   font-family: Roboto, sans-serif;
+}
+
+.cdk-overlay-pane {
+  max-width: 100vw !important;
+}
+
+.mat-mdc-radio-button .mdc-form-field {
+  height: 30px !important;
 }
 
 .component {
@@ -102,10 +106,10 @@ a {
   border-radius: 10px !important;
   padding: 0 !important;
   background: var(--main-color) !important;
-  border: 1px solid #ccc !important;
+  box-shadow: none !important;
 
   form {
-    background: white !important;
+    background: #e4e1e8 !important;
     border-radius: inherit;
   }
 
@@ -137,7 +141,7 @@ a {
 }
 
 .blue-widget-theme, .orange-widget-theme, .gray-widget-theme {
-  border: 1px solid #ccc !important;
+  box-shadow: none !important;
   padding: 0 !important;
   color: white;
   border-radius: 10px !important;

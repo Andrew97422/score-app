@@ -1,12 +1,12 @@
-<form class="mat-card" [formGroup]="form" fxLayout="column" fxLayoutGap="16px" style="padding: 20px;">
+<form class="mat-card" [formGroup]="form" fxLayout="column" fxLayoutGap="16px" style="padding: 20px; max-width: 100vw !important; min-width: 400px;">
     <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center">
         <h5 fxLayoutAlign="center center" style="margin: 0 !important; height: 36px;">
             Мои данные
         </h5>
     </div>
 
-    <div fxLayout="column" style="position: relative;">
-        <div fxLayout="column" style="position: relative; overflow: auto; max-height: calc(100vh - 350px); width: 400px; padding-top: 20px;">
+    <div fxLayout="column" style="position: relative;" fxLayoutGap="20px">
+        <div fxLayout="column" style="position: relative; overflow: auto; overflow-x: hidden; max-height: calc(100vh - 350px); padding-top: 20px;">
             <div *ngIf="!readonlyView" style="position: absolute; top: -24px;">Редактирование данных пользователя:</div>
             <mat-form-field fxFlex appearance="outline" color="primery">
                 <mat-label>Логин</mat-label>

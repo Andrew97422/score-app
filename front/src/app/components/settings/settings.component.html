@@ -1,10 +1,19 @@
-<div fxLayout="column" style="padding: 20px;" fxLayoutGap="10px">
+<div fxLayout="column" style="padding: 20px; max-width: 100vw !important; min-width: 400px;" fxLayoutGap="20px">
     <h3>Настройки</h3>
-    <div style="overflow: auto; max-height: calc(100vh - 350px); width: 600px;">
+    <div style="overflow: auto; max-height: 100vh;">
+        <!--
         <mat-tab-group fxFlex>
-            <mat-tab label="Виджет"> 
-                <div fxLayout="row" fxLayoutGap="8px" style="padding-bottom: 6px;">
-                    <mat-card fxLayout="column" fxFlex="0 1 370px" class="wiget" [class]="WidgetThemeExt.getClassName(theme.value)" style="height: fit-content;">
+            <mat-tab label="Виджет"> -->
+                <div fxLayout="column" fxLayoutGap="8px" style="padding-bottom: 6px; height: 550px;">
+                    <div fxLayout="row wrap" fxLayoutGap="8px">
+                        <div fxLayoutAlign="center center">Тема: </div>
+                        <mat-radio-group [formControl]="theme" fxLayout="row wrap">
+                            <mat-radio-button *ngFor="let theme of WidgetThemeExt.getAll()" [value]="theme">
+                                {{WidgetThemeExt.getName(theme)}}
+                            </mat-radio-button>
+                        </mat-radio-group>
+                    </div>
+                    <mat-card fxLayout="column" class="wiget" [class]="WidgetThemeExt.getClassName(theme.value)" style="height: fit-content;">
                         <div class="header" fxLayout="column">
                             <div #toggle_button (click)="toggle_button.checked = !toggle_button.checked" matRipple style="cursor: pointer;" fxLayoutGap="10px">
                                 <svg width="80" height="37" viewBox="0 0 120 37" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -64,27 +73,19 @@
                             </button>
                         </form>
                     </mat-card>
-            
-                    <div fxLayout="column">
-                        <mat-radio-group [formControl]="theme" fxLayout="column">
-                            <mat-radio-button *ngFor="let theme of WidgetThemeExt.getAll()" [value]="theme">
-                                {{WidgetThemeExt.getName(theme)}}
-                            </mat-radio-button>
-                        </mat-radio-group>
-                    </div>
                 </div>     
-            </mat-tab>
-            <!--
+            <!--</mat-tab>
+            
             <mat-tab label="Другие настройки">      
-            </mat-tab>-->
-        </mat-tab-group>
+            </mat-tab>
+        </mat-tab-group>-->
     </div>
     
     <div fxLayout="row" fxLayoutGap="8px">
-        <button mat-stroked-button color="primary" mat-dialog-close>
+        <button fxFlex mat-stroked-button color="primary" mat-dialog-close>
             Применить
         </button>
-        <button mat-button mat-dialog-close>
+        <button fxFlex mat-button mat-dialog-close>
             Отмена
         </button>
     </div>
