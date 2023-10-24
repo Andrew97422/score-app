@@ -232,6 +232,10 @@ table tr td div {
   max-width: 100vw !important;
 }
 
+mat-card {
+  box-shadow: none !important;
+}
+
 ::-webkit-scrollbar-thumb, ::-webkit-scrollbar-thumb {
   width: 10px;
   background-color: lightgray;
