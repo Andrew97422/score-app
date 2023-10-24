@@ -59,6 +59,11 @@ export class RequestInputComponent {
         this.form.controls.farEastInhabitant.setValue(data.data.farEastInhabitant);
         this.form.controls.newSubjectsResident.setValue(data.data.newSubjectsResident);
         this.form.controls.itSpecialist.setValue(data.data.itSpecialist);
+
+        if (data.data.countActiveLoans == CountActiveLoans.NO_CREDITS) {
+          this.form.controls.currentDebtLoad.setValue(0);
+          this.form.controls.currentDebtLoad.disable();
+        }
       }
 
       if (data.dialogType == InputDialogType.View) {

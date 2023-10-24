@@ -24,14 +24,13 @@ export class ShopComponent {
     private dialog: MatDialog,
     private dataService: DataService) {
     this.form = this.fb.group({
-      lendingType: LendingType.MORTGAGE,
-      amount: [null, Validators.required],
+      lendingType: { value: LendingType.AUTO_LOAN, disabled: true } ,
+      amount: [5350000, Validators.required],
       yearCount: 1,
       monthlyPaymentAmount: null,
       psbClient: null
     });
 
-    this.form.controls.monthlyPaymentAmount.disable();
     this.form.controls.lendingType.valueChanges.subscribe((type) => {
       if (type == LendingType.MORTGAGE) {
         this.maxYearCount = 30;

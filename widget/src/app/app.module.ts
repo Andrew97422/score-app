@@ -67,7 +67,7 @@ import { PsbAuthorizationComponent } from './components/psb-authorization/psb-au
     bootstrap:    [ AppComponent ],
     providers: [
         { provide: MAT_DATE_LOCALE, useValue: 'ru-RU' },
-        { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: { ...new MatDialogConfig(), disableClose: true } },
+        { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: { ...new MatDialogConfig(), disableClose: true, width: '450px' } },
         { provide: HTTP_INTERCEPTORS, useClass: InternalServerErrorInterceptor, multi: true }
     ]  
 })
