@@ -1,6 +1,6 @@
 <div [formGroup]="form" fxFlex fxLayout="column" style="padding: 20px;">
     <h4>{{data.title}}</h4>
-    <div fxLayout="column" style="width: 500px; max-height: calc(100vh - 200px); overflow: auto; padding: 20px; margin: 0 -20px;">
+    <div fxLayout="column" style="width: 500px; max-height: calc(100vh - 400px); overflow: auto; padding: 20px; margin: 0 -20px;">
         <mat-form-field *ngIf="data.dialogType==InputDialogType.View && userData?.role == 'SUPER_ADMIN'" appearance="outline" color="primery">
             <mat-label>Пользователь</mat-label>
             <input matInput color="primery" formControlName="user">

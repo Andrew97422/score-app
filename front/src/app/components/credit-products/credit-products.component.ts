@@ -75,11 +75,12 @@ export class CreditProductsComponent {
     }
   }
 
-  async createProduct(): Promise<void> {
+  async createProduct(lendingType: LendingType): Promise<void> {
     await this.dialog.open(CreditProductInputComponent, {data: new InputDialogModel({
       title: 'Новый кредитный продукт',
       applyButton: 'Создать',
-      dialogType: InputDialogType.Create
+      dialogType: InputDialogType.Create,
+      data: {lendingType}
     })}).afterClosed().toPromise();
 
     this.loadProducts();

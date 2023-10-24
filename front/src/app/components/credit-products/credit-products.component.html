@@ -10,7 +10,7 @@
                                     <div *ngFor="let product of consumerProducts" class="product" [attr.href]="product?.url" matRipple
                                         [class.product-active]="product.active"
                                         (click)="selectProduct=product; selectTab = LendingType.CONSUMER">
-                                        <div fxFlex fxLayout="column" fxLayoutGap="6px">
+                                        <div fxFlex fxLayout="column">
                                             <div fxLayout="row">
                                                 <a [attr.href]="product?.url">{{product?.name}}</a>
                                                 <button mat-icon-button [matMenuTriggerFor]="menu" 
@@ -27,7 +27,8 @@
                                                 </mat-menu>
                                             </div>
                                 
-                                            <div fxFlex fxLayout="column" style="overflow: auto; font-size: 14px; color: gray;" fxLayoutGap="6px">
+                                            <div fxFlex fxLayout="column" style="overflow: auto; font-size: 14px; color: gray; margin: 6px -30px 0 0; padding-right: 10px;" 
+                                            fxLayoutGap="6px">
                                                 <div>{{product?.comment}}</div>
                                                 <div fxLayout="row" fxLayoutGap="8px">
                                                     <div>
@@ -44,7 +45,7 @@
                                         </div>
                                     </div>
 
-                                    <div fxLayout="column" matRipple (click)="createProduct()" class="product add-button">
+                                    <div fxLayout="column" matRipple (click)="createProduct(LendingType.CONSUMER)" class="product add-button">
                                         <div fxFlex fxLayoutAlign="center center">
                                             <mat-icon>
                                                 <span class="material-symbols-outlined">
@@ -62,7 +63,7 @@
                                     <div *ngFor="let product of mortgageProducts" class="product" [attr.href]="product?.url" matRipple
                                         [class.product-active]="product.active"
                                         (click)="selectProduct=product; selectTab = LendingType.MORTGAGE">
-                                        <div fxFlex fxLayout="column" fxLayoutGap="6px">
+                                        <div fxFlex fxLayout="column">
                                             <div fxLayout="row">
                                                 <a [attr.href]="product?.url">{{product?.name}}</a>
                                                 <button mat-icon-button [matMenuTriggerFor]="menu" (click)="$event.stopPropagation()"
@@ -79,7 +80,8 @@
                                                 </mat-menu>
                                             </div>
                                 
-                                            <div fxFlex fxLayout="column" style="overflow: auto; font-size: 14px; color: gray;" fxLayoutGap="6px">
+                                            <div fxFlex fxLayout="column" 
+                                            style="overflow: auto; font-size: 14px; color: gray; margin: 6px -30px 0 0; padding-right: 10px;" fxLayoutGap="6px">
                                                 <div>{{product?.comment}}</div>
                                                 <div fxLayout="row" fxLayoutGap="8px">
                                                     <div>
@@ -95,6 +97,17 @@
                                             </div>
                                         </div>
                                     </div>
+
+                                    <div fxLayout="column" matRipple (click)="createProduct(LendingType.MORTGAGE)" class="product add-button">
+                                        <div fxFlex fxLayoutAlign="center center">
+                                            <mat-icon>
+                                                <span class="material-symbols-outlined">
+                                                    add
+                                                </span>
+                                            </mat-icon>
+                                        </div>
+                                        <div fxLayoutAlign="center center"> Создать кредитный продукт </div>
+                                    </div>
                                 </div>
                             </mat-tab>
 
@@ -103,7 +116,7 @@
                                     <div *ngFor="let product of autoLoanProducts" class="product" [attr.href]="product?.url" matRipple
                                         [class.product-active]="product.active"
                                         (click)="selectProduct=product; selectTab = LendingType.AUTO_LOAN">
-                                        <div fxFlex fxLayout="column" fxLayoutGap="6px">
+                                        <div fxFlex fxLayout="column">
                                             <div fxLayout="row">
                                                 <a [attr.href]="product?.url">{{product?.name}}</a>
                                                 <button mat-icon-button [matMenuTriggerFor]="menu" 
@@ -120,7 +133,8 @@
                                                 </mat-menu>
                                             </div>
                                 
-                                            <div fxFlex fxLayout="column" style="overflow: auto; font-size: 14px; color: gray;" fxLayoutGap="6px">
+                                            <div fxFlex fxLayout="column" style="overflow: auto; font-size: 14px; color: gray; margin: 6px -30px 0 0; padding-right: 10px;"
+                                            fxLayoutGap="6px">
                                                 <div>{{product?.comment}}</div>
                                                 <div fxLayout="row" fxLayoutGap="8px">
                                                     <div>
@@ -135,6 +149,17 @@
                                                 </div>
                                             </div>
                                         </div>
+                                    </div>
+
+                                    <div fxLayout="column" matRipple (click)="createProduct(LendingType.AUTO_LOAN)" class="product add-button">
+                                        <div fxFlex fxLayoutAlign="center center">
+                                            <mat-icon>
+                                                <span class="material-symbols-outlined">
+                                                    add
+                                                </span>
+                                            </mat-icon>
+                                        </div>
+                                        <div fxLayoutAlign="center center"> Создать кредитный продукт </div>
                                     </div>
                                 </div>
                             </mat-tab>

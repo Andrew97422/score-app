@@ -1,11 +1,11 @@
 .product {
-    padding: 16px 30px 16px 16px;
-    width: 500px; 
+    padding: 12px 30px 12px 12px;
+    width: 350px; 
     border-radius: 10px; 
     margin-bottom: 10px;
     position: relative;
     border: 1px solid #CED4DA;
-    height: 150px;
+    height: 140px;
     line-height: 16px;
     text-decoration: none !important;
     color: black !important;

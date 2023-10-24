@@ -1,82 +1,84 @@
-<div fxLayout="column" style="padding: 20px; width: 600px; height: 700px;" fxLayoutGap="20px">
+<div fxLayout="column" style="padding: 20px; width: 600px; height: calc(100vh - 300px);" fxLayoutGap="20px">
     <h3>Настройки</h3>
-    <mat-tab-group fxFlex>
-        <mat-tab label="Виджет"> 
-            <div fxLayout="row" fxLayoutGap="8px" style="padding: 10px;">
-                <mat-card fxLayout="column" fxFlex="0 1 370px" class="wiget" [class]="WidgetThemeExt.getClassName(theme.value)" style="height: fit-content;">
-                    <div class="header" fxLayout="column">
-                        <div #toggle_button (click)="toggle_button.checked = !toggle_button.checked" matRipple style="cursor: pointer;" fxLayoutGap="10px">
-                            <svg width="80" height="37" viewBox="0 0 120 37" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd" clip-rule="evenodd" d="M6.06495 6.0656L0 12.1313V24.4518V36.7724H6.12H12.2401L18.223 30.7888L24.2059 24.8051H24.288H24.3699V30.7344V36.6636H24.4518H24.5339L30.5987 30.598L36.6636 24.5323V12.2662V0H30.5436H24.4235L18.4406 5.98368L12.4577 11.9674H12.3757H12.2937V5.98368V0H12.2118H12.1298L6.06495 6.0656ZM85.5122 5.5089L85.0227 5.55471L84.1224 5.71888L83.2221 5.88294L82.2729 6.21454L81.3237 6.54604L80.5077 6.98209L79.6917 7.41802L78.9732 7.95057L78.2546 8.48323L77.4486 9.32769L76.6426 10.1723L76.1402 10.9338L75.6377 11.6954L75.3652 12.2393L75.0927 12.7833L74.7595 13.7283L74.4262 14.6734L74.2527 15.5778L74.0792 16.4823L74.0157 17.7335L73.9522 18.9846L74.1336 20.2116L74.3148 21.4386L74.6301 22.4033L74.9454 23.3681L75.3774 24.2226L75.8095 25.0771L76.3797 25.893L76.95 26.709L77.8479 27.5926L78.7459 28.4762L79.6628 29.0863L80.5798 29.6965L81.4031 30.0717L82.2263 30.4468L82.9655 30.6751L83.7046 30.9034L84.69 31.0632L85.6754 31.2231H86.709H87.7425L88.7731 31.056L89.8036 30.8888L90.7534 30.5706L91.7033 30.2524L92.5516 29.8234L93.3998 29.3945L94.1801 28.8436L94.9603 28.2928L95.7034 27.5553L96.4466 26.8178L96.7934 26.3751L97.1404 25.9324L95.1349 23.9291L93.1294 21.9258L92.9766 22.1415L92.8239 22.3572L92.4522 22.8246L92.0806 23.292L91.4957 23.7718L90.9108 24.2514L90.2436 24.58L89.5764 24.9084L88.877 25.0951L88.1777 25.2818L87.0898 25.2772L86.0018 25.2727L85.3024 25.0852L84.6031 24.8979L84.0512 24.6218L83.4995 24.3456L82.9556 23.9298L82.4116 23.514L82.0096 22.9859L81.6075 22.4578L81.2847 21.8074L80.9619 21.1568L80.7686 20.4515L80.5753 19.7461L80.5704 18.3862L80.5655 17.0263L80.7578 16.3191L80.9502 15.612L81.2788 14.9072L81.6074 14.2025L82.0567 13.6202L82.506 13.0378L83.1969 12.5447L83.8877 12.0518L84.6728 11.766L85.4578 11.4802H86.981H88.5041L89.3021 11.7704L90.1 12.0607L90.7005 12.422L91.3011 12.7833L92.0058 13.4267L92.7106 14.0701L94.6871 12.0894L96.6636 10.1088L95.6681 9.13904L94.6724 8.16914L93.8254 7.61625L92.9786 7.06336L92.2849 6.7324L91.5912 6.40134L90.8212 6.13937L90.0511 5.8775L89.1933 5.71474L88.3354 5.55199L87.1686 5.5076L86.0018 5.4631L85.5122 5.5089ZM48.8486 18.3879V30.6832L52.0852 30.6544L55.3218 30.6256L55.3497 21.1877L55.3774 11.7498H60.1632H64.9489L64.9767 21.1877L65.0045 30.6256L68.2412 30.6544L71.4778 30.6832V18.3879V6.09247H60.1632H48.8486V18.3879ZM99.2203 18.3959V30.6992L106.102 30.646L112.983 30.5928L113.607 30.472L114.231 30.3511L115.075 30.0831L115.92 29.8152L116.625 29.4045L117.329 28.9937L118.052 28.2771L118.775 27.5607L119.226 26.6452L119.678 25.7298L119.837 24.9683L119.996 24.2067L119.998 22.8914L120 21.5761L119.784 20.7327L119.569 19.8893L119.215 19.165L118.861 18.4406L118.044 17.6225L117.226 16.8042L116.46 16.4047L115.695 16.0053L114.774 15.7385L113.853 15.4717L112.874 15.3518L111.895 15.2318L108.821 15.2315L105.748 15.2312V13.4905V11.7498H111.84H117.933V8.92112V6.09247H108.577H99.2203V18.3959ZM24.3699 18.3318V24.3699H18.3318H12.2937V18.3318V12.2937H18.3318H24.3699V18.3318ZM112.212 20.8915L112.746 21.1667L113.08 21.5795L113.415 21.9924L113.45 22.7731L113.486 23.5539L113.234 24.0422L112.983 24.5306L112.493 24.8292L112.004 25.1278L111.418 25.2384L110.832 25.349H108.29H105.748V22.9477V20.5465L108.713 20.5815L111.677 20.6165L112.212 20.8915Z" 
-                                fill="rgb(234, 86, 20)" class="icon"/>
-                                <path fill-rule="evenodd" clip-rule="evenodd" d="M12.2939 11.9674V12.2937H18.332H24.3701V18.3318V24.3699V24.8051V30.7344V36.6636H24.452H24.5341L30.5989 30.598L36.6638 24.5323V12.2662V0H30.5438H24.4237L18.4408 5.98368L12.4579 11.9674H12.3759H12.2939Z" 
-                                fill="#ff8800" class="icon-part"/>
-                            </svg>
-                            <div *ngIf="toggle_button.checked" fxLayoutAlign="center center">
-                                Рассчитать кредит?
+    <div fxFlex style="overflow: auto;">
+        <mat-tab-group fxFlex>
+            <mat-tab label="Виджет"> 
+                <div fxLayout="row" fxLayoutGap="8px">
+                    <mat-card fxLayout="column" fxFlex="0 1 370px" class="wiget" [class]="WidgetThemeExt.getClassName(theme.value)" style="height: fit-content;">
+                        <div class="header" fxLayout="column">
+                            <div #toggle_button (click)="toggle_button.checked = !toggle_button.checked" matRipple style="cursor: pointer;" fxLayoutGap="10px">
+                                <svg width="80" height="37" viewBox="0 0 120 37" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M6.06495 6.0656L0 12.1313V24.4518V36.7724H6.12H12.2401L18.223 30.7888L24.2059 24.8051H24.288H24.3699V30.7344V36.6636H24.4518H24.5339L30.5987 30.598L36.6636 24.5323V12.2662V0H30.5436H24.4235L18.4406 5.98368L12.4577 11.9674H12.3757H12.2937V5.98368V0H12.2118H12.1298L6.06495 6.0656ZM85.5122 5.5089L85.0227 5.55471L84.1224 5.71888L83.2221 5.88294L82.2729 6.21454L81.3237 6.54604L80.5077 6.98209L79.6917 7.41802L78.9732 7.95057L78.2546 8.48323L77.4486 9.32769L76.6426 10.1723L76.1402 10.9338L75.6377 11.6954L75.3652 12.2393L75.0927 12.7833L74.7595 13.7283L74.4262 14.6734L74.2527 15.5778L74.0792 16.4823L74.0157 17.7335L73.9522 18.9846L74.1336 20.2116L74.3148 21.4386L74.6301 22.4033L74.9454 23.3681L75.3774 24.2226L75.8095 25.0771L76.3797 25.893L76.95 26.709L77.8479 27.5926L78.7459 28.4762L79.6628 29.0863L80.5798 29.6965L81.4031 30.0717L82.2263 30.4468L82.9655 30.6751L83.7046 30.9034L84.69 31.0632L85.6754 31.2231H86.709H87.7425L88.7731 31.056L89.8036 30.8888L90.7534 30.5706L91.7033 30.2524L92.5516 29.8234L93.3998 29.3945L94.1801 28.8436L94.9603 28.2928L95.7034 27.5553L96.4466 26.8178L96.7934 26.3751L97.1404 25.9324L95.1349 23.9291L93.1294 21.9258L92.9766 22.1415L92.8239 22.3572L92.4522 22.8246L92.0806 23.292L91.4957 23.7718L90.9108 24.2514L90.2436 24.58L89.5764 24.9084L88.877 25.0951L88.1777 25.2818L87.0898 25.2772L86.0018 25.2727L85.3024 25.0852L84.6031 24.8979L84.0512 24.6218L83.4995 24.3456L82.9556 23.9298L82.4116 23.514L82.0096 22.9859L81.6075 22.4578L81.2847 21.8074L80.9619 21.1568L80.7686 20.4515L80.5753 19.7461L80.5704 18.3862L80.5655 17.0263L80.7578 16.3191L80.9502 15.612L81.2788 14.9072L81.6074 14.2025L82.0567 13.6202L82.506 13.0378L83.1969 12.5447L83.8877 12.0518L84.6728 11.766L85.4578 11.4802H86.981H88.5041L89.3021 11.7704L90.1 12.0607L90.7005 12.422L91.3011 12.7833L92.0058 13.4267L92.7106 14.0701L94.6871 12.0894L96.6636 10.1088L95.6681 9.13904L94.6724 8.16914L93.8254 7.61625L92.9786 7.06336L92.2849 6.7324L91.5912 6.40134L90.8212 6.13937L90.0511 5.8775L89.1933 5.71474L88.3354 5.55199L87.1686 5.5076L86.0018 5.4631L85.5122 5.5089ZM48.8486 18.3879V30.6832L52.0852 30.6544L55.3218 30.6256L55.3497 21.1877L55.3774 11.7498H60.1632H64.9489L64.9767 21.1877L65.0045 30.6256L68.2412 30.6544L71.4778 30.6832V18.3879V6.09247H60.1632H48.8486V18.3879ZM99.2203 18.3959V30.6992L106.102 30.646L112.983 30.5928L113.607 30.472L114.231 30.3511L115.075 30.0831L115.92 29.8152L116.625 29.4045L117.329 28.9937L118.052 28.2771L118.775 27.5607L119.226 26.6452L119.678 25.7298L119.837 24.9683L119.996 24.2067L119.998 22.8914L120 21.5761L119.784 20.7327L119.569 19.8893L119.215 19.165L118.861 18.4406L118.044 17.6225L117.226 16.8042L116.46 16.4047L115.695 16.0053L114.774 15.7385L113.853 15.4717L112.874 15.3518L111.895 15.2318L108.821 15.2315L105.748 15.2312V13.4905V11.7498H111.84H117.933V8.92112V6.09247H108.577H99.2203V18.3959ZM24.3699 18.3318V24.3699H18.3318H12.2937V18.3318V12.2937H18.3318H24.3699V18.3318ZM112.212 20.8915L112.746 21.1667L113.08 21.5795L113.415 21.9924L113.45 22.7731L113.486 23.5539L113.234 24.0422L112.983 24.5306L112.493 24.8292L112.004 25.1278L111.418 25.2384L110.832 25.349H108.29H105.748V22.9477V20.5465L108.713 20.5815L111.677 20.6165L112.212 20.8915Z" 
+                                    fill="rgb(234, 86, 20)" class="icon"/>
+                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M12.2939 11.9674V12.2937H18.332H24.3701V18.3318V24.3699V24.8051V30.7344V36.6636H24.452H24.5341L30.5989 30.598L36.6638 24.5323V12.2662V0H30.5438H24.4237L18.4408 5.98368L12.4579 11.9674H12.3759H12.2939Z" 
+                                    fill="#ff8800" class="icon-part"/>
+                                </svg>
+                                <div *ngIf="toggle_button.checked" fxLayoutAlign="center center">
+                                    Рассчитать кредит?
+                                </div>
+                                <div fxFlex></div>
+                                <div fxLayoutAlign="center center">
+                                    <mat-icon>
+                                        <span class="material-symbols-outlined">
+                                            {{!toggle_button.checked ? 'expand_more' : 'expand_less'}}
+                                        </span>
+                                    </mat-icon>
+                                </div>
                             </div>
-                            <div fxFlex></div>
-                            <div fxLayoutAlign="center center">
-                                <mat-icon>
-                                    <span class="material-symbols-outlined">
-                                        {{!toggle_button.checked ? 'expand_more' : 'expand_less'}}
-                                    </span>
-                                </mat-icon>
+                            <div *ngIf="!toggle_button.checked" style="font-size: 18px; line-height: 18px;">
+                                Заполните данные для расчета кредита
                             </div>
                         </div>
-                        <div *ngIf="!toggle_button.checked" style="font-size: 18px; line-height: 18px;">
-                            Заполните данные для расчета кредита
-                        </div>
+            
+                        <form *ngIf="!toggle_button.checked" fxLayout="column" fxFlex style="padding: 24px 16px 16px;">
+                            <mat-form-field appearance="outline" color="primery">
+                                <mat-label>Вид кредита</mat-label>
+                                <mat-select [value]="LendingType.MORTGAGE" disabled>
+                                    <mat-option *ngFor="let x of LendingTypeExt.getAll()" [value]="x">
+                                        {{LendingTypeExt.getName(x)}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+            
+                            <mat-form-field fxFlex appearance="outline">
+                                <mat-label>Сумма кредита</mat-label>
+                                <input type="number" matInput value="100000" required readonly>
+                            </mat-form-field>
+            
+                            <mat-form-field fxFlex appearance="outline">
+                                <mat-label>Период кредита (количество лет)</mat-label>
+                                <input type="number" matInput value="1" readonly>
+                            </mat-form-field>
+            
+                            <div style="line-height: 16px;">
+                                *Минимальная ставка для клиентов ПСБ составляет <b>8,4%</b>
+                            </div>
+            
+                            <mat-form-field fxFlex appearance="outline" style="padding-top: 30px;">
+                                <mat-label>Сумма ежемесячного платежа</mat-label>
+                                <input type="number" matInput value="8717" readonly>
+                            </mat-form-field>
+                            
+                            <button fxFlex mat-stroked-button color="primary" disabled>
+                                Подать заявку
+                            </button>
+                        </form>
+                    </mat-card>
+            
+                    <div fxLayout="column">
+                        <mat-radio-group [formControl]="theme" fxLayout="column">
+                            <mat-radio-button *ngFor="let theme of WidgetThemeExt.getAll()" [value]="theme">
+                                {{WidgetThemeExt.getName(theme)}}
+                            </mat-radio-button>
+                        </mat-radio-group>
                     </div>
-        
-                    <form *ngIf="!toggle_button.checked" fxLayout="column" fxFlex style="padding: 24px 16px 16px;">
-                        <mat-form-field appearance="outline" color="primery">
-                            <mat-label>Вид кредита</mat-label>
-                            <mat-select [value]="LendingType.MORTGAGE" disabled>
-                                <mat-option *ngFor="let x of LendingTypeExt.getAll()" [value]="x">
-                                    {{LendingTypeExt.getName(x)}}
-                                </mat-option>
-                            </mat-select>
-                        </mat-form-field>
-        
-                        <mat-form-field fxFlex appearance="outline">
-                            <mat-label>Сумма кредита</mat-label>
-                            <input type="number" matInput value="100000" required readonly>
-                        </mat-form-field>
-        
-                        <mat-form-field fxFlex appearance="outline">
-                            <mat-label>Период кредита (количество лет)</mat-label>
-                            <input type="number" matInput value="1" readonly>
-                        </mat-form-field>
-        
-                        <div style="line-height: 16px;">
-                            *Минимальная ставка для клиентов ПСБ составляет <b>8,4%</b>
-                        </div>
-        
-                        <mat-form-field fxFlex appearance="outline" style="padding-top: 30px;">
-                            <mat-label>Сумма ежемесячного платежа</mat-label>
-                            <input type="number" matInput value="8717" readonly>
-                        </mat-form-field>
-                        
-                        <button fxFlex mat-stroked-button color="primary" disabled>
-                            Подать заявку
-                        </button>
-                    </form>
-                </mat-card>
-        
-                <div fxLayout="column">
-                    <mat-radio-group [formControl]="theme" fxLayout="column">
-                        <mat-radio-button *ngFor="let theme of WidgetThemeExt.getAll()" [value]="theme">
-                            {{WidgetThemeExt.getName(theme)}}
-                        </mat-radio-button>
-                    </mat-radio-group>
-                </div>
-            </div>     
-        </mat-tab>
-        <mat-tab label="Другие настройки">      
-        </mat-tab>
-    </mat-tab-group>
-
+                </div>     
+            </mat-tab>
+            <mat-tab label="Другие настройки">      
+            </mat-tab>
+        </mat-tab-group>
+    </div>
+    
     <div fxLayout="row" fxLayoutGap="8px">
         <button mat-stroked-button color="primary">
             Применить
