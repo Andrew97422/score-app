@@ -117,17 +117,13 @@ public class ApplicationUtils {
                              List<CommonEntity> guides) throws DocumentException,
             IOException {
 
-        //Path path = Paths.get("back/src/main/resources/img/logo.jpg");
-
         Document document = new Document();
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         PdfWriter.getInstance(document, byteArrayOutputStream);
 
-        Path path = Paths.get("resources/img/logo.jpg");
-        System.out.println(path.toAbsolutePath());
+        Path path = Paths.get("img/logo.jpg");
         Image img = Image.getInstance(path.toString());
 
-        //Image img = Image.getInstance(path.toAbsolutePath().toString());
         img.scalePercent(PageSize.A4.getWidth() / img.getScaledWidth() * 100);
         img.setAbsolutePosition(0, PageSize.A4.getHeight() -
                 img.getScaledHeight()
