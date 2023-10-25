@@ -83,7 +83,7 @@ import { SettingsComponent } from './components/settings/settings.component';
     bootstrap:    [ AppComponent ],
     providers: [
         { provide: MAT_DATE_LOCALE, useValue: 'ru-RU' },
-        { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: { ...new MatDialogConfig(), disableClose: true, width: '450px', } },
+        { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: { ...new MatDialogConfig(), disableClose: true, width: '500px', } },
         { provide: HTTP_INTERCEPTORS, useClass: InternalServerErrorInterceptor, multi: true }
     ]  
 })

@@ -1,9 +1,7 @@
-<form class="mat-card" [formGroup]="form" fxLayout="column" fxLayoutGap="16px" style="padding: 20px; max-width: 100vw !important; min-width: 400px;">
-    <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center">
-        <h5 fxLayoutAlign="center center" style="margin: 0 !important; height: 36px;">
-            Мои данные
-        </h5>
-    </div>
+<form [formGroup]="form" fxFlex fxLayout="column" style="padding: 20px; max-width: 100vw !important;">
+    <h5 class="modal-header">
+        Данные пользователя
+    </h5>
 
     <div fxLayout="column" style="position: relative;" fxLayoutGap="20px">
         <div fxLayout="column" style="position: relative; overflow: auto; overflow-x: hidden; max-height: calc(100vh - 200px); padding-top: 20px;">
@@ -41,14 +39,10 @@
             </mat-form-field>
         </div>
 
-        <div fxFlex></div>
-        <div style="padding-top: 20px;">
+        <div>
             <div *ngIf="readonlyView" fxLayout="row" fxLayoutGap="10px">
                 <button *ngIf="!userId"
                 fxFlex mat-button color="primary" style="border: 1px solid;" (click)="readonlyView=false">
-                    <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24">
-                        <path fill="#232391" d="M200-200h56l345-345-56-56-345 345v56Zm572-403L602-771l56-56q23-23 56.5-23t56.5 23l56 56q23 23 24 55.5T829-660l-57 57Zm-58 59L290-120H120v-170l424-424 170 170Zm-141-29-28-28 56 56-28-28Z"/>
-                    </svg>
                     Редактировать
                 </button>
 
