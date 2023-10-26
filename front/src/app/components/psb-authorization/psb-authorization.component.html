@@ -24,7 +24,8 @@
 
             <mat-form-field appearance="outline" color="primery">
                 <mat-label>Логин</mat-label>
-                <input autocomplete="off" matInput type="search" color="primery" formControlName="username" required>
+                <input autocomplete="off" matInput type="search" color="primery" formControlName="username" required
+                matTooltip="Тестовый пользователь: user/123">
             </mat-form-field>
             <mat-form-field appearance="outline">
                 <mat-label>Пароль</mat-label>
@@ -43,7 +44,9 @@
             <div fxLayoutAlign="center center" style="margin-top: 20px;">
                 Еще не зарегистрированы?
             </div>
-            <a href="https://online.payment.ru/reg/" fxLayoutAlign="center center">зарегистрироваться</a>
+            <a href="https://online.payment.ru/reg/" fxLayoutAlign="center center" style="width: fit-content; margin: auto;">
+                зарегистрироваться
+            </a>
         </div>
     </div> 
 </div>
