@@ -1,5 +1,5 @@
 <div class="component">
-    <div fxFlex fxLayoutGap="6px" [fxLayout]="smollWindow ? 'column' : 'row'">
+    <div fxFlex fxLayoutGap="8px" [fxLayout]="smollWindow ? 'column' : 'row'">
         <div fxLayout="row" class="mat-card" fxFlex style="padding: 0;">
             <div fxFlex fxLayout="column" fxLayoutGap="16px">
                 <div fxLayout="row" fxFlex fxLayoutGap="10px" style="overflow: hidden;">
@@ -7,14 +7,14 @@
                         <mat-tab-group fxFlex style="overflow: hidden;">
                             <mat-tab label="Потребительский кредит">                
                                 <div fxLayout="row wrap" fxFlex fxLayoutGap="10px" style="padding-left: 10px;">
-                                    <div *ngFor="let product of consumerProducts" class="product" [attr.href]="product?.url" matRipple fxFlex="0 1 350px"
+                                    <div *ngFor="let product of consumerProducts" class="product" [attr.href]="product?.url" fxFlex="0 1 350px"
                                         [class.product-active]="product.active"
                                         (click)="selectProduct=product; selectTab = LendingType.CONSUMER">
                                         <div fxFlex fxLayout="column">
                                             <div fxLayout="row">
                                                 <a [attr.href]="product?.url">{{product?.name}}</a>
                                                 <button mat-icon-button [matMenuTriggerFor]="menu" 
-                                                style="position: absolute; top: 0; right: 0; min-width: 24px; min-width: 36px; width: 36px; align-items: center; display: flex;">
+                                                style="position: absolute; top: 4px; right: 0; min-width: 24px; min-width: 36px; width: 36px; align-items: center; display: flex;">
                                                     <mat-icon>more_horiz</mat-icon>
                                                 </button>
                                                 <mat-menu #menu="matMenu">
@@ -28,7 +28,7 @@
                                             </div>
                                 
                                             <div fxFlex fxLayout="column" 
-                                            style="overflow: auto; font-size: 14px; color: gray; margin: 6px -30px 0 0; padding-right: 10px;" fxLayoutGap="6px">
+                                            style="overflow: auto; font-size: 14px; color: gray; margin: 10px -30px 0 0; padding-right: 10px;" fxLayoutGap="8px">
                                                 <div fxLayout="row" fxLayoutGap="8px">
                                                     <div>
                                                         От {{product?.minRate}}%
@@ -61,14 +61,14 @@
 
                             <mat-tab label="Ипотека">
                                 <div fxLayout="row wrap" fxFlex fxLayoutGap="10px" style="padding-left: 10px;">
-                                    <div *ngFor="let product of mortgageProducts" class="product" [attr.href]="product?.url" matRipple fxFlex="0 1 350px"
+                                    <div *ngFor="let product of mortgageProducts" class="product" [attr.href]="product?.url" fxFlex="0 1 350px"
                                         [class.product-active]="product.active"
                                         (click)="selectProduct=product; selectTab = LendingType.MORTGAGE">
                                         <div fxFlex fxLayout="column">
                                             <div fxLayout="row">
                                                 <a [attr.href]="product?.url">{{product?.name}}</a>
                                                 <button mat-icon-button [matMenuTriggerFor]="menu" (click)="$event.stopPropagation()"
-                                                style="position: absolute; top: 0; right: 0; min-width: 24px; min-width: 36px; width: 36px; align-items: center; display: flex;">
+                                                style="position: absolute; top: 4px; right: 0; min-width: 24px; min-width: 36px; width: 36px; align-items: center; display: flex;">
                                                     <mat-icon>more_horiz</mat-icon>
                                                 </button>
                                                 <mat-menu #menu="matMenu">
@@ -82,7 +82,7 @@
                                             </div>
                                 
                                             <div fxFlex fxLayout="column" 
-                                            style="overflow: auto; font-size: 14px; color: gray; margin: 6px -30px 0 0; padding-right: 10px;" fxLayoutGap="6px">
+                                            style="overflow: auto; font-size: 14px; color: gray; margin: 8px -30px 0 0; padding-right: 10px;" fxLayoutGap="8px">
                                                 <div fxLayout="row" fxLayoutGap="8px">
                                                     <div>
                                                         От {{product?.minRate}}%
@@ -115,14 +115,14 @@
 
                             <mat-tab label="Автокредит">
                                 <div fxLayout="row wrap" fxFlex fxLayoutGap="10px" style="padding-left: 10px;">
-                                    <div *ngFor="let product of autoLoanProducts" class="product" [attr.href]="product?.url" matRipple fxFlex="0 1 350px"
+                                    <div *ngFor="let product of autoLoanProducts" class="product" [attr.href]="product?.url" fxFlex="0 1 350px"
                                         [class.product-active]="product.active"
                                         (click)="selectProduct=product; selectTab = LendingType.AUTO_LOAN">
                                         <div fxFlex fxLayout="column">
                                             <div fxLayout="row">
                                                 <a [attr.href]="product?.url">{{product?.name}}</a>
                                                 <button mat-icon-button [matMenuTriggerFor]="menu" 
-                                                style="position: absolute; top: 0; right: 0; min-width: 24px; min-width: 36px; width: 36px; align-items: center; display: flex;">
+                                                style="position: absolute; top: 4px; right: 0; min-width: 24px; min-width: 36px; width: 36px; align-items: center; display: flex;">
                                                     <mat-icon>more_horiz</mat-icon>
                                                 </button>
                                                 <mat-menu #menu="matMenu">
@@ -136,7 +136,7 @@
                                             </div>
                                 
                                             <div fxFlex fxLayout="column" 
-                                            style="overflow: auto; font-size: 14px; color: gray; margin: 6px -30px 0 0; padding-right: 10px;" fxLayoutGap="6px">
+                                            style="overflow: auto; font-size: 14px; color: gray; margin: 8px -30px 0 0; padding-right: 10px;" fxLayoutGap="8px">
                                                 <div fxLayout="row" fxLayoutGap="8px">
                                                     <div>
                                                         От {{product?.minRate}}%

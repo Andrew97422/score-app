@@ -4,7 +4,7 @@
             <mat-tab-group fxFlex style="overflow: hidden;">
                 <mat-tab label="Заявки">
                     <div fxLayout="row wrap" style="padding-left: 10px;">
-                        <div *ngFor="let x of requests" fxFlex="240px"
+                        <div *ngFor="let x of requests" fxFlex="240px" fxLayout="column"
                         [style.background-color]="x.status == 'APPROVED' ? 'rgb(78, 98, 28, .2)' : 'rgb(234, 86, 20, .2)'"
                         class="item">
                             <div fxLayout="row">
@@ -12,7 +12,7 @@
                                 <div fxFlex></div>
     
                                 <button mat-icon-button [matMenuTriggerFor]="menu" 
-                                style="position: absolute; top: 6px; right: 0; min-width: 24px; min-width: 36px; width: 36px; align-items: center; display: flex;">
+                                style="position: absolute; top: 4px; right: 0; min-width: 24px; min-width: 36px; width: 36px; align-items: center; display: flex;">
                                     <mat-icon>more_horiz</mat-icon>
                                 </button>
                                 <mat-menu #menu="matMenu">
@@ -28,8 +28,10 @@
                                 </mat-menu>
                             </div>
     
+                            <div fxFlex></div>
                             <div style="font-size: 20px;">{{x.creditAmount}} ₽</div>
-    
+                            <div fxFlex></div>
+
                             <div style="font-size: 14px;">
                                 <div>
                                     {{x.status == 'APPROVED' ? 'Одобрено' : x.status == 'IN_PROGRESS' ? 'Рассматривается' : 'Отказано'}}
@@ -62,7 +64,9 @@
                                 </svg>
                             </div>
                             
+                            <div fxFlex></div>
                             <div style="font-size: 20px;">{{ card.amount }} ₽</div>
+                            <div fxFlex></div>
 
                             <div fxLayout="row" fxLayoutAlign="center center">
                                 <div>
@@ -79,10 +83,12 @@
                 </mat-tab>
                 <mat-tab *ngIf="userData?.role == 'USER'" label="Кредиты">
                     <div style="padding-left: 10px;">
-                        <div *ngFor="let credit of credits" fxFlex="240px" class="item credit">
+                        <div *ngFor="let credit of credits" fxFlex="240px" fxLayout="column" class="item credit">
                             <div>{{credit.name}}</div>
+                            <div fxFlex></div>
                             <div style="font-size: 20px;">{{credit.amount}} ₽</div>
-                            <div style="font-size: 14px;"> Еж. платеж: {{credit.monthlyPaymentAmount}}₽</div>
+                            <div fxFlex></div>
+                            <div style="font-size: 14px;"> Ежемесячный платеж: {{credit.monthlyPaymentAmount}}₽</div>
                         </div>
                     </div>
                 </mat-tab>
