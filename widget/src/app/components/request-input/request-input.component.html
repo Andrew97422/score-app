@@ -1,5 +1,5 @@
 <div [formGroup]="form" fxFlex fxLayout="column" style="padding: 20px;">
-    <h4>{{data.title}}</h4>
+    <div class="modal-header">{{data.title}}</div>
     <div fxLayout="column" style="max-height: calc(100vh - 200px); overflow: auto; overflow-x: hidden;; padding: 20px; margin: 0 -20px;">
         <mat-form-field *ngIf="data.dialogType==InputDialogType.View" appearance="outline" color="primery">
             <mat-label>Пользователь</mat-label>

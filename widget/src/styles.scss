@@ -239,6 +239,23 @@ mat-card {
   box-shadow: none !important;
 }
 
+.modal-header {
+  background-color: var(--main-color);
+  margin: -20px -20px 10px -20px;
+  color: white;
+  padding: 20px;
+  font-size: 18px !important;
+}
+
+.mdc-checkbox .mdc-checkbox__native-control:enabled:checked~.mdc-checkbox__background, .mdc-checkbox .mdc-checkbox__native-control:enabled:indeterminate~.mdc-checkbox__background, .mdc-checkbox .mdc-checkbox__native-control[data-indeterminate=true]:enabled~.mdc-checkbox__background {
+  border-color: var(--main-color) !important;
+  background-color: var(--main-color) !important;
+}
+
+.mdc-checkbox .mdc-checkbox__native-control:focus:checked~.mdc-checkbox__ripple {
+  background-color:  var(--main-color) !important;
+}
+
 ::-webkit-scrollbar-thumb, ::-webkit-scrollbar-thumb {
   width: 10px;
   background-color: lightgray;
