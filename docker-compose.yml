@@ -30,27 +30,27 @@ services:
       - SPRING_DATASOURCE_PASSWORD=123
     ports:
       - "8081:8081"
-    depends_on:
-      - db1
+    #depends_on:
+    #  - db1
 
-  db1:
-    image: postgres:14-alpine
-    container_name: db1
-    restart: always
-    build:
-      context: back
-      dockerfile: ./DockerfileDB
+  #db1:
+  #  image: postgres:14-alpine
+  #  container_name: db1
+  #  restart: always
+  #  build:
+  #    context: back
+  #    dockerfile: ./DockerfileDB
 
-    ports:
-      - "5433:5432"
+  #  ports:
+  #    - "5433:5432"
 
     #environment:
     #  POSTGRES_USER: postgres
     #  POSTGRES_PASSWORD: 123
     #  POSTGRES_DB: postgres
 
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
+  #  volumes:
+  #    - postgres_data:/var/lib/postgresql/data
 
-volumes:
-  postgres_data:
+#volumes:
+#  postgres_data:
