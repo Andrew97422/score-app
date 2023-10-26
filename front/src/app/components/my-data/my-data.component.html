@@ -41,8 +41,7 @@
 
         <div>
             <div *ngIf="readonlyView" fxLayout="row" fxLayoutGap="10px">
-                <button *ngIf="!userId"
-                fxFlex mat-button color="primary" style="border: 1px solid;" (click)="readonlyView=false">
+                <button *ngIf="!userId" fxFlex mat-stroked-button color="primary" (click)="readonlyView=false">
                     Редактировать
                 </button>
 
@@ -52,7 +51,7 @@
             </div>
 
             <div *ngIf="!readonlyView" fxLayout="row" fxLayoutGap="10px">
-                <button fxFlex mat-button color="primary" (click)="submit()" style="border: 1px solid;" [disabled]="form?.invalid">
+                <button fxFlex mat-stroked-button color="primary" (click)="submit()" [disabled]="form?.invalid">
                     Сохранить
                 </button>
         

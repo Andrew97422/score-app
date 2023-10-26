@@ -1,10 +1,57 @@
 <div class="component">
-    <div fxLayout="row" fxFlex class="mat-card" style="overflow: hidden; padding-right: 0;"> 
+    <div fxLayout="row" fxFlex class="mat-card" style="overflow: hidden; padding: 4px 0 0;"> 
         <div fxFlex fxLayout="column" style="overflow: auto;" fxLayoutGap="10px">
-            <ng-container *ngIf="userData?.role == 'USER'">
-                <div>
-                    <h6>Карты</h6>
-                    <div *ngIf="userCards?.length; else noData" fxLayout="row wrap" fxLayoutGap="10px">
+            <mat-tab-group fxFlex style="overflow: hidden;">
+                <mat-tab label="Заявки">
+                    <div fxLayout="row wrap" style="padding-left: 10px;">
+                        <div *ngFor="let x of requests" fxFlex="240px"
+                        [style.background-color]="x.status == 'APPROVED' ? 'rgb(0 230 80 / 25%)' : 'rgb(255 55 0 / 15%)'"
+                        class="item">
+                            <div fxLayout="row">
+                                <div>{{LendingTypeExt.getName(x.lendingType)}}</div>
+                                <div fxFlex></div>
+    
+                                <button mat-icon-button [matMenuTriggerFor]="menu" 
+                                style="position: absolute; top: 6px; right: 0; min-width: 24px; min-width: 36px; width: 36px; align-items: center; display: flex;">
+                                    <mat-icon>more_horiz</mat-icon>
+                                </button>
+                                <mat-menu #menu="matMenu">
+                                    <button mat-menu-item (click)="viewRequest(x)">
+                                    <span>Открыть</span>
+                                    </button>
+                                    <button mat-menu-item (click)="download(x.id)">
+                                        <span>Скачать результаты</span>
+                                    </button>
+                                    <button mat-menu-item (click)="delete(x)">
+                                    <span>Удалить</span>
+                                    </button>
+                                </mat-menu>
+                            </div>
+    
+                            <div style="font-size: 20px;">{{x.creditAmount}} ₽</div>
+    
+                            <div style="font-size: 14px; color: gray;">
+                                <div>
+                                    {{x.status == 'APPROVED' ? 'Одобрено' : x.status == 'IN_PROGRESS' ? 'Рассматривается' : 'Отказано'}}
+                                </div>
+                                <div>{{x.applicationDateTime | date:'dd.MM.yyyy HH:mm:ss'}}</div>
+                            </div>
+                        </div>
+    
+                        <div fxFlex="240px" fxLayout="column" matRipple (click)="createRequest()" class="item add-button">
+                            <div fxFlex fxLayoutAlign="center center">
+                                <mat-icon>
+                                    <span class="material-symbols-outlined">
+                                        add
+                                    </span>
+                                </mat-icon>
+                            </div>
+                            <div fxLayoutAlign="center center"> Создать новую заявку </div>
+                        </div>
+                    </div>
+                </mat-tab>
+                <mat-tab *ngIf="userData?.role == 'USER'" label="Карты">  
+                    <div *ngIf="userCards?.length; else noData" fxLayout="row wrap" fxLayoutGap="10px" style="padding-left: 10px;">
                         <div *ngFor="let card of userCards" fxLayout="column" [style.background-color]="card.type == CardType.Debit ? '#212529' : 'rgba(43, 44, 132)'"
                         class="item psb-card" fxLayoutGap="10px" fxFlex="240px">
                             <div fxLayout="row">
@@ -28,74 +75,18 @@
                                     
                             </div>
                         </div>
-                    </div>
-                </div>
-
-                <div>
-                    <h6>Кредиты</h6>
-                    <div *ngIf="credits?.length; else noData">
+                    </div> 
+                </mat-tab>
+                <mat-tab *ngIf="userData?.role == 'USER'" label="Кредиты">
+                    <div style="padding-left: 10px;">
                         <div *ngFor="let credit of credits" fxFlex="240px" class="item credit">
                             <div>{{credit.name}}</div>
                             <div style="font-size: 20px;">{{credit.amount}} ₽</div>
                             <div style="font-size: 14px;"> Еж. платеж: {{credit.monthlyPaymentAmount}}₽</div>
                         </div>
                     </div>
-                </div>
-
-                <ng-template #noData>
-                    <div>Нет данных</div>
-                </ng-template>
-            </ng-container>
-
-            <div fxLayout="column">
-                <h6>Заявки</h6>
-                <div fxLayout="row wrap">
-                    <div *ngFor="let x of requests" fxFlex="240px"
-                    [style.background-color]="x.status == 'APPROVED' ? 'rgb(0 175 95 / 20%)' : 'rgb(217 47 47 / 20%)'"
-                    class="item">
-                        <div fxLayout="row">
-                            <div>{{LendingTypeExt.getName(x.lendingType)}}</div>
-                            <div fxFlex></div>
-
-                            <button mat-icon-button [matMenuTriggerFor]="menu" 
-                            style="position: absolute; top: 6px; right: 0; min-width: 24px; min-width: 36px; width: 36px; align-items: center; display: flex;">
-                                <mat-icon>more_horiz</mat-icon>
-                            </button>
-                            <mat-menu #menu="matMenu">
-                                <button mat-menu-item (click)="viewRequest(x)">
-                                <span>Открыть</span>
-                                </button>
-                                <button mat-menu-item (click)="download(x.id)">
-                                    <span>Скачать результаты</span>
-                                </button>
-                                <button mat-menu-item (click)="delete(x)">
-                                <span>Удалить</span>
-                                </button>
-                            </mat-menu>
-                        </div>
-
-                        <div style="font-size: 20px;">{{x.creditAmount}} ₽</div>
-
-                        <div style="font-size: 14px; color: gray;">
-                            <div>
-                                {{x.status == 'APPROVED' ? 'Одобрено' : x.status == 'IN_PROGRESS' ? 'Рассматривается' : 'Отказано'}}
-                            </div>
-                            <div>{{x.applicationDateTime | date:'dd.MM.yyyy HH:mm:ss'}}</div>
-                        </div>
-                    </div>
-
-                    <div fxFlex="240px" fxLayout="column" matRipple (click)="createRequest()" class="item add-button">
-                        <div fxFlex fxLayoutAlign="center center">
-                            <mat-icon>
-                                <span class="material-symbols-outlined">
-                                    add
-                                </span>
-                            </mat-icon>
-                        </div>
-                        <div fxLayoutAlign="center center"> Создать новую заявку </div>
-                    </div>
-                </div>
-            </div>
+                </mat-tab>
+            </mat-tab-group>
         </div>
     </div>
 </div>
