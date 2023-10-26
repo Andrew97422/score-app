@@ -121,7 +121,6 @@ public class ApplicationUtils {
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         PdfWriter.getInstance(document, byteArrayOutputStream);
 
-        //Path path = Paths.get("src/main/resources/img/logo.jpg");
         Path path = Paths.get("img/logo.jpg");
         Image img = Image.getInstance(path.toString());
 
