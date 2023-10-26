@@ -1,11 +1,11 @@
 <div class="component">
-    <div fxLayout="row" fxFlex class="mat-card" style="overflow: hidden; padding: 4px 0 0;"> 
+    <div fxLayout="row" fxFlex class="mat-card" style="overflow: hidden; padding: 0;"> 
         <div fxFlex fxLayout="column" style="overflow: auto;" fxLayoutGap="10px">
             <mat-tab-group fxFlex style="overflow: hidden;">
                 <mat-tab label="Заявки">
                     <div fxLayout="row wrap" style="padding-left: 10px;">
                         <div *ngFor="let x of requests" fxFlex="240px"
-                        [style.background-color]="x.status == 'APPROVED' ? 'rgb(0 230 80 / 25%)' : 'rgb(255 55 0 / 15%)'"
+                        [style.background-color]="x.status == 'APPROVED' ? 'rgb(78, 98, 28, .2)' : 'rgb(234, 86, 20, .2)'"
                         class="item">
                             <div fxLayout="row">
                                 <div>{{LendingTypeExt.getName(x.lendingType)}}</div>
@@ -30,7 +30,7 @@
     
                             <div style="font-size: 20px;">{{x.creditAmount}} ₽</div>
     
-                            <div style="font-size: 14px; color: gray;">
+                            <div style="font-size: 14px;">
                                 <div>
                                     {{x.status == 'APPROVED' ? 'Одобрено' : x.status == 'IN_PROGRESS' ? 'Рассматривается' : 'Отказано'}}
                                 </div>

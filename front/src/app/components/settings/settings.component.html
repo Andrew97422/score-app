@@ -2,12 +2,21 @@
     <!--
     <mat-tab-group fxFlex>
         <mat-tab label="Виджет"> -->
-        <div fxLayout="row" class="mat-card" fxFlex style="padding: 4px 0 0;">
+        <div fxLayout="row" class="mat-card" fxFlex style="padding: 0;">
             <div fxFlex fxLayout="column">
                 <mat-tab-group fxFlex style="overflow: hidden;">
                     <mat-tab fxFlex label="Виджет">
                         <div fxFlex fxLayout="column" style="overflow: auto;">
-                            <div fxFlex fxLayout="column">
+                            <div fxFlex fxLayout="column"><!--
+                                <mat-form-field appearance="outline" color="primery" style="margin: 20px 10px 0; width: 300px;">
+                                    <mat-label>Вид кредита</mat-label>
+                                    <mat-select [formControl]="theme">
+                                        <mat-option *ngFor="let theme of WidgetThemeExt.getAll()" [value]="theme">
+                                            {{WidgetThemeExt.getName(theme)}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>-->
+                                
                                 <div fxLayout="row wrap" fxLayoutGap="8px">
                                     <mat-radio-group [formControl]="theme" fxLayout="row wrap" style="padding: 8px 0;">
                                         <mat-radio-button *ngFor="let theme of WidgetThemeExt.getAll()" [value]="theme">

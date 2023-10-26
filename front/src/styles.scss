@@ -39,7 +39,7 @@ html, body {
 }
 
 .mat-mdc-tab .mdc-tab__content {
-  padding: 0 8px;
+  padding: 0 4px;
 }
 
 .mat-card {
@@ -301,7 +301,7 @@ table tr td div {
 
 .mat-mdc-tab-header {
   --mdc-secondary-navigation-tab-container-height: 36px !important;
-  margin-bottom: 4px;
+  margin: 4px;
 }
 
 .mat-accent {
@@ -328,7 +328,7 @@ table tr td div {
 }
 
 .mat-mdc-tab.mdc-tab--active .mdc-tab__text-label {
-  color: #ff8800!important;
+  color: rgb(234, 86, 20)!important;
 }
 
 .mat-mdc-tab-list {
@@ -364,6 +364,15 @@ table tr td div {
 
 .mdc-tab {
   min-width: 80px !important;
+}
+
+.mdc-checkbox .mdc-checkbox__native-control:enabled:checked~.mdc-checkbox__background, .mdc-checkbox .mdc-checkbox__native-control:enabled:indeterminate~.mdc-checkbox__background, .mdc-checkbox .mdc-checkbox__native-control[data-indeterminate=true]:enabled~.mdc-checkbox__background {
+  border-color: var(--main-color) !important;
+  background-color: var(--main-color) !important;
+}
+
+.mdc-checkbox .mdc-checkbox__native-control:focus:checked~.mdc-checkbox__ripple {
+  background-color:  var(--main-color) !important;
 }
 
 ::-webkit-scrollbar-thumb, ::-webkit-scrollbar-thumb {

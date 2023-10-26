@@ -62,11 +62,11 @@ a {
 }
 
 .nav-menu-item-active {
-    color: orange !important;
+    color: rgb(234, 86, 20) !important;
 }
 
 .nav-menu-item-active svg path {
-    fill: orange !important;
+    fill: rgb(234, 86, 20) !important;
 }
 
 .link-icon {
