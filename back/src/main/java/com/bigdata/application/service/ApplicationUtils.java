@@ -121,6 +121,7 @@ public class ApplicationUtils {
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         PdfWriter.getInstance(document, byteArrayOutputStream);
 
+        //Path path = Paths.get("src/main/resources/img/logo.jpg");
         Path path = Paths.get("img/logo.jpg");
         Image img = Image.getInstance(path.toString());
 
@@ -135,6 +136,7 @@ public class ApplicationUtils {
 
         document.add(img);
 
+        //BaseFont baseFont = BaseFont.createFont("src/main/resources/fonts/Verdana-Bold.ttf",
         BaseFont baseFont = BaseFont.createFont("fonts/Verdana-Bold.ttf",
                 BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
 

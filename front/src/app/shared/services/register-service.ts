@@ -10,6 +10,7 @@ import { Observable, catchError } from 'rxjs';
 import { AuthenticationResponse } from '../models/authentication-response';
 import { AuthorizationSource } from '../../shared/models/authorization-source';
 import * as moment from 'moment';
+import { saveAs } from 'file-saver-es';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Injectable({ providedIn: 'root'})
@@ -90,11 +91,38 @@ export class RegisterService {
         responseType: 'blob',
         headers: { Authorization: 'Bearer ' + this.sessionService.getToken() }
       })
-    .subscribe((blob) => {
-      const link = document.createElement('a');
-      link.href = window.URL.createObjectURL(blob);
-      link.download = `Предложения по кредитам ${moment().format('YYYY.MM.DD_HH.ss')}.pdf`;
-      link.click();
+    .subscribe((data) => {
+      const blob = new Blob([data], { type: 'application/pdf' });
+      const fileName = `Предложения по кредитам ${moment().format('YYYY.MM.DD_HH.mm')}.pdf`;
+
+      if (this.isApple()) {
+        saveAs(blob, fileName);
+      } else if (this.isAndroid()) {
+        //if (this.base64Response) {
+        //  window.open(this.base64Response, '_blank');
+        //} else {
+          const fileReader = new FileReader();
+          fileReader.readAsDataURL(blob);
+          fileReader.onloadend = () => {
+            window.open(fileReader.result as any, '_blank');
+          };
+        //}
+      } else {
+        /*const link = document.createElement('a');
+        link.href = window.URL.createObjectURL(blob);
+        link.download = fileName;
+        link.click();*/
+        const url = (window.URL || window.webkitURL).createObjectURL(blob);
+        window.open(url, '_blank');
+      }
     });
+  }
+
+  private isAndroid(): boolean {
+    return /(android)/i.test(navigator.platform || navigator.userAgent)
+  }
+
+  private isApple(): boolean {
+    return (/(iPad|iPhone|iPod)/g.test(navigator.platform || navigator.userAgent) || ((navigator.platform || navigator.userAgent) === 'MacIntel' && navigator.maxTouchPoints > 1)) && !(window as any).MSStream;
   }
 }
