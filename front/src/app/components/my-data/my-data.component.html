@@ -8,34 +8,34 @@
             <div *ngIf="!readonlyView" style="position: absolute; top: -24px;">Редактирование данных пользователя:</div>
             <mat-form-field fxFlex appearance="outline" color="primery">
                 <mat-label>Логин</mat-label>
-                <input matInput color="primery" formControlName="login" readonly>
+                <input autocomplete="off" matInput color="primery" formControlName="login" readonly>
             </mat-form-field>
             <mat-form-field fxFlex appearance="outline">
                 <mat-label>Фамилия</mat-label>
-                <input matInput formControlName="lastName" [readonly]="readonlyView">
+                <input autocomplete="off" matInput formControlName="lastName" [readonly]="readonlyView">
             </mat-form-field>
             <mat-form-field fxFlex appearance="outline">
                 <mat-label>Имя</mat-label>
-                <input matInput formControlName="firstName" [readonly]="readonlyView">
+                <input autocomplete="off" matInput formControlName="firstName" [readonly]="readonlyView">
             </mat-form-field>
             <mat-form-field fxFlex appearance="outline">
                 <mat-label>Отчество</mat-label>
-                <input matInput formControlName="surName" [readonly]="readonlyView">
+                <input autocomplete="off" matInput formControlName="surName" [readonly]="readonlyView">
             </mat-form-field>
             <mat-form-field appearance="outline" color="primery">
                 <mat-label>Дата рождения</mat-label>
-                <input matInput [matDatepicker]="picker" formControlName="birthday" [readonly]="readonlyView">
+                <input autocomplete="off" matInput [matDatepicker]="picker" formControlName="birthday" [readonly]="readonlyView">
                 <mat-datepicker-toggle matIconSuffix [for]="picker" [disabled]="readonlyView">
                 </mat-datepicker-toggle>
                 <mat-datepicker #picker></mat-datepicker>
             </mat-form-field>
             <mat-form-field fxFlex appearance="outline">
                 <mat-label>Телефон</mat-label>
-                <input matInput formControlName="phone" [readonly]="readonlyView">
+                <input autocomplete="off" matInput formControlName="phone" [readonly]="readonlyView">
             </mat-form-field>
             <mat-form-field fxFlex appearance="outline">
                 <mat-label>Email</mat-label>
-                <input matInput formControlName="email" [readonly]="readonlyView">
+                <input autocomplete="off" matInput formControlName="email" [readonly]="readonlyView">
             </mat-form-field>
         </div>
 

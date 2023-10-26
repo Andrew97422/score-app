@@ -9,38 +9,38 @@
                 <div fxLayout="column" style="margin: 0 -16px 16px -16px; padding: 16px 16px 0px; overflow: auto; max-height: calc(100vh - 200px);">
                     <mat-form-field fxFlex appearance="outline" color="primery">
                         <mat-label>Логин</mat-label>
-                        <input matInput color="primery" formControlName="login" required>
+                        <input autocomplete="off" matInput color="primery" formControlName="login" required>
                     </mat-form-field>
                     <mat-form-field fxFlex appearance="outline">
                         <mat-label>Пароль</mat-label>
-                        <input matInput type="password" formControlName="password" required>
+                        <input autocomplete="off" matInput type="password" formControlName="password" required>
                     </mat-form-field>
                     <mat-form-field fxFlex appearance="outline">
                         <mat-label>Фамилия</mat-label>
-                        <input matInput formControlName="lastName" required>
+                        <input autocomplete="off" matInput formControlName="lastName" required>
                     </mat-form-field>
                     <mat-form-field fxFlex appearance="outline">
                         <mat-label>Имя</mat-label>
-                        <input matInput formControlName="firstName" required>
+                        <input autocomplete="off" matInput formControlName="firstName" required>
                     </mat-form-field>
                     <mat-form-field fxFlex appearance="outline">
                         <mat-label>Отчество</mat-label>
-                        <input matInput formControlName="surName">
+                        <input autocomplete="off" matInput formControlName="surName">
                     </mat-form-field>
                     <mat-form-field appearance="outline" color="primery">
                         <mat-label>Дата рождения</mat-label>
-                        <input matInput [matDatepicker]="picker" formControlName="birthday" required>
+                        <input autocomplete="off" matInput [matDatepicker]="picker" formControlName="birthday" required>
                         <mat-datepicker-toggle matIconSuffix [for]="picker">
                         </mat-datepicker-toggle>
                         <mat-datepicker #picker></mat-datepicker>
                     </mat-form-field>
                     <mat-form-field fxFlex appearance="outline">
                         <mat-label>Телефон</mat-label>
-                        <input matInput formControlName="phone">
+                        <input autocomplete="off" matInput formControlName="phone">
                     </mat-form-field>
                     <mat-form-field fxFlex appearance="outline">
                         <mat-label>Email</mat-label>
-                        <input matInput formControlName="email" required>
+                        <input autocomplete="off" matInput formControlName="email" required>
                     </mat-form-field>
                 </div>
 

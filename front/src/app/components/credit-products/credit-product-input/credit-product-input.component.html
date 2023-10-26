@@ -12,37 +12,37 @@
 
         <mat-form-field appearance="outline" color="primery">
             <mat-label>Название продукта</mat-label>
-            <input matInput color="primery" formControlName="name" required>
+            <input autocomplete="off" matInput color="primery" formControlName="name" required>
         </mat-form-field>
 
         <mat-form-field appearance="outline" color="primery">
             <mat-label>Минимальная сумма кредита</mat-label>
-            <input type="number" matInput color="primery" formControlName="minAmount" required>
+            <input autocomplete="off" type="number" matInput color="primery" formControlName="minAmount" required>
         </mat-form-field>
 
         <mat-form-field appearance="outline" color="primery">
             <mat-label>Максимальная сумма кредита</mat-label>
-            <input type="number" matInput color="primery" formControlName="maxAmount" required>
+            <input autocomplete="off" type="number" matInput color="primery" formControlName="maxAmount" required>
         </mat-form-field>
 
         <mat-form-field appearance="outline" color="primery">
             <mat-label>Минимальный срок кредита</mat-label>
-            <input type="number" matInput color="primery" formControlName="minTerm" required>
+            <input autocomplete="off" type="number" matInput color="primery" formControlName="minTerm" required>
         </mat-form-field>
 
         <mat-form-field appearance="outline" color="primery">
             <mat-label>Максимальный срок кредита</mat-label>
-            <input type="number" matInput color="primery" formControlName="maxTerm" required>
+            <input autocomplete="off" type="number" matInput color="primery" formControlName="maxTerm" required>
         </mat-form-field>
 
         <mat-form-field appearance="outline" color="primery">
             <mat-label>Минимальная процентная ставка</mat-label>
-            <input type="number" matInput color="primery" formControlName="minRate" required>
+            <input autocomplete="off" type="number" matInput color="primery" formControlName="minRate" required>
         </mat-form-field>
 
         <mat-form-field appearance="outline" color="primery">
             <mat-label>Ссылка на описание продукта</mat-label>
-            <input matInput color="primery" formControlName="url">
+            <input autocomplete="off" matInput color="primery" formControlName="url">
         </mat-form-field>
 
         <mat-form-field appearance="outline" color="primery">
@@ -53,7 +53,7 @@
 
         <mat-form-field appearance="outline" color="primery">
             <mat-label>Начало действия</mat-label>
-            <input matInput [matDatepicker]="picker" formControlName="startDate" required>
+            <input autocomplete="off" matInput [matDatepicker]="picker" formControlName="startDate" required>
             <mat-datepicker-toggle matIconSuffix [for]="picker">
             </mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
@@ -62,7 +62,7 @@
 
         <mat-form-field appearance="outline" color="primery">
             <mat-label>Конец действия</mat-label>
-            <input matInput [matDatepicker]="picker2" formControlName="finishDate" required>
+            <input autocomplete="off" matInput [matDatepicker]="picker2" formControlName="finishDate" required>
             <mat-datepicker-toggle matIconSuffix [for]="picker2">
             </mat-datepicker-toggle>
             <mat-datepicker #picker2></mat-datepicker>

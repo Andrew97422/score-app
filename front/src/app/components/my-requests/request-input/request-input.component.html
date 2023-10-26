@@ -3,7 +3,7 @@
     <div fxLayout="column" style="max-height: calc(100vh - 200px); overflow: auto; overflow-x: hidden; padding: 20px; margin: 0 -20px;">
         <mat-form-field *ngIf="data.dialogType==InputDialogType.View && userData?.role == 'SUPER_ADMIN'" appearance="outline" color="primery">
             <mat-label>Пользователь</mat-label>
-            <input matInput color="primery" formControlName="user">
+            <input autocomplete="off" matInput color="primery" formControlName="user">
             <mat-icon matSuffix (click)="viewUserData()" style="cursor: pointer;">
                 <span class="material-symbols-outlined">
                     person_search
@@ -22,7 +22,7 @@
 
         <mat-form-field appearance="outline" color="primery">
             <mat-label>Сумма кредита</mat-label>
-            <input type="number" matInput color="primery" formControlName="amount" required>
+            <input autocomplete="off" type="number" matInput color="primery" formControlName="amount" required>
         </mat-form-field>
 
         <mat-form-field appearance="outline" color="primery">
@@ -45,12 +45,12 @@
 
         <mat-form-field appearance="outline" color="primery">
             <mat-label>Сумма ежемесячных платежей по кредитам</mat-label>
-            <input type="number" matInput color="primery" formControlName="currentDebtLoad" required>
+            <input autocomplete="off" type="number" matInput color="primery" formControlName="currentDebtLoad" required>
         </mat-form-field>
 
         <mat-form-field appearance="outline" color="primery">
             <mat-label>Ежемесячный доход</mat-label>
-            <input type="number" matInput color="primery" formControlName="monthlyIncome" required>
+            <input autocomplete="off" type="number" matInput color="primery" formControlName="monthlyIncome" required>
         </mat-form-field>
 
         <mat-checkbox color="primery" formControlName="military">
@@ -66,7 +66,7 @@
         </mat-checkbox>
 
         <mat-checkbox color="primery" formControlName="farEastInhabitant">
-            Житель Данного Востока
+            Житель Дальнего Востока
         </mat-checkbox>
 
         <mat-checkbox color="primery" formControlName="newSubjectsResident">
