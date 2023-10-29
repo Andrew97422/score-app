@@ -26,10 +26,11 @@ services:
     container_name: back
     environment:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://db1:5433/bigdata
-    #  - SPRING_DATASOURCE_USERNAME=postgres
-    #  - SPRING_DATASOURCE_PASSWORD=123
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=123
     ports:
       - "8081:8081"
+    network_mode: host
     depends_on:
       - db1
 
