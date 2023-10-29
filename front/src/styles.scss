@@ -110,9 +110,10 @@ a {
   padding: 0 !important;
   background: var(--main-color) !important;
   box-shadow: none !important;
+  border: 1px solid #aaa !important;
 
   form {
-    background: #e4e1e8 !important;
+    background: white !important;
     border-radius: inherit;
   }
 
@@ -147,6 +148,7 @@ a {
   padding: 0 !important;
   color: white;
   border-radius: 10px !important;
+  border: 1px solid #aaa !important;
 
   .header {
     flex-direction: row;
@@ -157,6 +159,11 @@ a {
     font-size: 16px; line-height: 16px;
   }
 
+  .mdc-text-field--outlined:not(.mdc-text-field--disabled).mdc-text-field--focused .mdc-floating-label, .mdc-text-field--outlined:not(.mdc-text-field--disabled).mdc-text-field--focused .mdc-floating-label--float-above
+  {
+    color: white !important;
+  }
+  
   .mat-mdc-form-field .mat-mdc-select.mat-mdc-select-disabled .mat-mdc-select-arrow {
     color: white !important;
   }
