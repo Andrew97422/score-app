@@ -24,10 +24,10 @@ services:
       context: back
       dockerfile: ./Dockerfile
     container_name: back
-    environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://db1:5433/bigdata
-      - SPRING_DATASOURCE_USERNAME=postgres
-      - SPRING_DATASOURCE_PASSWORD=123
+    #environment:
+    #  - SPRING_DATASOURCE_URL=jdbc:postgresql://db1:5433/bigdata
+    #  - SPRING_DATASOURCE_USERNAME=postgres
+    #  - SPRING_DATASOURCE_PASSWORD=123
     ports:
       - "8081:8081"
     depends_on:
