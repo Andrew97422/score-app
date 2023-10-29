@@ -1,32 +1,16 @@
 # score-app
 
-Бэкенд и фронтенд - два разных сервиса, которые запускаются отдельно.
-
-Требования для бэкенда:
-
-- OpenJDK 17
-- Maven 3+
-- Spring Boot 3
-
-Для запуска требуется создать в ngAdmin бд bigdata
-
-Для запуска требуется ввести следующее:
-
+Проект можно запустить, используя docker-compose. Для этого сначала склонируйте репозиторий:
 ```
-mvn clean install
-java -jar back/target/back-1.0-SNAPSHOT.jar
+git clone https://gitlab.fintechhub.ru/bigdata/score-app
+cd score-app
 ```
 
-Требования для фронтенда:
-
-- Angular 16
-- NodeJS 18.17.1
-
-Для запуска требуется ввести следующее:
-
+Теперь соберите проект и запустите его:
 ```
-npm install
-npm run start
+docker compose build
+docker compose up
 ```
 
-Для создания docker-образов в директориях /back и /front есть докерфайлы Dockerfile
+До презентации на форуме сервис будет располагаться по ссылке: http://91.107.126.118:3000
+Втджет будет располагаться по ссылке: http://91.107.126.118:3001
