@@ -55,7 +55,7 @@ public class AuthService {
             );
         } catch (Exception e) {
             log.error("Authentication failed, reason is {}", e.getMessage());
-            return new AuthenticationResponse();
+            throw e;
         }
         log.info("User {} was authenticated", request.getUsername());
 
