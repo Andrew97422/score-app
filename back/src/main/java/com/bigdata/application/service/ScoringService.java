@@ -27,7 +27,7 @@ public class ScoringService {
 
     private final ProductService productService;
 
-    private ExecutorService executorService = Executors.newCachedThreadPool();
+    private ExecutorService executorService = Executors.newFixedThreadPool(10);
 
     @AllArgsConstructor
     private class Task implements Runnable {
@@ -70,7 +70,7 @@ public class ScoringService {
         log.info("Application {} was registered.", application.getId());
         Task task = new Task(application, birthday);
         executorService.execute(task);
-        executorService.shutdown();
+        //executorService.shutdown();
     }
 
     private float calculateScoring(LoanApplicationEntity application, LocalDate birthday) {
