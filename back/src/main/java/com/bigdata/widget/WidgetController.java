@@ -7,6 +7,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RequiredArgsConstructor
 @RestController
@@ -15,12 +16,14 @@ public class WidgetController {
 
     private final WidgetService widgetService;
 
-    @GetMapping("/get")
-    public ResponseEntity<WidgetResponse> getWidget() {
-        return ResponseEntity.ok(widgetService.getWidget());
+    @GetMapping("/{id}")
+    public ResponseEntity<WidgetResponse> getWidget(
+            @PathVariable Integer id
+    ) {
+        return ResponseEntity.ok(widgetService.getWidget(id));
     }
 
-    @GetMapping("/getAll")
+    @GetMapping
     public ResponseEntity<List<WidgetResponse>> getAllWidgets() {
         return ResponseEntity.ok(widgetService.getAllWidgets());
     }
@@ -28,10 +31,10 @@ public class WidgetController {
     @PostMapping("/settings")
     @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<HttpStatus> setWidget(
-            @RequestBody String color
+            @RequestBody Map<String, String> params
     ) {
         try {
-            widgetService.setWidget(color);
+            widgetService.setWidget(params);
             return new ResponseEntity<>(HttpStatus.OK);
         } catch (Exception ignored) {}
         return new ResponseEntity<>(HttpStatus.CONFLICT);

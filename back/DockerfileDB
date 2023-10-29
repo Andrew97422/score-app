@@ -3,4 +3,4 @@ FROM postgres:14-alpine
 ENV POSTGRES_USER postgres
 ENV POSTGRES_PASSWORD 123
 ENV POSTGRES_DB bigdata
-#CMD ["psql", "--u", "postgres", "CREATE DATABASE BIGDATA;"]
+CMD ["psql"]

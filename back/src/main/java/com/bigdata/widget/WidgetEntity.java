@@ -17,6 +17,10 @@ public class WidgetEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "color")
-    private Integer color;
+    @OneToOne
+    @JoinColumn(name = "theme_id")
+    private ThemesWidget themesWidget;
+
+    @Column(name = "interest_rate")
+    private double interestRate;
 }

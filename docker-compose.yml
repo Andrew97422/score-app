@@ -36,7 +36,7 @@ services:
   db1:
     image: postgres:14-alpine
     container_name: db1
-    restart: unless-stopped
+    restart: always
     build:
       context: back
       dockerfile: ./DockerfileDB
@@ -49,7 +49,9 @@ services:
       POSTGRES_PASSWORD: 123
       POSTGRES_DB: bigdata
 
+    #command: --init-file /resources/schema.sql
     volumes:
+      #- ./init.sql:/docker-entrypoint-initdb.d/init.sql
       - postgres_data:/var/lib/postgresql/data
 
 volumes:

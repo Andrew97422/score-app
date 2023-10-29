@@ -25,9 +25,28 @@ insert into consumer values (default, true, '', '2035-10-10T00:00:00', 1500000, 
 insert into consumer values(default, true, '', '2035-10-10T00:00:00', 5000000, 84, 100000, 4.5, 12,
                             'Кредит для держателей зарплатных карт', true, '2023-10-10T18:00:03',
                             'https://www.psbank.ru/Personal/Loans/Salary', '3%');
-insert into auto_loan values(default, true, 'COMMENT', '2035-10-10T00:00:00', 1000000, 60, 10000, 10, 12,  'CREDIT4', false, '2023-10-11T18:16:16', 'URL://wdwd4', 'MILEAGE4');
-insert into auto_loan values(default, true, 'COMMENT', '2035-10-10T00:00:00', 1000000, 72, 1000, 5, 6,  'CREDIT5', false, '2023-10-11T18:16:16', 'URL://wdwd5', 'MILEAGE5');
-insert into auto_loan values(default, true, 'COMMENT', '2035-10-10T00:00:00', 1000000, 48, 5000, 12, 24,  'CREDIT6', false, '2023-10-11T18:16:16', 'URL://wdwd6', 'MILEAGE6');
+insert into auto_loan values(default, true, 'Покупайте любой автомобиль или мототехнику у любого продавца',
+                             '2035-10-10T00:00:00', 10000000, 84, 300000, 2.1, 12,  'Автокредит наличными',
+                             true, '2023-10-11T18:16:16', 'https://www.vtb.ru/personal/avtokredity/dengi-na-avto/', '');
+insert into auto_loan values(default, true, 'Покупайте новый или с пробегом автомобиль в любом автосалоне',
+                             '2035-10-10T00:00:00', 10000000, 84, 300000, 2.1, 12,  'Автокредит в автосалоне', true,
+                             '2023-10-11T18:16:16', 'https://www.vtb.ru/personal/avtokredity/avto-v-avtosalone/', '');
+insert into auto_loan values(default, true, 'Купите новый автомобиль или электромобиль со скидкой',
+                             '2035-10-10T00:00:00', 2000000, 84, 300000, 2.1, 12,  'Госпрограмма субсидирования автокредитов',
+                             true, '2023-10-11T18:16:16', 'https://www.vtb.ru/personal/avtokredity/gosprogramma-subsidirovaniya-avtokreditov-2022/', '');
+insert into auto_loan values(default, true, 'Экономичные и экологичные на выгодных условиях',
+                             '2035-10-10T00:00:00', 10000000, 84, 300000, 2.1, 12,  'Автокредит на новый электромобиль',
+                             true, '2023-10-11T18:16:16', 'https://www.vtb.ru/personal/avtokredity/electric-car/', '');
+insert into auto_loan values(default, true, 'Купите мотоцикл или другую мототехнику с кредитом ВТБ',
+                             '2035-10-10T00:00:00', 10000000, 84, 300000, 2.1, 12,  'Мотокредит',
+                             true, '2023-10-11T18:16:16', 'https://www.vtb.ru/personal/avtokredity/mototransport/', '');
+insert into auto_loan values(default, true, 'Купите новый легковой автомобиль у дилера',
+                             '2035-10-10T00:00:00', 10000000, 84, 300000, 2.1, 12,  'Автокредит на новый автомобиль',
+                             true, '2023-10-11T18:16:16', 'https://www.vtb.ru/personal/avtokredity/legkovye-avtomobili/', '');
+insert into auto_loan values(default, true, 'Приобретение автомобиля у дилера или частного лица',
+                             '2035-10-10T00:00:00', 10000000, 84, 300000, 2.1, 12,  'Автокредит на легковой автомобиль с пробегом',
+                             true, '2023-10-11T18:16:16', 'https://www.vtb.ru/personal/avtokredity/avto-s-probegom/', '');
+
 insert into mortgage values(default, true, '', '2035-10-10T00:00:00', 50000000, 360, 600000, 13.4, 36,
                             'Вторичное жилье в ипотеку', true, '2023-10-11T18:16:16',
                             'https://www.psbank.ru/Personal/Mortgage/Secondary', '', 'От 15%');
@@ -75,3 +94,6 @@ insert into users values(default, '05.03.1954', 'nosoff.4ndr@yandex.ru', 'Опе
                          '$2a$08$XBCh8V3D1fxYuCNHdovOKORhq13SsNwHTwkKIRJD77RoMKuKDZK3O', '89108688194', 'OPERATOR', '');
 insert into users values(default, '03.07.1967', 'nosoff.4ndr@yandex.ru', 'Администратор', '', 'admin', 'false',
                          '$2a$08$fEMnfSV6zp8IDWypU6uHK.vX8lFzjlzRR4I8xzjB7iB2MYFESIy4K', '89108688194', 'SUPER_ADMIN', '');
+insert into themes_widget values(default, '#2E2A80', 'Roboto, sans-serif', 'Стандартная тема');
+insert into themes_widget values(default, '#f26126', 'Roboto, sans-serif', 'Оранжевая тема');
+insert into themes_widget values(default, 'gray', 'Roboto, sans-serif', 'Серая тема');
