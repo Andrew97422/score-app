@@ -33,26 +33,26 @@ services:
     depends_on:
       - db1
 
-  db1:
-    image: postgres:14-alpine
-    container_name: db1
-    restart: always
-    build:
-      context: back
-      dockerfile: ./DockerfileDB
+  #db1:
+  #  image: postgres:14-alpine
+  #  container_name: db1
+  #  restart: always
+  #  build:
+  #    context: back
+  #    dockerfile: ./DockerfileDB
 
-    ports:
-      - "5433:5433"
+  #  ports:
+  #    - "5433:5433"
 
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: 123
-      POSTGRES_DB: bigdata
+  #  environment:
+  #    POSTGRES_USER: postgres
+  #    POSTGRES_PASSWORD: 123
+  #    POSTGRES_DB: bigdata
 
     #command: --init-file /resources/schema.sql
-    volumes:
+  #  volumes:
       #- ./init.sql:/docker-entrypoint-initdb.d/init.sql
-      - postgres_data:/var/lib/postgresql/data
+  #    - postgres_data:/var/lib/postgresql/data
 
 volumes:
   postgres_data:
