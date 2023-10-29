@@ -15,8 +15,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.List;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 @Service
 @RequiredArgsConstructor
@@ -27,7 +25,6 @@ public class ScoringService {
 
     private final ProductService productService;
 
-    private ExecutorService executorService = Executors.newFixedThreadPool(10);
 
     @AllArgsConstructor
     private class Task implements Runnable {
@@ -69,8 +66,7 @@ public class ScoringService {
     public void score(LoanApplicationEntity application, LocalDate birthday) {
         log.info("Application {} was registered.", application.getId());
         Task task = new Task(application, birthday);
-        executorService.execute(task);
-        //executorService.shutdown();
+        new Thread(task).start();
     }
 
     private float calculateScoring(LoanApplicationEntity application, LocalDate birthday) {
