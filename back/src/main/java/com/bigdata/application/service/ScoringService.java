@@ -6,6 +6,7 @@ import com.bigdata.application.repository.ApplicationRepository;
 import com.bigdata.products.common.model.CommonEntity;
 import com.bigdata.products.common.model.LendingType;
 import com.bigdata.products.common.service.ProductService;
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -24,11 +25,16 @@ public class ScoringService {
 
     private final ProductService productService;
 
-    @Transactional
-    public void score(LoanApplicationEntity application, LocalDate birthday) {
-        log.info("Application {} was registered.", application.getId());
 
-        new Thread(() -> {
+    @AllArgsConstructor
+    private class Task implements Runnable {
+
+        LoanApplicationEntity application;
+
+        LocalDate birthday;
+
+        @Override
+        public void run() {
             float scoring = calculateScoring(application, birthday);
             log.info("The scoring is calculated for the user {}.", application.getId());
 
@@ -53,7 +59,14 @@ public class ScoringService {
                 log.info("No suitable loan products for the user {}." +
                         " Scoring is not enough.", application.getId());
             }
-        }).start();
+        }
+    }
+
+    @Transactional
+    public void score(LoanApplicationEntity application, LocalDate birthday) {
+        log.info("Application {} was registered.", application.getId());
+        Task task = new Task(application, birthday);
+        new Thread(task).start();
     }
 
     private float calculateScoring(LoanApplicationEntity application, LocalDate birthday) {

@@ -11,6 +11,7 @@ alter table if exists loan_application drop constraint if exists FKn5gbwiha9qyf6
 alter table if exists mortgage_cache drop constraint if exists FK6tlmmpklr1j45h13y1dicyt3k;
 alter table if exists mortgage_mortgage_cache drop constraint if exists FKnwhc7w8yktqq25a7hgw88ypdc;
 alter table if exists mortgage_mortgage_cache drop constraint if exists FKciq0bu5xle98imxa30jxli4uv;
+alter table if exists widget_entity drop constraint if exists FKe7vg24ubctffdk8tso3ggyoqc;
 alter table if exists work_experience drop constraint if exists FKkuvu34c8i4y5p4x7vjc07w6mk;
 drop table if exists auto_loan cascade;
 drop table if exists auto_loan_auto_loan_cache cascade;
@@ -23,7 +24,9 @@ drop table if exists loan_application cascade;
 drop table if exists mortgage cascade;
 drop table if exists mortgage_cache cascade;
 drop table if exists mortgage_mortgage_cache cascade;
+drop table if exists themes_widget;
 drop table if exists users cascade;
+drop table if exists widget_entity cascade;
 drop table if exists work_experience cascade;
 drop sequence if exists auto_loan_cache_seq;
 drop sequence if exists consumer_cache_seq;
@@ -42,7 +45,9 @@ create table loan_application (id serial not null, date_and_time_of_application 
 create table mortgage (id serial not null, is_active boolean, comment VARCHAR(2048), finish_date timestamp(6), max_amount float4, max_term float4, min_amount float4, min_rate float4, min_term float4, name varchar(255), is_perpetual boolean, start_date timestamp(6), url varchar(255), addition_to_interest varchar(255), down_payment varchar(255), primary key (id));
 create table mortgage_cache (id integer not null, lending_type varchar(255), product bytea, mortgage_id serial, primary key (id));
 create table mortgage_mortgage_cache (mortgage_entity_id serial not null, mortgage_cache_id integer not null);
+create table themes_widget (id serial not null, color varchar(255), font_family varchar(255), name varchar(255), primary key (id));
 create table users (id serial not null, date_of_birth date, email varchar(255), firstname varchar(255), lastname varchar(255), login varchar(255), obtained_from_a_third_party_service boolean, password varchar(255), phone varchar(255), role varchar(255), surname varchar(255), primary key (id));
+create table widget_entity (id serial not null, interest_rate float(53), theme_id integer, primary key (id));
 create table work_experience (id serial not null, name varchar(255), loan_application integer, primary key (id));
 alter table if exists auto_loan_auto_loan_cache add constraint UK_6ld4eqprmb0aiw9vbya4rtxh8 unique (auto_loan_cache_id);
 alter table if exists consumer_consumer_cache add constraint UK_bd0m2m3kl99nf94n231f43dla unique (consumer_cache_id);
@@ -60,4 +65,5 @@ alter table if exists loan_application add constraint FKn5gbwiha9qyf6koo4c6c8fgf
 alter table if exists mortgage_cache add constraint FK6tlmmpklr1j45h13y1dicyt3k foreign key (mortgage_id) references mortgage;
 alter table if exists mortgage_mortgage_cache add constraint FKnwhc7w8yktqq25a7hgw88ypdc foreign key (mortgage_cache_id) references mortgage_cache;
 alter table if exists mortgage_mortgage_cache add constraint FKciq0bu5xle98imxa30jxli4uv foreign key (mortgage_entity_id) references mortgage;
+alter table if exists widget_entity add constraint FKe7vg24ubctffdk8tso3ggyoqc foreign key (theme_id) references themes_widget;
 alter table if exists work_experience add constraint FKkuvu34c8i4y5p4x7vjc07w6mk foreign key (loan_application) references loan_application;
