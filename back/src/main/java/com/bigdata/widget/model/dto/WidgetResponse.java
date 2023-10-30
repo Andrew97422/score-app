@@ -1,4 +1,4 @@
-package com.bigdata.widget;
+package com.bigdata.widget.model.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,7 +9,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class WidgetRequest {
+public class WidgetResponse {
+    private Integer id;
     private double interestRate;
     private String color;
     private String font;

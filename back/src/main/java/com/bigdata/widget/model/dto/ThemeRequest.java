@@ -1,4 +1,4 @@
-package com.bigdata.widget;
+package com.bigdata.widget.model.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -6,11 +6,10 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
-public class ThemeResponse {
-    private Integer id;
+public class ThemeRequest {
     private String color;
     private String font;
     private String name;
