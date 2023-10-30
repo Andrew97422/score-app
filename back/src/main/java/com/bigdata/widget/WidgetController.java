@@ -7,7 +7,6 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Map;
 
 @RequiredArgsConstructor
 @RestController
@@ -63,6 +62,30 @@ public class WidgetController {
             return ResponseEntity.ok(widgetService.getThemeById(id));
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.CONFLICT);
+        }
+    }
+
+    @DeleteMapping("/themes/{id}")
+    public ResponseEntity<HttpStatus> deleteTheme(
+            @PathVariable Integer id
+    ) {
+        try {
+            widgetService.deleteThemeById(id);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (IllegalArgumentException e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @PatchMapping("/themes/{id}")
+    public ResponseEntity<HttpStatus> updateTheme(
+            @PathVariable Integer id, @RequestBody ThemeRequest request
+    ) {
+        try {
+            widgetService.updateThemeById(id, request);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (IllegalArgumentException e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 }

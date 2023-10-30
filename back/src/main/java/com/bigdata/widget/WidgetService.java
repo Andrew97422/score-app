@@ -2,12 +2,10 @@ package com.bigdata.widget;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -66,5 +64,19 @@ public class WidgetService {
         var theme = themesWidgetRepository.getReferenceById(id);
         return ThemeResponse.builder().color(theme.getColor()).font(theme.getFont()).id(theme.getId())
                 .name(theme.getName()).build();
+    }
+
+    @Transactional
+    public void deleteThemeById(Integer id) {
+        themesWidgetRepository.deleteById(id);
+    }
+
+    @Transactional
+    public void updateThemeById(Integer id, ThemeRequest request) {
+        var theme = themesWidgetRepository.getReferenceById(id);
+        theme.setFont(request.getFont());
+        theme.setName(request.getName());
+        theme.setColor(request.getColor());
+        themesWidgetRepository.saveAndFlush(theme);
     }
 }
