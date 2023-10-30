@@ -21,9 +21,9 @@ spring:
           lob:
             non_contextual_creation: true
 
-    show-sql: false
+    show-sql: true
     hibernate:
-      ddl-auto: create
+      ddl-auto: create-drop
     open-in-view: true
     defer-datasource-initialization: true
   mail:

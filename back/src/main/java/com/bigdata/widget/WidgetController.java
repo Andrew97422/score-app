@@ -16,11 +16,9 @@ public class WidgetController {
 
     private final WidgetService widgetService;
 
-    @GetMapping("/{id}")
-    public ResponseEntity<WidgetResponse> getWidget(
-            @PathVariable Integer id
-    ) {
-        return ResponseEntity.ok(widgetService.getWidget(id));
+    @GetMapping("/getFirst")
+    public ResponseEntity<WidgetResponse> getWidget() {
+        return ResponseEntity.ok(widgetService.getWidget());
     }
 
     @GetMapping
@@ -31,12 +29,40 @@ public class WidgetController {
     @PostMapping("/settings")
     @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<HttpStatus> setWidget(
-            @RequestBody Map<String, String> params
+            @RequestBody WidgetRequest request
     ) {
         try {
-            widgetService.setWidget(params);
+            widgetService.setWidget(request);
             return new ResponseEntity<>(HttpStatus.OK);
         } catch (Exception ignored) {}
         return new ResponseEntity<>(HttpStatus.CONFLICT);
+    }
+
+    @GetMapping("/themes")
+    public ResponseEntity<List<ThemeResponse>> getThemes() {
+        return ResponseEntity.ok(widgetService.getAllThemes());
+    }
+
+    @PostMapping("/themes")
+    public ResponseEntity<HttpStatus> addNewTheme(
+            @RequestBody ThemeRequest request
+    ) {
+        try {
+            widgetService.addNewTheme(request);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
+        }
+    }
+
+    @GetMapping("/themes/{id}")
+    public ResponseEntity<ThemeResponse> getTheme(
+            @PathVariable Integer id
+    ) {
+        try {
+            return ResponseEntity.ok(widgetService.getThemeById(id));
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
+        }
     }
 }

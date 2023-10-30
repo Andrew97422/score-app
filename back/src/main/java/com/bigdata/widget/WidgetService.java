@@ -2,6 +2,7 @@ package com.bigdata.widget;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,10 +19,10 @@ public class WidgetService {
     private final ThemesWidgetRepository themesWidgetRepository;
 
     @Transactional(readOnly = true)
-    public WidgetResponse getWidget(Integer id) {
-        var widget = widgetRepository.getReferenceById(id);
+    public WidgetResponse getWidget() {
+        var widget = widgetRepository.getReferenceById(1);
         var settings = widget.getThemesWidget();
-        return WidgetResponse.builder().id(id).interestRate(widget.getInterestRate()).font(settings.getFont())
+        return WidgetResponse.builder().id(1).interestRate(widget.getInterestRate()).font(settings.getFont())
                 .name(settings.getName()).color(settings.getColor()).build();
     }
 
@@ -34,29 +35,36 @@ public class WidgetService {
     }
 
     @Transactional
-    public void setWidget(Map<String, String> params) {
-        try {
-            Integer widgetId = Integer.parseInt(params.get("id"));
-            var widget = widgetRepository.getReferenceById(widgetId);
-            if (params.containsKey("interestRate")) {
-                widget.setInterestRate(Double.parseDouble(params.get("interestRate")));
-            }
+    public void setWidget(WidgetRequest request) {
+        var widget = widgetRepository.getReferenceById(1);
+        log.info("Got widget: {}", widget);
+        widget.setInterestRate(request.getInterestRate());
+        var theme = widget.getThemesWidget();
+        log.info("Got themes: {}", theme);
+        theme.setName(request.getName());
+        theme.setColor(request.getColor());
+        theme.setFont(request.getFont());
+        themesWidgetRepository.saveAndFlush(theme);
+        log.info("Have: {}", theme);
+    }
 
-            var themes = widget.getThemesWidget();
-            if (params.containsKey("color")) {
-                themes.setColor(params.get("color"));
-            }
-            if (params.containsKey("font")) {
-                themes.setFont(params.get("font"));
-            }
-            if (params.containsKey("name")) {
-                themes.setName(params.get("name"));
-            }
+    @Transactional(readOnly = true)
+    public List<ThemeResponse> getAllThemes() {
+        return themesWidgetRepository.findAll().stream().map(t -> ThemeResponse.builder().font(t.getFont())
+                .id(t.getId()).color(t.getColor()).name(t.getName()).build()).collect(Collectors.toList());
+    }
 
-            widget.setThemesWidget(themes);
-            widgetRepository.save(widget);
-        } catch (Exception e) {
-            log.error("Some problem with setting widget!");
-        }
+    @Transactional
+    public void addNewTheme(ThemeRequest request) {
+        var theme = ThemesWidget.builder().font(request.getFont()).color(request.getColor())
+                .name(request.getName()).build();
+        themesWidgetRepository.saveAndFlush(theme);
+    }
+
+    @Transactional(readOnly = true)
+    public ThemeResponse getThemeById(Integer id) {
+        var theme = themesWidgetRepository.getReferenceById(id);
+        return ThemeResponse.builder().color(theme.getColor()).font(theme.getFont()).id(theme.getId())
+                .name(theme.getName()).build();
     }
 }
