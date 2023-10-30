@@ -1,4 +1,4 @@
-package com.bigdata.widget;
+package com.bigdata.widget.model.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -11,17 +11,16 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class ThemesWidget {
+public class WidgetEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "color")
-    private String color;
+    @OneToOne
+    @JoinColumn(name = "theme_id")
+    private ThemesWidget themesWidget;
 
-    @Column(name = "font_family")
-    private String font;
-
-    @Column(name = "name")
-    private String name;
+    @Column(name = "interest_rate")
+    private double interestRate;
 }

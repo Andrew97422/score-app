@@ -1,48 +1,28 @@
-package com.bigdata.widget;
+package com.bigdata.widget.controller;
 
+import com.bigdata.widget.model.dto.ThemeRequest;
+import com.bigdata.widget.model.dto.ThemeResponse;
+import com.bigdata.widget.service.ThemeWidgetService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/api/v1/widget")
-public class WidgetController {
+@RequestMapping("/api/v1/widget/themes")
+public class ThemeController {
 
-    private final WidgetService widgetService;
-
-    @GetMapping("/getFirst")
-    public ResponseEntity<WidgetResponse> getWidget() {
-        return ResponseEntity.ok(widgetService.getWidget());
-    }
+    private final ThemeWidgetService widgetService;
 
     @GetMapping
-    public ResponseEntity<List<WidgetResponse>> getAllWidgets() {
-        return ResponseEntity.ok(widgetService.getAllWidgets());
-    }
-
-    @PostMapping("/settings")
-    @PreAuthorize("hasAuthority('ADMIN')")
-    public ResponseEntity<HttpStatus> setWidget(
-            @RequestBody WidgetRequest request
-    ) {
-        try {
-            widgetService.setWidget(request);
-            return new ResponseEntity<>(HttpStatus.OK);
-        } catch (Exception ignored) {}
-        return new ResponseEntity<>(HttpStatus.CONFLICT);
-    }
-
-    @GetMapping("/themes")
     public ResponseEntity<List<ThemeResponse>> getThemes() {
         return ResponseEntity.ok(widgetService.getAllThemes());
     }
 
-    @PostMapping("/themes")
+    @PostMapping
     public ResponseEntity<HttpStatus> addNewTheme(
             @RequestBody ThemeRequest request
     ) {
@@ -54,7 +34,7 @@ public class WidgetController {
         }
     }
 
-    @GetMapping("/themes/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<ThemeResponse> getTheme(
             @PathVariable Integer id
     ) {
@@ -65,7 +45,7 @@ public class WidgetController {
         }
     }
 
-    @DeleteMapping("/themes/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<HttpStatus> deleteTheme(
             @PathVariable Integer id
     ) {
@@ -77,7 +57,7 @@ public class WidgetController {
         }
     }
 
-    @PatchMapping("/themes/{id}")
+    @PatchMapping("/{id}")
     public ResponseEntity<HttpStatus> updateTheme(
             @PathVariable Integer id, @RequestBody ThemeRequest request
     ) {
