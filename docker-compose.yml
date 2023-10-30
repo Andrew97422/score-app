@@ -54,7 +54,7 @@ services:
 
     #command: --init-file /resources/schema.sql
     volumes:
-      - ./init.sql:/docker-entrypoint-initdb.d
+      #- ./init.sql:/docker-entrypoint-initdb.d
       - postgres_data:/var/lib/postgresql/data
 
 volumes:
