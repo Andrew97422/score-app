@@ -39,7 +39,7 @@ services:
   db1:
     env_file:
       - .env
-    image: postgres:14-alpine
+    image: postgres:13-alpine
     container_name: db1
     restart: always
 
