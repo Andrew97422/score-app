@@ -5,6 +5,8 @@
 
 :root {
   --main-color: rgba(43, 44, 132);
+  --widget-theme-color: rgba(43, 44, 132);
+  --widget-font-family: Roboto, sans-serif;
 }
 
 * {
@@ -110,9 +112,10 @@ a {
 .standart-widget-theme {
   border-radius: 10px !important;
   padding: 0 !important;
-  background: var(--main-color) !important;
+  background: var(--widget-theme-color) !important;
   box-shadow: none !important;
   border: 1px solid #aaa !important;
+  font-family: var(--widget-font-family);
 
   form {
     background: white !important;
@@ -120,11 +123,21 @@ a {
   }
 
   .mdc-text-field--outlined.mdc-text-field--disabled .mdc-floating-label--float-above {
-    color: var(--main-color) !important;
+    color: var(--widget-theme-color) !important;
+    font-family: var(--widget-font-family) !important;
   }
 
   .mdc-text-field--outlined:not(.mdc-text-field--disabled) .mdc-floating-label, .mdc-text-field--outlined:not(.mdc-text-field--disabled) .mdc-floating-label--float-above {
-    color: var(--main-color) !important;
+    color: var(--widget-theme-color) !important;
+    font-family: var(--widget-font-family) !important;
+  }
+
+  .mdc-text-field--outlined.mdc-text-field--disabled .mdc-notched-outline__leading, .mdc-text-field--outlined.mdc-text-field--disabled .mdc-notched-outline__notch, .mdc-text-field--outlined.mdc-text-field--disabled .mdc-notched-outline__trailing {
+    border-color: var(--widget-theme-color) !important;
+  }
+
+  .mdc-text-field--outlined:not(.mdc-text-field--disabled) .mdc-notched-outline__leading, .mdc-text-field--outlined:not(.mdc-text-field--disabled) .mdc-notched-outline__notch, .mdc-text-field--outlined:not(.mdc-text-field--disabled) .mdc-notched-outline__trailing {
+    border-color: var(--widget-theme-color) !important;
   }
 
   .header {

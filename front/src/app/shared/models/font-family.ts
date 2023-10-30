@@ -36,10 +36,17 @@ export class FontFamilyExt {
         }
     }
 
-    static getAll(): FontFamily[] {
-        return Object
-        .keys(FontFamily)
-        .map(x => +x as unknown as number)
-        .filter(x => !Number.isNaN(x))
+    static getAll(): string[] {
+        return [
+            'Roboto, sans-serif',
+            'Arial, sans-serif',
+            'Helvetica, sans-serif',
+            'Verdana, sans-serif',
+            'Trebuchet MS, sans-serif',
+            'Gill Sans, sans-serif',
+            'Noto Sans, sans-serif',
+            'Optima, sans-serif',
+            'Arial Narrow, sans-serif'
+        ]
     }
 }

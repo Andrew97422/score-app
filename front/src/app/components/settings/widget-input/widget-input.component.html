@@ -3,21 +3,21 @@
     <form fxLayout="column" [formGroup]="form" style="max-height: calc(100vh - 200px); overflow: auto; overflow-x: hidden; padding: 20px; margin: 0 -20px;">
         <mat-form-field appearance="outline" color="primery" required>
             <mat-label>Название</mat-label>
-            <input autocomplete="off" matInput color="primery" formControlName="name">
+            <input autocomplete="off" matInput color="primery" formControlName="name" required>
         </mat-form-field>
 
         <mat-form-field appearance="outline" color="primery">
             <mat-label>Шрифт</mat-label>
-            <mat-select formControlName="fontFamily">
-                <mat-option *ngFor="let x of FontFamilyExt.getAll()" [value]="x">
-                    {{FontFamilyExt.getName(x)}}
+            <mat-select formControlName="font">
+                <mat-option *ngFor="let x of FontFamilyExt.getAll()" [value]="x" [style.font-family]="x" required>
+                    {{x}}
                 </mat-option>
             </mat-select>
         </mat-form-field>
 
         <mat-form-field appearance="outline" color="primery">
             <mat-label>Цвет</mat-label>
-            <input autocomplete="off" matInput color="primery" formControlName="color">
+            <input autocomplete="off" matInput color="primery" formControlName="color" required>
             <mat-icon [matMenuTriggerFor]="menu" matSuffix [style.color]="form.controls.color.value">
                 <span class="material-symbols-outlined">
                     palette

@@ -5,18 +5,10 @@
         <div fxLayout="row" class="mat-card" fxFlex style="padding: 0;">
             <div fxFlex fxLayout="column">
                 <mat-tab-group fxFlex style="overflow: hidden;">
+                    <!--
                     <mat-tab fxFlex label="Настройки виджета">
                         <div fxFlex fxLayout="column" style="overflow: auto;">
-                            <div fxFlex fxLayout="column"><!--
-                                <mat-form-field appearance="outline" color="primery" style="margin: 20px 10px 0; width: 300px;">
-                                    <mat-label>Вид кредита</mat-label>
-                                    <mat-select [formControl]="theme">
-                                        <mat-option *ngFor="let theme of WidgetThemeExt.getAll()" [value]="theme">
-                                            {{WidgetThemeExt.getName(theme)}}
-                                        </mat-option>
-                                    </mat-select>
-                                </mat-form-field>-->
-                                
+                            <div fxFlex fxLayout="column">
                                 <div fxLayout="row wrap" fxLayoutGap="8px">
                                     <mat-radio-group [formControl]="theme" fxLayout="row wrap" style="padding: 8px 0;">
                                         <mat-radio-button *ngFor="let theme of WidgetThemeExt.getAll()" [value]="theme">
@@ -88,16 +80,42 @@
                                 </mat-card>
                             </div>
                         </div>
-                    </mat-tab>
+                    </mat-tab>-->
 
-                    <mat-tab fxFlex label="Настройки тем">
+                    <mat-tab fxFlex label="Настройки виджета">
                         <div fxFlex fxLayout="column" style="overflow: auto; padding-left: 10px;">
                             <div fxLayout="row wrap" fxLayoutGap="10px">
-                                <div *ngFor="let w of widgets" fxFlex="150px" class="item" [style.border-color]="w.color">
-                                    {{w.name}}
+                                <div *ngFor="let w of widgets" fxFlex="250px" class="item" [style.border-color]="w.color">
+                                    <div fxLayout="row" fxFlex fxLayoutAlign="center center" fxLayoutGap="8px">
+                                        <div>
+                                            <mat-icon>
+                                                <span class="material-symbols-outlined">
+                                                    {{widget?.id == w.id ? 'check_circle' : 'circle'}}
+                                                </span>
+                                            </mat-icon>
+                                        </div>
+                                        <div>{{w.name}}</div>
+                                        <div fxFlex></div>
+            
+                                        <button mat-icon-button [matMenuTriggerFor]="menu" 
+                                        style="min-width: 24px; min-width: 36px; width: 36px; align-items: center; display: flex;">
+                                            <mat-icon>more_horiz</mat-icon>
+                                        </button>
+                                        <mat-menu #menu="matMenu">
+                                            <button mat-menu-item (click)="preview(w)">
+                                                <span>Предпросмотр</span>
+                                            </button>
+                                            <button mat-menu-item (click)="edit(w)">
+                                                <span>Редактировать</span>
+                                            </button>
+                                            <button mat-menu-item (click)="deleteTheme(w)">
+                                                <span>Удалить</span>
+                                            </button>
+                                        </mat-menu>
+                                    </div>
                                 </div>
 
-                                <div fxFlex="150px" fxLayout="column" matRipple class="item add-button" (click)="createWidget()">
+                                <div fxFlex="250px" fxLayout="column" matRipple class="item add-button" (click)="createWidget()">
                                     <div fxFlex fxLayoutAlign="center center">
                                         <mat-icon>
                                             <span class="material-symbols-outlined">

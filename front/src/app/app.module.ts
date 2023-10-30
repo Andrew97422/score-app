@@ -41,6 +41,7 @@ import { CreditProductsComponent } from './components/credit-products/credit-pro
 import { CreditProductInputComponent } from './components/credit-products/credit-product-input/credit-product-input.component';
 import { SettingsComponent } from './components/settings/settings.component';
 import { WidgetInputComponent } from './components/settings/widget-input/widget-input.component';
+import { WigetPreviewComponent } from './components/settings/wiget-preview/wiget-preview.component';
 
 @NgModule({
     imports: [ 
@@ -82,7 +83,8 @@ import { WidgetInputComponent } from './components/settings/widget-input/widget-
         CreditProductsComponent,
         CreditProductInputComponent,
         SettingsComponent,
-        WidgetInputComponent
+        WidgetInputComponent,
+        WigetPreviewComponent
     ],
     bootstrap:    [ AppComponent ],
     providers: [
