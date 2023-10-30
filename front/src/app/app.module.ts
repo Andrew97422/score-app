@@ -33,12 +33,14 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { MyDataComponent } from './components/my-data/my-data.component';
 import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
 import { MatRadioModule } from '@angular/material/radio';
+import { ColorPickerModule } from 'primeng/colorpicker';
 
 import { InternalServerErrorInterceptor } from './shared/services/internal-server-error-interceptor';
 import { PsbAuthorizationComponent } from './components/psb-authorization/psb-authorization.component';
 import { CreditProductsComponent } from './components/credit-products/credit-products.component';
 import { CreditProductInputComponent } from './components/credit-products/credit-product-input/credit-product-input.component';
 import { SettingsComponent } from './components/settings/settings.component';
+import { WidgetInputComponent } from './components/settings/widget-input/widget-input.component';
 
 @NgModule({
     imports: [ 
@@ -64,7 +66,8 @@ import { SettingsComponent } from './components/settings/settings.component';
         HttpClientModule,
         MatSnackBarModule,
         MatTabsModule,
-        MatRadioModule
+        MatRadioModule,
+        ColorPickerModule
     ],
     declarations: [
         NavMenuComponent,
@@ -78,7 +81,8 @@ import { SettingsComponent } from './components/settings/settings.component';
         PsbAuthorizationComponent,
         CreditProductsComponent,
         CreditProductInputComponent,
-        SettingsComponent
+        SettingsComponent,
+        WidgetInputComponent
     ],
     bootstrap:    [ AppComponent ],
     providers: [

@@ -5,7 +5,7 @@
         <div fxLayout="row" class="mat-card" fxFlex style="padding: 0;">
             <div fxFlex fxLayout="column">
                 <mat-tab-group fxFlex style="overflow: hidden;">
-                    <mat-tab fxFlex label="Виджет">
+                    <mat-tab fxFlex label="Настройки виджета">
                         <div fxFlex fxLayout="column" style="overflow: auto;">
                             <div fxFlex fxLayout="column"><!--
                                 <mat-form-field appearance="outline" color="primery" style="margin: 20px 10px 0; width: 300px;">
@@ -90,7 +90,25 @@
                         </div>
                     </mat-tab>
 
-                    <mat-tab label="Другие настройки">
+                    <mat-tab fxFlex label="Настройки тем">
+                        <div fxFlex fxLayout="column" style="overflow: auto; padding-left: 10px;">
+                            <div fxLayout="row wrap" fxLayoutGap="10px">
+                                <div *ngFor="let w of widgets" fxFlex="150px" class="item" [style.border-color]="w.color">
+                                    {{w.name}}
+                                </div>
+
+                                <div fxFlex="150px" fxLayout="column" matRipple class="item add-button" (click)="createWidget()">
+                                    <div fxFlex fxLayoutAlign="center center">
+                                        <mat-icon>
+                                            <span class="material-symbols-outlined">
+                                                add
+                                            </span>
+                                        </mat-icon>
+                                    </div>
+                                    <div fxLayoutAlign="center center"> Создать тему </div>
+                                </div>
+                            </div>
+                        </div>
                     </mat-tab>
                 </mat-tab-group>
 

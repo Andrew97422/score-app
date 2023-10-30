@@ -17,6 +17,7 @@
 }
 
 .add-button {
+    cursor: pointer;
     border: 1px dashed black!important;
     background: white;
     color: black!important;

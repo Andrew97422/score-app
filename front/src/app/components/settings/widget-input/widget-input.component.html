@@ -1,0 +1,41 @@
+<div fxFlex fxLayout="column" style="padding: 20px; max-width: 100vw !important;">
+    <h5 class="modal-header">{{data.title}}</h5>
+    <form fxLayout="column" [formGroup]="form" style="max-height: calc(100vh - 200px); overflow: auto; overflow-x: hidden; padding: 20px; margin: 0 -20px;">
+        <mat-form-field appearance="outline" color="primery" required>
+            <mat-label>Название</mat-label>
+            <input autocomplete="off" matInput color="primery" formControlName="name">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" color="primery">
+            <mat-label>Шрифт</mat-label>
+            <mat-select formControlName="fontFamily">
+                <mat-option *ngFor="let x of FontFamilyExt.getAll()" [value]="x">
+                    {{FontFamilyExt.getName(x)}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" color="primery">
+            <mat-label>Цвет</mat-label>
+            <input autocomplete="off" matInput color="primery" formControlName="color">
+            <mat-icon [matMenuTriggerFor]="menu" matSuffix [style.color]="form.controls.color.value">
+                <span class="material-symbols-outlined">
+                    palette
+                </span>
+            </mat-icon>
+        </mat-form-field>
+        <mat-menu #menu="matMenu">
+            <p-colorPicker formControlName="color1" [inline]="true"></p-colorPicker>
+        </mat-menu>
+    </form>
+
+    <div fxLayout="row" fxLayoutGap="10px" style="padding-top: 20px;">
+        <button *ngIf="data.applyButton" fxFlex mat-stroked-button color="primary" (click)="submit()" [disabled]="form?.invalid">
+            {{data.applyButton}}
+        </button>
+
+        <button fxFlex mat-stroked-button color="primary" mat-dialog-close style="color: black !important; background: white;">
+            Отмена
+        </button>
+    </div>
+</div>
