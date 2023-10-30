@@ -97,3 +97,4 @@ insert into users values(default, '03.07.1967', 'nosoff.4ndr@yandex.ru', 'Адм
 insert into themes_widget values(default, '#2E2A80', 'Roboto, sans-serif', 'Стандартная тема');
 insert into themes_widget values(default, '#f26126', 'Roboto, sans-serif', 'Оранжевая тема');
 insert into themes_widget values(default, 'gray', 'Roboto, sans-serif', 'Серая тема');
+insert into widget_entity values(default, 8.4, 1)
