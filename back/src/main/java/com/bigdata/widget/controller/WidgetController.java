@@ -13,6 +13,7 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
+@CrossOrigin
 @RequestMapping("/api/v1/widget")
 public class WidgetController {
 
