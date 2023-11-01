@@ -85,7 +85,7 @@ public class MortgageService implements CommonService<MortgageProduct> {
     }
 
     @Override
-    @Scheduled(cron = "0 * * * * ?")
+    @Scheduled(cron = "0 0 * * * ?")
     @Transactional
     public void addProductToSchedulingToSetActive() {
         List<Integer> soonActive = mortgageRepository.findAllSoonActive()
@@ -96,7 +96,7 @@ public class MortgageService implements CommonService<MortgageProduct> {
     }
 
     @Override
-    @Scheduled(cron = "0 * * * * ?")
+    @Scheduled(cron = "0 0 * * * ?")
     @Transactional
     public void addProductToSchedulingToSetNotActive() {
         List<Integer> soonNotActive = mortgageRepository.findAllSoonNotActive()
