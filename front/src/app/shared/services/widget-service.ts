@@ -16,7 +16,7 @@ export class WidgetService {
   }
 
   getWidgets(): Observable<Object> {
-      return this.http.get(this.baseUrl + '/api/v1/widget', {
+      return this.http.get(this.baseUrl + '/api/v1/widget/themes', {
         headers: {Authorization: 'Bearer ' + this.sessionService.getToken()}
       });
   }
@@ -40,7 +40,7 @@ export class WidgetService {
   }
 
   deleteTheme(id: number): void {
-    this.http.delete(this.baseUrl + '/api/v1/themes/'+id, {
+    this.http.delete(this.baseUrl + '/api/v1/widget/themes/'+id, {
       headers: {Authorization: 'Bearer ' + this.sessionService.getToken()}
     }).subscribe(x => x);
   }
