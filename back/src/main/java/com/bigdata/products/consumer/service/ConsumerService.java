@@ -83,7 +83,7 @@ public class ConsumerService implements CommonService<ConsumerProduct> {
     }
 
     @Override
-    @Scheduled(cron = "0 * * * * ?")
+    @Scheduled(cron = "0 0 * * * ?")
     @Transactional
     public void addProductToSchedulingToSetActive() {
         List<Integer> soonActive = consumerRepository.findAllSoonActive()
@@ -94,7 +94,7 @@ public class ConsumerService implements CommonService<ConsumerProduct> {
     }
 
     @Override
-    @Scheduled(cron = "0 * * * * ?")
+    @Scheduled(cron = "0 0 * * * ?")
     @Transactional
     public void addProductToSchedulingToSetNotActive() {
         List<Integer> soonNotActive = consumerRepository.findAllSoonNotActive()

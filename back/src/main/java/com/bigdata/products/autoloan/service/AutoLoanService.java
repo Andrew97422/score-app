@@ -85,7 +85,7 @@ public class AutoLoanService implements CommonService<AutoLoanProduct> {
     }
 
     @Override
-    @Scheduled(cron = "0 * * * * ?")
+    @Scheduled(cron = "0 0 * * * ?")
     @Transactional
     public void addProductToSchedulingToSetActive() {
         List<Integer> soonActive = autoLoanRepository.findAllSoonActive()
@@ -96,7 +96,7 @@ public class AutoLoanService implements CommonService<AutoLoanProduct> {
     }
 
     @Override
-    @Scheduled(cron = "0 * * * * ?")
+    @Scheduled(cron = "0 0 * * * ?")
     @Transactional
     public void addProductToSchedulingToSetNotActive() {
         List<Integer> soonNotActive = autoLoanRepository.findAllSoonNotActive()

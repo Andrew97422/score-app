@@ -34,13 +34,13 @@ services:
       - "8081:8081"
     network_mode: host
     depends_on:
-      - db1
+      - db
 
-  db1:
+  db:
     env_file:
       - .env
-    image: postgres:15-alpine
-    container_name: db1
+    image: postgres:16-alpine
+    container_name: db
     restart: always
 
     ports:
@@ -51,10 +51,9 @@ services:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       POSTGRES_DB: ${POSTGRES_DB}
       POSTGRES_INITDB_ARGS: ${POSTGRES_INITDB_ARGS}
+      #POSTGRES_HOST_AUTH_METHOD: ${POSTGRES_HOST_AUTH_METHOD}
 
-    #command: --init-file /resources/schema.sql
     volumes:
-      #- ./init.sql:/docker-entrypoint-initdb.d
       - postgres_data:/var/lib/postgresql/data
 
 volumes:
