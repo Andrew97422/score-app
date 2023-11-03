@@ -15,13 +15,13 @@ export class AppComponent {
         private registerService: RegisterService) {
             if (!this.sessionService.getToken()) {
                 router.navigate(['login']);
-                this.isLoaded = true;
-                return;
             }
 
             this.registerService.getUser(this.sessionService.getSessionID() as unknown as number).subscribe((x: any) => {
                 if (x.role != 'SUPER_ADMIN') router.navigate(['']);
               }
             );
+
+            this.isLoaded = true;
       }
 }
