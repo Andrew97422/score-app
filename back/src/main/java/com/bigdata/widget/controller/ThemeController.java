@@ -3,6 +3,8 @@ package com.bigdata.widget.controller;
 import com.bigdata.widget.model.dto.ThemeRequest;
 import com.bigdata.widget.model.dto.ThemeResponse;
 import com.bigdata.widget.service.ThemeWidgetService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,17 +15,27 @@ import java.util.List;
 @RequiredArgsConstructor
 @RestController
 @CrossOrigin
+@Tag(
+        name = "Контроллер темы",
+        description = "Весь CRUD темы"
+)
 @RequestMapping("/api/v1/widget/themes")
 public class ThemeController {
 
     private final ThemeWidgetService widgetService;
 
     @GetMapping
+    @Operation(
+            summary = "Получение всех тем"
+    )
     public ResponseEntity<List<ThemeResponse>> getThemes() {
         return ResponseEntity.ok(widgetService.getAllThemes());
     }
 
     @PostMapping
+    @Operation(
+            summary = "Добавление новой темы"
+    )
     public ResponseEntity<HttpStatus> addNewTheme(
             @RequestBody ThemeRequest request
     ) {
@@ -35,6 +47,9 @@ public class ThemeController {
         }
     }
 
+    @Operation(
+            summary = "Получение темы по id"
+    )
     @GetMapping("/{id}")
     public ResponseEntity<ThemeResponse> getTheme(
             @PathVariable Integer id
@@ -46,6 +61,9 @@ public class ThemeController {
         }
     }
 
+    @Operation(
+            summary = "Удаление темы по id"
+    )
     @DeleteMapping("/{id}")
     public ResponseEntity<HttpStatus> deleteTheme(
             @PathVariable Integer id
@@ -58,6 +76,9 @@ public class ThemeController {
         }
     }
 
+    @Operation(
+            summary = "Обновление темы по id"
+    )
     @PatchMapping("/{id}")
     public ResponseEntity<HttpStatus> updateTheme(
             @PathVariable Integer id, @RequestBody ThemeRequest request
