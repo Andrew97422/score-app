@@ -7,6 +7,7 @@ FROM openjdk:17-alpine
 COPY --from=build /usr/src/app/target/*.jar /application.jar
 COPY --from=build /usr/src/app/target/classes/img /img
 COPY --from=build /usr/src/app/target/classes/fonts /fonts
+COPY --from=build /usr/src/app/target/classes/docs /docs
 WORKDIR .
 
 EXPOSE 8081
