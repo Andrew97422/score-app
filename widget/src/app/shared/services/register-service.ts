@@ -73,11 +73,13 @@ export class RegisterService {
   sendRequest(userData: RequestData): void {
     this.http.post(this.baseUrl + '/api/v1/application/register', userData, {
       headers: {Authorization: 'Bearer ' + this.sessionService.getToken()}
-    }).subscribe(() => this.snackBar.open(`Заявка на кредит на сумму ${userData.amount} отправлена успешно`, 'OK', { duration: 36000 }));
+    }).subscribe(() => this.snackBar.open(`Заявка на кредит на сумму ${userData.amount} отправлена успешно`, 'Перейти в личный кабинет', { duration: 36000 })
+      .onAction().subscribe(() =>  window.open('http://91.107.126.118:3000/', '_blank')));
   }
 
   sendRequestWithoutAuth(userData: RequestData): void {
     this.http.post(this.baseUrl + '/api/v1/application/noauth/register', userData)
-    .subscribe(() => this.snackBar.open(`Заявка на кредит на сумму ${userData.amount} отправлена успешно`, 'OK', { duration: 36000 }));
+    .subscribe(() => this.snackBar.open(`Заявка на кредит на сумму ${userData.amount} отправлена успешно`, 'Перейти в личный кабинет', { duration: 36000 })
+      .onAction().subscribe(() =>  window.open('http://91.107.126.118:3000/', '_blank')));
   }
 }

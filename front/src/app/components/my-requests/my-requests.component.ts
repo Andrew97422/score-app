@@ -113,6 +113,6 @@ export class MyRequestsComponent implements OnInit {
         this.mortgages = x.applications as RequestData[];
         this.requests = [...this.requests, ...this.mortgages]
       });
-    }, 100);
+    }, 200);
   }
 }
