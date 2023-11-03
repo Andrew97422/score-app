@@ -44,10 +44,13 @@ public class WidgetController {
         return ResponseEntity.ok(widgetService.getAllWidgets());
     }
 
-    @PostMapping("/settings")
+    @PostMapping("/{id}/settings")
     @PreAuthorize("hasAuthority('ADMIN')")
+    @Operation(
+            summary = "Обновление настроек виджета"
+    )
     public ResponseEntity<HttpStatus> setWidget(
-            @RequestBody WidgetRequest request
+            @RequestBody WidgetRequest request, @PathVariable Integer id
     ) {
         try {
             widgetService.setWidget(request, id);
