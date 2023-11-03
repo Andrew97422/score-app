@@ -92,17 +92,19 @@ export class CreditProductsComponent {
   }
 
   private loadProducts(): void {
-    this.consumerService.getProducts().subscribe(x => {
-      this.consumerProducts = [...x as ConsumerProduct[]];
-      this.selectProduct = this.consumerProducts[0];
-    });
+    setTimeout(() => {
+      this.consumerService.getProducts().subscribe(x => {
+        this.consumerProducts = [...x as ConsumerProduct[]];
+        this.selectProduct = this.consumerProducts[0];
+      });
 
-    this.autoloanService.getProducts().subscribe(x => {
-      this.autoLoanProducts = [...x as AutoLoanProduct[]];
-    });
+      this.autoloanService.getProducts().subscribe(x => {
+        this.autoLoanProducts = [...x as AutoLoanProduct[]];
+      });
 
-    this.mortgageService.getProducts().subscribe(x => {
-      this.mortgageProducts = [...x as AutoLoanProduct[]];
-    });
+      this.mortgageService.getProducts().subscribe(x => {
+        this.mortgageProducts = [...x as AutoLoanProduct[]];
+      });
+    }, 100);
   }
 }

@@ -28,7 +28,6 @@ export class SettingsComponent {
   constructor(
     private dialog: MatDialog,
     private widgetService: WidgetService) {
-      this.widgetService.getWidget().subscribe(x => this.widget = x);
       this.load();
   }
 
@@ -59,6 +58,7 @@ export class SettingsComponent {
 
   select(id: number): void {
     this.widgetService.setWidget(new Widget({ themeId: id, interestRate: 8.4 }));
+    this.load();
   }
 
   async preview(widget: Widget): Promise<void> {
@@ -81,6 +81,9 @@ export class SettingsComponent {
   }
 
   private load(): void {
-    this.widgetService.getWidgets().subscribe(x => this.widgets = x as Widget[]);
+    setTimeout(() => {
+      this.widgetService.getWidgets().subscribe(x => this.widgets = x as Widget[]);
+      this.widgetService.getWidget().subscribe(x => this.widget = x);
+    }, 100);
   }
 }

@@ -95,22 +95,24 @@ export class MyRequestsComponent implements OnInit {
   }
 
   private loadRequests(): void {
-    this.requests = [];
-    this.registerService.getRequets(LendingType.AUTO_LOAN).subscribe((x: any) => {
-      this.autoLoans = x.applications as RequestData[];
-      this.requests = [...this.requests, ...this.autoLoans]
-    });
+    setTimeout(() => {
+      this.requests = [];
+      this.registerService.getRequets(LendingType.AUTO_LOAN).subscribe((x: any) => {
+        this.autoLoans = x.applications as RequestData[];
+        this.requests = [...this.requests, ...this.autoLoans]
+      });
 
-    this.registerService.getRequets(LendingType.CONSUMER).subscribe((x: any) => 
-    {
-      this.consumers = x.applications as RequestData[];
-      this.requests = [...this.requests, ...this.consumers]
-    });
+      this.registerService.getRequets(LendingType.CONSUMER).subscribe((x: any) => 
+      {
+        this.consumers = x.applications as RequestData[];
+        this.requests = [...this.requests, ...this.consumers]
+      });
 
-    this.registerService.getRequets(LendingType.MORTGAGE).subscribe((x: any) =>  
-    {
-      this.mortgages = x.applications as RequestData[];
-      this.requests = [...this.requests, ...this.mortgages]
-    });
+      this.registerService.getRequets(LendingType.MORTGAGE).subscribe((x: any) =>  
+      {
+        this.mortgages = x.applications as RequestData[];
+        this.requests = [...this.requests, ...this.mortgages]
+      });
+    }, 100);
   }
 }

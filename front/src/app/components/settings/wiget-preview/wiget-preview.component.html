@@ -10,24 +10,24 @@
                         <path fill-rule="evenodd" clip-rule="evenodd" d="M12.2939 11.9674V12.2937H18.332H24.3701V18.3318V24.3699V24.8051V30.7344V36.6636H24.452H24.5341L30.5989 30.598L36.6638 24.5323V12.2662V0H30.5438H24.4237L18.4408 5.98368L12.4579 11.9674H12.3759H12.2939Z" 
                         fill="#f26126" class="icon-part"/>
                     </svg>
-                    <div *ngIf="!toggle_button.checked" fxLayoutAlign="center center">
+                    <div *ngIf="toggle_button.checked" fxLayoutAlign="center center">
                         Рассчитать кредит?
                     </div>
                     <div fxFlex></div>
                     <div fxLayoutAlign="center center">
                         <mat-icon>
                             <span class="material-symbols-outlined">
-                                {{toggle_button.checked ? 'expand_more' : 'expand_less'}}
+                                {{!toggle_button.checked ? 'expand_more' : 'expand_less'}}
                             </span>
                         </mat-icon>
                     </div>
                 </div>
-                <div *ngIf="toggle_button.checked" style="font-size: 16px; line-height: 16px;">
+                <div *ngIf="!toggle_button.checked" style="font-size: 16px; line-height: 16px;">
                     Заполните данные для расчета кредита
                 </div>
             </div>
 
-            <form *ngIf="toggle_button.checked" fxLayout="column" fxFlex style="padding: 24px 12px 12px;">
+            <form *ngIf="!toggle_button.checked" fxLayout="column" fxFlex style="padding: 24px 12px 12px;">
                 <mat-form-field appearance="outline" color="primery">
                     <mat-label>Вид кредита</mat-label>
                     <mat-select [value]="LendingType.MORTGAGE" disabled>

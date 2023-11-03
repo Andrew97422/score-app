@@ -45,7 +45,7 @@ public class WidgetController {
     }
 
     @PostMapping("/{id}/settings")
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAuthority('SUPER_ADMIN')")
     @Operation(
             summary = "Обновление настроек виджета"
     )
