@@ -42,7 +42,7 @@
                 </mat-form-field>
                 <mat-form-field fxFlex appearance="outline">
                     <mat-label>Пароль</mat-label>
-                    <input autocomplete="off" matInput type="password" formControlName="password" required>
+                    <input autocomplete="off" matInput type="password" formControlName="password" required (keyup.enter)="!form?.invalid && login()">
                 </mat-form-field>
                 <button fxFlex mat-stroked-button color="primary" (click)="login()" [disabled]="form?.invalid">
                     Войти

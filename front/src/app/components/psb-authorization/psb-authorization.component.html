@@ -29,7 +29,7 @@
             </mat-form-field>
             <mat-form-field appearance="outline">
                 <mat-label>Пароль</mat-label>
-                <input autocomplete="off" matInput type="password" formControlName="password" required (keyup.enter)="login()">
+                <input autocomplete="off" matInput type="password" formControlName="password" required (keyup.enter)="!form?.invalid && login()">
             </mat-form-field>
 
             <div fxFlex fxLayout="row" fxLayoutGap="8px">
