@@ -98,20 +98,12 @@ export class RegisterService {
       if (this.isApple()) {
         saveAs(blob, fileName);
       } else if (this.isAndroid()) {
-        //if (this.base64Response) {
-        //  window.open(this.base64Response, '_blank');
-        //} else {
           const fileReader = new FileReader();
           fileReader.readAsDataURL(blob);
           fileReader.onloadend = () => {
             window.open(fileReader.result as any, '_blank');
           };
-        //}
       } else {
-        /*const link = document.createElement('a');
-        link.href = window.URL.createObjectURL(blob);
-        link.download = fileName;
-        link.click();*/
         const url = (window.URL || window.webkitURL).createObjectURL(blob);
         window.open(url, '_blank');
       }

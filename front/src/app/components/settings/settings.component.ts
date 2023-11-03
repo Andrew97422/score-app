@@ -57,6 +57,10 @@ export class SettingsComponent {
     this.load();
   }
 
+  select(): void {
+    
+  }
+
   async preview(widget: Widget): Promise<void> {
     document.documentElement.style.setProperty('--widget-theme-color', widget.color);
     document.documentElement.style.setProperty('--widget-font-family', widget.font);

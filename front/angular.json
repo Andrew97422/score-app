@@ -16,6 +16,16 @@
               "tsConfig": "tsconfig.json",
               "aot": true,
               "assets": [
+                {
+                  "glob": "**/*",
+                  "input": "src/assets",
+                  "output": "/assets"
+                },
+                {
+                  "glob": "favicon.ico",
+                  "input": "src",
+                  "output": "/"
+                },
                 "src/assets/*"
               ],
               "styles": [

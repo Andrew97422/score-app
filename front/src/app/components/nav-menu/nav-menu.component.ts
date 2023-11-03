@@ -28,6 +28,10 @@ export class NavMenuComponent {
         this.userData = x);
   }
 
+  downloadHelp(): void {
+    window.open('/src/assets/help.pdf', '_blank');
+  }
+
   logout(): void {
     this.vkService.logout();
   }

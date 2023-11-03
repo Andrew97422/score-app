@@ -9,7 +9,7 @@
     z-index: 99;
     align-items: center;
     flex-direction: row !important;
-    padding: 0 8px;
+    padding: 0 6px;
     line-height: 18px;
     background: var(--main-color);
     color: white !important;  

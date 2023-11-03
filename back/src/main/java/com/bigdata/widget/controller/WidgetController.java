@@ -31,7 +31,7 @@ public class WidgetController {
 
     @PostMapping("/settings")
     @PreAuthorize("hasAuthority('ADMIN')")
-    public ResponseEntity<HttpStatus> setWidget(
+    public ResponseEntity<HttpStatus>setWidget (
             @RequestBody WidgetRequest request
     ) {
         try {
