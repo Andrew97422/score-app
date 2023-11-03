@@ -8,6 +8,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -36,6 +37,7 @@ public class ThemeController {
     @Operation(
             summary = "Добавление новой темы"
     )
+    @PreAuthorize("hasAuthority('SUPER_ADMIN')")
     public ResponseEntity<HttpStatus> addNewTheme(
             @RequestBody ThemeRequest request
     ) {
@@ -65,6 +67,7 @@ public class ThemeController {
             summary = "Удаление темы по id"
     )
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAuthority('SUPER_ADMIN')")
     public ResponseEntity<HttpStatus> deleteTheme(
             @PathVariable Integer id
     ) {
@@ -80,6 +83,7 @@ public class ThemeController {
             summary = "Обновление темы по id"
     )
     @PatchMapping("/{id}")
+    @PreAuthorize("hasAuthority('SUPER_ADMIN')")
     public ResponseEntity<HttpStatus> updateTheme(
             @PathVariable Integer id, @RequestBody ThemeRequest request
     ) {
