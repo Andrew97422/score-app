@@ -29,7 +29,7 @@ export class NavMenuComponent {
   }
 
   downloadHelp(): void {
-    window.open('/src/assets/help.pdf', '_blank');
+    window.open(location.protocol + '//' + location.host.slice(0, location.host.indexOf(':')) + ':8081/api/v1/help.docs', '_blank');
   }
 
   logout(): void {

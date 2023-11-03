@@ -5,6 +5,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { LoginComponent } from '../login/login.component';
 import { DataService } from 'src/app/shared/services/data.service';
+import { WidgetService } from '../../shared/services/widget-service';
 
 @Component({
   selector: 'shop',
@@ -16,11 +17,21 @@ export class ShopComponent {
   
   form: FormGroup;
   maxYearCount = 5;
-  
+  isLoaded: boolean;
+
   constructor(
     private fb: FormBuilder,
     private dialog: MatDialog,
-    private dataService: DataService) {
+    private dataService: DataService,
+    private widgetService: WidgetService) {
+    this.widgetService.getWidget().subscribe((widget: any) => {
+      this.widgetService.getTheme(widget.themeId).subscribe((theme: any) => {
+        document.documentElement.style.setProperty('--widget-theme-color', theme.color);
+        document.documentElement.style.setProperty('--widget-font-family', theme.font);
+        this.isLoaded = true;
+      })
+    });
+
     this.form = this.fb.group({
       lendingType: { value: LendingType.AUTO_LOAN, disabled: true } ,
       amount: [5350000, Validators.required],
