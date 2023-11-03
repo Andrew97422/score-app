@@ -8,12 +8,14 @@ import { RegisterService } from './shared/services/register-service';
     templateUrl: './app.component.html'
 })
 export class AppComponent {
+    isLoaded: boolean;
     constructor(
         public router: Router,
         private sessionService: SessionService,
         private registerService: RegisterService) {
             if (!this.sessionService.getToken()) {
                 router.navigate(['login']);
+                this.isLoaded = true;
                 return;
             }
 
