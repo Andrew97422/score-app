@@ -9,9 +9,7 @@ import com.bigdata.products.common.model.LendingType;
 import com.bigdata.products.common.service.CommonService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -37,7 +35,7 @@ public class AutoLoanService implements CommonService<AutoLoanProduct> {
 
     ScheduledThreadPoolExecutor poolExecutor = new ScheduledThreadPoolExecutor(10);
 
-    @Transactional
+    @Override
     public Integer registerNewLending(AutoLoanProduct autoLoanProduct) {
         var autoLoanEntity = new AutoLoanEntity();
         autoLoanUtils.mapToEntity(autoLoanProduct, autoLoanEntity);
@@ -53,12 +51,12 @@ public class AutoLoanService implements CommonService<AutoLoanProduct> {
         return autoLoanEntity.getId();
     }
 
-    @Transactional
+    @Override
     public void deleteById(Integer id) {
         autoLoanRepository.deleteById(id);
     }
 
-    @Transactional(readOnly = true)
+    @Override
     public AutoLoanProduct getById(Integer id) {
         var autoLoanEntity = autoLoanRepository.getReferenceById(id);
         var autoLoanProduct = new AutoLoanProduct();
@@ -67,7 +65,7 @@ public class AutoLoanService implements CommonService<AutoLoanProduct> {
         return autoLoanProduct;
     }
 
-    @Transactional
+    @Override
     public void updateById(Integer id, AutoLoanProduct autoLoanProduct) {
         var autoLoan = autoLoanRepository.getReferenceById(id);
         var autoLoanEntity = new AutoLoanEntity();
@@ -85,8 +83,6 @@ public class AutoLoanService implements CommonService<AutoLoanProduct> {
     }
 
     @Override
-    @Scheduled(cron = "0 0 * * * ?")
-    @Transactional
     public void addProductToSchedulingToSetActive() {
         List<Integer> soonActive = autoLoanRepository.findAllSoonActive()
                 .stream().map(AutoLoanEntity::getId).toList();
@@ -96,8 +92,6 @@ public class AutoLoanService implements CommonService<AutoLoanProduct> {
     }
 
     @Override
-    @Scheduled(cron = "0 0 * * * ?")
-    @Transactional
     public void addProductToSchedulingToSetNotActive() {
         List<Integer> soonNotActive = autoLoanRepository.findAllSoonNotActive()
                 .stream().map(AutoLoanEntity::getId).toList();
@@ -107,7 +101,6 @@ public class AutoLoanService implements CommonService<AutoLoanProduct> {
     }
 
     @Override
-    @Transactional
     public void changeActive(List<Integer> ids, boolean active) {
         ids.forEach((id) -> {
             var autoLoanEntity = autoLoanRepository.getReferenceById(id);
@@ -125,7 +118,6 @@ public class AutoLoanService implements CommonService<AutoLoanProduct> {
     }
 
     @Override
-    @Transactional
     public List<AutoLoanProduct> getAllProducts() {
         return Optional.of(autoLoanRepository.findAll().stream().map((p) -> {
             var product = new AutoLoanProduct();

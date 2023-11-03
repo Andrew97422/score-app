@@ -10,9 +10,7 @@ import com.bigdata.products.mortgage.repository.MortgageRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.scheduling.annotation.EnableScheduling;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -39,7 +37,7 @@ public class MortgageService implements CommonService<MortgageProduct> {
 
     ScheduledThreadPoolExecutor poolExecutor = new ScheduledThreadPoolExecutor(10);
 
-    @Transactional
+    @Override
     public Integer registerNewLending(MortgageProduct mortgageProduct) {
         var mortgageEntity = new MortgageEntity();
         mortgageUtils.mapToEntity(mortgageProduct, mortgageEntity);
@@ -54,12 +52,12 @@ public class MortgageService implements CommonService<MortgageProduct> {
         return mortgageEntity.getId();
     }
 
-    @Transactional
+    @Override
     public void deleteById(Integer id) {
         mortgageRepository.deleteById(id);
     }
 
-    @Transactional(readOnly = true)
+    @Override
     public MortgageProduct getById(Integer id) {
         var mortgageEntity = mortgageRepository.getReferenceById(id);
         var mortgageProduct = new MortgageProduct();
@@ -67,7 +65,7 @@ public class MortgageService implements CommonService<MortgageProduct> {
         return mortgageProduct;
     }
 
-    @Transactional
+    @Override
     public void updateById(Integer id, MortgageProduct mortgageProduct) {
         var mortgage = mortgageRepository.getReferenceById(id);
         var mortgageEntity = new MortgageEntity();
@@ -85,8 +83,6 @@ public class MortgageService implements CommonService<MortgageProduct> {
     }
 
     @Override
-    @Scheduled(cron = "0 0 * * * ?")
-    @Transactional
     public void addProductToSchedulingToSetActive() {
         List<Integer> soonActive = mortgageRepository.findAllSoonActive()
                 .stream().map(MortgageEntity::getId).toList();
@@ -96,8 +92,6 @@ public class MortgageService implements CommonService<MortgageProduct> {
     }
 
     @Override
-    @Scheduled(cron = "0 0 * * * ?")
-    @Transactional
     public void addProductToSchedulingToSetNotActive() {
         List<Integer> soonNotActive = mortgageRepository.findAllSoonNotActive()
                 .stream().map(MortgageEntity::getId).toList();
@@ -107,7 +101,6 @@ public class MortgageService implements CommonService<MortgageProduct> {
     }
 
     @Override
-    @Transactional
     public void changeActive(List<Integer> ids, boolean active) {
         ids.forEach((id) -> {
             var mortgageEntity = mortgageRepository.getReferenceById(id);

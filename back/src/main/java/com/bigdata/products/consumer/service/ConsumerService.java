@@ -9,9 +9,7 @@ import com.bigdata.products.consumer.repository.ConsumerCacheRepository;
 import com.bigdata.products.consumer.repository.ConsumerRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -37,7 +35,7 @@ public class ConsumerService implements CommonService<ConsumerProduct> {
 
     ScheduledThreadPoolExecutor poolExecutor = new ScheduledThreadPoolExecutor(10);
 
-    @Transactional
+    @Override
     public Integer registerNewLending(ConsumerProduct consumerProduct) {
         var consumerEntity = new ConsumerEntity();
         consumerUtils.mapToEntity(consumerProduct, consumerEntity);
@@ -52,12 +50,12 @@ public class ConsumerService implements CommonService<ConsumerProduct> {
         return consumerEntity.getId();
     }
 
-    @Transactional
+    @Override
     public void deleteById(Integer id) {
         consumerRepository.deleteById(id);
     }
 
-    @Transactional(readOnly = true)
+    @Override
     public ConsumerProduct getById(Integer id) {
         var consumerEntity = consumerRepository.getReferenceById(id);
         var consumerProduct = new ConsumerProduct();
@@ -65,7 +63,7 @@ public class ConsumerService implements CommonService<ConsumerProduct> {
         return consumerProduct;
     }
 
-    @Transactional
+    @Override
     public void updateById(Integer id, ConsumerProduct consumerProduct) {
         var consumer = consumerRepository.getReferenceById(id);
         var consumerEntity = new ConsumerEntity();
@@ -83,8 +81,6 @@ public class ConsumerService implements CommonService<ConsumerProduct> {
     }
 
     @Override
-    @Scheduled(cron = "0 0 * * * ?")
-    @Transactional
     public void addProductToSchedulingToSetActive() {
         List<Integer> soonActive = consumerRepository.findAllSoonActive()
                 .stream().map(ConsumerEntity::getId).toList();
@@ -94,8 +90,6 @@ public class ConsumerService implements CommonService<ConsumerProduct> {
     }
 
     @Override
-    @Scheduled(cron = "0 0 * * * ?")
-    @Transactional
     public void addProductToSchedulingToSetNotActive() {
         List<Integer> soonNotActive = consumerRepository.findAllSoonNotActive()
                 .stream().map(ConsumerEntity::getId).toList();
@@ -105,7 +99,6 @@ public class ConsumerService implements CommonService<ConsumerProduct> {
     }
 
     @Override
-    @Transactional
     public void changeActive(List<Integer> ids, boolean active) {
         ids.forEach((id) -> {
             var consumerEntity = consumerRepository.getReferenceById(id);
