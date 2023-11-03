@@ -87,7 +87,7 @@
                             <div fxLayout="row wrap" fxLayoutGap="10px">
                                 <div *ngFor="let w of widgets" fxFlex="250px" class="item" [style.border-color]="w.color">
                                     <div fxLayout="row" fxFlex fxLayoutAlign="center center" fxLayoutGap="8px">
-                                        <div>
+                                        <div (click)="select(w.id)">
                                             <mat-icon>
                                                 <span class="material-symbols-outlined">
                                                     {{widget?.id == w.id ? 'check_circle' : 'circle'}}
@@ -116,7 +116,7 @@
                                 </div>
 
                                 <div fxFlex="250px" fxLayout="column" matRipple class="item add-button" (click)="createWidget()">
-                                    <div fxFlex fxLayoutAlign="center center" (click)="select()">
+                                    <div fxFlex fxLayoutAlign="center center">
                                         <mat-icon>
                                             <span class="material-symbols-outlined">
                                                 add

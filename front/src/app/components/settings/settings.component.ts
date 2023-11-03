@@ -57,8 +57,8 @@ export class SettingsComponent {
     this.load();
   }
 
-  select(): void {
-    
+  select(id: number): void {
+    this.widgetService.setWidget(new Widget({ themeId: id, interestRate: 8.4 }));
   }
 
   async preview(widget: Widget): Promise<void> {

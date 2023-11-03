@@ -27,10 +27,10 @@ export class WidgetService {
       });
   }
 
-  setWidget(widget: Widget): Observable<Object> {
-    return this.http.post(this.baseUrl + '/api/v1/widget/settings', widget, {
+  setWidget(widget: Widget): void {
+    this.http.post(this.baseUrl + '/api/v1/widget/1/settings', widget, {
       headers: {Authorization: 'Bearer ' + this.sessionService.getToken()}
-    });
+    }).subscribe(x => x);
   }
 
   addNewTheme(widget: Widget): void {
