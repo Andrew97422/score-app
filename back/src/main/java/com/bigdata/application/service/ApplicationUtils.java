@@ -141,7 +141,7 @@ public class ApplicationUtils {
             throw e;
         }
 
-        Paragraph paragraph1 = createHelloParagraph(purpleFont, img);
+        Paragraph paragraph1 = createHelloParagraph(blackFont, img);
         document.add(paragraph1);
 
         Paragraph paragraph2 = createHeaderParagraph(application.getLendingType(), blackFont, paragraph1.getSpacingAfter());
