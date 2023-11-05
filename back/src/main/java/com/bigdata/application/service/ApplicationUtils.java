@@ -131,22 +131,24 @@ public class ApplicationUtils {
             throw e;
         }
 
-        Font font1;
+        Font purpleFont;
+        Font blackFont;
         try {
-            font1 = createPurpleFont();
+            purpleFont = createPurpleFont();
+            blackFont = createBlackFont();
         } catch (IOException e) {
             e.printStackTrace();
             throw e;
         }
 
-        Paragraph paragraph1 = createHelloParagraph(font1, img);
+        Paragraph paragraph1 = createHelloParagraph(purpleFont, img);
         document.add(paragraph1);
 
-        Paragraph paragraph2 = createHeaderParagraph(application.getLendingType(), font1, paragraph1.getSpacingAfter());
+        Paragraph paragraph2 = createHeaderParagraph(application.getLendingType(), blackFont, paragraph1.getSpacingAfter());
         document.add(paragraph2);
 
         for (int i = 0; i < guides.size(); i++) {
-            Paragraph paragraph = createBodyParagraph(i, guides.get(i), font1);
+            Paragraph paragraph = createBodyParagraph(i, guides.get(i), blackFont, purpleFont);
             document.add(paragraph);
         }
         document.close();
@@ -166,12 +168,16 @@ public class ApplicationUtils {
     }
 
     private Font createPurpleFont() throws DocumentException, IOException {
-        BaseFont baseFont = BaseFont.createFont("fonts/Verdana-Bold.ttf",
-                BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
-
-        com.itextpdf.text.Font font1 = new Font(baseFont, 16, Font.NORMAL);
+        Font font1 = createBlackFont();
         BaseColor color = new BaseColor(55, 56, 139);
         font1.setColor(color);
+        return font1;
+    }
+
+    private Font createBlackFont() throws DocumentException, IOException {
+        BaseFont baseFont = BaseFont.createFont("fonts/Verdana-Bold.ttf",
+                BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
+        Font font1 = new Font(baseFont, 16, Font.NORMAL);
         return font1;
     }
 
@@ -202,12 +208,19 @@ public class ApplicationUtils {
         return paragraph2;
     }
 
-    private Paragraph createBodyParagraph(int i, CommonEntity commonEntity, Font font1) {
+    private Paragraph createBodyParagraph(int i, CommonEntity commonEntity, Font blackFont, Font purpleFont) {
         Chunk chunk = new Chunk((i + 1) + ".  " + commonEntity.getName() +
                 ", для Вас ставка - " + String.format("%.2f", commonEntity.getMinLoanRate()) + " %\n");
-        chunk.setAnchor(commonEntity.getUrl());
-        chunk.setFont(font1);
+        //chunk.setAnchor(commonEntity.getUrl());
+        chunk.setFont(blackFont);
+
+        Chunk chunk1 = new Chunk("Посмотреть");
+        chunk1.setAnchor(commonEntity.getUrl());
+        chunk1.setFont(purpleFont);
+        chunk1.setUnderline(0.1f, -2f);
+
         Paragraph paragraph = new Paragraph(chunk);
+        paragraph.add(chunk1);
         paragraph.setSpacingAfter(15F);
         paragraph.setSpacingBefore(paragraph.getSpacingAfter() + 10F);
         return paragraph;
