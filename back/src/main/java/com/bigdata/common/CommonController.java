@@ -1,5 +1,6 @@
 package com.bigdata.common;
 
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -23,6 +24,9 @@ public class CommonController {
             value = "/help.docs",
             produces = MediaType.APPLICATION_PDF_VALUE
     )
+    @Operation(
+            summary = "Получение руководства пользователя"
+    )
     public ResponseEntity<?> getHelpDoc() {
         try {
             InputStream inputStream = getClass()
@@ -38,6 +42,9 @@ public class CommonController {
     @GetMapping(
             value = "admin//help.docs",
             produces = MediaType.APPLICATION_PDF_VALUE
+    )
+    @Operation(
+            summary = "Получение руководства администратораа"
     )
     public ResponseEntity<?> getHelpAdminDoc() {
         try {
