@@ -34,4 +34,20 @@ public class CommonController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
+
+    @GetMapping(
+            value = "admin//help.docs",
+            produces = MediaType.APPLICATION_PDF_VALUE
+    )
+    public ResponseEntity<?> getHelpAdminDoc() {
+        try {
+            InputStream inputStream = getClass()
+                    .getResourceAsStream("docs/ПСБ_Руководство_Администратора.pdf");
+            byte[] result = inputStream.readAllBytes();
+            return ResponseEntity.ok(result);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
 }
