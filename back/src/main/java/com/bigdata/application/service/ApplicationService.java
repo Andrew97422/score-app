@@ -10,11 +10,13 @@ import com.bigdata.products.common.model.LendingType;
 import com.bigdata.user.model.entity.UserEntity;
 import com.bigdata.user.model.enums.Role;
 import com.bigdata.user.repository.UserRepository;
+import com.itextpdf.text.DocumentException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.IOException;
 import java.util.List;
 
 @Service
@@ -100,10 +102,12 @@ public class ApplicationService {
         log.info("Found {} suitable loan products for the user {}.", guides.size(), application.getId());
         try {
             return applicationUtils.formPdfDoc(application, guides);
-        } catch (Exception e) {
+        } catch (DocumentException e) {
             log.error("Problem with forming document for the application {}", application.getId());
             e.printStackTrace();
-            log.error(e.getMessage());
+            return new byte[0];
+        } catch (IOException e) {
+            log.error("Problem with opening files for document fro the application {}", application.getId());
             return new byte[0];
         }
     }

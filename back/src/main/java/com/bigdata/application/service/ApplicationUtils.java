@@ -17,7 +17,6 @@ import org.springframework.stereotype.Service;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.net.URISyntaxException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
@@ -78,13 +77,12 @@ public class ApplicationUtils {
     }
 
     public ApplicationResponse mapToApplicationResponse(LoanApplicationEntity application) {
-        StringBuilder builder = new StringBuilder();
-        builder.append(application.getUser().getLastName().trim());
-        builder.append(" ");
-        builder.append(application.getUser().getFirstName().trim());
-        builder.append(" ");
-        builder.append(application.getUser().getSurName().trim());
-        builder.append(" ").append("(").append(application.getUser().getLogin().trim()).append(")");
+        String builder = application.getUser().getLastName().trim() +
+                " " +
+                application.getUser().getFirstName().trim() +
+                " " +
+                application.getUser().getSurName().trim() +
+                " " + "(" + application.getUser().getLogin().trim() + ")";
         return ApplicationResponse.builder()
                 .id(application.getId())
                 .consentPersonalData(application.isConsentPersonalData())
@@ -108,19 +106,55 @@ public class ApplicationUtils {
                 .isPsbClient(application.isPsbClient())
                 .isNewSubjectsResident(application.isNewSubjectsResident())
                 .status(application.getStatus())
-                .user(builder.toString())
+                .user(builder)
                 .userId(application.getUser().getId())
                 .build();
     }
 
     public byte[] formPdfDoc(LoanApplicationEntity application,
-                             List<CommonEntity> guides) throws DocumentException,
-            IOException {
+                             List<CommonEntity> guides) throws DocumentException, IOException {
 
         Document document = new Document();
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         PdfWriter.getInstance(document, byteArrayOutputStream);
 
+        document.open();
+        document.setPageSize(PageSize.A4);
+        document.newPage();
+
+        Image img;
+        try {
+            img = setImage();
+            document.add(img);
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw e;
+        }
+
+        Font font1;
+        try {
+            font1 = createPurpleFont();
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw e;
+        }
+
+        Paragraph paragraph1 = createHelloParagraph(font1, img);
+        document.add(paragraph1);
+
+        Paragraph paragraph2 = createHeaderParagraph(application.getLendingType(), font1, paragraph1.getSpacingAfter());
+        document.add(paragraph2);
+
+        for (int i = 0; i < guides.size(); i++) {
+            Paragraph paragraph = createBodyParagraph(i, guides.get(i), font1);
+            document.add(paragraph);
+        }
+        document.close();
+
+        return byteArrayOutputStream.toByteArray();
+    }
+
+    private Image setImage() throws BadElementException, IOException {
         Path path = Paths.get("img/logo.jpg");
         Image img = Image.getInstance(path.toString());
 
@@ -128,29 +162,30 @@ public class ApplicationUtils {
         img.setAbsolutePosition(0, PageSize.A4.getHeight() -
                 img.getScaledHeight()
         );
+        return img;
+    }
 
-        document.open();
-        document.setPageSize(PageSize.A4);
-        document.newPage();
-
-        document.add(img);
-
-        //BaseFont baseFont = BaseFont.createFont("src/main/resources/fonts/Verdana-Bold.ttf",
+    private Font createPurpleFont() throws DocumentException, IOException {
         BaseFont baseFont = BaseFont.createFont("fonts/Verdana-Bold.ttf",
                 BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
 
         com.itextpdf.text.Font font1 = new Font(baseFont, 16, Font.NORMAL);
         BaseColor color = new BaseColor(55, 56, 139);
         font1.setColor(color);
+        return font1;
+    }
 
+    private Paragraph createHelloParagraph(Font font1, Image img) {
         Chunk chunk1 = new Chunk("У нас для Вас отличные новости!", font1);
         Paragraph paragraph1 = new Paragraph(chunk1);
         paragraph1.setSpacingBefore(img.getScaledHeight() - 10F);
         paragraph1.setAlignment(Element.ALIGN_CENTER);
-        document.add(paragraph1);
+        return paragraph1;
+    }
 
+    private Paragraph createHeaderParagraph(LendingType type, Font font1, float spacing) {
         Chunk chunk2;
-        if (application.getLendingType().equals(LendingType.MORTGAGE)) {
+        if (type.equals(LendingType.MORTGAGE)) {
             chunk2 = new Chunk("Вам доступно несколько ипотечных\n" +
                     "предложений, вот самые выгодные из них:", font1);
         } else {
@@ -161,23 +196,20 @@ public class ApplicationUtils {
         }
 
         Paragraph paragraph2 = new Paragraph(chunk2);
-        paragraph2.setSpacingBefore(paragraph1.getSpacingAfter() + 10F);
+        paragraph2.setSpacingBefore(spacing + 10F);
         paragraph2.setSpacingAfter(15F);
-        paragraph2.setAlignment(Element.ALIGN_CENTER);
-        document.add(paragraph2);
 
-        for (int i = 0; i < guides.size(); i++) {
-            Chunk chunk = new Chunk((i + 1) + ".  " + guides.get(i).getName() +
-                    ", для Вас ставка - " + String.format("%.2f", guides.get(i).getMinLoanRate()) + " %\n");
-            chunk.setAnchor(guides.get(i).getUrl());
-            chunk.setFont(font1);
-            Paragraph paragraph = new Paragraph(chunk);
-            paragraph.setSpacingAfter(15F);
-            paragraph.setSpacingBefore(paragraph.getSpacingAfter() + 10F);
-            document.add(paragraph);
-        }
-        document.close();
+        return paragraph2;
+    }
 
-        return byteArrayOutputStream.toByteArray();
+    private Paragraph createBodyParagraph(int i, CommonEntity commonEntity, Font font1) {
+        Chunk chunk = new Chunk((i + 1) + ".  " + commonEntity.getName() +
+                ", для Вас ставка - " + String.format("%.2f", commonEntity.getMinLoanRate()) + " %\n");
+        chunk.setAnchor(commonEntity.getUrl());
+        chunk.setFont(font1);
+        Paragraph paragraph = new Paragraph(chunk);
+        paragraph.setSpacingAfter(15F);
+        paragraph.setSpacingBefore(paragraph.getSpacingAfter() + 10F);
+        return paragraph;
     }
 }
