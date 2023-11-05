@@ -202,6 +202,7 @@ public class ApplicationUtils {
         }
 
         Paragraph paragraph2 = new Paragraph(chunk2);
+        paragraph2.setAlignment(Element.ALIGN_CENTER);
         paragraph2.setSpacingBefore(spacing + 10F);
         paragraph2.setSpacingAfter(15F);
 
