@@ -45,7 +45,8 @@ export class SignUpComponent {
         phone: null,
         email: [
           null, [Validators.required, Validators.pattern(/^[a-zA-Z0-9_.±]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$/)]
-        ]
+        ],
+        assent: [false, Validators.requiredTrue]
       });
   }
 

@@ -42,6 +42,9 @@
                         <mat-label>Email</mat-label>
                         <input autocomplete="off" matInput formControlName="email" required>
                     </mat-form-field>
+                    <mat-checkbox color="primery" formControlName="assent">
+                        Согласие на обработку персональных данных
+                    </mat-checkbox>
                 </div>
 
                 <button fxFlex mat-stroked-button color="primary" (click)="signup()" [disabled]="form?.invalid">
