@@ -40,7 +40,7 @@ public class CommonController {
     }
 
     @GetMapping(
-            value = "admin//help.docs",
+            value = "/admin/help.docs",
             produces = MediaType.APPLICATION_PDF_VALUE
     )
     @Operation(
