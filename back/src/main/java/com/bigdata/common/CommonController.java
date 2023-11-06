@@ -49,7 +49,7 @@ public class CommonController {
     public ResponseEntity<?> getHelpAdminDoc() {
         try {
             InputStream inputStream = getClass()
-                    .getResourceAsStream("docs/ПСБ_Руководство_Администратора.pdf");
+                    .getResourceAsStream("/docs/ПСБ_Руководство_Администратора.pdf");
             byte[] result = inputStream.readAllBytes();
             return ResponseEntity.ok(result);
         } catch (IOException e) {
