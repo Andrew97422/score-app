@@ -5,10 +5,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -50,6 +47,23 @@ public class CommonController {
         try {
             InputStream inputStream = getClass()
                     .getResourceAsStream("/docs/ПСБ_Руководство_Администратора.pdf");
+            byte[] result = inputStream.readAllBytes();
+            return ResponseEntity.ok(result);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @GetMapping(
+            value = "/favicon"
+            //produces = MediaType.ALL
+    )
+    @ResponseBody
+    public ResponseEntity<?> getFavicon() {
+        try {
+            InputStream inputStream = getClass()
+                    .getResourceAsStream("/icons/favicon.ico");
             byte[] result = inputStream.readAllBytes();
             return ResponseEntity.ok(result);
         } catch (IOException e) {

@@ -38,7 +38,8 @@ public class WebSecurityConfig {
                                 "/api/v1/application/noauth/register","/v3/api-docs/**",
                                 "/api/v1/register", "/api/v1/login", "/test", "/api/v1/widget/getFirst",
                                 "/api/v1/widget", "/api/v1/help.docs", "/api/v1/widget/**",
-                                "/api/v1/widget/themes/**", "/api/v1/admin/help.docs"
+                                "/api/v1/widget/themes/**", "/api/v1/admin/help.docs",
+                                "/api/v1/mortgage/csv", "/api/v1/mortgage/**", "/api/v1/favicon"
                         )
                         .permitAll()
                         .anyRequest().authenticated()
