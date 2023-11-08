@@ -71,4 +71,17 @@ public class CommonController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
+
+    @GetMapping("/drom-favicon")
+    public ResponseEntity<?> getDromFavicon() {
+        try {
+            InputStream inputStream = getClass()
+                    .getResourceAsStream("/icons/kisspng-ru-car-russia-website-windows-phone-mitsubishi-delica-5bed3d3822a870.540614801542274360142.ico");
+            byte[] result = inputStream.readAllBytes();
+            return ResponseEntity.ok(result);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
 }
