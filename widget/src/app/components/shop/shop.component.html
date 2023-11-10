@@ -34,7 +34,7 @@
         <form *ngIf="toggle_button.checked" [formGroup]="form" fxLayout="column" fxFlex style="padding: 24px 12px 12px;">
             <mat-form-field appearance="outline" color="primery">
                 <mat-label>Вид кредита</mat-label>
-                <mat-select formControlName="lendingType" disabled>
+                <mat-select formControlName="lendingType">
                     <mat-option *ngFor="let x of LendingTypeExt.getAll()" [value]="x">
                         {{LendingTypeExt.getName(x)}}
                     </mat-option>
