@@ -2,7 +2,7 @@
 
 Проект можно запустить, используя docker-compose. Для этого сначала склонируйте репозиторий:
 ```
-git clone https://gitlab.fintechhub.ru/bigdata/score-app
+git clone https://github.com/Andrew97422/score-app
 cd score-app
 ```
 
