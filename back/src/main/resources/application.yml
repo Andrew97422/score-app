@@ -17,7 +17,8 @@ spring:
     generate-ddl: true
     properties:
       hibernate:
-        temp.use_jdbc_metadata_defaults: false
+        temp:
+          use_jdbc_metadata_defaults: false
         dialect:  org.hibernate.dialect.PostgreSQLDialect
         jdbc:
           lob:
