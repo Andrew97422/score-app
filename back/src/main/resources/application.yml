@@ -17,7 +17,7 @@ spring:
     generate-ddl: true
     properties:
       hibernate:
-        dialect:  org.hibernate.dialect.PostgreSQLDialect
+        dialect:  org.hibernate.dialect.PostgreSQL16Dialect
         jdbc:
           lob:
             non_contextual_creation: true
