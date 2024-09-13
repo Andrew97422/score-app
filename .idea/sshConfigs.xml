@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project version="4">
-  <component name="SshConfigs">
-    <configs>
-      <sshConfig connectionConfig="{&quot;proxyParams&quot;:{&quot;proxyHost&quot;:&quot;&quot;,&quot;proxyPort&quot;:-1,&quot;proxyType&quot;:&quot;IDE_WIDE_PROXY&quot;}}" host="10.121.1.12" id="77efb5f9-c3c7-45af-9c3c-a42a1548c0e7" keyPath="D:\ANOSOV\JavaProjects\score-app\key.txt" port="3389" nameFormat="DESCRIPTIVE" username="ANOSOV" useOpenSSHConfig="false" />
-    </configs>
-  </component>
-</project>
