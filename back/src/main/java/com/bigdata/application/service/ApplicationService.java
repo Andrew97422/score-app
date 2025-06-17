@@ -4,6 +4,7 @@ import com.bigdata.application.model.dto.ApplicationResponse;
 import com.bigdata.application.model.dto.ScoringApplicationWithAuthRequest;
 import com.bigdata.application.model.dto.ScoringApplicationWithoutAuthRequest;
 import com.bigdata.application.model.entity.LoanApplicationEntity;
+import com.bigdata.application.model.enums.ApplicationStatus;
 import com.bigdata.application.repository.ApplicationRepository;
 import com.bigdata.products.common.model.CommonEntity;
 import com.bigdata.products.common.model.LendingType;
@@ -17,6 +18,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -59,9 +61,9 @@ public class ApplicationService {
         List<ApplicationResponse> applications;
         if (user.getRole().equals(Role.USER)) {
             log.info("Applications for user");
-             applications = user.getApplicationsList().stream()
-                     .filter(i -> i.getLendingType().equals(type))
-                     .map(applicationUtils::mapToApplicationResponse).toList();
+            applications = user.getApplicationsList().stream()
+                    .filter(i -> i.getLendingType().equals(type))
+                    .map(applicationUtils::mapToApplicationResponse).toList();
         } else {
             log.info("Applications for operator and admin");
             applications = applicationRepository.findAll().stream()
@@ -101,7 +103,10 @@ public class ApplicationService {
 
         log.info("Found {} suitable loan products for the user {}.", guides.size(), application.getId());
         try {
-            return applicationUtils.formPdfDoc(application, guides);
+            if (!application.getStatus().equals(ApplicationStatus.APPROVED)) {
+                return applicationUtils.formBadPdfDoc(application, new ArrayList<>());
+            }
+            return applicationUtils.formOkPdfDoc(application, guides);
         } catch (DocumentException e) {
             log.error("Problem with forming document for the application {}", application.getId());
             e.printStackTrace();

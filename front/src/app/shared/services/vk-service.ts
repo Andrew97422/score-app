@@ -73,7 +73,6 @@ export class VKService {
     }
 
     logout(): void {
-        VK.Auth.logout();
         this.sessionService.destroySession();
         this.router.navigate(['login']);
       }

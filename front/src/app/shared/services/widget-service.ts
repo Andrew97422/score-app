@@ -8,7 +8,7 @@ import { Widget } from '../models/widget';
     providedIn: 'root'
 })
 export class WidgetService {
-  private baseUrl = location.protocol + '//' + location.host.slice(0, location.host.indexOf(':')) + ':8081';
+  private baseUrl = location.protocol + '//' + location.host.slice(0, location.host.indexOf(':')) + ':8084';
 
   constructor(
       private http: HttpClient,

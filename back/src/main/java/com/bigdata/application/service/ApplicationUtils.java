@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
@@ -111,8 +112,45 @@ public class ApplicationUtils {
                 .build();
     }
 
-    public byte[] formPdfDoc(LoanApplicationEntity application,
-                             List<CommonEntity> guides) throws DocumentException, IOException {
+    public byte[] formBadPdfDoc(LoanApplicationEntity application,
+                                List<CommonEntity> guides) throws DocumentException, IOException {
+
+        Document document = new Document();
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        PdfWriter.getInstance(document, byteArrayOutputStream);
+
+        document.open();
+        document.setPageSize(PageSize.A4);
+        document.newPage();
+
+        Image img;
+        try {
+            img = setImage();
+            document.add(img);
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw e;
+        }
+
+        Font blackFont;
+        try {
+            blackFont = createBlackFont();
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw e;
+        }
+
+        Paragraph paragraph1 = createNotFoundParagraph(blackFont, img);
+        document.add(paragraph1);
+
+        document.close();
+
+        return byteArrayOutputStream.toByteArray();
+    }
+
+
+    public byte[] formOkPdfDoc(LoanApplicationEntity application,
+                               List<CommonEntity> guides) throws DocumentException, IOException {
 
         Document document = new Document();
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
@@ -157,8 +195,11 @@ public class ApplicationUtils {
     }
 
     private Image setImage() throws BadElementException, IOException {
-        Path path = Paths.get("img/logo.jpg");
-        Image img = Image.getInstance(path.toString());
+        InputStream inputStream = ApplicationUtils.class.getResourceAsStream("/img/logo.jpg");
+        if (inputStream == null) {
+            throw new IOException("Не удалось найти файл изображения в classpath");
+        }
+        Image img = Image.getInstance(inputStream.readAllBytes());
 
         img.scalePercent(PageSize.A4.getWidth() / img.getScaledWidth() * 100);
         img.setAbsolutePosition(0, PageSize.A4.getHeight() -
@@ -179,6 +220,14 @@ public class ApplicationUtils {
                 BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
         Font font1 = new Font(baseFont, 16, Font.NORMAL);
         return font1;
+    }
+
+    private Paragraph createNotFoundParagraph(Font font1, Image img) {
+        Chunk chunk1 = new Chunk("К сожалению, мы не нашли подходящих Вам предложений.\n", font1);
+        Paragraph paragraph1 = new Paragraph(chunk1);
+        paragraph1.setSpacingBefore(img.getScaledHeight() - 10F);
+        paragraph1.setAlignment(Element.ALIGN_CENTER);
+        return paragraph1;
     }
 
     private Paragraph createHelloParagraph(Font font1, Image img) {
