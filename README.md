@@ -112,3 +112,17 @@ API: ```http://localhost:8080```
 Swagger UI is available at:
 
 ```http://localhost:8080/swagger-ui.html```
+
+## Project Background
+
+This project was developed as a diploma project and reflects real-world backend engineering practices in financial systems:
+- Focus on clean architecture
+- Emphasis on security and scalability
+- Production-oriented design decisions
+
+## Author
+Andrew Nosov
+Java Backend Developer
+GitHub: ```https://github.com/Andrew97422```
+
+Email: ```nosoff.4ndr@yandex.ru```
