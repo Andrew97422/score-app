@@ -102,3 +102,13 @@ The project includes:
 git clone https://github.com/Andrew97422/score-app.git
 cd score-app
 docker-compose up --build
+```
+
+The application will be available at:
+
+API: ```http://localhost:8080```
+
+### API Documentation
+Swagger UI is available at:
+
+```http://localhost:8080/swagger-ui.html```
